@@ -1,7 +1,66 @@
 body {
-    background-color: #e8e9e6!important;
+    background-color: #f3f3f2 !important;
     font-family: Montserrat, sans-serif;
 }
+
+/* primary: #157A6E */
+/* success: #499F68 */
+/* info: #77B28C */
+/* secondary: #C2C5BB */
+/* danger: #B4654A */
+
+.card .small-text {
+    font-size: .7rem!important;
+    font-weight: bold!important;
+}
+
 nav.bg-primary {
-    background-color: #157a6e!important;
+    background-color: #157A6E !important;
+}
+
+.posts .text-primary {
+    color: #157A6E!important;
+}
+
+.posts .text-primary a, 
+.posts .text-primary a:active {
+    color: #157A6E!important;
+}
+
+.posts .text-success {
+    color: #499F68!important;
+}
+
+.posts .text-danger {
+    color: #B4654A!important;
+}
+
+.card.card-body.bg-secondary {
+    background-color: #f3f3f2 !important;
+    border: none;
+}
+
+.navbar-light .navbar-toggler {
+    border-color: rgba(255, 255, 255) !important;
+}
+
+.navbar-toggler {
+    border: 0px solid transparent !important;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important
+}
+.tags p {
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    border: .5px solid #6c757d;
+    border-radius: 0.3rem;
+}
+
+.tags p:hover{
+    cursor: context-menu;
+    background-color: transparent;
+    /* color: #6c757d;
+    border-color: #6c757d; */
 }
