@@ -14,7 +14,8 @@ body {
     font-weight: bold!important;
 }
 
-nav.bg-primary {
+nav.bg-primary,
+button.btn-primary {
     background-color: #157A6E !important;
 }
 
@@ -55,12 +56,35 @@ nav.bg-primary {
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
     border: .5px solid #6c757d;
-    border-radius: 0.3rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
 }
 
 .tags p:hover{
     cursor: context-menu;
     background-color: transparent;
-    /* color: #6c757d;
-    border-color: #6c757d; */
+}
+
+div .jumbotron {
+    margin-left: 10rem !important;
+    margin-right: 10rem !important;
+    background-color:#f3f3f2 !important;
+    border-radius: .3rem;
+}
+
+@media(max-width: 768px) {
+
+    .posts .text-primary a, 
+    .posts .text-primary a:active {
+        font-size: 1.3rem!important;
+    }
+
+    .tags p {
+        padding-top: 0.08rem;
+        padding-bottom: 0.08rem;
+        border: .4px solid #6c757d;
+        border-radius: 0.2rem;
+        font-size: 0.6rem;
+    }
+    
 }

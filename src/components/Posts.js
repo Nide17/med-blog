@@ -1,30 +1,28 @@
 import React from 'react'
-import { Container, Row, Col, Card, CardTitle, CardText } from 'reactstrap';
+import { Container, Col, Row, Form, FormGroup, Input, Button } from 'reactstrap';
+import PostItem from './PostItem'
+import postsData from './postsData'
 
 const Posts = () => {
+
     return (
         <Container className="posts mt-4">
-            <Row className="mx-md-5">
+            <Row>
+                <Col sm="9" className="mt-md-2">
+                    {postsData && postsData.map(post => (
+                        <PostItem key={post.id} post={post} />
+                    ))}
+                </Col>
 
-                <Col sm="12" className="mt-2 px-md-5">
-                    <Card body className="bg-secondary px-md-5">
-
-                        <CardTitle tag="h4" className="mb-0 text-primary">
-                            <a href="#/">Much about COVID-19 increase</a>
-                        </CardTitle>
-
-                        <div className="small-text d-flex justify">
-                            <p className="mr-5 my-1 text-danger">February 1, 2021</p>
-                            <p className="mr-5 my-1 text-danger">-Pandemics</p>
-                            <p className="mr-5 my-1 text-danger">-Ndatimana Bruce</p>
-                        </div>
-
-                        <CardText className="mt-3">This article covers everything you need to know about the COVID-19 and the Corona virus, their origin, effects and consequences</CardText>
-                        <div className="tags d-flex">
-                            <p className="px-2">COVID-19</p>&nbsp;&nbsp;
-                            <p className="px-2">Corona Virus</p>&nbsp;&nbsp;
-                        </div>
-                    </Card>
+                <Col sm="3">
+                    <Form>
+                        <FormGroup>
+                        <h5 className="mt-4">Subscribe to our newsletter.</h5>
+                            <Input type="text" name="name" bsSize="sm" placeholder="Your name"  className="mt-4" />
+                            <Input type="email" name="email" bsSize="sm" placeholder="Your Email" className="mt-4" />
+                            <Button color="info" size="sm" className="mt-4">Signup</Button>{' '}
+                        </FormGroup>
+                    </Form>
                 </Col>
 
             </Row>
