@@ -1,7 +1,8 @@
 const postsData = [
-    
+
     {
         id: 0,
+        Author: 'Bruce Ndatimana',
         Title: "Much about COVID-19 increase",
         Date: Date.now(),
         Keywords: ['COVID-19', 'Corona Virus'],

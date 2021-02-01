@@ -8,7 +8,7 @@ const Posts = () => {
 
                 <Col sm="12" className="mt-2 px-md-5">
                     <Card body className="bg-secondary px-md-5">
-                    
+
                         <CardTitle tag="h4" className="mb-0 text-primary">
                             <a href="#/">Much about COVID-19 increase</a>
                         </CardTitle>
@@ -16,6 +16,7 @@ const Posts = () => {
                         <div className="small-text d-flex justify">
                             <p className="mr-5 my-1 text-danger">February 1, 2021</p>
                             <p className="mr-5 my-1 text-danger">-Pandemics</p>
+                            <p className="mr-5 my-1 text-danger">-Ndatimana Bruce</p>
                         </div>
 
                         <CardText className="mt-3">This article covers everything you need to know about the COVID-19 and the Corona virus, their origin, effects and consequences</CardText>
