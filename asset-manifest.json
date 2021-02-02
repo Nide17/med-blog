@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/med-blog/static/css/main.4819d996.chunk.css",
+    "main.js": "/med-blog/static/js/main.d2affc40.chunk.js",
+    "main.js.map": "/med-blog/static/js/main.d2affc40.chunk.js.map",
+    "runtime-main.js": "/med-blog/static/js/runtime-main.51a8441f.js",
+    "runtime-main.js.map": "/med-blog/static/js/runtime-main.51a8441f.js.map",
+    "static/css/2.31ff0196.chunk.css": "/med-blog/static/css/2.31ff0196.chunk.css",
+    "static/js/2.50bfd9a7.chunk.js": "/med-blog/static/js/2.50bfd9a7.chunk.js",
+    "static/js/2.50bfd9a7.chunk.js.map": "/med-blog/static/js/2.50bfd9a7.chunk.js.map",
+    "index.html": "/med-blog/index.html",
+    "static/css/2.31ff0196.chunk.css.map": "/med-blog/static/css/2.31ff0196.chunk.css.map",
+    "static/css/main.4819d996.chunk.css.map": "/med-blog/static/css/main.4819d996.chunk.css.map",
+    "static/js/2.50bfd9a7.chunk.js.LICENSE.txt": "/med-blog/static/js/2.50bfd9a7.chunk.js.LICENSE.txt",
+    "static/media/Logo Med-Blog.c4e36964.svg": "/med-blog/static/media/Logo Med-Blog.c4e36964.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.51a8441f.js",
+    "static/css/2.31ff0196.chunk.css",
+    "static/js/2.50bfd9a7.chunk.js",
+    "static/css/main.4819d996.chunk.css",
+    "static/js/main.d2affc40.chunk.js"
+  ]
+}
