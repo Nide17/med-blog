@@ -1,4 +1,4 @@
-const postsData = [
+const pData = [
 
     {
         id: 0,
@@ -88,4 +88,4 @@ const postsData = [
 
 ]
 
-export default postsData;
+export default pData;

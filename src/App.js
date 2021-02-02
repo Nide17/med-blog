@@ -5,17 +5,22 @@ import Posts from './components/Posts';
 import Contact from './components/Contact';
 import About from './components/About';
 
+// REDUX
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 const App = () => (
-    <Router>
-        <Header />
+    <Provider store={store}>
+        <Router>
+            <Header />
 
-        <Switch>
-            <Route exact path="/" component={Posts} />
-            <Route path="/contact" component={Contact} />
-            <Route path="/about" component={About} />
-        </Switch>
-    </Router>
+            <Switch>
+                <Route exact path="/" component={Posts} />
+                <Route path="/contact" component={Contact} />
+                <Route path="/about" component={About} />
+            </Switch>
+        </Router>
+    </Provider>
 )
 
 export default App;
