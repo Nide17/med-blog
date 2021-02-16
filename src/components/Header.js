@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Form, FormGroup, Input, NavbarText } from 'reactstrap';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from '../images/Logo Med-Blog.svg'
 
 const Header = () => {
@@ -8,6 +8,14 @@ const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
+
+    // React Router 5.1 there is the hook useLocation, which lets you easily access the current location.
+    let location = useLocation();
+
+    const blinkBtn = location.pathname === '/quiz' ? '' :
+        <NavbarText className="mr-4">
+            <Link to="/quiz" className="text-white blink_me">Quiz</Link>
+        </NavbarText>
 
     return (
         <div style={{ boxShadow: "0 2px 10px -1px rgba(0,0,0,0.75)" }}>
@@ -28,9 +36,13 @@ const Header = () => {
                         </Form>
 
                     </Nav>
-
-                    <NavbarText className="mr-4"><Link to="/about" className="text-white">About</Link></NavbarText>
-                    <NavbarText className="mr-4"><Link to="/contact" className="text-white">Contact</Link></NavbarText>
+                    {blinkBtn}
+                    <NavbarText className="mr-4">
+                        <Link to="/about" className="text-white">About</Link>
+                    </NavbarText>
+                    <NavbarText className="mr-4">
+                        <Link to="/contact" className="text-white">Contact</Link>
+                    </NavbarText>
 
                 </Collapse>
 

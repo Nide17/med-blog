@@ -10,8 +10,8 @@ body {
 /* danger: #B4654A */
 
 .card .small-text {
-    font-size: .7rem!important;
-    font-weight: bold!important;
+    font-size: .7rem !important;
+    font-weight: bold !important;
 }
 
 nav.bg-primary,
@@ -20,20 +20,20 @@ button.btn-primary {
 }
 
 .posts .text-primary {
-    color: #157A6E!important;
+    color: #157A6E !important;
 }
 
-.posts .text-primary a, 
+.posts .text-primary a,
 .posts .text-primary a:active {
-    color: #157A6E!important;
+    color: #157A6E !important;
 }
 
 .posts .text-success {
-    color: #499F68!important;
+    color: #499F68 !important;
 }
 
 .posts .text-danger {
-    color: #B4654A!important;
+    color: #B4654A !important;
 }
 
 .card.card-body.bg-secondary {
@@ -52,6 +52,7 @@ button.btn-primary {
 .navbar-light .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important
 }
+
 .tags p {
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
@@ -60,7 +61,7 @@ button.btn-primary {
     font-size: 0.8rem;
 }
 
-.tags p:hover{
+.tags p:hover {
     cursor: context-menu;
     background-color: transparent;
 }
@@ -68,15 +69,36 @@ button.btn-primary {
 div .jumbotron {
     margin-left: 10rem !important;
     margin-right: 10rem !important;
-    background-color:#f3f3f2 !important;
+    background-color: #f3f3f2 !important;
     border-radius: .3rem;
+}
+
+.blink_me {
+    color: #B4654A !important;
+    background-color: rgb(148, 123, 97);
+    padding: .08rem .5rem .2rem .5rem;
+    border: 1px solid #B4654A;
+    border-radius: 5px !important;
+    animation: blinker 1.8s linear infinite;
+}
+
+a.blink_me,
+a.blink_me:active,
+a.blink_me:hover {
+    text-decoration: none;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
 }
 
 @media(max-width: 768px) {
 
-    .posts .text-primary a, 
+    .posts .text-primary a,
     .posts .text-primary a:active {
-        font-size: 1.3rem!important;
+        font-size: 1.3rem !important;
     }
 
     .tags p {
@@ -86,5 +108,5 @@ div .jumbotron {
         border-radius: 0.2rem;
         font-size: 0.6rem;
     }
-    
+
 }
