@@ -94,7 +94,7 @@ a.blink_me:hover {
     }
 }
 
-@media(max-width: 768px) {
+@media(max-width: 767px) {
 
     .posts .text-primary a,
     .posts .text-primary a:active {
@@ -107,6 +107,23 @@ a.blink_me:hover {
         border: .4px solid #6c757d;
         border-radius: 0.2rem;
         font-size: 0.6rem;
+    }
+
+    .container {
+        width: 90% !important;
+    }
+
+    .question-section.w-75 {
+        width: 90% !important;
+    }
+
+    .answer.w-25 {
+        width: 75% !important;
+    }
+
+    .answer-option.btn.btn-outline-info:hover {
+        color: black!important;;
+        background-color: #ffffff!important;
     }
 
 }

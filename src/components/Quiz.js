@@ -24,27 +24,29 @@ const Quiz = () => {
 
     return (
 
-        <Container>
+        <Container className="d-flex flex-column justify-content-center rounded border border-primary my-5 py-5 w-80">
             {showScore ?
-                <div className='score-section'>You scored {score} out of {questions.length}</div> :
+                <div className='score-section text-center'><h5>You scored <b style={{ color: "#B4654A" }}>{score}</b> out of <b style={{ color: "#B4654A" }}>{questions.length}</b></h5></div> :
 
                 <>
                     <Row>
                         <Col>
-                            <div className='question-section mt-4'>
-                                <div className='question-count'>
-                                    <span>Question {currentQuestion + 1}</span>/{questions.length}
-                                </div>
-                                <div className='q-txt'>{questions[currentQuestion].questionText}</div>
+                            <div className='question-section my-2 mx-auto w-75'>
+                                <h4 className='question-count text-uppercase text-center text-secondary font-weight-bold'>
+                                    <span>Question <b style={{ color: "#B4654A" }}>{currentQuestion + 1}</b></span>/{questions.length}
+                                </h4>
+                                <h5 className='q-txt mt-4 font-weight-bold text-center'>{questions[currentQuestion].questionText}</h5>
                             </div>
                         </Col>
                     </Row>
 
                     <Row>
                         <Col>
-                            <div className='answer d-flex flex-column mt-4'>
+                            <div className='answer d-flex flex-column mx-auto mt-2 w-25'>
                                 {questions[currentQuestion].answerOptions.map((answerOption, index) => (
-                                    <button key={index} onClick={() => handleAnswerButtonClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
+
+                                    <button style={{color: "black"}} className="answer-option my-3 p-2 btn btn-outline-info rounded" key={index} onClick={() => handleAnswerButtonClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
+
                                 ))}
                             </div>
                         </Col>

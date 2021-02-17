@@ -13,9 +13,9 @@ const Header = () => {
     let location = useLocation();
 
     const blinkBtn = location.pathname === '/quiz' ? '' :
-        <NavbarText className="mr-4">
-            <Link to="/quiz" className="text-white blink_me">Quiz</Link>
-        </NavbarText>
+
+        <Link to="/quiz" className="text-white blink_me">Quiz</Link>
+
 
     return (
         <div style={{ boxShadow: "0 2px 10px -1px rgba(0,0,0,0.75)" }}>
@@ -23,6 +23,11 @@ const Header = () => {
                 <NavbarBrand href="/" className="text-white" style={{ fontWeight: "900" }}>
                     <img src={logo} alt="logo" />
                 </NavbarBrand>
+
+                <NavbarText className="mr-4 d-md-none">
+                    {blinkBtn}
+                </NavbarText>
+                
                 <NavbarToggler onClick={toggle} />
 
                 <Collapse isOpen={isOpen} navbar>
@@ -36,7 +41,10 @@ const Header = () => {
                         </Form>
 
                     </Nav>
-                    {blinkBtn}
+
+                    <NavbarText className="mr-4 d-none d-sm-flex">
+                        {blinkBtn}
+                    </NavbarText>
                     <NavbarText className="mr-4">
                         <Link to="/about" className="text-white">About</Link>
                     </NavbarText>
