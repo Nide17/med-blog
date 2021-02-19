@@ -9,6 +9,7 @@ import About from './components/About';
 // REDUX
 import { Provider } from 'react-redux'
 import store from './redux/store'
+import Footer from './components/Footer';
 
 const App = () => (
     <Provider store={store}>
@@ -21,6 +22,7 @@ const App = () => (
                 <Route path="/contact" component={Contact} />
                 <Route path="/about" component={About} />
             </Switch>
+            <Footer />
         </Router>
     </Provider>
 )

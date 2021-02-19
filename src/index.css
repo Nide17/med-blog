@@ -96,6 +96,31 @@ a.blink_me:hover {
 
 @media(max-width: 767px) {
 
+    div .jumbotron {
+        margin-left: 0rem !important;
+        margin-right: 0rem !important;
+    }
+
+    div .jumbotron h1 {
+        font-size: 1.5rem;
+    }
+
+    div .jumbotron p {
+        font-size: .8rem;
+    }
+
+    div .contact {
+        margin: 0;
+    }
+
+    div .contact h3 {
+        font-size: 1rem;
+    }
+
+    div .contact>div {
+        padding: 0 !important;
+    }
+
     .posts .text-primary a,
     .posts .text-primary a:active {
         font-size: 1.3rem !important;
@@ -122,8 +147,9 @@ a.blink_me:hover {
     }
 
     .answer-option.btn.btn-outline-info:hover {
-        color: black!important;;
-        background-color: #ffffff!important;
+        color: black !important;
+        ;
+        background-color: #ffffff !important;
     }
 
 }

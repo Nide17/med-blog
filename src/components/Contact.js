@@ -17,7 +17,7 @@ const Contact = () => {
                 </p>
             </Jumbotron>
 
-            <Row className="mx-md-5 px-md-5 contact d-md-flex justify-content-center">
+            <Row className="mx-2 px-1 mx-md-5 px-md-5 contact d-md-flex justify-content-center">
 
                 <Col sm="12">
                     <h3 className="display-4 text-center mb-md-3">Contact the authors</h3>
