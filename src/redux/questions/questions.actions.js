@@ -1,14 +1,14 @@
-import { SET_QUIZES } from "./quizes.types";
-import qData from "./quizesData";
+import { SET_QUESTIONS } from "./questions.types";
+import questions from "./questionsData";
 
 // dispatch(action)
 // Dispatches an action. This is the only way to trigger a state change.
 
-export const setQuizes = () => {
+export const setQuestions = () => {
 
   return {
-    type: SET_QUIZES,
-    payload: qData
+    type: SET_QUESTIONS,
+    payload: questions
   };
 };
 

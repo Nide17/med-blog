@@ -1,4 +1,4 @@
-const qData = [
+const questions = [
     {
         questionText: 'What is the capital of France?',
         answerOptions: [
@@ -37,4 +37,4 @@ const qData = [
     },
 ];
 
-export default qData;
+export default questions;

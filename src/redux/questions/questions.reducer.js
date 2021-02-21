@@ -1,17 +1,17 @@
-import { SET_QUIZES } from "./quizes.types";
+import { SET_QUESTIONS } from "./questions.types";
 
 const INITIAL_STATE = {
-  quizesData: []
+  questionsData: []
 };
 
-const quizesReducer = (state = INITIAL_STATE, action) => {
+const questionsReducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-    case SET_QUIZES:
+    case SET_QUESTIONS:
       return {
         ...state,
-        quizesData: action.payload
+        questionsData: action.payload
       };
 
     // case TOGGLE_POPOVER:
@@ -25,4 +25,4 @@ const quizesReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default quizesReducer;
+export default questionsReducer;

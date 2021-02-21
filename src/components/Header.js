@@ -12,9 +12,9 @@ const Header = () => {
     // React Router 5.1 there is the hook useLocation, which lets you easily access the current location.
     let location = useLocation();
 
-    const blinkBtn = location.pathname === '/quiz' ? '' :
+    const blinkBtn = location.pathname === '/questions' ? '' :
 
-        <Link to="/quiz" className="text-white blink_me">Quiz</Link>
+        <Link to="/questions" className="text-white blink_me">Quiz</Link>
 
         return (
             <header style={{ boxShadow: "0 2px 10px -1px rgba(0,0,0,0.75)" }}>
