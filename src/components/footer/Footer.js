@@ -7,7 +7,7 @@ import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 const Footer = () => {
     let location = useLocation();
 
-    if (!(location.pathname === '/quiz')) {
+    if (!(location.pathname === '/questions')) {
 
         return (
             <footer className="mainfooter" role="contentinfo">

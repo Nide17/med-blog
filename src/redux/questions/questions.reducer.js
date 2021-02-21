@@ -1,7 +1,8 @@
-import { SET_QUESTIONS } from "./questions.types";
+import { SET_QUESTIONS, QUESTIONS_LOADING } from "./questions.types";
 
 const INITIAL_STATE = {
-  questionsData: []
+  questionsData: [],
+  loading: true
 };
 
 const questionsReducer = (state = INITIAL_STATE, action) => {
@@ -19,6 +20,12 @@ const questionsReducer = (state = INITIAL_STATE, action) => {
     //     ...state,
     //     popoverOpen: !state.popoverOpen,
     //   };
+
+    case QUESTIONS_LOADING:
+            return {
+                ...state,
+                loading: true
+            }
 
     default:
       return state;

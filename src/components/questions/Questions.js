@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Container, Col, Row } from 'reactstrap';
 
 import { connect } from 'react-redux'
-import { setQuestions } from '../../redux/questions/questions.actions'
+import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
 
 const Questions = props => {
 
@@ -76,13 +76,13 @@ const Questions = props => {
     else return null
 }
 
-
 const mapStateToProps = state => ({
     questionsData: state.questionsReducer.questionsData
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    setQuestions: () => dispatch(setQuestions())
+    setQuestions: () => dispatch(setQuestions()),
+    setQuestionsLoading: () => dispatch(setQuestionsLoading())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions)

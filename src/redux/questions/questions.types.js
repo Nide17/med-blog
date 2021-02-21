@@ -1,4 +1,5 @@
 export const SET_QUESTIONS = 'SET_QUESTIONS';
+export const QUESTIONS_LOADING = 'QUESTIONS_LOADING';
 
 export const GET_QUESTIONS = 'GET_QUESTIONS';
 export const GET_QUESTION = 'GET_QUESTION';
