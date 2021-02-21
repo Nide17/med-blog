@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from "react-router-dom";
 import './footer.css'
-import logo from '../images/Logo Med-Blog.svg'
+import logo from '../../images/Logo Med-Blog.svg'
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 
 const Footer = () => {
@@ -17,9 +17,9 @@ const Footer = () => {
                         <div className="row">
 
                             <div className="col-md-3 mb-2">
-                                <h4 className="mb-0">Contact</h4>
-                                <div className="logo mb-2">
-                                    <img src={logo} alt="logo" />
+                                <h4 className="mb-3 mb-md-2">Contact</h4>
+                                <div className="logo mb-3 mb-md-3">
+                                    <a href="/"><img src={logo} alt="logo" /></a>
                                 </div>
 
                                 <ul className="social-network social-circle">
@@ -39,9 +39,9 @@ const Footer = () => {
                                 <div className="footer-pad">
                                     <h4>About</h4>
                                     <ul className="list-unstyled">
-                                        <li><a href="#/">Ourself</a></li>
-                                        <li><a href="#/">News and Updates</a></li>
-                                        <li><a href="#/">FAQs</a></li>
+                                        <li><a href="/ourself">Ourself</a></li>
+                                        <li><a href="/news">News and Updates</a></li>
+                                        <li><a href="/faqs">FAQs</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -50,9 +50,9 @@ const Footer = () => {
                                 <div className="footer-pad">
                                     <h4>Sitemap</h4>
                                     <ul className="list-unstyled">
-                                        <li><a href="#/">Disclaimer</a></li>
-                                        <li><a href="#/">Privacy Policy</a></li>
-                                        <li><a href="#/">Webmaster</a></li>
+                                        <li><a href="/disclaimer">Disclaimer</a></li>
+                                        <li><a href="/privacy">Privacy Policy</a></li>
+                                        <li><a href="/webmaster">Webmaster</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -61,9 +61,9 @@ const Footer = () => {
                                 <div className="footer-pad">
                                     <h4>Services</h4>
                                     <ul className="list-unstyled">
-                                        <li><a href="#/">Blog</a></li>
-                                        <li><a href="#/">Quiz</a></li>
-                                        <li><a href="#/">Tips</a></li>
+                                        <li><a href="/">Blog</a></li>
+                                        <li><a href="/quiz">Quiz</a></li>
+                                        <li><a href="/tips">Tips</a></li>
                                     </ul>
                                 </div>
                             </div>

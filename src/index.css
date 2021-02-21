@@ -3,6 +3,24 @@ body {
     font-family: Montserrat, sans-serif;
 }
 
+div#root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    flex-shrink: 0;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+div.main {
+    flex: 1 0 auto;
+}
+
 /* primary: #157A6E */
 /* success: #499F68 */
 /* info: #77B28C */
@@ -88,12 +106,43 @@ a.blink_me:hover {
     text-decoration: none;
 }
 
+.answer-option.btn.btn-outline-info {
+    transition: all .5s ease;
+}
+
+.answer-option.btn.btn-outline-info:hover {
+    color: black !important;
+    background-color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+.answer-option.btn.btn-outline-info:active {
+    color: rgb(255, 255, 255) !important;
+    background-color: #157A6E !important;
+}
+
+div.answer, div.question-section {
+    opacity: 1;
+    animation-name: answer;
+    animation-duration: 3s;
+}
+
+@keyframes answer {
+    from {opacity: 0;}
+    to {opacity: 1}
+  }
+
 @keyframes blinker {
     50% {
         opacity: 0;
     }
 }
 
+@media(max-width: 1024px) {
+    .answer-option.btn.btn-outline-info {
+        transition: none;
+    }
+}
 @media(max-width: 767px) {
 
     div .jumbotron {
@@ -102,6 +151,7 @@ a.blink_me:hover {
     }
 
     div .jumbotron h1 {
+        margin-top: 1rem;
         font-size: 1.5rem;
     }
 
@@ -109,15 +159,20 @@ a.blink_me:hover {
         font-size: .8rem;
     }
 
-    div .contact {
+    div .contact,
+    div .about {
         margin: 0;
     }
 
-    div .contact h3 {
-        font-size: 1rem;
+    div .contact h3,
+    div .about h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
     }
 
-    div .contact>div {
+    div .contact>div,
+    div .about>div {
         padding: 0 !important;
     }
 
@@ -144,12 +199,6 @@ a.blink_me:hover {
 
     .answer.w-25 {
         width: 75% !important;
-    }
-
-    .answer-option.btn.btn-outline-info:hover {
-        color: black !important;
-        ;
-        background-color: #ffffff !important;
     }
 
 }

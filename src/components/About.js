@@ -15,22 +15,22 @@ const About = () => {
                 <p>Our email is brucendati@gmail.com</p>
             </Jumbotron>
 
-            <Row className="mx-md-5 my-md-5">
+            <Row className="about mx-md-5 my-md-5">
                 <Col sm="12">
                     <h3 className="display-4 text-center mb-md-3">About the authors</h3>
                 </Col>
                 <Col sm="6">
                     <CardImg top width="100%" src={img} alt="Card image" />
                     <Card body>
-                        <CardTitle tag="h5">Special Title Treatment</CardTitle>
-                        <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+                        <CardTitle tag="h5">Special Title</CardTitle>
+                        <CardText>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, sint!</CardText>
                     </Card>
                 </Col>
                 <Col sm="6">
                     <CardImg top width="100%" src={img} alt="Card image" />
                     <Card body>
-                        <CardTitle tag="h5">Special Title Treatment</CardTitle>
-                        <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+                        <CardTitle tag="h5">Special Title</CardTitle>
+                        <CardText>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, sint!</CardText>
                     </Card>
                 </Col>
             </Row>

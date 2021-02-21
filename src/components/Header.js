@@ -17,7 +17,7 @@ const Header = () => {
         <Link to="/quiz" className="text-white blink_me">Quiz</Link>
 
         return (
-            <div style={{ boxShadow: "0 2px 10px -1px rgba(0,0,0,0.75)" }}>
+            <header style={{ boxShadow: "0 2px 10px -1px rgba(0,0,0,0.75)" }}>
                 <Navbar color="primary" light expand="md" className="px-md-5 py-md-3">
                     <NavbarBrand href="/" className="text-white" style={{ fontWeight: "900" }}>
                         <img src={logo} alt="logo" />
@@ -54,7 +54,7 @@ const Header = () => {
                     </Collapse>
 
                 </Navbar>
-            </div>
+            </header>
         )
     }
     

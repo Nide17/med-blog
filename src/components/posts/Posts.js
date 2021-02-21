@@ -3,7 +3,7 @@ import { Container, Col, Row, Form, FormGroup, Input, Button } from 'reactstrap'
 import PostItem from './PostItem'
 
 import { connect } from 'react-redux'
-import { setPosts } from '../redux/posts/posts.actions'
+import { setPosts } from '../../redux/posts/posts.actions'
 
 const Posts = props => {
 
@@ -15,7 +15,7 @@ const Posts = props => {
     const { postsData } = props
 
     return (
-        <Container className="posts mt-4">
+        <Container className="posts main mt-4">
             <Row>
                 <Col sm="9" className="mt-md-2">
                     {postsData && postsData.map(post => (
