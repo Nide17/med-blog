@@ -4,12 +4,8 @@
   "description": "Backend of med-blog",
   "main": "server.js",
   "scripts": {
-    "client-install": "npm install --prefix ../",
     "start": "node server.js",
-    "server": "nodemon server.js --exec babel-node --presets babel-preset-env",
-    "client": "npm start --prefix ../",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../ && npm run build --prefix ../"
+    "server": "nodemon server.js --exec babel-node --presets babel-preset-env"
   },
   "author": "Niyomwungeri Parmenide Ishimwe",
   "license": "ISC",

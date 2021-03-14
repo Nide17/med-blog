@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "concurrently": "^6.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
@@ -26,7 +27,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "backend-install": "npm install --prefix backend",
+    "backend": "npm start --prefix backend",
+    "server": "nodemon backend/server.js --exec babel-node --presets babel-preset-env",
+    "dev": "concurrently \"npm run server\" \"npm start\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ./ && npm run build --prefix ./"
   },
   "eslintConfig": {
     "extends": [
@@ -47,7 +53,11 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.1.0"
+    "gh-pages": "^3.1.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^2.0.7"
   },
-  "proxy": "http://localhost:4000"
+  "proxy": "http://localhost:5000"
 }
