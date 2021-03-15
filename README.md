@@ -1,5 +1,5 @@
-### Medecine Blog
+# Nide17 _ Med-Blog
 
-This project was created to provide information about medecines and all health frequently asked questions
+This repo is about a full-stack med-blog app done with React.js, Node.js, Express.js and MongoDB.
 
-It hosted at this [Link](https://med-blog-rw.herokuapp.com).  
+Features: Adding, Deleting and of course viewing quizes.

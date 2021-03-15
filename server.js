@@ -34,17 +34,17 @@ app.use('/api/questions', questions)
 if (process.env.NODE_ENV === 'production') {
 
     //Set a static folder for frontend build
-    app.use(express.static('../build'));
+    app.use(express.static('client/build'));
 
     //anything coming will be redirected here
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '../', 'build', 'index.html'));
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
     //Let's create a post build script in package.json
 }
 
-//port to run on: env when deployed and 5000 locally/heroku
-const port = process.env.PORT || 5000;
+//port to run on: env when deployed and 4000 locally/heroku
+const port = process.env.PORT || 4000;
 
 
 //When server started listen the port

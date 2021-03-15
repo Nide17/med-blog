@@ -31,6 +31,8 @@ const Questions = props => {
         }
     };
 
+    console.log(questionsData);
+
     if (questionsData.length > 0) {
 
         return (
