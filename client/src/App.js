@@ -10,6 +10,7 @@ import Placeholder from './components/placeholder/Placeholder';
 import { Provider } from 'react-redux'
 import store from './redux/store'
 import Footer from './components/footer/Footer';
+import Create from './components/questions/Create';
 
 const Questions = lazy(() => import('./components/questions/Questions'));
 
@@ -31,7 +32,7 @@ const App = () => (
                     </Suspense>
                 </Route>
                 
-                <Route exact path="/questions" component={Questions} />
+                <Route exact path="/create" component={Create} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/about" component={About} />
                 <Route path="/ourself" component={Placeholder} />
