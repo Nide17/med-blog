@@ -38,8 +38,13 @@ const Questions = props => {
             <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-5 w-80">
 
                 {showScore ?
-                    <div className='score-section text-center'><h5>You scored <b style={{ color: "#B4654A" }}>{score}</b> out of <b style={{ color: "#B4654A" }}>{questionsData.length}</b></h5>
-                        <a href="/questions"><button type="button" class="btn btn-outline-info mt-3">Back to quiz</button></a>
+                    <div className='score-section text-center'>
+                    <h5>You scored <b style={{ color: "#B4654A" }}>{score}</b> out of <b style={{ color: "#B4654A" }}>{questionsData.length}</b>
+                    </h5>
+                        <a href="/questions">
+                        <button type="button" class="btn btn-outline-info mt-3">Back to quiz
+                        </button>
+                        </a>
                     </div> :
 
                     <div className="question-view">

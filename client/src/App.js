@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Spinner } from 'reactstrap';
 import Header from './components/Header';
 import Posts from './components/posts/Posts';
 import Contact from './components/Contact';
@@ -24,9 +25,7 @@ const App = () => (
 
                 <Route exact path="/questions">
                     <Suspense fallback={<div className="d-flex justify-content-center">
-                        <div className="spinner-border" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </div>
+                    <Spinner style={{ width: '10rem', height: '10rem' }} />{' '}
                     </div>}>
                         <Questions />
                     </Suspense>
