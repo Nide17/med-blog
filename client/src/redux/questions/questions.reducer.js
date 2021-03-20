@@ -1,4 +1,4 @@
-import { SET_QUESTIONS, QUESTIONS_LOADING } from "./questions.types";
+import { SET_QUESTIONS, QUESTIONS_LOADING, ADD_QUESTION } from "./questions.types";
 
 const INITIAL_STATE = {
   questionsData: [],
@@ -14,12 +14,12 @@ const questionsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         questionsData: action.payload
       };
-
-    // case TOGGLE_POPOVER:
-    //   return {
-    //     ...state,
-    //     popoverOpen: !state.popoverOpen,
-    //   };
+     
+    case ADD_QUESTION:
+        return {
+            ...state,
+            questions: [action.payload, ...state.questions]
+        };
 
     case QUESTIONS_LOADING:
             return {

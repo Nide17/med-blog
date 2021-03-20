@@ -1,17 +1,8 @@
-import { SET_QUESTIONS, QUESTIONS_LOADING } from "./questions.types";
+import { SET_QUESTIONS, QUESTIONS_LOADING, ADD_QUESTION } from "./questions.types";
 import axios from 'axios';
 
 // dispatch(action)
 // Dispatches an action. This is the only way to trigger a state change.
-
-// export const setQuestions = () => {
-
-//   return {
-//     type: SET_QUESTIONS,
-//     payload: questions
-//   };
-// };
-
 export const setQuestions = () => dispatch => {
   dispatch(setQuestionsLoading());
   axios
@@ -33,10 +24,15 @@ export const setQuestionsLoading = () => {
   };
 }
 
-// export const toggle = () => {
+//instead of id it takes the whole question
+export const addQuestion = (question) => dispatch => {
 
-//   return {
-//     type: TOGGLE_POPOVER,
-//   };
-
-// };
+    axios
+        .post('/api/questions', question)
+        .then(res =>
+            dispatch({
+                type: ADD_QUESTION,
+                payload: res.data
+            })
+        )
+};
