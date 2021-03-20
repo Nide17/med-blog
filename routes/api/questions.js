@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-      let newQuestion = await Question.findOne({ name: req.body.questionText });
+      let newQuestion = await Question.findOne({ questionText: req.body.questionText });
   
       if (newQuestion) {
         return res.status(400).send("A Question already exists!");
@@ -49,6 +49,24 @@ router.post("/", async (req, res) => {
     }
   });
 
+// GET ENDPOINT //
+// @route GET api/questions/:id
+// @route GET one Question
+// @route Public
+
+//:id placeholder, findId=we get it from the parameter in url
+router.get('/:id', (req, res) => {
+
+  //Find the Question by id
+  Question.findById(req.params.id)
+
+      //return a promise
+      .then(question => res.json(question))
+      // if id not exist or if error
+      .catch(err => res.status(404).json({ success: false }));
+});
+
+
 // DELETE ENDPOINT //
 // @route DELETE api/questions
 // @route delete a Question
@@ -57,13 +75,13 @@ router.post("/", async (req, res) => {
 //:id placeholder, findId=we get it from the parameter in url
 router.delete('/:id', (req, res) => {
 
-    //Find the Question to delete by id first
-    Question.findById(req.params.id)
+  //Find the Question to delete by id first
+  Question.findById(req.params.id)
 
-        //returns promise 
-        .then(question => question.remove().then(() => res.json({ success: true })))
-        // if id not exist or if error
-        .catch(err => res.status(404).json({ success: false }));
+      //returns promise 
+      .then(question => question.remove().then(() => res.json({ success: true })))
+      // if id not exist or if error
+      .catch(err => res.status(404).json({ success: false }));
 });
 
 module.exports = router;
