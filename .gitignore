@@ -26,3 +26,10 @@ yarn-error.log*
 /deploy.txt
 * copy.js
 * copy.json
+
+
+/client/src/components/questions/* copy.js
+/client/src/components/questions/* copy 1.js
+/client/src/components/questions/* cop 2.js
+/client/src/components/questions/* copy 3.js
+/client/src/components/questions/* copy 4.js
