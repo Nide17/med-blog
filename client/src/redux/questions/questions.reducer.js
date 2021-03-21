@@ -18,7 +18,7 @@ const questionsReducer = (state = INITIAL_STATE, action) => {
     case ADD_QUESTION:
         return {
             ...state,
-            questions: [action.payload, ...state.questions]
+            questionsData: [ ...state.questionsData, action.payload ]
         };
 
     case QUESTIONS_LOADING:

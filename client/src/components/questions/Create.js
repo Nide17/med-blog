@@ -34,6 +34,18 @@ const Create = props => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // VALIDATE
+        if (!questionText.questionText) {
+            alert('Please fill all fields!')
+            return
+        }
+
+        else if (answerOptions.length <= 1) {
+            alert('Answers are not sufficient!')
+            return
+        }
+
         const newQuestion = {
             questionText: questionText.questionText,
             answerOptions
@@ -41,6 +53,9 @@ const Create = props => {
         console.log(JSON.stringify(newQuestion));
         props.addQuestion(newQuestion);
 
+        // Reset form fields
+        setQuestionText({ questionText: ''})
+        setAnswerOptions([{ id: uuidv4(), answerText: '', isCorrect: false }])
     };
 
     const handleAddFields = () => {
@@ -59,7 +74,7 @@ const Create = props => {
             <FormGroup row>
                 <Label for="examplequestion" sm={2}>Question</Label>
                 <Col sm={10}>
-                    <Input type="text" name="questionText" value={questionText.questionText || ""} id="examplequestion" placeholder="Question here ..." onChange={onQuestionChangeHandler} />
+                    <Input type="text" name="questionText" value={questionText.questionText || ""} id="examplequestion" placeholder="Question here ..." onChange={onQuestionChangeHandler} required/>
                 </Col>
             </FormGroup>
 
@@ -70,17 +85,17 @@ const Create = props => {
                     <FormGroup row>
                         <Label for="exampleanswer" sm={2}>Answer</Label>
 
-                        <Col sm={7}>
+                        <Col sm={10} xl={7}>
                             <Input type="text" name="answerText" value={answerOption.answerText}
-                                onChange={event => handleChangeInput(answerOption.id, event)} id="exampleanswer" placeholder="Answer here ..." />
+                                onChange={event => handleChangeInput(answerOption.id, event)} id="exampleanswer" placeholder="Answer here ..." required/>
                         </Col>
 
-                        <Col sm={2} className="d-flex justify-content-around">
+                        <Col sm={6} xl={2} className="my-3 my-sm-2 d-sm-flex justify-content-around">
                             <CustomInput type="checkbox" name="isCorrect" value={answerOption.isCorrect}
-                                onChange={event => handleChangeInput(answerOption.id, event)} id={answerOption.id} label="Is Correct?" />
+                                onChange={event => handleChangeInput(answerOption.id, event)} id={answerOption.id} label="Is Correct?" required/>
                         </Col>
 
-                        <Col sm={1}>
+                        <Col sm={6} xl={1} className="my-3 my-sm-2">
                             <Button disabled={answerOptions.length === 1} color="danger" onClick={() => handleRemoveFields(answerOption.id)}> - </Button>{' '}
                             <Button color="danger" onClick={handleAddFields}> + </Button>{' '}
                         </Col>

@@ -36,8 +36,7 @@ export const addQuestion = (question, history) => async dispatch => {
                     payload: res.data
                 })
             )
-        alert('Added Successfully!')
-        history.push("/quiz")
+            .then(alert('Added Successfully!'))
 
     } catch (error) {
         dispatch({
