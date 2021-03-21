@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import { v4 as uuidv4 } from 'uuid';
+import { Button, Col, Form, FormGroup, Label, Input, CustomInput } from 'reactstrap';
 import { connect } from 'react-redux';
 import { addQuestion } from '../../redux/questions/questions.actions';
 
@@ -10,83 +11,92 @@ const Create = props => {
     })
 
     const [answerOptions, setAnswerOptions] = useState([
-            {
-                answerText: '',
-                isCorrect: false
-            },
-            {
-                answerText: '',
-                isCorrect: false
-            },
-            {
-                answerText: '',
-                isCorrect: true
-            },
-            {
-                answerText: '',
-                isCorrect: false
-            },
-        ])
+        { id: uuidv4(), answerText: '', isCorrect: false },
+    ]);
 
-    const onChangeHandler = e => {
+    const onQuestionChangeHandler = e => {
         const { name, value } = e.target
         setQuestionText(state => ({ ...state, [name]: value }))
-        setAnswerOptions(state => ([ ...state, {[name]: value} ]))
     }
 
-    const onSubmitHandler = e => {
+    const handleChangeInput = (id, event) => {
+        const newAnswerOptions = answerOptions.map(i => {
+            if (id === i.id) {
+                event.target.type === "checkbox" ?
+                 i[event.target.name] = event.target.checked:
+                 i[event.target.name] = event.target.value
+                            }
+            return i;
+        })
+
+        setAnswerOptions(newAnswerOptions);
+    }
+
+    const handleSubmit = (e) => {
         e.preventDefault();
-        // Add Question via addQuestion action 
         const newQuestion = {
-            questionText,
+            questionText: questionText.questionText,
             answerOptions
         }
-        console.log(newQuestion);
-        // props.addQuestion(question);
+        console.log(JSON.stringify(newQuestion));
+        props.addQuestion(newQuestion);
+
+    };
+
+    const handleAddFields = () => {
+        setAnswerOptions([...answerOptions, { id: uuidv4(), answerText: '', isCorrect: false }])
+    }
+
+    const handleRemoveFields = id => {
+        const values = [...answerOptions];
+        values.splice(values.findIndex(value => value.id === id), 1);
+        setAnswerOptions(values);
     }
 
     return (
-        <Form className="mt-5 mx-5" onSubmit={onSubmitHandler}>
+        <Form className="mt-5 mx-5" onSubmit={handleSubmit}>
+
             <FormGroup row>
                 <Label for="examplequestion" sm={2}>Question</Label>
                 <Col sm={10}>
-                    <Input type="text" name="questionText" id="examplequestion" placeholder="Question here ..." onChange={onChangeHandler} />
+                    <Input type="text" name="questionText" value={questionText.questionText || ""} id="examplequestion" placeholder="Question here ..." onChange={onQuestionChangeHandler} />
                 </Col>
             </FormGroup>
 
-            <FormGroup row>
-                <Label for="exampleanswer" sm={2}>Answer 1</Label>
-                <Col sm={10}>
-                    <Input type="text" name="answerText" id="exampleanswer" placeholder="Answer here ..." onChange={onChangeHandler} />
-                </Col>
-            </FormGroup>
+            { answerOptions.map(answerOption => (
 
-            <FormGroup row>
-                <Label for="exampleanswer" sm={2}>Answer 2</Label>
-                <Col sm={10}>
-                    <Input type="text" name="answerText" id="exampleanswer" placeholder="Answer here ..." onChange={onChangeHandler} />
-                </Col>
-            </FormGroup>
+                <div key={answerOption.id}>
 
-            <FormGroup row>
-                <Label for="exampleanswer" sm={2}>Answer 3</Label>
-                <Col sm={10}>
-                    <Input type="text" name="answerText" id="exampleanswer" placeholder="Answer here ..." onChange={onChangeHandler} />
-                </Col>
-            </FormGroup>
+                    <FormGroup row>
+                        <Label for="exampleanswer" sm={2}>Answer</Label>
 
-            <FormGroup row>
-                <Label for="exampleanswer" sm={2}>Answer 4</Label>
-                <Col sm={10}>
-                    <Input type="text" name="answerText" id="exampleanswer" placeholder="Answer here ..." onChange={onChangeHandler} />
-                </Col>
-            </FormGroup>
+                        <Col sm={7}>
+                            <Input type="text" name="answerText" value={answerOption.answerText}
+                                onChange={event => handleChangeInput(answerOption.id, event)} id="exampleanswer" placeholder="Answer here ..." />
+                        </Col>
+
+                        <Col sm={2} className="d-flex justify-content-around">
+                            <CustomInput type="checkbox" name="isCorrect" value={answerOption.isCorrect}
+                                onChange={event => handleChangeInput(answerOption.id, event)} id={answerOption.id} label="Is Correct?" />
+                        </Col>
+
+                        <Col sm={1}>
+                            <Button disabled={answerOptions.length === 1} color="danger" onClick={() => handleRemoveFields(answerOption.id)}> - </Button>{' '}
+                            <Button color="danger" onClick={handleAddFields}> + </Button>{' '}
+                        </Col>
+
+                    </FormGroup>
+
+                </div>
+
+            ))}
 
             <FormGroup check row>
                 <Col sm={{ size: 10, offset: 2 }} className="pl-0">
-                    <Button className="btn btn-info btn-sm">Add New</Button>
+                    <Button className="btn btn-info btn-sm" type="submit" onClick={handleSubmit}>Add New</Button>
                 </Col>
             </FormGroup>
+
         </Form>
     )
 }

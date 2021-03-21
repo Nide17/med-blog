@@ -20,7 +20,8 @@ const QuestionSchema = new Schema({
                 },
                 isCorrect: {
                     type: Boolean,
-                    required: true
+                    required: true,
+                    default: false
                 }
             }
         ]

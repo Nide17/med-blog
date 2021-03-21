@@ -24,7 +24,7 @@ const App = () => (
                 <Route exact path="/" component={Posts} />
 
                 <Route exact path="/questions">
-                    <Suspense fallback={<div className="d-flex justify-content-center">
+                    <Suspense fallback={<div  className="p-5 m-5 d-flex justify-content-center align-items-center">
                     <Spinner style={{ width: '10rem', height: '10rem' }} />{' '}
                     </div>}>
                         <Questions />
