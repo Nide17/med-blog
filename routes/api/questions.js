@@ -12,14 +12,14 @@ const Question = require('../../models/Question');
 //we use router. instead of app. and / because we are already in this dir
 router.get('/', (req, res) => {
 
-    //find Method to find in the questions in db
-    Question.find()
+  //find Method to find in the questions in db
+  Question.find()
 
-        //sort questions by date desc(-1)
-        .sort({ date: -1 })
+    //sort questions by date desc(-1)
+    .sort({ date: -1 })
 
-        //return a promise
-        .then(questions => res.json(questions));
+    //return a promise
+    .then(questions => res.json(questions));
 });
 
 
@@ -29,25 +29,25 @@ router.get('/', (req, res) => {
 // @route Public
 
 router.post("/", async (req, res) => {
-    try {
-      let newQuestion = await Question.findOne({ questionText: req.body.questionText });
-  
-      if (newQuestion) {
-        return res.status(400).send("A Question already exists!");
-      }
-  
-      const result = await Question.create(req.body);
-      res.send(result);
+  try {
+    let newQuestion = await Question.findOne({ questionText: req.body.questionText });
 
-    } catch (err) {
-      console.log(err);
-  
-      if (err.name === "ValidationError") {
-        return res.status(400).send(err.errors);
-      }
-      res.status(500).send("Something went wrong");
+    if (newQuestion) {
+      return res.status(400).send("A Question already exists!");
     }
-  });
+
+    const result = await Question.create(req.body);
+    res.send(result);
+
+  } catch (err) {
+    console.log(err);
+
+    if (err.name === "ValidationError") {
+      return res.status(400).send(err.errors);
+    }
+    res.status(500).send("Something went wrong");
+  }
+});
 
 // GET ENDPOINT //
 // @route GET api/questions/:id
@@ -60,10 +60,10 @@ router.get('/:id', (req, res) => {
   //Find the Question by id
   Question.findById(req.params.id)
 
-      //return a promise
-      .then(question => res.json(question))
-      // if id not exist or if error
-      .catch(err => res.status(404).json({ success: false }));
+    //return a promise
+    .then(question => res.json(question))
+    // if id not exist or if error
+    .catch(err => res.status(404).json({ success: false }));
 });
 
 
@@ -78,10 +78,10 @@ router.delete('/:id', (req, res) => {
   //Find the Question to delete by id first
   Question.findById(req.params.id)
 
-      //returns promise 
-      .then(question => question.remove().then(() => res.json({ success: true })))
-      // if id not exist or if error
-      .catch(err => res.status(404).json({ success: false }));
+    //returns promise 
+    .then(question => question.remove().then(() => res.json({ success: true })))
+    // if id not exist or if error
+    .catch(err => res.status(404).json({ success: false }));
 });
 
 module.exports = router;

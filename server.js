@@ -7,8 +7,10 @@ const path = require('path');
 // for handling routes
 const bodyParser = require('body-parser');
 
-// Bring in questions from the api
+// Bring in routes from the api
 const questions = require('./routes/api/questions');
+const authRoutes = require('./routes/api/auth');
+const userRoutes = require('./routes/api/users');
 
 // Initialize express into the app variable
 const app = express();
@@ -22,13 +24,14 @@ const db = require('./config/keys').mongoURI;
 
 //connect to Mongo
 mongoose
-    .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then(() => console.log('MongoDB connected ...'))
     .catch(err => console.log(err));
 
 //Use routes / All requests going to the api/questions goes the questions variable at the top questions.js file
 app.use('/api/questions', questions)
-
+app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
 
 //Edit for deployment || serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
