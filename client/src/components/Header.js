@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Form, FormGroup, Input, NavbarText } from 'reactstrap';
 import { Link, useLocation } from "react-router-dom";
 import logo from '../images/Logo Med-Blog.svg'
+import RegisterModal from './auth/RegisterModal';
+import { Logout } from './auth/Logout';
 
 const Header = () => {
 
@@ -43,6 +45,14 @@ const Header = () => {
                         </Form>
 
                     </Nav>
+
+                    <NavbarText className="mr-4">
+                        <RegisterModal />
+                    </NavbarText>
+
+                    <NavbarText className="mr-4">
+                        <Logout />
+                    </NavbarText>
 
                     <NavbarText className="mr-4 d-none d-sm-flex">
                         {blinkBtn}

@@ -1,4 +1,4 @@
-import {GET_ERRORS, CLEAR_ERRORS } from "./error.types";
+import { GET_ERRORS, CLEAR_ERRORS } from "./error.types";
 
 const INITIAL_STATE = {
   msg: {},
@@ -12,18 +12,18 @@ const errorReducer = (state = INITIAL_STATE, action) => {
 
     case GET_ERRORS:
       return {
-       msg: action.payload.msg,
-       status: action.payload.status,
-       id: action.payload.id
+        msg: action.payload.msg,
+        status: action.payload.status,
+        id: action.payload.id
       };
 
-      case CLEAR_ERRORS:
-        return {
-         msg: {},
-         status: null,
-         id: null
-        };
-    
+    case CLEAR_ERRORS:
+      return {
+        msg: {},
+        status: null,
+        id: null
+      };
+
     default:
       return state;
   }
