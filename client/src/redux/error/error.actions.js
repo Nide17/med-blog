@@ -1,5 +1,4 @@
 import { GET_ERRORS, CLEAR_ERRORS } from "./error.types";
-import axios from 'axios';
 
 // RETURN ERRORS
 export const returnErrors = (msg, status, id = null) => {

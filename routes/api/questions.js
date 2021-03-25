@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+// auth middleware to protect routes
+const auth = require('../../middleware/auth')
 
 //Question Model : use capital letters since it's a model
 const Question = require('../../models/Question');
@@ -28,7 +30,7 @@ router.get('/', (req, res) => {
 // @route Create a Question
 // @route Public
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     let newQuestion = await Question.findOne({ questionText: req.body.questionText });
 
@@ -52,10 +54,10 @@ router.post("/", async (req, res) => {
 // GET ENDPOINT //
 // @route GET api/questions/:id
 // @route GET one Question
-// @route Public
+// @route Private
 
 //:id placeholder, findId=we get it from the parameter in url
-router.get('/:id', (req, res) => {
+router.get('/:id', auth, (req, res) => {
 
   //Find the Question by id
   Question.findById(req.params.id)
@@ -67,10 +69,9 @@ router.get('/:id', (req, res) => {
 });
 
 
-// DELETE ENDPOINT //
 // @route DELETE api/questions
 // @route delete a Question
-// @route Public
+// @route Private
 
 //:id placeholder, findId=we get it from the parameter in url
 router.delete('/:id', (req, res) => {

@@ -13,13 +13,7 @@ const postsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         postsData: action.payload
       };
-
-    // case TOGGLE_POPOVER:
-    //   return {
-    //     ...state,
-    //     popoverOpen: !state.popoverOpen,
-    //   };
-
+      
     default:
       return state;
   }

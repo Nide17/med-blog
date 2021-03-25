@@ -3,6 +3,7 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Form, FormGroup, Inp
 import { Link, useLocation } from "react-router-dom";
 import logo from '../images/Logo Med-Blog.svg'
 import RegisterModal from './auth/RegisterModal';
+import LoginModal from './auth/LoginModal';
 import { Logout } from './auth/Logout';
 
 const Header = () => {
@@ -45,6 +46,10 @@ const Header = () => {
                         </Form>
 
                     </Nav>
+
+                    <NavbarText className="mr-4">
+                        <LoginModal />
+                    </NavbarText>
 
                     <NavbarText className="mr-4">
                         <RegisterModal />

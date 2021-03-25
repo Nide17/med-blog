@@ -1,37 +1,33 @@
 // Bring in all dependencies
 const express = require('express');
-// const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 const path = require('path');
-
-// for handling routes
-const bodyParser = require('body-parser');
-
-// Bring in routes from the api
-const questions = require('./routes/api/questions');
-const authRoutes = require('./routes/api/auth');
-const userRoutes = require('./routes/api/users');
+const config = require('config')
 
 // Initialize express into the app variable
 const app = express();
 
-// Bodyparser has the piece of middleware we need
-app.use(bodyParser.json());
-
+// Express has bodyParser
+app.use(express.json());
 
 //DB Config
-const db = require('./config/keys').mongoURI;
+const db = config.get('mongoURI');
 
 //connect to Mongo
 mongoose
-    .connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+    .connect(db, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
+    })
     .then(() => console.log('MongoDB connected ...'))
     .catch(err => console.log(err));
 
+// Bring in routes from the api
 //Use routes / All requests going to the api/questions goes the questions variable at the top questions.js file
-app.use('/api/questions', questions)
-app.use('/api/users', userRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/api/questions', require('./routes/api/questions'));
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
 
 //Edit for deployment || serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
