@@ -21,6 +21,8 @@ export const loadUser = () => (dispatch, getState) => {
         type: AUTH_ERROR
       })
     });
+    console.log(getState());
+
 }
 
 // Register User
@@ -93,7 +95,9 @@ export const logout = () => {
 export const tokenConfig = getState => {
 
   // Get token from localStorage
-  const token = getState().auth.token || ''
+  // Needs to be fixed
+  // const token = 'getState().auth.token';
+  const token = getState().token;
 
   // Headers
   const config = {
@@ -105,9 +109,6 @@ export const tokenConfig = getState => {
   // If token, add to header
   if (token) {
     config.headers['x-auth-token'] = token;
-    console.log(token);
   }
-
-  console.log(config);
   return config
 }

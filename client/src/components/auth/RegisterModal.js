@@ -32,7 +32,7 @@ class RegisterModal extends Component {
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
-        error: PropTypes.object.isRequired,
+        error: PropTypes.object,
         register: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired,
     };

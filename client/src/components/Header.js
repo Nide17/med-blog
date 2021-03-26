@@ -1,16 +1,44 @@
 import React, { useState } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Form, FormGroup, Input, NavbarText } from 'reactstrap';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Link, useLocation } from "react-router-dom";
 import logo from '../images/Logo Med-Blog.svg'
 import RegisterModal from './auth/RegisterModal';
 import LoginModal from './auth/LoginModal';
 import { Logout } from './auth/Logout';
 
-const Header = () => {
+const Header = (props) => {
 
     const [isOpen, setIsOpen] = useState(false);
-
     const toggle = () => setIsOpen(!isOpen);
+    const { isAuthenticated, user } = props.auth;
+
+    const authLinks = (
+        <>
+            <NavbarText className="mr-1">
+                <span>
+                    <strong>{user ? `Welcome ${user.name}` : ''}</strong>
+                </span>
+            </NavbarText>
+
+            <NavbarText className="mr-2">
+                <Logout />
+            </NavbarText>
+        </>
+    )
+
+    const guestLinks = (
+        <>
+            <NavbarText className="mr-4">
+                <LoginModal />
+            </NavbarText>
+
+            <NavbarText className="mr-4">
+                <RegisterModal />
+            </NavbarText>
+        </>
+    )
 
     // React Router 5.1 there is the hook useLocation, which lets you easily access the current location.
     let location = useLocation();
@@ -45,20 +73,9 @@ const Header = () => {
                             </FormGroup>
                         </Form>
 
+                        {isAuthenticated ? authLinks : guestLinks}
+
                     </Nav>
-
-                    <NavbarText className="mr-4">
-                        <LoginModal />
-                    </NavbarText>
-
-                    <NavbarText className="mr-4">
-                        <RegisterModal />
-                    </NavbarText>
-
-                    <NavbarText className="mr-4">
-                        <Logout />
-                    </NavbarText>
-
                     <NavbarText className="mr-4 d-none d-sm-flex">
                         {blinkBtn}
                     </NavbarText>
@@ -76,4 +93,11 @@ const Header = () => {
     )
 }
 
-export default Header
+Header.propTypes = {
+    auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+export default connect(mapStateToProps, null)(Header)

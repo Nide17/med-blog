@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import {
     Button,
     Modal,
@@ -31,7 +30,7 @@ class LoginModal extends Component {
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
-        error: PropTypes.object.isRequired,
+        error: PropTypes.object,
         login: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired,
     };
@@ -81,6 +80,7 @@ class LoginModal extends Component {
             password
         };
 
+        // Attempt to login
         this.props.login(user);
     }
 
