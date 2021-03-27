@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import logo from '../images/Logo Med-Blog.svg'
 import RegisterModal from './auth/RegisterModal';
 import LoginModal from './auth/LoginModal';
-import { Logout } from './auth/Logout';
+import Logout  from './auth/Logout';
 
 const Header = (props) => {
 
@@ -16,13 +16,13 @@ const Header = (props) => {
 
     const authLinks = (
         <>
-            <NavbarText className="mr-1">
+            <NavbarText className="mx-0 text-warning">
                 <span>
                     <strong>{user ? `Welcome ${user.name}` : ''}</strong>
                 </span>
             </NavbarText>
 
-            <NavbarText className="mr-2">
+            <NavbarText className="mx-0">
                 <Logout />
             </NavbarText>
         </>
@@ -30,11 +30,11 @@ const Header = (props) => {
 
     const guestLinks = (
         <>
-            <NavbarText className="mr-4">
+            <NavbarText className="mx-0">
                 <LoginModal />
             </NavbarText>
 
-            <NavbarText className="mr-4">
+            <NavbarText className="mx-0">
                 <RegisterModal />
             </NavbarText>
         </>
@@ -44,10 +44,9 @@ const Header = (props) => {
     let location = useLocation();
 
     const blinkBtn = (location.pathname === '/questions' || location.pathname === '/create') ? '' :
-
         <>
-            <Link to="/questions" className="text-white blink_me">Quiz</Link>
-            <Link to="/create" className="text-warning ml-2 mt-1">Create Quiz</Link>
+            <Link to="/questions" className="text-white blink_me mt-1 mr-2">Quiz</Link>
+            {isAuthenticated ? <Link to="/create" className="text-warning ml-2 mt-1">Create Quiz</Link> : null}
         </>
 
     return (
@@ -72,10 +71,8 @@ const Header = (props) => {
                                 <Input type="search" name="search" placeholder="Search ..." bsSize="sm" className="py-0" style={{ width: "250px" }} />
                             </FormGroup>
                         </Form>
-
-                        {isAuthenticated ? authLinks : guestLinks}
-
                     </Nav>
+
                     <NavbarText className="mr-4 d-none d-sm-flex">
                         {blinkBtn}
                     </NavbarText>
@@ -85,7 +82,7 @@ const Header = (props) => {
                     <NavbarText className="mr-4">
                         <Link to="/contact" className="text-white">Contact</Link>
                     </NavbarText>
-
+                    {isAuthenticated ? authLinks : guestLinks}
                 </Collapse>
 
             </Navbar>
@@ -98,6 +95,6 @@ Header.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.authReducer,
 })
 export default connect(mapStateToProps, null)(Header)

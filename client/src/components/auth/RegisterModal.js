@@ -1,23 +1,10 @@
 import React, { Component } from 'react';
+import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink, Alert } from 'reactstrap';
+import PropTypes from 'prop-types';
 
-import {
-    Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    NavLink,
-    Alert
-} from 'reactstrap';
 import { connect } from 'react-redux';
 import { register } from '../../redux/auth/auth.actions';
 import { clearErrors } from '../../redux/error/error.actions'
-
-import PropTypes from 'prop-types';
-
 class RegisterModal extends Component {
 
     //properties of the modal
@@ -29,13 +16,6 @@ class RegisterModal extends Component {
         password: '',
         msg: null
     }
-
-    static propTypes = {
-        isAuthenticated: PropTypes.bool,
-        error: PropTypes.object,
-        register: PropTypes.func.isRequired,
-        clearErrors: PropTypes.func.isRequired,
-    };
 
     componentDidUpdate(prevProps) {
         const { error, isAuthenticated } = this.props;
@@ -90,13 +70,12 @@ class RegisterModal extends Component {
     render() {
         return (
             <div>
-                <NavLink onClick={this.toggle}>Register</NavLink>
+                <NavLink onClick={this.toggle} className="text-warning">Register</NavLink>
 
                 <Modal
                     // Set it to the state of modal true or false
                     isOpen={this.state.modal}
-                    toggle={this.toggle}
-                >
+                    toggle={this.toggle}>
 
                     <ModalHeader toggle={this.toggle}>Register</ModalHeader>
                     <ModalBody>
@@ -109,41 +88,15 @@ class RegisterModal extends Component {
                             <FormGroup>
 
                                 <Label for="name">Name</Label>
-                                <Input
-                                    type="text"
-                                    name="name"
-                                    id="name"
-                                    placeholder="Name ..."
-                                    className="mb-3"
-                                    onChange={this.onChangeHandler}
-                                />
+                                <Input type="text" name="name" id="name" placeholder="Name ..." className="mb-3" onChange={this.onChangeHandler} />
 
                                 <Label for="email">Email</Label>
-                                <Input
-                                    type="email"
-                                    name="email"
-                                    id="email"
-                                    placeholder="Email ..."
-                                    className="mb-3"
-                                    onChange={this.onChangeHandler}
-                                />
+                                <Input type="email" name="email" id="email" placeholder="Email ..." className="mb-3" onChange={this.onChangeHandler} />
 
                                 <Label for="password">Password</Label>
-                                <Input
-                                    type="password"
-                                    name="password"
-                                    id="password"
-                                    placeholder="Password ..."
-                                    className="mb-3"
-                                    onChange={this.onChangeHandler}
-                                />
+                                <Input type="password" name="password" id="password" placeholder="Password ..." className="mb-3" onChange={this.onChangeHandler} />
 
-
-                                <Button
-                                    color="dark"
-                                    style={{ marginTop: '2rem' }}
-                                    block
-                                >Register</Button>
+                                <Button color="dark" style={{ marginTop: '2rem' }} block>Register</Button>
 
                             </FormGroup>
 
@@ -153,15 +106,19 @@ class RegisterModal extends Component {
             </div>
         );
     }
-
-
 }
 
+RegisterModal.propTypes = {
+    isAuthenticated: PropTypes.bool,
+    error: PropTypes.object,
+    register: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
+}
 
 // Map  state props
 const mapStateToProps = state => ({
     isAuthenticated: state.authReducer.isAuthenticated,
-    error: state.error
+    error: state.errorReducer
 });
 
 export default connect(

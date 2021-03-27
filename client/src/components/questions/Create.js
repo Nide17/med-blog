@@ -19,7 +19,7 @@ const Create = props => {
         setQuestionText(state => ({ ...state, [name]: value }))
     }
 
-    const handleChangeInput = (id, event) => {
+    const handleAnswerChangeInput = (id, event) => {
         const newAnswerOptions = answerOptions.map(i => {
             if (id === i.id) {
                 event.target.type === "checkbox" ?
@@ -87,12 +87,12 @@ const Create = props => {
 
                         <Col sm={10} xl={7}>
                             <Input type="text" name="answerText" value={answerOption.answerText}
-                                onChange={event => handleChangeInput(answerOption.id, event)} id="exampleanswer" placeholder="Answer here ..." required/>
+                                onChange={event => handleAnswerChangeInput(answerOption.id, event)} id="exampleanswer" placeholder="Answer here ..." required/>
                         </Col>
 
                         <Col sm={6} xl={2} className="my-3 my-sm-2 d-sm-flex justify-content-around">
                             <CustomInput type="checkbox" name="isCorrect" value={answerOption.isCorrect}
-                                onChange={event => handleChangeInput(answerOption.id, event)} id={answerOption.id} label="Is Correct?" required/>
+                                onChange={event => handleAnswerChangeInput(answerOption.id, event)} id={answerOption.id} label="Is Correct?" required/>
                         </Col>
 
                         <Col sm={6} xl={1} className="my-3 my-sm-2">
@@ -118,7 +118,7 @@ const Create = props => {
 
 // Map the question to state props
 const mapStateToProps = state => ({
-    question: state.question
+    question: state.questionsReducer,
 });
 
 export default connect(

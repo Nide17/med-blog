@@ -1,21 +1,10 @@
 import React, { Component } from 'react';
-import {
-    Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    NavLink,
-    Alert
-} from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink, Alert } from 'reactstrap';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import { login } from '../../redux/auth/auth.actions';
 import { clearErrors } from '../../redux/error/error.actions'
-
-import PropTypes from 'prop-types';
 
 class LoginModal extends Component {
 
@@ -25,15 +14,8 @@ class LoginModal extends Component {
         modal: false,
         email: '',
         password: '',
-        msg: null
+        msg: ''
     }
-
-    static propTypes = {
-        isAuthenticated: PropTypes.bool,
-        error: PropTypes.object,
-        login: PropTypes.func.isRequired,
-        clearErrors: PropTypes.func.isRequired,
-    };
 
     componentDidUpdate(prevProps) {
         const { error, isAuthenticated } = this.props;
@@ -72,8 +54,8 @@ class LoginModal extends Component {
     onSubmitHandler = e => {
         e.preventDefault();
 
-        const {email, password } = this.state;
-        
+        const { email, password } = this.state;
+
         // Create user object
         const user = {
             email,
@@ -87,50 +69,29 @@ class LoginModal extends Component {
     render() {
         return (
             <div>
-                <NavLink onClick={this.toggle}>Login</NavLink>
+                <NavLink onClick={this.toggle} className="text-warning">Login</NavLink>
 
                 <Modal
                     // Set it to the state of modal true or false
                     isOpen={this.state.modal}
-                    toggle={this.toggle}
-                >
+                    toggle={this.toggle}>
 
                     <ModalHeader toggle={this.toggle}>Login</ModalHeader>
                     <ModalBody>
 
                         {this.state.msg ? (
                             <Alert color='danger'>{this.state.msg}</Alert>) : null}
-
                         <Form onSubmit={this.onSubmitHandler}>
 
                             <FormGroup>
 
                                 <Label for="email">Email</Label>
-                                <Input
-                                    type="email"
-                                    name="email"
-                                    id="email"
-                                    placeholder="Email ..."
-                                    className="mb-3"
-                                    onChange={this.onChangeHandler}
-                                />
+                                <Input type="email" name="email" id="email" placeholder="Email ..." className="mb-3" onChange={this.onChangeHandler} />
 
                                 <Label for="password">Password</Label>
-                                <Input
-                                    type="password"
-                                    name="password"
-                                    id="password"
-                                    placeholder="Password ..."
-                                    className="mb-3"
-                                    onChange={this.onChangeHandler}
-                                />
+                                <Input type="password" name="password" id="password" placeholder="Password ..." className="mb-3" onChange={this.onChangeHandler} />
 
-
-                                <Button
-                                    color="dark"
-                                    style={{ marginTop: '2rem' }}
-                                    block
-                                >Login</Button>
+                                <Button color="warning" style={{ marginTop: '2rem' }} block >Login</Button>
 
                             </FormGroup>
 
@@ -142,10 +103,17 @@ class LoginModal extends Component {
     }
 }
 
+LoginModal.propTypes = {
+    isAuthenticated: PropTypes.bool,
+    error: PropTypes.object,
+    login: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
+}
+
 // Map  state props
 const mapStateToProps = state => ({
     isAuthenticated: state.authReducer.isAuthenticated,
-    error: state.error
+    error: state.errorReducer
 });
 
 export default connect(

@@ -37,7 +37,7 @@ export const register = ({ name, email, password }) => dispatch => {
   // Request body
   const body = JSON.stringify({ name, email, password });
 
-  axios.post('/api/users', body, config)
+  axios.post('/api/auth/register', body, config)
 
     .then(res => dispatch({
       type: REGISTER_SUCCESS,
@@ -66,7 +66,7 @@ export const login = ({ email, password }) =>
     const body = JSON.stringify({ email, password });
 
     axios
-      .post('/api/auth', body, config)
+      .post('/api/auth/login', body, config)
       .then(res =>
         dispatch({
           type: LOGIN_SUCCESS,
@@ -85,19 +85,17 @@ export const login = ({ email, password }) =>
 
 
 // Logout USER
-export const logout = () => {
-  return {
-    type: LOGOUT_SUCCESS
-  }
+export const logout = (history) => async dispatch => {
+  dispatch({
+      type: LOGOUT_SUCCESS
+  })
 }
 
 //HELPER FUNCTION TO GET THE TOKEN - SETUP CONFIG/headers and token
 export const tokenConfig = getState => {
 
   // Get token from localStorage
-  // Needs to be fixed
-  // const token = 'getState().auth.token';
-  const token = getState().token;
+  const token = getState().authReducer.token;
 
   // Headers
   const config = {

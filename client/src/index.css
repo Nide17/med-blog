@@ -37,6 +37,10 @@ button.btn-primary {
     background-color: #157A6E !important;
 }
 
+nav .collapse .navbar-text {
+    cursor: pointer;
+}
+
 .posts .text-primary {
     color: #157A6E !important;
 }
