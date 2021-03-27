@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Form, FormGroup, Input, NavbarText, Button } from 'reactstrap';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Link, useLocation } from "react-router-dom";
-import logo from '../images/Logo Med-Blog.svg'
+import PropTypes from 'prop-types';
 import RegisterModal from './auth/RegisterModal';
 import LoginModal from './auth/LoginModal';
 import Logout from './auth/Logout';
+import logo from '../images/Logo Med-Blog.svg'
+import { connect } from 'react-redux';
 
 const Header = (props) => {
 
@@ -18,11 +18,11 @@ const Header = (props) => {
         <>
             <NavbarText className="mx-0 text-warning">
                 <span>
-                    <strong>{user ? `Welcome ${user.name}` : ''}</strong>
+                    <small>{user ? `Welcome ${user.name}` : ''}</small>
                 </span>
             </NavbarText>
 
-            <NavbarText className="mx-0">
+            <NavbarText className="mx-0 logout">
                 <Logout />
             </NavbarText>
         </>
@@ -51,6 +51,7 @@ const Header = (props) => {
 
     return (
         <header style={{ boxShadow: "0 2px 10px -1px rgba(0,0,0,0.75)" }}>
+
             <Navbar color="primary" light expand="md" className="px-md-5 py-md-3">
                 <NavbarBrand href="/" className="text-white" style={{ fontWeight: "900" }}>
                     <img src={logo} alt="logo" />
@@ -60,7 +61,10 @@ const Header = (props) => {
                     {blinkBtn}
                 </NavbarText>
 
-                {isOpen ? <Button close onClick={toggle} className="px-3 mr-1 text-danger"/> : <NavbarToggler onClick={toggle} />
+                {
+                    isOpen ?
+                        <Button close onClick={toggle} className="px-3 mr-1 text-danger" /> :
+                        <NavbarToggler onClick={toggle} />
                 }
 
                 <Collapse isOpen={isOpen} navbar>
@@ -98,4 +102,5 @@ Header.propTypes = {
 const mapStateToProps = state => ({
     auth: state.authReducer,
 })
+
 export default connect(mapStateToProps, null)(Header)

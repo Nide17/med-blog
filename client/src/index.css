@@ -205,4 +205,8 @@ div.answer, div.question-section {
         width: 75% !important;
     }
 
+    nav .collapse .logout {
+        display: block!important;
+    }
+
 }

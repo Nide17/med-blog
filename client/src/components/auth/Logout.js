@@ -21,7 +21,9 @@ const Logout = ({logout}) => {
   return (
     <>
       <NavLink onClick={logingout} href="#"  className="m-0 p-0 px-xl-3">
-        <Button color="danger" size="sm">Logout</Button>
+        <Button color="warning" size="sm" className="py-0 px-1">
+        <img src="https://img.icons8.com/color/18/000000/power-off-button.png" alt="logout"/>
+        </Button>
       </NavLink>
     </>
   )
