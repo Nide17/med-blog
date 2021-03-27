@@ -14,7 +14,7 @@ class LoginModal extends Component {
         modal: false,
         email: '',
         password: '',
-        msg: ''
+        msg: null
     }
 
     componentDidUpdate(prevProps) {

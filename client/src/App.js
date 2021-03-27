@@ -6,6 +6,7 @@ import Posts from './components/posts/Posts';
 import Contact from './components/Contact';
 import About from './components/About';
 import Placeholder from './components/placeholder/Placeholder';
+import Webmaster from './components/webmaster/Webmaster';
 
 // REDUX
 import { Provider } from 'react-redux'
@@ -47,7 +48,7 @@ const App = () => {
                     <Route path="/faqs" component={Placeholder} />
                     <Route path="/disclaimer" component={Placeholder} />
                     <Route path="/privacy" component={Placeholder} />
-                    <Route path="/webmaster" component={Placeholder} />
+                    <Route path="/webmaster" component={Webmaster} />
                     <Route path="/questions" component={Placeholder} />
                     <Route path="/tips" component={Placeholder} />
                 </Switch>

@@ -35,7 +35,7 @@ const Questions = props => {
 
         return (
 
-            <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-5 w-80">
+            <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80">
 
                 {showScore ?
                     <div className='score-section text-center'>

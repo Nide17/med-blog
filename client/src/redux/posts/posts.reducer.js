@@ -1,7 +1,8 @@
-import { SET_POSTS } from "./posts.types";
+import { SET_POSTS, SUBSCRIBETONEWSLETTER, SET_SUBSCRIBERS, SUBSCRIBE_FAIL } from "./posts.types";
 
 const INITIAL_STATE = {
-  postsData: []
+  postsData: [],
+  subscribedUsers: []
 };
 
 const postsReducer = (state = INITIAL_STATE, action) => {
@@ -13,7 +14,25 @@ const postsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         postsData: action.payload
       };
-      
+
+    case SET_SUBSCRIBERS:
+      return {
+        ...state,
+        subscribedUsers: action.payload
+      };
+
+    case SUBSCRIBETONEWSLETTER:
+      return {
+        ...state,
+        subscribedUsers: [...state.subscribedUsers, action.payload, ({msg: "Success!"})]
+      };
+
+    case SUBSCRIBE_FAIL:
+      return {
+        ...state,
+        subscribedUsers: null
+      };
+
     default:
       return state;
   }

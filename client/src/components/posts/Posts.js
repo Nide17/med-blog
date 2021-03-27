@@ -1,18 +1,44 @@
-import React, { useEffect } from 'react'
-import { Container, Col, Row, Form, FormGroup, Input, Button } from 'reactstrap';
+import React, { useEffect, useState } from 'react'
+import { Container, Col, Row, Form, FormGroup, Input, Button, Alert } from 'reactstrap';
 import PostItem from './PostItem'
 
 import { connect } from 'react-redux'
-import { setPosts } from '../../redux/posts/posts.actions'
+import { setPosts, subscribeToNewsLetter } from '../../redux/posts/posts.actions'
+import { clearErrors } from '../../redux/error/error.actions'
 
-const Posts = props => {
+const Posts = ({ postsData, setPosts, subscribeToNewsLetter, error, subscribedUsers, clearErrors }) => {
+
+    const [state, setState] = useState({
+        name: '',
+        email: ''
+    })
 
     useEffect(() => {
-        // Inside this callback function, we set posts when the component is mounted.
-        props.setPosts();
-    });
 
-    const { postsData } = props
+        // Inside this callback function, we set posts when the component is mounted.
+        setPosts();
+    }, [setPosts]);
+
+    const onChangeHandler = e => {
+        clearErrors();
+        const { name, value } = e.target
+        setState(state => ({ ...state, [name]: value }))
+    };
+
+    const onSubscribe = e => {
+        e.preventDefault();
+
+        const { name, email } = state;
+
+        // Create user object
+        const subscribedUser = {
+            name,
+            email
+        };
+
+        // Attempt to subscribe
+        subscribeToNewsLetter(subscribedUser);
+    }
 
     return (
         <Container className="posts main mt-4">
@@ -24,12 +50,23 @@ const Posts = props => {
                 </Col>
 
                 <Col sm="3">
-                    <Form>
+                    {error.id === "SUBSCRIBE_FAIL" ?
+                        <Alert color='danger'>
+                            <small>{error.msg.msg}</small>
+                        </Alert> :
+                        subscribedUsers[1] !== undefined ?
+                            <Alert color='success'>
+                                <small>{subscribedUsers[1].msg}</small>
+                            </Alert> :
+                            null
+                    }
+
+                    <Form onSubmit={onSubscribe}>
                         <FormGroup>
-                            <h5 className="mt-4">Subscribe to our newsletter.</h5>
-                            <Input type="text" name="name" bsSize="sm" placeholder="Your name" className="mt-4" />
-                            <Input type="email" name="email" bsSize="sm" placeholder="Your Email" className="mt-4" />
-                            <Button color="info" size="sm" className="mt-4">Signup</Button>{' '}
+                            <h6 className="mt-4"><b>Subscribe to our newsletter.</b></h6>
+                            <Input type="text" name="name" bsSize="sm" placeholder="Your name" className="mt-4" onChange={onChangeHandler} required />
+                            <Input type="email" name="email" bsSize="sm" placeholder="Your Email" className="mt-4" onChange={onChangeHandler} required />
+                            <Button color="info" size="sm" className="mt-4">Signup</Button>
                         </FormGroup>
                     </Form>
                 </Col>
@@ -40,11 +77,9 @@ const Posts = props => {
 }
 
 const mapStateToProps = state => ({
-    postsData: state.postsReducer.postsData
+    postsData: state.postsReducer.postsData,
+    error: state.errorReducer,
+    subscribedUsers: state.postsReducer.subscribedUsers
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    setPosts: () => dispatch(setPosts())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Posts)
+export default connect(mapStateToProps, { setPosts, subscribeToNewsLetter, clearErrors })(Posts)

@@ -45,7 +45,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// @route   GET api/auth/register
+// @route   POST api/auth/register
 // @desc    Register new user
 // @access  Public
 
@@ -93,7 +93,7 @@ router.post('/register', async (req, res) => {
       }
     });
   } catch (e) {
-    res.status(400).json({ error: e.message });
+    res.status(400).json({ msg: e.message });
   }
 });
 

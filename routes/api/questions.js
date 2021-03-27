@@ -6,7 +6,6 @@ const auth = require('../../middleware/auth')
 //Question Model : use capital letters since it's a model
 const Question = require('../../models/Question');
 
-// GET ENDPOINT //
 // @route GET api/questions
 // @route Get All questions
 // @route Public

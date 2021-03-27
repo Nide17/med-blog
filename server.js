@@ -28,6 +28,7 @@ mongoose
 app.use('/api/questions', require('./routes/api/questions'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/posts', require('./routes/api/posts'));
 
 //Edit for deployment || serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
