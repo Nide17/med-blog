@@ -10,12 +10,12 @@ const Questions = props => {
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
 
+    const { questionsData, setQuestions } = props
+    
     useEffect(() => {
         // Inside this callback function, we set questions when the component is mounted.
-        props.setQuestions();
-    });
-
-    const { questionsData } = props
+        setQuestions();
+    }, [setQuestions]);
 
     const handleAnswerButtonClick = (isCorrect) => {
 
