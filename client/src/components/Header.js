@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Form, FormGroup, Input, NavbarText } from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Form, FormGroup, Input, NavbarText, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from "react-router-dom";
 import logo from '../images/Logo Med-Blog.svg'
 import RegisterModal from './auth/RegisterModal';
 import LoginModal from './auth/LoginModal';
-import Logout  from './auth/Logout';
+import Logout from './auth/Logout';
 
 const Header = (props) => {
 
@@ -60,7 +60,8 @@ const Header = (props) => {
                     {blinkBtn}
                 </NavbarText>
 
-                <NavbarToggler onClick={toggle} />
+                {isOpen ? <Button close onClick={toggle} className="px-3 mr-1 text-danger"/> : <NavbarToggler onClick={toggle} />
+                }
 
                 <Collapse isOpen={isOpen} navbar>
 

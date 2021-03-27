@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'reactstrap'
+import { NavLink, Button } from 'reactstrap'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
@@ -20,8 +20,8 @@ const Logout = ({logout}) => {
 
   return (
     <>
-      <NavLink onClick={logingout} href="#" className="text-danger">
-        Logout
+      <NavLink onClick={logingout} href="#"  className="m-0 p-0 px-xl-3">
+        <Button color="danger" size="sm">Logout</Button>
       </NavLink>
     </>
   )
