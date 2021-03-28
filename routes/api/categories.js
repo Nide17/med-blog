@@ -24,11 +24,11 @@ router.get('/category', (req, res) => {
 
 
 // @route   POST /api/categories/category
-// @desc    Subscribe to our category
+// @desc    Create category
 // @access  Public
 
 router.post('/category', async (req, res) => {
-    const { title, description } = req.body;
+    const { title, description, quizes, created_by } = req.body;
 
     // Simple validation
     if (!title || !description) {
@@ -41,7 +41,9 @@ router.post('/category', async (req, res) => {
 
         const newCategory = new Category({
             title,
-            description
+            description,
+            quizes,
+            created_by
         });
 
         const savedCategory = await newCategory.save();
@@ -51,7 +53,9 @@ router.post('/category', async (req, res) => {
             category: {
                 id: savedCategory._id,
                 title: savedCategory.title,
-                description: savedCategory.description
+                description: savedCategory.description,
+                quizes: savedCategory.quizes,
+                created_by: savedCategory.created_by
             }
         });
 

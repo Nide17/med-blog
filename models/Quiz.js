@@ -6,7 +6,6 @@ const Schema = mongoose.Schema;
 
 //create a schema object
 const QuizSchema = new Schema({
-  _id: Schema.Types.ObjectId,
   title: {
     type: String,
     required: true,
