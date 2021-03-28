@@ -1,0 +1,36 @@
+// Bring in Mongo
+const mongoose = require('mongoose');
+
+//initialize Mongo schema
+const Schema = mongoose.Schema;
+
+//create a schema object
+const CategorySchema = new Schema({
+  _id: Schema.Types.ObjectId,
+  title: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  creation_date: {
+    type: Date,
+    default: Date.now
+  },
+  quizes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'quiz'
+    }
+  ],
+  created_by: {
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  }
+});
+
+//Category: the name of this model
+module.exports = mongoose.model('category', CategorySchema);

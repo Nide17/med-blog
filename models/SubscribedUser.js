@@ -21,5 +21,5 @@ const SubscribedUserSchema = new Schema({
   }
 });
 
-//Question: the name of this model
+//subscribedUser: the name of this model
 module.exports = mongoose.model('subscribedUser', SubscribedUserSchema);
