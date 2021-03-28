@@ -8,7 +8,6 @@ const auth = require('../../middleware/auth');
 // User Model
 const User = require('../../models/User');
 
-
 // @route   POST api/auth/login
 // @desc    Login user
 // @access  Public

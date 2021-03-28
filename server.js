@@ -30,7 +30,7 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/categories', require('./routes/api/categories'));
-app.use('/api/quizes', require('./routes/api/quizes'));
+// app.use('/api/quizes', require('./routes/api/quizes'));
 
 //Edit for deployment || serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
