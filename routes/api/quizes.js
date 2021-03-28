@@ -22,7 +22,6 @@ router.get('/quiz', (req, res) => {
         .then(quizes => res.json(quizes));
 });
 
-
 // @route   POST /api/quizes/quiz
 // @desc    Create quiz
 // @access  Public
