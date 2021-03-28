@@ -4,14 +4,16 @@ import classnames from 'classnames';
 
 import { connect } from 'react-redux'
 import { setSubscribers } from '../../redux/posts/posts.actions'
+import { setCategories } from '../../redux/categories/categories.actions'
 import CreateCategory from './CreateCategory';
 
-const Webmaster = ({ auth, subscribedUsers, setSubscribers }) => {
+const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCategories }) => {
 
     // Lifecycle methods
     useEffect(() => {
         setSubscribers();
-    }, [setSubscribers]);
+        setCategories();
+    }, [setSubscribers, setCategories]);
 
     // State
     const [activeTab, setActiveTab] = useState('1');
@@ -86,20 +88,15 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers }) => {
                         <TabPane tabId="2">
 
                             <Row>
+                            {categories.allcategories && categories.allcategories.map(category => (
                                 <Col sm="6">
-                                    <Card body>
-                                        <CardTitle className="text-success">Category 1</CardTitle>
-                                        <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+                                    <Card body className="mt-2">
+                                        <CardTitle className="text-success">{category.title}</CardTitle>
+                                        <CardText>{category.description}</CardText>
                                         <Button>Edit</Button>
                                     </Card>
                                 </Col>
-                                <Col sm="6">
-                                    <Card body>
-                                        <CardTitle className="text-success">Category 2</CardTitle>
-                                        <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                                        <Button>Edit</Button>
-                                    </Card>
-                                </Col>
+                            ))}
                             </Row>
 
                         </TabPane>
@@ -114,7 +111,8 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers }) => {
 
 const mapStateToProps = state => ({
     auth: state.authReducer,
-    subscribedUsers: state.postsReducer.subscribedUsers
+    subscribedUsers: state.postsReducer.subscribedUsers,
+    categories: state.categoriesReducer
 })
 
-export default connect(mapStateToProps, { setSubscribers })(Webmaster)
+export default connect(mapStateToProps, { setSubscribers, setCategories })(Webmaster)
