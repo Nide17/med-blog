@@ -35,8 +35,8 @@ router.post('/quiz', async (req, res) => {
     }
 
     try {
-        // const Quiz = await Quiz.findOne({ title });
-        // if (quiz) throw Error('Quiz already exists!');
+        const quiz = await Quiz.findOne({ title });
+        if (quiz) throw Error('Quiz already exists!');
 
         const newQuiz = new Quiz({
             title,

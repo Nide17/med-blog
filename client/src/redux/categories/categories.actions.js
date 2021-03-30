@@ -7,7 +7,7 @@ import { tokenConfig } from '../auth/auth.actions'
 export const setCategories = () => (dispatch, getState) => {
   // dispatch(setQuestionsLoading());
   axios
-    .get('/api/categories/category', tokenConfig(getState))
+    .get('/api/categories', tokenConfig(getState))
     .then(res =>
       dispatch({
         type: SET_CATEGORIES,
@@ -24,7 +24,7 @@ export const createCategory = (newCategory) => async (dispatch) => {
 
   try {
     await axios
-      .post('/api/categories/category', newCategory)
+      .post('/api/categories', newCategory)
       .then(res =>
         dispatch({
           type: CREATE_CATEGORY,

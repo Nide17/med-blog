@@ -89,8 +89,8 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
 
                             <Row>
                             {categories.allcategories && categories.allcategories.map(category => (
-                                <Col sm="6">
-                                    <Card body className="mt-2">
+                                <Col sm="6" className="mt-2">
+                                    <Card body>
                                         <CardTitle className="text-success">{category.title}</CardTitle>
                                         <CardText>{category.description}</CardText>
                                         <Button>Edit</Button>
