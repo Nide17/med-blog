@@ -23,7 +23,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-
 // @route   POST /api/categories
 // @desc    Create a category
 // @access  Have to be private
@@ -83,7 +82,6 @@ router.put('/:id', async (req, res) => {
         });
     }
 });
-
 
 // @route DELETE api/categories/:id
 // @route delete a Category
