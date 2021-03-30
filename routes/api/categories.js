@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
 
     try {
         const categories = await Category.find()
-            //sort categories by creation_date desc(-1)
+            //sort categories by creation_date
             .sort({ creation_date: -1 })
 
         if (!categories) throw Error('No categories found');
