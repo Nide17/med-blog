@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, N
 // import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import { createCategory } from '../../redux/categories/categories.actions';
 // import { login } from '../../redux/auth/auth.actions';
 // import { clearErrors } from '../../redux/error/error.actions'
 
@@ -37,7 +38,7 @@ class CreateCategory extends Component {
 
         // Create new Category object
         const newCategory = {
-            name,
+            title: name,
             description
         };
 
@@ -98,4 +99,4 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {})(CreateCategory);
+    {createCategory})(CreateCategory);

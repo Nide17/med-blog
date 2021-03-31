@@ -38,7 +38,9 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                     </Toast>
 
                     <div className="master-btns">
-                        <Button size="sm" outline color="secondary"><CreateCategory /></Button>
+                        <Button size="sm" outline color="secondary">
+                            <CreateCategory />
+                        </Button>
                     </div>
 
                 </Row>
@@ -69,7 +71,7 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
 
                             <Row>
                                 {subscribedUsers && subscribedUsers.map(subscribedUser => (
-                                    <Col sm="3" key={subscribedUser._id} className="mt-3">
+                                    <Col sm="3" key={subscribedUser.title} className="mt-3">
                                         <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
                                             <CardTitle tag="p">{subscribedUser.name.split(' ').slice(0, 2).join(' ')}</CardTitle>
                                             <CardText>
@@ -88,15 +90,15 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                         <TabPane tabId="2">
 
                             <Row>
-                            {categories.allcategories && categories.allcategories.map(category => (
-                                <Col sm="6" className="mt-2">
-                                    <Card body>
-                                        <CardTitle className="text-success">{category.title}</CardTitle>
-                                        <CardText>{category.description}</CardText>
-                                        <Button>Edit</Button>
-                                    </Card>
-                                </Col>
-                            ))}
+                                {categories.allcategories && categories.allcategories.map(category => (
+                                    <Col sm="6" className="mt-2" key={category.title}>
+                                        <Card body>
+                                            <CardTitle className="text-success">{category.title}</CardTitle>
+                                            <CardText>{category.description}</CardText>
+                                            <Button>Edit</Button>
+                                        </Card>
+                                    </Col>
+                                ))}
                             </Row>
 
                         </TabPane>
