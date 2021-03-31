@@ -3,24 +3,13 @@ import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, N
 // import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-// import { login } from '../../redux/auth/auth.actions';
+import { editCategory, updateCategory } from '../../redux/categories/categories.actions';
 // import { clearErrors } from '../../redux/error/error.actions'
 
-class CreateCategory extends Component {
-
-    //properties of the modal
-    state = {
-        name: '',
-        description: ''
-    }
-
-    componentDidUpdate(prevProps) {
-
-    }
+class EditCategory extends Component {
 
     //showing and hiding modal
     toggle = () => {
-
         this.setState({
             modal: !this.state.modal
         });
@@ -36,13 +25,13 @@ class CreateCategory extends Component {
         const { name, description } = this.state;
 
         // Create new Category object
-        const newCategory = {
+        const updatedCategory = {
             name,
             description
         };
 
-        // Attempt to create
-        this.props.createCategory(newCategory);
+        // Attempt to update
+        this.props.updateCategory(updatedCategory);
     }
 
     render() {
@@ -83,7 +72,7 @@ class CreateCategory extends Component {
     }
 }
 
-CreateCategory.propTypes = {
+EditCategory.propTypes = {
     // isAuthenticated: PropTypes.bool,
     // error: PropTypes.object,
     // login: PropTypes.func.isRequired,
@@ -96,6 +85,4 @@ const mapStateToProps = state => ({
     // error: state.errorReducer
 });
 
-export default connect(
-    mapStateToProps,
-    {})(CreateCategory);
+export default connect(mapStateToProps, {editCategory, updateCategory} )(EditCategory);
