@@ -80,7 +80,7 @@ router.post('/register', async (req, res) => {
     const token = jwt.sign(
       { id: savedUser._id },
       config.get('jwtSecret'),
-      { expiresIn: "10h" }
+      { expiresIn: 36000000 }
     );
 
     res.status(200).json({
