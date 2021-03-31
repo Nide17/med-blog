@@ -71,7 +71,7 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
 
                             <Row>
                                 {subscribedUsers && subscribedUsers.map(subscribedUser => (
-                                    <Col sm="3" key={subscribedUser.title} className="mt-3">
+                                    <Col sm="3" key={subscribedUser._id} className="mt-3">
                                         <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
                                             <CardTitle tag="p">{subscribedUser.name.split(' ').slice(0, 2).join(' ')}</CardTitle>
                                             <CardText>
@@ -91,7 +91,7 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
 
                             <Row>
                                 {categories.allcategories && categories.allcategories.map(category => (
-                                    <Col sm="6" className="mt-2" key={category.title}>
+                                    <Col sm="6" className="mt-2" key={category._id}>
                                         <Card body>
                                             <CardTitle className="text-success">{category.title}</CardTitle>
                                             <CardText>{category.description}</CardText>
