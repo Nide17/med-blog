@@ -11,12 +11,9 @@ class CreateCategory extends Component {
 
     //properties of the modal
     state = {
+        modal: false,
         name: '',
         description: ''
-    }
-
-    componentDidUpdate(prevProps) {
-
     }
 
     //showing and hiding modal
@@ -44,6 +41,9 @@ class CreateCategory extends Component {
 
         // Attempt to create
         this.props.createCategory(newCategory);
+        if (this.state.modal) {
+                this.toggle();
+        }
     }
 
     render() {
@@ -99,4 +99,4 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {createCategory})(CreateCategory);
+    { createCategory })(CreateCategory);

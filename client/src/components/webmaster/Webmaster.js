@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { setSubscribers } from '../../redux/posts/posts.actions'
 import { setCategories } from '../../redux/categories/categories.actions'
 import CreateCategory from './CreateCategory';
+import EditCategory from './EditCategory';
 
 const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCategories }) => {
 
@@ -52,7 +53,7 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                             <NavLink
                                 className={classnames({ active: activeTab === '1' })}
                                 onClick={() => { toggle('1'); }}>
-                                Subscribers
+                                Categories
                             </NavLink>
                         </NavItem>
 
@@ -60,14 +61,33 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                             <NavLink
                                 className={classnames({ active: activeTab === '2' })}
                                 onClick={() => { toggle('2'); }}>
-                                Categories
+                                Subscribers
                             </NavLink>
                         </NavItem>
 
                     </Nav>
 
                     <TabContent activeTab={activeTab}>
+
                         <TabPane tabId="1">
+
+                            <Row>
+                                {categories.allcategories && categories.allcategories.map(category => (
+                                    <Col sm="6" className="mt-2" key={category._id}>
+                                        <Card body>
+                                            <CardTitle className="text-success">{category.title}</CardTitle>
+                                            <CardText>{category.description}</CardText>
+                                            <Button>
+                                                <EditCategory idToUpdate={category._id} editTitle={category.title} editingCategory={category.description} />
+                                            </Button>
+                                        </Card>
+                                    </Col>
+                                ))}
+                            </Row>
+
+                        </TabPane>
+
+                        <TabPane tabId="2">
 
                             <Row>
                                 {subscribedUsers && subscribedUsers.map(subscribedUser => (
@@ -80,22 +100,6 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                                             <Button>
                                                 <small><i>On {subscribedUser.subscription_date.split('T').slice(0, 2).join(' at ')}</i></small>
                                             </Button>
-                                        </Card>
-                                    </Col>
-                                ))}
-                            </Row>
-
-                        </TabPane>
-
-                        <TabPane tabId="2">
-
-                            <Row>
-                                {categories.allcategories && categories.allcategories.map(category => (
-                                    <Col sm="6" className="mt-2" key={category._id}>
-                                        <Card body>
-                                            <CardTitle className="text-success">{category.title}</CardTitle>
-                                            <CardText>{category.description}</CardText>
-                                            <Button>Edit</Button>
                                         </Card>
                                     </Col>
                                 ))}

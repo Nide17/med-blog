@@ -3,10 +3,26 @@ import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, N
 // import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { editCategory, updateCategory } from '../../redux/categories/categories.actions';
+import { updateCategory } from '../../redux/categories/categories.actions';
 // import { clearErrors } from '../../redux/error/error.actions'
 
 class EditCategory extends Component {
+
+    state = {
+        modal: false,
+        idToUpdate: this.props.idToUpdate,
+        name: this.props.editTitle,
+        description: this.props.editingCategory
+    }
+
+    componentDidUpdate() {
+        // If Authenticated, Close modal
+        if (this.state.modal) {
+            if (this.props.isAuthenticated) {
+                this.toggle();
+            }
+        }
+    }
 
     //showing and hiding modal
     toggle = () => {
@@ -22,10 +38,11 @@ class EditCategory extends Component {
     onSubmitHandler = e => {
         e.preventDefault();
 
-        const { name, description } = this.state;
+        const { idToUpdate, name, description } = this.state;
 
         // Create new Category object
         const updatedCategory = {
+            idToUpdate,
             name,
             description
         };
@@ -37,7 +54,7 @@ class EditCategory extends Component {
     render() {
         return (
             <div>
-                <NavLink onClick={this.toggle} className="text-success p-0"><b>+</b> Create Category</NavLink>
+                <NavLink onClick={this.toggle} className="text-white p-0">Edit</NavLink>
 
                 <Modal
                     // Set it to the state of modal true or false
@@ -55,12 +72,14 @@ class EditCategory extends Component {
                             <FormGroup>
 
                                 <Label for="name">Title</Label>
-                                <Input type="text" name="name" id="name" placeholder="Category name ..." className="mb-3" onChange={this.onChangeHandler} />
+                                <Input type="text" name="name" id="name" placeholder="Category name ..." className="mb-3" onChange={this.onChangeHandler} value={this.state.name} />
 
                                 <Label for="description">Description</Label>
-                                <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={this.onChangeHandler} />
+                                <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={this.onChangeHandler} value={this.state.description} />
 
-                                <Button color="success" style={{ marginTop: '2rem' }} block >Create</Button>
+                                <Button color="success" style={{ marginTop: '2rem' }} block>
+                                    Create
+                                </Button>
 
                             </FormGroup>
 
@@ -85,4 +104,4 @@ const mapStateToProps = state => ({
     // error: state.errorReducer
 });
 
-export default connect(mapStateToProps, {editCategory, updateCategory} )(EditCategory);
+export default connect(mapStateToProps, { updateCategory })(EditCategory);

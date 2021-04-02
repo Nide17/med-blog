@@ -21,8 +21,6 @@ export const loadUser = () => (dispatch, getState) => {
         type: AUTH_ERROR
       })
     });
-    console.log(getState());
-
 }
 
 // Register User

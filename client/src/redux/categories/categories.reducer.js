@@ -1,4 +1,4 @@
-import { SET_CATEGORIES, CREATE_CATEGORY, CREATE_CATEGORY_FAIL, DELETE_CATEGORY, DELETE_CATEGORY_FAIL,UPDATE_CATEGORY, UPDATE_CATEGORY_FAIL } from "./categories.types";
+import { SET_CATEGORIES, CREATE_CATEGORY, CREATE_CATEGORY_FAIL, DELETE_CATEGORY, DELETE_CATEGORY_FAIL, UPDATE_CATEGORY, UPDATE_CATEGORY_FAIL } from "./categories.types";
 
 const INITIAL_STATE = {
   allcategories: []
@@ -14,11 +14,11 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
         allcategories: action.payload
       };
 
-      case CREATE_CATEGORY:
-        return {
-            ...state,
-            allcategories: [ ...state.allcategories, action.payload, ({msg: "Success!"}) ]
-        };
+    case CREATE_CATEGORY:
+      return {
+        ...state,
+        allcategories: [...state.allcategories, action.payload, ({ msg: "Success!" })]
+      };
 
     case CREATE_CATEGORY_FAIL:
     case DELETE_CATEGORY_FAIL:
@@ -28,22 +28,26 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
         msg: "Failed!"
       };
 
-      case DELETE_CATEGORY:
-        return {
-          ...state,
-          allcategories: state.allcategories.filter(catg => catg.id !== action.payload)
+    case DELETE_CATEGORY:
+      return {
+        ...state,
+        allcategories: state.allcategories.filter(catg => catg._id !== action.payload)
       }
 
-      case UPDATE_CATEGORY:
-        return state.allcategories.map((catg)=>{
-          if(catg.id === action.payload.id) {
-            return {
-               ...catg,
-               title:action.payload.title,
-               description:action.payload.description
-            }
-          } else return catg;
-        })
+    case UPDATE_CATEGORY:
+      return state.allcategories.map((catg) => {
+
+        if (catg._id === action.payload.idToUpdate) {
+
+          return {
+            allcategories: [...state.allcategories, action.payload],
+            ...catg,
+            title: action.payload.name,
+            description: action.payload.description
+          }
+
+        } else return catg;
+      })
 
 
     default:

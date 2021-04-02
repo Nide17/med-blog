@@ -77,7 +77,7 @@ export const updateCategory = updatedCatg => async dispatch => {
   try {
 
     if (window.confirm("Update this?")) {
-      await axios.update(`/api/categories/${updatedCatg.id}`)
+      await axios.put(`/api/categories/${updatedCatg.idToUpdate}`)
       dispatch({
         type: UPDATE_CATEGORY,
         payload: updatedCatg
