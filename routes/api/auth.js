@@ -32,7 +32,7 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign(
       { id: user._id },
       config.get('jwtSecret'),
-      { expiresIn: '1h' }
+      { expiresIn: '24h' }
     );
 
     if (!token) throw Error('Couldnt sign the token');
@@ -59,7 +59,7 @@ router.post('/register', async (req, res) => {
 
   // Simple validation
   if (!name || !email || !password) {
-    return res.status(400).json({ msg: 'Please enter all fields' });
+    return res.status(400).json({ msg: 'Please fill all fields' });
   }
 
   try {
@@ -86,7 +86,7 @@ router.post('/register', async (req, res) => {
     const token = jwt.sign(
       { id: savedUser._id },
       config.get('jwtSecret'),
-      { expiresIn: '1h' }
+      { expiresIn: '24h' }
     );
 
     res.status(200).json({

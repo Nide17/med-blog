@@ -89,8 +89,8 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                                                 <div className="actions ml-3">
 
                                                     {/* Flaticons */}
-                                                    <Button size="sm" color="link" className="mx-2">
-                                                        <img src={AddIcon} alt="" width="10" height="10" /><strong> New quiz</strong>
+                                                    <Button size="sm" outline color="info" className="mx-2">
+                                                        <img src={AddIcon} alt="" width="10" height="10" /><strong>&nbsp;&nbsp;New quiz</strong>
                                                     </Button>
 
                                                     <Button size="sm" color="link" className="mx-2">
