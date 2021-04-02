@@ -17,7 +17,7 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
     case CREATE_CATEGORY:
       return {
         ...state,
-        allcategories: [...state.allcategories, action.payload, ({ msg: "Success!" })]
+        allcategories: [...state.allcategories, action.payload]
       };
 
     case CREATE_CATEGORY_FAIL:
@@ -27,12 +27,6 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
         ...state,
         msg: "Failed!"
       };
-
-    case DELETE_CATEGORY:
-      return {
-        ...state,
-        allcategories: state.allcategories.filter(catg => catg._id !== action.payload)
-      }
 
     case UPDATE_CATEGORY:
       return {
@@ -50,6 +44,13 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
           } else return catg;
         })
       }
+
+      case DELETE_CATEGORY:
+        return {
+          ...state,
+          allcategories: state.allcategories.filter(catg => catg._id !== action.payload)
+        }
+  
 
     default:
       return state;

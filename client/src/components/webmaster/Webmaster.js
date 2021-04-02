@@ -4,12 +4,13 @@ import classnames from 'classnames';
 
 import { connect } from 'react-redux'
 import { setSubscribers } from '../../redux/posts/posts.actions'
-import { setCategories } from '../../redux/categories/categories.actions'
+import { setCategories, deleteCategory } from '../../redux/categories/categories.actions'
 import CreateCategory from './CreateCategory';
 import EditCategory from './EditCategory';
 import DeleteIcon from '../../images/remove.svg';
+import AddIcon from '../../images/plus.svg';
 
-const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCategories }) => {
+const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCategories, deleteCategory }) => {
 
     // Lifecycle methods
     useEffect(() => {
@@ -31,11 +32,11 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                 <Row className="m-4 d-flex justify-content-between align-items-center text-primary">
                     <Toast>
                         <ToastHeader>
-                            <strong>{auth.user.name}</strong>
+                            <strong>Welcome to your webmaster page</strong>
                         </ToastHeader>
 
                         <ToastBody>
-                            Welcome to your webmaster page
+                            Here you can add, edit and remove features!
                         </ToastBody>
                     </Toast>
 
@@ -48,76 +49,90 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                 </Row>
 
                 <Row className="m-4">
-                    <Nav tabs>
+                    <Col sm="12">
 
-                        <NavItem>
-                            <NavLink
-                                className={classnames({ active: activeTab === '1' })}
-                                onClick={() => { toggle('1'); }}>
-                                Categories
+                        <Nav tabs>
+
+                            <NavItem>
+                                <NavLink
+                                    className={classnames({ active: activeTab === '1' })}
+                                    onClick={() => { toggle('1'); }}>
+                                    Categories
                             </NavLink>
-                        </NavItem>
+                            </NavItem>
 
-                        <NavItem>
-                            <NavLink
-                                className={classnames({ active: activeTab === '2' })}
-                                onClick={() => { toggle('2'); }}>
-                                Subscribers
+                            <NavItem>
+                                <NavLink
+                                    className={classnames({ active: activeTab === '2' })}
+                                    onClick={() => { toggle('2'); }}>
+                                    Subscribers
                             </NavLink>
-                        </NavItem>
+                            </NavItem>
 
-                    </Nav>
+                        </Nav>
+                    </Col>
 
-                    <TabContent activeTab={activeTab}>
+                    <Col sm="12">
 
-                        <TabPane tabId="1">
+                        <TabContent activeTab={activeTab}>
 
-                            <Row>
-                                {categories.allcategories && categories.allcategories.map(category => (
-                                    <Col sm="6" className="mt-2" key={category._id}>
+                            <TabPane tabId="1">
 
-                                        <Card body>
-                                            <CardTitle className="text-success">{category.title}</CardTitle>
-                                            <CardText>{category.description}</CardText>
+                                <Row>
+                                    {categories.allcategories && categories.allcategories.map(category => (
+                                        <Col sm="6" className="mt-2" key={category._id}>
 
-                                            <div className="actions ml-3">
+                                            <Card body>
+                                                <CardTitle className="text-success">{category.title}</CardTitle>
+                                                <CardText>{category.description}</CardText>
 
-                                                {/* Flaticons */}
-                                                <Button size="sm" color="link" className="mx-2">
-                                                    <EditCategory idToUpdate={category._id} editTitle={category.title} editingCategory={category.description} />
+                                                <div className="actions ml-3">
+
+                                                    {/* Flaticons */}
+                                                    <Button size="sm" color="link" className="mx-2">
+                                                        <EditCategory idToUpdate={category._id} editTitle={category.title} editingCategory={category.description} />
+                                                    </Button>
+
+                                                    <Button size="sm" color="link" className="mx-2" onClick={() => deleteCategory(category._id)}>
+                                                        <img src={DeleteIcon} alt="" width="16" height="16" />
+                                                    </Button>
+
+                                                    <Button size="sm" color="link" className="mx-2">
+                                                        <img src={AddIcon} alt="" width="10" height="10" /><strong> New quiz</strong>
+                                                    </Button>
+
+                                                </div>
+                                            </Card>
+                                        </Col>
+                                    ))}
+                                </Row>
+
+                            </TabPane>
+
+                            <TabPane tabId="2">
+
+                                <Row>
+                                    {subscribedUsers && subscribedUsers.map(subscribedUser => (
+                                        <Col sm="3" key={subscribedUser.email} className="mt-3">
+
+                                            <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+                                                <CardTitle tag="p">{subscribedUser.name.split(' ').slice(0, 2).join(' ')}</CardTitle>
+                                                <CardText>
+                                                    <small>Email: {subscribedUser.email}</small>
+                                                </CardText>
+                                                <Button>
+                                                    <small><i>On {subscribedUser.subscription_date.split('T').slice(0, 2).join(' at ')}</i></small>
                                                 </Button>
-                                                <Button size="sm" color="link" className="mx-2">
-                                                    <img src={DeleteIcon} alt="" width="16" height="16"/>
-                                                </Button>
-                                            </div>
-                                        </Card>
-                                    </Col>
-                                ))}
-                            </Row>
+                                            </Card>
 
-                        </TabPane>
+                                        </Col>
+                                    ))}
+                                </Row>
 
-                        <TabPane tabId="2">
+                            </TabPane>
 
-                            <Row>
-                                {subscribedUsers && subscribedUsers.map(subscribedUser => (
-                                    <Col sm="3" key={subscribedUser._id} className="mt-3">
-                                        <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
-                                            <CardTitle tag="p">{subscribedUser.name.split(' ').slice(0, 2).join(' ')}</CardTitle>
-                                            <CardText>
-                                                <small>Email: {subscribedUser.email}</small>
-                                            </CardText>
-                                            <Button>
-                                                <small><i>On {subscribedUser.subscription_date.split('T').slice(0, 2).join(' at ')}</i></small>
-                                            </Button>
-                                        </Card>
-                                    </Col>
-                                ))}
-                            </Row>
-
-                        </TabPane>
-
-                    </TabContent>
+                        </TabContent>
+                    </Col>
                 </Row>
             </> :
 
@@ -131,4 +146,4 @@ const mapStateToProps = state => ({
     categories: state.categoriesReducer
 })
 
-export default connect(mapStateToProps, { setSubscribers, setCategories })(Webmaster)
+export default connect(mapStateToProps, { setSubscribers, setCategories, deleteCategory })(Webmaster)

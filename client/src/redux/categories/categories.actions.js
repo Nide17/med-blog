@@ -47,29 +47,6 @@ export const createCategory = (newCategory) => async (dispatch) => {
   }
 };
 
-// Delete a category
-export const deleteCategory = id => async dispatch => {
-
-  try {
-
-    if (window.confirm("This category will be deleted permanently!")) {
-      await axios.delete(`/api/categories/${id}`)
-      dispatch({
-        type: DELETE_CATEGORY,
-        payload: id
-      })
-    }
-
-  } catch (error) {
-    dispatch(
-      returnErrors(error.response.data, error.response.status, 'DELETE_CATEGORY_FAIL')
-    );
-
-    dispatch({
-      type: DELETE_CATEGORY_FAIL
-    });
-  }
-}
 
 // Update a category
 export const updateCategory = updatedCatg => async dispatch => {
@@ -91,6 +68,31 @@ export const updateCategory = updatedCatg => async dispatch => {
 
     dispatch({
       type: UPDATE_CATEGORY_FAIL
+    });
+  }
+}
+
+
+// Delete a category
+export const deleteCategory = id => async dispatch => {
+
+  try {
+
+    if (window.confirm("This category will be deleted permanently!")) {
+      await axios.delete(`/api/categories/${id}`)
+      dispatch({
+        type: DELETE_CATEGORY,
+        payload: id
+      })
+    }
+
+  } catch (error) {
+    dispatch(
+      returnErrors(error.response.data, error.response.status, 'DELETE_CATEGORY_FAIL')
+    );
+
+    dispatch({
+      type: DELETE_CATEGORY_FAIL
     });
   }
 }

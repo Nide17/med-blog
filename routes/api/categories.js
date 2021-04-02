@@ -50,14 +50,12 @@ router.post('/', async (req, res) => {
         if (!savedCategory) throw Error('Something went wrong during creation!');
 
         res.status(200).json({
-            category: {
                 id: savedCategory._id,
                 title: savedCategory.title,
                 description: savedCategory.description,
                 quizes: savedCategory.quizes,
                 created_by: savedCategory.created_by
-            }
-        });
+            });
 
     } catch (err) {
         res.status(400).json({ msg: err.message });
@@ -100,12 +98,13 @@ router.delete('/:id', async (req, res) => {
 
         if (!removedCategory)
             throw Error('Something went wrong while deleting!');
-        res.status(200).json({ success: true });
+
+        res.status(200).json({ msg: "Deleted successfully!" });
 
     } catch (error) {
         res.status(400).json({
-            msg: error.message,
-            success: false
+            success: false,
+            msg: error.message
         });
     }
 
