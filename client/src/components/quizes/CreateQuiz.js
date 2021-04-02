@@ -88,7 +88,6 @@ const CreateQuiz = ({ auth, categories, addQuestion, setCategories }) => {
                             (<h3 key={category._id} className="text-center mb-4">
                             <strong>{category.title} Quiz</strong>
                             </h3>) : ''
-
                     )
                 }
 

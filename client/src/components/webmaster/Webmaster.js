@@ -84,7 +84,7 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                                         <Col sm="6" className="mt-2" key={category._id}>
 
                                             <Card body>
-                                                <CardTitle className="text-success">{category.title}</CardTitle>
+                                                <CardTitle className="text-success">{category.title} Quizes (number)</CardTitle>
                                                 <CardText>{category.description}</CardText>
 
                                                 <div className="actions ml-3">
