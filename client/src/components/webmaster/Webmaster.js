@@ -90,7 +90,7 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                                                 <div className="actions ml-3">
 
                                                     {/* Flaticons */}
-                                                    <Link to={`/create/${category._id}`}>
+                                                    <Link to={`/create-quiz/${category._id}`}>
                                                         <Button size="sm" outline color="info" className="mx-2">
                                                             <img src={AddIcon} alt="" width="10" height="10" /><strong>&nbsp;&nbsp;New quiz</strong>
                                                         </Button>
