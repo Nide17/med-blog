@@ -136,7 +136,7 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                 </Row>
             </> :
 
-            <h1 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Access denied! Login first</h1>
+            <h3 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Access denied! Login first</h3>
     )
 }
 

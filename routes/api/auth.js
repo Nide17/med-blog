@@ -28,6 +28,7 @@ router.post('/login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) throw Error('Invalid credentials');
 
+    // Sign and generate token
     const token = jwt.sign(
       { id: user._id },
       config.get('jwtSecret'),
@@ -81,7 +82,7 @@ router.post('/register', async (req, res) => {
     const savedUser = await newUser.save();
     if (!savedUser) throw Error('Something went wrong saving the user');
 
-    // Sign
+    // Sign and generate token
     const token = jwt.sign(
       { id: savedUser._id },
       config.get('jwtSecret'),

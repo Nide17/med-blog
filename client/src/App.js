@@ -6,7 +6,6 @@ import Posts from './components/posts/Posts';
 import Contact from './components/Contact';
 import About from './components/About';
 import Placeholder from './components/placeholder/Placeholder';
-import Webmaster from './components/webmaster/Webmaster';
 
 // REDUX
 import { Provider } from 'react-redux'
@@ -17,6 +16,7 @@ import Create from './components/questions/Create';
 import { loadUser } from './redux/auth/auth.actions'
 
 const Questions = lazy(() => import('./components/questions/Questions'));
+const Webmaster = lazy(() => import('./components/webmaster/Webmaster'));
 
 const App = () => {
 
@@ -48,7 +48,15 @@ const App = () => {
                     <Route path="/faqs" component={Placeholder} />
                     <Route path="/disclaimer" component={Placeholder} />
                     <Route path="/privacy" component={Placeholder} />
-                    <Route path="/webmaster" component={Webmaster} />
+
+                    <Route exact path="/webmaster">
+                        <Suspense fallback={<div className="p-5 m-5 d-flex justify-content-center align-items-center">
+                            <Spinner style={{ width: '10rem', height: '10rem' }} />{' '}
+                        </div>}>
+                            <Webmaster />
+                        </Suspense>
+                    </Route>
+
                     <Route path="/questions" component={Placeholder} />
                     <Route path="/tips" component={Placeholder} />
                 </Switch>
