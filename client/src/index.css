@@ -137,6 +137,10 @@ div.question-section {
     animation-duration: 3s;
 }
 
+.master-btns a.text-success:hover {
+    color: #ffffff!important;
+}
+
 @keyframes answer {
     from {
         opacity: 0;

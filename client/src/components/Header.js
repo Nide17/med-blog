@@ -46,7 +46,7 @@ const Header = (props) => {
     const blinkBtn = (location.pathname === '/questions' || location.pathname === '/create') ? '' :
         <>
             <Link to="/questions" className="text-white blink_me mt-1 mx-1">Quiz</Link>
-            {isAuthenticated ? <Link to="/create" className="text-warning ml-2 mt-1">Create Quiz</Link> : null}
+            {isAuthenticated ? <Link to="/webmaster" className="text-warning ml-2 mt-1">Create Quiz</Link> : null}
         </>
 
     return (

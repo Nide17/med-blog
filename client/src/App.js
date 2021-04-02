@@ -40,7 +40,7 @@ const App = () => {
                         </Suspense>
                     </Route>
 
-                    <Route exact path="/create" component={Create} />
+                    <Route exact path="/create/:categoryId" component={Create} />
                     <Route path="/contact" component={Contact} />
                     <Route path="/about" component={About} />
                     <Route path="/ourself" component={Placeholder} />

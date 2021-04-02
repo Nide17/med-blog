@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Card, Button, CardTitle, CardText, Toast, ToastBody, ToastHeader, TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
+import { Link } from "react-router-dom";
 
 import { connect } from 'react-redux'
 import { setSubscribers } from '../../redux/posts/posts.actions'
@@ -89,9 +90,11 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                                                 <div className="actions ml-3">
 
                                                     {/* Flaticons */}
-                                                    <Button size="sm" outline color="info" className="mx-2">
-                                                        <img src={AddIcon} alt="" width="10" height="10" /><strong>&nbsp;&nbsp;New quiz</strong>
-                                                    </Button>
+                                                    <Link to={`/create/${category._id}`}>
+                                                        <Button size="sm" outline color="info" className="mx-2">
+                                                            <img src={AddIcon} alt="" width="10" height="10" /><strong>&nbsp;&nbsp;New quiz</strong>
+                                                        </Button>
+                                                    </Link>
 
                                                     <Button size="sm" color="link" className="mx-2">
                                                         <EditCategory idToUpdate={category._id} editTitle={category.title} editingCategory={category.description} />
