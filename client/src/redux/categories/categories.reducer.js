@@ -35,20 +35,21 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
       }
 
     case UPDATE_CATEGORY:
-      return state.allcategories.map((catg) => {
+      return {
+        ...state,
+        allcategories: state.allcategories.map((catg) => {
 
-        if (catg._id === action.payload.idToUpdate) {
+          if (catg._id === action.payload.idToUpdate) {
 
-          return {
-            allcategories: [...state.allcategories, action.payload],
-            ...catg,
-            title: action.payload.name,
-            description: action.payload.description
-          }
+            return {
+              ...catg,
+              title: action.payload.name,
+              description: action.payload.description
+            }
 
-        } else return catg;
-      })
-
+          } else return catg;
+        })
+      }
 
     default:
       return state;

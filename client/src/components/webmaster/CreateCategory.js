@@ -41,8 +41,10 @@ class CreateCategory extends Component {
 
         // Attempt to create
         this.props.createCategory(newCategory);
+
+        // close the modal
         if (this.state.modal) {
-                this.toggle();
+            this.toggle();
         }
     }
 

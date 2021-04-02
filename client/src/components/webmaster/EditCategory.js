@@ -49,6 +49,11 @@ class EditCategory extends Component {
 
         // Attempt to update
         this.props.updateCategory(updatedCategory);
+
+        // close the modal
+        if (this.state.modal) {
+            this.toggle();
+        }
     }
 
     render() {
@@ -78,7 +83,7 @@ class EditCategory extends Component {
                                 <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={this.onChangeHandler} value={this.state.description} />
 
                                 <Button color="success" style={{ marginTop: '2rem' }} block>
-                                    Create
+                                    Update
                                 </Button>
 
                             </FormGroup>
