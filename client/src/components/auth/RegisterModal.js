@@ -77,7 +77,7 @@ class RegisterModal extends Component {
                     isOpen={this.state.modal}
                     toggle={this.toggle}>
 
-                    <ModalHeader toggle={this.toggle}>Register</ModalHeader>
+                    <ModalHeader toggle={this.toggle} className="bg-primary text-white">Register</ModalHeader>
                     <ModalBody>
 
                         {this.state.msg ? (

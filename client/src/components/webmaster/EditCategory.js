@@ -4,6 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, N
 
 import { connect } from 'react-redux';
 import { updateCategory } from '../../redux/categories/categories.actions';
+import EditIcon from '../../images/edit.svg';
 // import { clearErrors } from '../../redux/error/error.actions'
 
 class EditCategory extends Component {
@@ -59,14 +60,16 @@ class EditCategory extends Component {
     render() {
         return (
             <div>
-                <NavLink onClick={this.toggle} className="text-white p-0">Edit</NavLink>
+                <NavLink onClick={this.toggle} className="text-dark p-0">
+                    <img src={EditIcon} alt="" width="16" height="16" />
+                </NavLink>
 
                 <Modal
                     // Set it to the state of modal true or false
                     isOpen={this.state.modal}
                     toggle={this.toggle}>
 
-                    <ModalHeader toggle={this.toggle}>Create Category</ModalHeader>
+                    <ModalHeader toggle={this.toggle} className="bg-primary text-white">Edit Category</ModalHeader>
 
                     <ModalBody>
 
@@ -76,10 +79,16 @@ class EditCategory extends Component {
 
                             <FormGroup>
 
-                                <Label for="name">Title</Label>
+                                <Label for="name">
+                                <strong>Title</strong>
+                                </Label>
+
                                 <Input type="text" name="name" id="name" placeholder="Category name ..." className="mb-3" onChange={this.onChangeHandler} value={this.state.name} />
 
-                                <Label for="description">Description</Label>
+                                <Label for="description">
+                                <strong>Description</strong>
+                                </Label>
+                                
                                 <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={this.onChangeHandler} value={this.state.description} />
 
                                 <Button color="success" style={{ marginTop: '2rem' }} block>

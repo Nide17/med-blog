@@ -58,7 +58,9 @@ class CreateCategory extends Component {
                     isOpen={this.state.modal}
                     toggle={this.toggle}>
 
-                    <ModalHeader toggle={this.toggle}>Create Category</ModalHeader>
+                    <ModalHeader toggle={this.toggle} className="bg-primary text-white">
+                        Create Category
+                    </ModalHeader>
 
                     <ModalBody>
 
@@ -68,10 +70,16 @@ class CreateCategory extends Component {
 
                             <FormGroup>
 
-                                <Label for="name">Title</Label>
+                                <Label for="name">
+                                    <strong>Title</strong>
+                                </Label>
+
                                 <Input type="text" name="name" id="name" placeholder="Category name ..." className="mb-3" onChange={this.onChangeHandler} />
 
-                                <Label for="description">Description</Label>
+                                <Label for="description">
+                                    <strong>Description</strong>
+                                </Label>
+
                                 <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={this.onChangeHandler} />
 
                                 <Button color="success" style={{ marginTop: '2rem' }} block >Create</Button>

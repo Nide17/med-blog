@@ -7,6 +7,7 @@ import { setSubscribers } from '../../redux/posts/posts.actions'
 import { setCategories } from '../../redux/categories/categories.actions'
 import CreateCategory from './CreateCategory';
 import EditCategory from './EditCategory';
+import DeleteIcon from '../../images/remove.svg';
 
 const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCategories }) => {
 
@@ -74,12 +75,21 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                             <Row>
                                 {categories.allcategories && categories.allcategories.map(category => (
                                     <Col sm="6" className="mt-2" key={category._id}>
+
                                         <Card body>
                                             <CardTitle className="text-success">{category.title}</CardTitle>
                                             <CardText>{category.description}</CardText>
-                                            <Button>
-                                                <EditCategory idToUpdate={category._id} editTitle={category.title} editingCategory={category.description} />
-                                            </Button>
+
+                                            <div className="actions ml-3">
+
+                                                {/* Flaticons */}
+                                                <Button size="sm" color="link" className="mx-2">
+                                                    <EditCategory idToUpdate={category._id} editTitle={category.title} editingCategory={category.description} />
+                                                </Button>
+                                                <Button size="sm" color="link" className="mx-2">
+                                                    <img src={DeleteIcon} alt="" width="16" height="16"/>
+                                                </Button>
+                                            </div>
                                         </Card>
                                     </Col>
                                 ))}

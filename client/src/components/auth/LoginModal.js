@@ -76,7 +76,7 @@ class LoginModal extends Component {
                     isOpen={this.state.modal}
                     toggle={this.toggle}>
 
-                    <ModalHeader toggle={this.toggle}>Login</ModalHeader>
+                    <ModalHeader toggle={this.toggle} className="bg-primary text-white">Login</ModalHeader>
                     <ModalBody>
 
                         {this.state.msg ? (

@@ -1,6 +1,6 @@
 body {
     background-color: #f3f3f2 !important;
-    font-family: "Montserrat", Tahoma, sans-serif!important;
+    font-family: "Montserrat", Tahoma, sans-serif !important;
 }
 
 div#root {
@@ -33,8 +33,13 @@ div.main {
 }
 
 nav.bg-primary,
+.modal-header.bg-primary,
 button.btn-primary {
     background-color: #157A6E !important;
+}
+
+.modal-header .close {
+    color: red;
 }
 
 nav .collapse .navbar-text {
@@ -125,16 +130,22 @@ a.blink_me:hover {
     background-color: #157A6E !important;
 }
 
-div.answer, div.question-section {
+div.answer,
+div.question-section {
     opacity: 1;
     animation-name: answer;
     animation-duration: 3s;
 }
 
 @keyframes answer {
-    from {opacity: 0;}
-    to {opacity: 1}
-  }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1
+    }
+}
 
 @keyframes blinker {
     50% {
@@ -147,6 +158,7 @@ div.answer, div.question-section {
         transition: none;
     }
 }
+
 @media(max-width: 767px) {
 
     div .jumbotron {
@@ -206,7 +218,7 @@ div.answer, div.question-section {
     }
 
     nav .collapse .logout {
-        display: block!important;
+        display: block !important;
     }
 
 }
