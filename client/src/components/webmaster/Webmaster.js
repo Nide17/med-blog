@@ -90,15 +90,15 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
 
                                                     {/* Flaticons */}
                                                     <Button size="sm" color="link" className="mx-2">
+                                                        <img src={AddIcon} alt="" width="10" height="10" /><strong> New quiz</strong>
+                                                    </Button>
+
+                                                    <Button size="sm" color="link" className="mx-2">
                                                         <EditCategory idToUpdate={category._id} editTitle={category.title} editingCategory={category.description} />
                                                     </Button>
 
                                                     <Button size="sm" color="link" className="mx-2" onClick={() => deleteCategory(category._id)}>
                                                         <img src={DeleteIcon} alt="" width="16" height="16" />
-                                                    </Button>
-
-                                                    <Button size="sm" color="link" className="mx-2">
-                                                        <img src={AddIcon} alt="" width="10" height="10" /><strong> New quiz</strong>
                                                     </Button>
 
                                                 </div>
