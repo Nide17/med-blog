@@ -28,6 +28,10 @@ const CategorySchema = new Schema({
   created_by: {
     type: Schema.Types.ObjectId,
     ref: 'user'
+  },
+  last_updated_by: {
+    type: Schema.Types.ObjectId,
+    ref: 'user'
   }
 });
 

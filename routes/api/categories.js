@@ -70,9 +70,8 @@ router.put('/:id', async (req, res) => {
 
     try {
         //Find the Category by id
-        const category = await Category.findByIdAndUpdate(req.params.id, req.body)
+        const category = await Category.findByIdAndUpdate( { _id: req.params.id }, req.body, { new: true })
         const updatedCategory = await category.save();
-        console.log(updatedCategory)
         res.status(200).json(updatedCategory);
 
     } catch (error) {

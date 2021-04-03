@@ -38,7 +38,8 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
             return {
               ...catg,
               title: action.payload.name,
-              description: action.payload.description
+              description: action.payload.description,
+              last_updated_by: action.payload.last_updated_by,
             }
 
           } else return catg;

@@ -13,17 +13,17 @@ class EditCategory extends Component {
         modal: false,
         idToUpdate: this.props.idToUpdate,
         name: this.props.editTitle,
-        description: this.props.editingCategory
+        description: this.props.editingCategory,
     }
 
-    componentDidUpdate() {
-        // If Authenticated, Close modal
-        if (this.state.modal) {
-            if (this.props.isAuthenticated) {
-                this.toggle();
-            }
-        }
-    }
+    // componentDidUpdate() {
+    //     // If Authenticated, Close modal
+    //     if (this.state.modal) {
+    //         if (this.props.isAuthenticated) {
+    //             this.toggle();
+    //         }
+    //     }
+    // }
 
     //showing and hiding modal
     toggle = () => {
@@ -45,7 +45,8 @@ class EditCategory extends Component {
         const updatedCategory = {
             idToUpdate,
             name,
-            description
+            description,
+            last_updated_by: this.props.auth.isLoading === false ? this.props.auth.user._id : null
         };
 
         // Attempt to update
@@ -114,6 +115,7 @@ EditCategory.propTypes = {
 
 // Map  state props
 const mapStateToProps = state => ({
+    auth: state.authReducer,
     // isAuthenticated: state.authReducer.isAuthenticated,
     // error: state.errorReducer
 });

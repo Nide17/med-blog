@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink } from 'reactstrap';
 // import PropTypes from 'prop-types';
 
@@ -7,91 +7,87 @@ import { createCategory } from '../../redux/categories/categories.actions';
 // import { login } from '../../redux/auth/auth.actions';
 // import { clearErrors } from '../../redux/error/error.actions'
 
-class CreateCategory extends Component {
+const CreateCategory = ({ auth, createCategory }) => {
 
-    //properties of the modal
-    state = {
-        modal: false,
+    const [categoryState, setCategoryState] = useState({
         name: '',
         description: ''
-    }
+    })
+
+    //properties of the modal
+    const [modal, setModal] = useState(false)
 
     //showing and hiding modal
-    toggle = () => {
+    const toggle = () => setModal(!modal);
 
-        this.setState({
-            modal: !this.state.modal
-        });
+    const onChangeHandler = e => {
+        setCategoryState({ ...categoryState, [e.target.name]: e.target.value });
     };
 
-    onChangeHandler = e => {
-        this.setState({ [e.target.name]: e.target.value });
-    };
-
-    onSubmitHandler = e => {
+    const onSubmitHandler = e => {
         e.preventDefault();
 
-        const { name, description } = this.state;
+        const { name, description } = categoryState;
 
         // Create new Category object
         const newCategory = {
             title: name,
-            description
+            description,
+            created_by: auth.isLoading === false ? auth.user._id : null
         };
 
         // Attempt to create
-        this.props.createCategory(newCategory);
+        createCategory(newCategory);
 
         // close the modal
-        if (this.state.modal) {
-            this.toggle();
+        if (modal) {
+            toggle();
         }
     }
 
-    render() {
-        return (
-            <div>
-                <NavLink onClick={this.toggle} className="text-success p-0"><b>+</b> Create Category</NavLink>
+    return (
+        <div>
+            <NavLink onClick={toggle} className="text-success p-0"><b>+</b> Create Category</NavLink>
 
-                <Modal
-                    // Set it to the state of modal true or false
-                    isOpen={this.state.modal}
-                    toggle={this.toggle}>
+            <Modal
+                // Set it to the state of modal true or false
+                isOpen={modal}
+                toggle={toggle}
+            >
 
-                    <ModalHeader toggle={this.toggle} className="bg-primary text-white">
-                        Create Category
+                <ModalHeader toggle={toggle} className="bg-primary text-white">
+                    Create Category
                     </ModalHeader>
 
-                    <ModalBody>
+                <ModalBody>
 
-                        {/* {this.state.msg ? (
-                            <Alert color='danger'>{this.state.msg}</Alert>) : null} */}
-                        <Form onSubmit={this.onSubmitHandler}>
+                    {/* {state.msg ? (
+                            <Alert color='danger'>{state.msg}</Alert>) : null} */}
+                    <Form onSubmit={onSubmitHandler}>
 
-                            <FormGroup>
+                        <FormGroup>
 
-                                <Label for="name">
-                                    <strong>Title</strong>
-                                </Label>
+                            <Label for="name">
+                                <strong>Title</strong>
+                            </Label>
 
-                                <Input type="text" name="name" id="name" placeholder="Category name ..." className="mb-3" onChange={this.onChangeHandler} />
+                            <Input type="text" name="name" id="name" placeholder="Category name ..." className="mb-3" onChange={onChangeHandler} />
 
-                                <Label for="description">
-                                    <strong>Description</strong>
-                                </Label>
+                            <Label for="description">
+                                <strong>Description</strong>
+                            </Label>
 
-                                <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={this.onChangeHandler} />
+                            <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={onChangeHandler} />
 
-                                <Button color="success" style={{ marginTop: '2rem' }} block >Create</Button>
+                            <Button color="success" style={{ marginTop: '2rem' }} block >Create</Button>
 
-                            </FormGroup>
+                        </FormGroup>
 
-                        </Form>
-                    </ModalBody>
-                </Modal>
-            </div>
-        );
-    }
+                    </Form>
+                </ModalBody>
+            </Modal>
+        </div>
+    );
 }
 
 CreateCategory.propTypes = {
@@ -103,7 +99,7 @@ CreateCategory.propTypes = {
 
 // Map  state props
 const mapStateToProps = state => ({
-    // isAuthenticated: state.authReducer.isAuthenticated,
+    auth: state.authReducer,
     // error: state.errorReducer
 });
 
