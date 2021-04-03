@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink } from 'reactstrap';
 // import PropTypes from 'prop-types';
 
@@ -7,103 +7,90 @@ import { updateCategory } from '../../redux/categories/categories.actions';
 import EditIcon from '../../images/edit.svg';
 // import { clearErrors } from '../../redux/error/error.actions'
 
-class EditCategory extends Component {
+const EditCategory = ({ idToUpdate, editTitle, editingCategory, auth, updateCategory }) => {
 
-    state = {
-        modal: false,
-        idToUpdate: this.props.idToUpdate,
-        name: this.props.editTitle,
-        description: this.props.editingCategory,
-    }
+    const [categoryState, setCategoryState] = useState({
+        idToUpdate,
+        name: editTitle,
+        description: editingCategory,
+    })
 
-    // componentDidUpdate() {
-    //     // If Authenticated, Close modal
-    //     if (this.state.modal) {
-    //         if (this.props.isAuthenticated) {
-    //             this.toggle();
-    //         }
-    //     }
-    // }
+    //properties of the modal
+    const [modal, setModal] = useState(false)
 
     //showing and hiding modal
-    toggle = () => {
-        this.setState({
-            modal: !this.state.modal
-        });
+    const toggle = () => setModal(!modal);
+
+    const onChangeHandler = e => {
+        setCategoryState({ ...categoryState, [e.target.name]: e.target.value });
     };
 
-    onChangeHandler = e => {
-        this.setState({ [e.target.name]: e.target.value });
-    };
-
-    onSubmitHandler = e => {
+    const onSubmitHandler = e => {
         e.preventDefault();
 
-        const { idToUpdate, name, description } = this.state;
+        const { idToUpdate, name, description } = categoryState;
 
         // Create new Category object
         const updatedCategory = {
             idToUpdate,
-            name,
+            title: name,
             description,
-            last_updated_by: this.props.auth.isLoading === false ? this.props.auth.user._id : null
+            last_updated_by: auth.isLoading === false ? auth.user._id : null
         };
 
         // Attempt to update
-        this.props.updateCategory(updatedCategory);
+        updateCategory(updatedCategory);
 
         // close the modal
-        if (this.state.modal) {
-            this.toggle();
+        if (modal) {
+            toggle();
         }
     }
+    return (
+        <div>
+            <NavLink onClick={toggle} className="text-dark p-0">
+                <img src={EditIcon} alt="" width="16" height="16" />
+            </NavLink>
 
-    render() {
-        return (
-            <div>
-                <NavLink onClick={this.toggle} className="text-dark p-0">
-                    <img src={EditIcon} alt="" width="16" height="16" />
-                </NavLink>
+            <Modal
+                // Set it to the state of modal true or false
+                isOpen={modal}
+                toggle={toggle}
+            >
 
-                <Modal
-                    // Set it to the state of modal true or false
-                    isOpen={this.state.modal}
-                    toggle={this.toggle}>
+                <ModalHeader toggle={toggle} className="bg-primary text-white">Edit Category</ModalHeader>
 
-                    <ModalHeader toggle={this.toggle} className="bg-primary text-white">Edit Category</ModalHeader>
+                <ModalBody>
 
-                    <ModalBody>
+                    {/* {state.msg ? (
+                            <Alert color='danger'>{state.msg}</Alert>) : null} */}
+                    <Form onSubmit={onSubmitHandler}>
 
-                        {/* {this.state.msg ? (
-                            <Alert color='danger'>{this.state.msg}</Alert>) : null} */}
-                        <Form onSubmit={this.onSubmitHandler}>
+                        <FormGroup>
 
-                            <FormGroup>
-
-                                <Label for="name">
+                            <Label for="name">
                                 <strong>Title</strong>
-                                </Label>
+                            </Label>
 
-                                <Input type="text" name="name" id="name" placeholder="Category name ..." className="mb-3" onChange={this.onChangeHandler} value={this.state.name} />
+                            <Input type="text" name="name" id="name" placeholder="Category name ..." className="mb-3" onChange={onChangeHandler} value={categoryState.name} />
 
-                                <Label for="description">
+                            <Label for="description">
                                 <strong>Description</strong>
-                                </Label>
-                                
-                                <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={this.onChangeHandler} value={this.state.description} />
+                            </Label>
 
-                                <Button color="success" style={{ marginTop: '2rem' }} block>
-                                    Update
+                            <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={onChangeHandler} value={categoryState.description} />
+
+                            <Button color="success" style={{ marginTop: '2rem' }} block>
+                                Update
                                 </Button>
 
-                            </FormGroup>
+                        </FormGroup>
 
-                        </Form>
-                    </ModalBody>
-                </Modal>
-            </div>
-        );
-    }
+                    </Form>
+                </ModalBody>
+            </Modal>
+        </div>
+    );
 }
 
 EditCategory.propTypes = {

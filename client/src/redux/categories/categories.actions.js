@@ -53,13 +53,13 @@ export const updateCategory = updatedCatg => async dispatch => {
 
   try {
 
-    if (window.confirm("Update this?")) {
-      await axios.put(`/api/categories/${updatedCatg.idToUpdate}`)
+      await axios
+      .put(`/api/categories/${updatedCatg.idToUpdate}`, updatedCatg)
       dispatch({
         type: UPDATE_CATEGORY,
         payload: updatedCatg
       })
-    }
+      console.log(JSON.stringify(updatedCatg));
 
   } catch (error) {
     dispatch(
