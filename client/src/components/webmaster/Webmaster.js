@@ -3,9 +3,9 @@ import { Row, Col, Button, Toast, ToastBody, ToastHeader, TabContent, Nav, NavIt
 import classnames from 'classnames';
 import { connect } from 'react-redux'
 
-import CreateCategory from './CreateCategory';
-import CategoriesTabPane from './CategoriesTabPane';
-import QuizesTabPane from './QuizesTabPane';
+import CreateCategory from '../categories/CreateCategory';
+import CategoriesTabPane from '../categories/CategoriesTabPane';
+import QuizesTabPane from '../quizes/QuizesTabPane';
 import SubscribersTabPane from './SubscribersTabPane';
 
 

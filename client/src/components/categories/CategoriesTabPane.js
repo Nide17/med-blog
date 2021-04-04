@@ -26,7 +26,7 @@ const CategoriesTabPane = ({categories, setCategories, deleteCategory }) => {
                         <Card body>
 
                             <CardTitle>
-                                <Link to={`/quiz/${category._id}`} className="text-success">
+                                <Link to={`/category/${category._id}`} className="text-success">
                                     {category.title} Quizes ({category.quizes.length})
                             </Link>
                             </CardTitle>

@@ -14,7 +14,7 @@ import Footer from './components/footer/Footer';
 import Create from './components/questions/Create';
 
 import { loadUser } from './redux/auth/auth.actions'
-import CreateQuiz from './components/quizes/CreateQuiz';
+import SingleCategory from './components/categories/SingleCategory';
 
 const Questions = lazy(() => import('./components/questions/Questions'));
 const Webmaster = lazy(() => import('./components/webmaster/Webmaster'));
@@ -41,7 +41,7 @@ const App = () => {
                         </Suspense>
                     </Route>
 
-                    <Route exact path="/create-quiz/:categoryId" component={CreateQuiz} />
+                    <Route exact path="/category/:categoryId" component={SingleCategory} />
                     <Route exact path="/create" component={Create} />
                     <Route path="/contact" component={Contact} />
                     <Route path="/about" component={About} />
