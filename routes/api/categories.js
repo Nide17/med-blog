@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
         const categories = await Category.find()
             //sort categories by creation_date
             .sort({ creation_date: -1 })
+            .populate('quiz')
 
         if (!categories) throw Error('No categories found');
 

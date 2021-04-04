@@ -91,9 +91,9 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
 
                                                     {/* Flaticons */}
                                                     {/* <Link to={`/create-quiz/${category._id}`}> */}
-                                                        <Button size="sm" outline color="info" className="mx-2">
-                                                            <strong><AddQuiz category={category} /></strong>
-                                                        </Button>
+                                                    <Button size="sm" outline color="info" className="mx-2">
+                                                        <strong><AddQuiz category={category} /></strong>
+                                                    </Button>
 
                                                     <Button size="sm" color="link" className="mx-2">
                                                         <EditCategory idToUpdate={category._id} editTitle={category.title} editingCategory={category.description} />

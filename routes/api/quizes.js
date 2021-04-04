@@ -3,6 +3,7 @@ const router = express.Router();
 
 // Quiz Model
 const Quiz = require('../../models/Quiz');
+const Category = require('../../models/Category');
 
 
 // @route   GET /api/quizes
@@ -14,6 +15,7 @@ router.get('/', async (req, res) => {
         const quizes = await Quiz.find()
             //sort quizes by creation_date
             .sort({ creation_date: -1 })
+        .populate('category')
 
         if (!quizes) throw Error('No quizes found');
 
@@ -48,6 +50,13 @@ router.post('/', async (req, res) => {
         });
 
         const savedQuiz = await newQuiz.save();
+
+        // Update the Category on Quiz creation
+        await Category.updateOne(
+            { "_id": category },
+            { $push: { "quizes": savedQuiz._id } }
+        );
+
         if (!savedQuiz) throw Error('Something went wrong during creation!');
 
         res.status(200).json({

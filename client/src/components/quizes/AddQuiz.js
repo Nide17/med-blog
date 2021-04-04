@@ -43,7 +43,7 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
             toggle();
         }
         // Reload the page after Quiz addition
-        // window.location.reload();
+        window.location.reload();
     }
 
     return (
