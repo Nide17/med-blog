@@ -59,7 +59,6 @@ export const updateCategory = updatedCatg => async dispatch => {
         type: UPDATE_CATEGORY,
         payload: updatedCatg
       })
-      console.log(JSON.stringify(updatedCatg));
 
   } catch (error) {
     dispatch(

@@ -7,9 +7,9 @@ import { connect } from 'react-redux'
 import { setSubscribers } from '../../redux/posts/posts.actions'
 import { setCategories, deleteCategory } from '../../redux/categories/categories.actions'
 import CreateCategory from './CreateCategory';
+import AddQuiz from '../quizes/AddQuiz';
 import EditCategory from './EditCategory';
 import DeleteIcon from '../../images/remove.svg';
-import AddIcon from '../../images/plus.svg';
 
 const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCategories, deleteCategory }) => {
 
@@ -90,11 +90,10 @@ const Webmaster = ({ auth, subscribedUsers, setSubscribers, categories, setCateg
                                                 <div className="actions ml-3">
 
                                                     {/* Flaticons */}
-                                                    <Link to={`/create-quiz/${category._id}`}>
+                                                    {/* <Link to={`/create-quiz/${category._id}`}> */}
                                                         <Button size="sm" outline color="info" className="mx-2">
-                                                            <img src={AddIcon} alt="" width="10" height="10" /><strong>&nbsp;&nbsp;New quiz</strong>
+                                                            <strong><AddQuiz category={category} /></strong>
                                                         </Button>
-                                                    </Link>
 
                                                     <Button size="sm" color="link" className="mx-2">
                                                         <EditCategory idToUpdate={category._id} editTitle={category.title} editingCategory={category.description} />

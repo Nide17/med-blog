@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink } from 'reactstrap';
-// import PropTypes from 'prop-types';
+import AddIcon from '../../images/plus.svg';
 
 import { connect } from 'react-redux';
-import { createCategory } from '../../redux/categories/categories.actions';
-// import { login } from '../../redux/auth/auth.actions';
-// import { clearErrors } from '../../redux/error/error.actions'
+// import { createQuiz } from '../../redux/categories/categories.actions';
 
-const CreateCategory = ({ auth, createCategory }) => {
+const AddQuiz = ({ auth, createQuiz, category }) => {
 
-    const [categoryState, setCategoryState] = useState({
+    const [quizState, setQuizState] = useState({
         name: '',
         description: ''
     })
@@ -21,35 +19,38 @@ const CreateCategory = ({ auth, createCategory }) => {
     const toggle = () => setModal(!modal);
 
     const onChangeHandler = e => {
-        setCategoryState({ ...categoryState, [e.target.name]: e.target.value });
+        setQuizState({ ...quizState, [e.target.name]: e.target.value });
     };
 
     const onSubmitHandler = e => {
         e.preventDefault();
 
-        const { name, description } = categoryState;
+        const { name, description } = quizState;
 
-        // Create new Category object
-        const newCategory = {
+        // Create new Quiz object
+        const newQuiz = {
             title: name,
             description,
             created_by: auth.isLoading === false ? auth.user._id : null
         };
 
         // Attempt to create
-        createCategory(newCategory);
+        createQuiz(newQuiz);
 
         // close the modal
         if (modal) {
             toggle();
         }
-        // Reload the page after category addition
+        // Reload the page after Quiz addition
         window.location.reload();
     }
 
     return (
         <div>
-            <NavLink onClick={toggle} className="text-success p-0"><b>+</b> Create Category</NavLink>
+            <NavLink onClick={toggle} className="text-success p-0">
+            <img src={AddIcon} alt="" width="10" height="10" className="mb-1"/>
+            &nbsp;Add Quiz
+            </NavLink>
 
             <Modal
                 // Set it to the state of modal true or false
@@ -58,7 +59,7 @@ const CreateCategory = ({ auth, createCategory }) => {
             >
 
                 <ModalHeader toggle={toggle} className="bg-primary text-white">
-                    Create Category
+                    Add {category.title} Quiz
                     </ModalHeader>
 
                 <ModalBody>
@@ -73,15 +74,15 @@ const CreateCategory = ({ auth, createCategory }) => {
                                 <strong>Title</strong>
                             </Label>
 
-                            <Input type="text" name="name" id="name" placeholder="Category name ..." className="mb-3" onChange={onChangeHandler} />
+                            <Input type="text" name="name" id="name" placeholder="Quiz name ..." className="mb-3" onChange={onChangeHandler} />
 
                             <Label for="description">
                                 <strong>Description</strong>
                             </Label>
 
-                            <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={onChangeHandler} />
+                            <Input type="text" name="description" id="description" placeholder="Quiz description ..." className="mb-3" onChange={onChangeHandler} />
 
-                            <Button color="success" style={{ marginTop: '2rem' }} block >Create</Button>
+                            <Button color="success" style={{ marginTop: '2rem' }} block >Add</Button>
 
                         </FormGroup>
 
@@ -92,19 +93,12 @@ const CreateCategory = ({ auth, createCategory }) => {
     );
 }
 
-CreateCategory.propTypes = {
-    // isAuthenticated: PropTypes.bool,
-    // error: PropTypes.object,
-    // login: PropTypes.func.isRequired,
-    // clearErrors: PropTypes.func.isRequired,
-}
 
 // Map  state props
 const mapStateToProps = state => ({
-    auth: state.authReducer,
-    // error: state.errorReducer
+    auth: state.authReducer
 });
 
 export default connect(
     mapStateToProps,
-    { createCategory })(CreateCategory);
+    {  })(AddQuiz);
