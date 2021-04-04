@@ -31,6 +31,7 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
         const newQuiz = {
             title: name,
             description,
+            category:category._id,
             created_by: auth.isLoading === false ? auth.user._id : null
         };
 
@@ -42,7 +43,7 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
             toggle();
         }
         // Reload the page after Quiz addition
-        window.location.reload();
+        // window.location.reload();
     }
 
     return (
@@ -92,7 +93,6 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
         </div>
     );
 }
-
 
 // Map  state props
 const mapStateToProps = state => ({
