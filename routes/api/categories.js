@@ -84,8 +84,7 @@ router.put('/:id', async (req, res) => {
 // @route DELETE api/categories/:id
 // @route delete a Category
 // @route Private
-
-//:id placeholder, findId=we get it from the parameter in url
+//:id placeholder, findById = we get it from the parameter in url
 router.delete('/:id', async (req, res) => {
 
     try {

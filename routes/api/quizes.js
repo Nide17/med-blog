@@ -1,37 +1,39 @@
 const express = require("express");
-// const config = require('config')
 const router = express.Router();
-// const auth = require('../../middleware/auth');
 
 // Quiz Model
 const Quiz = require('../../models/Quiz');
 
-// @route   GET /api/quizes/quiz
+
+// @route   GET /api/quizes
 // @desc    Get quizes
 // @access  Needs to be private
+router.get('/', async (req, res) => {
 
-router.get('/quiz', (req, res) => {
+    try {
+        const quizes = await Quiz.find()
+            //sort quizes by creation_date
+            .sort({ creation_date: -1 })
 
-    //find Method to find in the quizes in db
-    Quiz.find()
+        if (!quizes) throw Error('No quizes found');
 
-        //sort quizes by date desc(-1)
-        .sort({ date: -1 })
-
-        //return a promise
-        .then(quizes => res.json(quizes));
+        res.status(200).json(quizes);
+    } catch (err) {
+        res.status(400).json({ msg: err.message })
+    }
 });
 
-// @route   POST /api/quizes/quiz
-// @desc    Create quiz
-// @access  Public
 
-router.post('/quiz', async (req, res) => {
-    const { title, description, category, questions, created_by } = req.body;
+// @route   POST /api/quizes
+// @desc    Create quiz
+// @access  Have to be private
+router.post('/', async (req, res) => {
+
+    const { title, description, category, created_by } = req.body;
 
     // Simple validation
-    if (!title || !description) {
-        return res.status(400).json({ msg: 'Please fill all fields' });
+    if (!title || !description || !category) {
+        return res.status(400).json({ msg: 'There are missing info!' });
     }
 
     try {
@@ -42,7 +44,6 @@ router.post('/quiz', async (req, res) => {
             title,
             description,
             category,
-            questions,
             created_by
         });
 
@@ -50,18 +51,60 @@ router.post('/quiz', async (req, res) => {
         if (!savedQuiz) throw Error('Something went wrong during creation!');
 
         res.status(200).json({
-            quiz: {
-                id: savedQuiz._id,
-                title: savedQuiz.title,
-                description: savedQuiz.description,
-                category: savedQuiz.category,
-                questions: savedQuiz.questions,
-                created_by: savedQuiz.created_by
-            }
+            id: savedQuiz._id,
+            title: savedQuiz.title,
+            description: savedQuiz.description,
+            category: savedQuiz.category,
+            created_by: savedQuiz.created_by
         });
 
-    } catch (e) {
-        res.status(400).json({ msg: e.message });
+    } catch (err) {
+        res.status(400).json({ msg: err.message });
+    }
+});
+
+
+// @route PUT api/quizes/:id
+// @route UPDATE one Quiz
+// @route Private
+router.put('/:id', async (req, res) => {
+
+    try {
+        //Find the Quiz by id
+        const updatedQuiz = await Quiz.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
+        res.status(200).json(updatedQuiz);
+
+    } catch (error) {
+        res.status(400).json({
+            msg: 'Failed to update! ' + error.message,
+            success: false
+        });
+    }
+});
+
+
+// @route DELETE api/quizes/:id
+// @route delete a Quiz
+// @route Private
+//:id placeholder, findById = we get it from the parameter in url
+router.delete('/:id', async (req, res) => {
+
+    try {
+        const quiz = await Quiz.findById(req.params.id);
+        if (!quiz) throw Error('Quiz is not found!')
+
+        const removedQuiz = await quiz.remove();
+
+        if (!removedQuiz)
+            throw Error('Something went wrong while deleting!');
+
+        res.status(200).json({ msg: "Deleted successfully!" });
+
+    } catch (err) {
+        res.status(400).json({
+            success: false,
+            msg: err.message
+        });
     }
 });
 

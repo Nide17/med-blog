@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Card, Button, CardTitle, CardText, Toast, ToastBody, ToastHeader, TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import { connect } from 'react-redux'
 import { setSubscribers } from '../../redux/posts/posts.actions'
