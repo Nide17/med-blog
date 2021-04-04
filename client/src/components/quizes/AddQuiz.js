@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, N
 import AddIcon from '../../images/plus.svg';
 
 import { connect } from 'react-redux';
-// import { createQuiz } from '../../redux/categories/categories.actions';
+import { createQuiz } from '../../redux/quizes/quizes.actions';
 
 const AddQuiz = ({ auth, createQuiz, category }) => {
 
@@ -101,4 +101,4 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    {  })(AddQuiz);
+    { createQuiz })(AddQuiz);
