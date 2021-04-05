@@ -27,9 +27,25 @@ const QuestionSchema = new Schema({
         ]
     },
 
-    date: {
+    creation_date: {
         type: Date,
         default: Date.now
+    },
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: 'category'
+      },
+    quiz: {
+        type: Schema.Types.ObjectId,
+        ref: 'quiz'
+    },
+    created_by: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    },
+    last_updated_by: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
     }
 });
 

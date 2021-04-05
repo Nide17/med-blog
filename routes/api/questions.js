@@ -16,8 +16,8 @@ router.get('/', (req, res) => {
   //find Method to find in the questions in db
   Question.find()
 
-    //sort questions by date desc(-1)
-    .sort({ date: -1 })
+    //sort questions by creation_date desc(-1)
+    .sort({ creation_date: -1 })
 
     //return a promise
     .then(questions => res.json(questions));
@@ -27,9 +27,9 @@ router.get('/', (req, res) => {
 // POST ENDPOINT //
 // @route POST api/questions
 // @route Create a Question
-// @route Public
+// @route Private
 
-router.post("/", auth, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     let newQuestion = await Question.findOne({ questionText: req.body.questionText });
 
@@ -56,7 +56,7 @@ router.post("/", auth, async (req, res) => {
 // @route Private
 
 //:id placeholder, findId=we get it from the parameter in url
-router.get('/:id', auth, (req, res) => {
+router.get('/:id', (req, res) => {
 
   //Find the Question by id
   Question.findById(req.params.id)
