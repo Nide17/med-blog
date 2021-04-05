@@ -5,8 +5,10 @@ import { Button, Col, Form, FormGroup, Label, Input, CustomInput } from 'reactst
 import { connect } from 'react-redux';
 import { addQuestion } from '../../redux/questions/questions.actions';
 import { setCategories } from '../../redux/categories/categories.actions'
+import { setQuizes } from '../../redux/quizes/quizes.actions'
+import { setQuestions } from '../../redux/questions/questions.actions'
 
-const CreateQuiz = ({ auth, categories, addQuestion, setCategories }) => {
+const CreateQuestions = ({ auth, categories, addQuestion, setCategories, setQuizes, setQuestions }) => {
 
     const [questionText, setQuestionText] = useState({
         questionText: '',
@@ -20,7 +22,9 @@ const CreateQuiz = ({ auth, categories, addQuestion, setCategories }) => {
     // Lifecycle methods
     useEffect(() => {
         setCategories();
-    }, [setCategories]);
+        setQuizes();
+        setQuestions();
+    }, [setCategories, setQuizes, setQuestions]);
 
     const onQuestionChangeHandler = e => {
         const { name, value } = e.target
@@ -86,7 +90,7 @@ const CreateQuiz = ({ auth, categories, addQuestion, setCategories }) => {
                     categories.allcategories && categories.allcategories.map(category =>
                         category._id === categoryId ?
                             (<h3 key={category._id} className="text-center mb-4">
-                            <strong>{category.title} Quiz</strong>
+                                <strong>{category.title} Quiz</strong>
                             </h3>) : ''
                     )
                 }
@@ -133,7 +137,7 @@ const CreateQuiz = ({ auth, categories, addQuestion, setCategories }) => {
                 </FormGroup>
 
             </Form> :
-            <h3 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Access denied! Login first</h3>
+            <h3 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Login Again</h3>
     )
 }
 
@@ -141,9 +145,10 @@ const CreateQuiz = ({ auth, categories, addQuestion, setCategories }) => {
 const mapStateToProps = state => ({
     question: state.questionsReducer,
     auth: state.authReducer,
-    categories: state.categoriesReducer
+    categories: state.categoriesReducer,
+    allQuizes: state.quizesReducer.allQuizes
 });
 
 export default connect(
     mapStateToProps,
-    { addQuestion, setCategories })(CreateQuiz);
+    { addQuestion, setCategories, setQuizes, setQuestions })(CreateQuestions);

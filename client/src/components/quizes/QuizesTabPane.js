@@ -2,13 +2,15 @@ import React, { useEffect } from 'react'
 import { Row, Col, Toast, ToastBody, ToastHeader, TabPane } from 'reactstrap';
 import { connect } from 'react-redux'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
+import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
 
-const QuizesTabPane = ({ allQuizes, setQuizes }) => {
+const QuizesTabPane = ({ allQuizes, setQuizes, setQuestions, questionsData }) => {
 
     // Lifecycle methods
     useEffect(() => {
         setQuizes();
-    }, [setQuizes]);
+        setQuestions();
+    }, [setQuizes, setQuestions]);
 
     return (
 
@@ -23,6 +25,20 @@ const QuizesTabPane = ({ allQuizes, setQuizes }) => {
 
                             <ToastBody>
                                 {quiz.description}
+                                <br />
+                                <br />
+                                <p className="font-weight-bold">Questions</p>
+
+                                {questionsData && questionsData.map(q =>
+
+                                    q.quiz === quiz._id ?
+                                        <ol>
+                                            <li className="">{q.questionText}</li>
+                                        </ol> :
+                                        null
+
+                                )}
+
                             </ToastBody>
                         </Toast>
 
@@ -35,7 +51,8 @@ const QuizesTabPane = ({ allQuizes, setQuizes }) => {
 }
 
 const mapStateToProps = state => ({
-    allQuizes: state.quizesReducer.allQuizes
+    allQuizes: state.quizesReducer.allQuizes,
+    questionsData: state.questionsReducer.questionsData
 })
 
-export default connect(mapStateToProps, { setQuizes })(QuizesTabPane)
+export default connect(mapStateToProps, { setQuizes, setQuestions, setQuestionsLoading })(QuizesTabPane)
