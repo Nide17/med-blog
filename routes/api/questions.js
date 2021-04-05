@@ -11,18 +11,22 @@ const Question = require('../../models/Question');
 // @route Public
 
 //we use router. instead of app. and / because we are already in this dir
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
 
-  //find Method to find in the questions in db
-  Question.find()
+  try {
+    const questions = await Question.find()
+      //sort questions by creation_date
+      .sort({ creation_date: -1 })
+      .populate('category')
+      .populate('quiz')
 
-    //sort questions by creation_date desc(-1)
-    .sort({ creation_date: -1 })
+    if (!questions) throw Error('No questions found');
 
-    //return a promise
-    .then(questions => res.json(questions));
+    res.status(200).json(questions);
+  } catch (err) {
+    res.status(400).json({ msg: err.message })
+  }
 });
-
 
 // POST ENDPOINT //
 // @route POST api/questions
@@ -40,6 +44,13 @@ router.post("/", async (req, res) => {
     const result = await Question.create(req.body);
     res.send(result);
 
+    // Update the Quiz on Question creation
+    await Quiz.updateOne(
+      { "_id": req.body.quiz },
+      { $push: { "questions": result._id } }
+    );
+
+
   } catch (err) {
     console.log(err);
 
@@ -54,34 +65,52 @@ router.post("/", async (req, res) => {
 // @route GET api/questions/:id
 // @route GET one Question
 // @route Private
-
 //:id placeholder, findId=we get it from the parameter in url
-router.get('/:id', (req, res) => {
 
-  //Find the Question by id
-  Question.findById(req.params.id)
+router.get('/:id', async (req, res) => {
+  try {
+    //Find the question by id
+    await Question.findById(req.params.id, (err, question) => {
+      res.status(200).json(question);
+    })
+      // Use the name of the schema path instead of the collection name
+      .populate('category')
+      .populate('quiz')
 
-    //return a promise
-    .then(question => res.json(question))
-    // if id not exist or if error
-    .catch(err => res.status(404).json({ success: false }));
+  } catch (err) {
+    res.status(400).json({
+      msg: 'Failed to retrieve! ' + err.message,
+      success: false
+    });
+  }
+
 });
-
 
 // @route DELETE api/questions
 // @route delete a Question
 // @route Private
 
 //:id placeholder, findId=we get it from the parameter in url
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
 
-  //Find the Question to delete by id first
-  Question.findById(req.params.id)
+  try {
+    //Find the Question to delete by id first
+    const question = await Question.findById(req.params.id);
+    if (!question) throw Error('Question is not found!')
 
-    //returns promise 
-    .then(question => question.remove().then(() => res.json({ success: true })))
-    // if id not exist or if error
-    .catch(err => res.status(404).json({ success: false }));
+    const removedQuestion = await question.remove();
+
+    if (!removedQuestion)
+      throw Error('Something went wrong while deleting!');
+
+    res.status(200).json({ msg: "Deleted successfully!" });
+
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      msg: err.message
+    });
+  }
 });
 
 module.exports = router;

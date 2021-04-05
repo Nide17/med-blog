@@ -8,7 +8,7 @@ import { setCategories } from '../../redux/categories/categories.actions'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setQuestions } from '../../redux/questions/questions.actions'
 
-const CreateQuestions = ({ auth, categories, addQuestion, setCategories, setQuizes, setQuestions }) => {
+const CreateQuestions = ({ auth, categories, allQuizes, addQuestion, setCategories, setQuizes, setQuestions }) => {
 
     const [questionText, setQuestionText] = useState({
         questionText: '',
@@ -58,9 +58,15 @@ const CreateQuestions = ({ auth, categories, addQuestion, setCategories, setQuiz
             return
         }
 
+        const catID = allQuizes && allQuizes.map(quiz =>
+            quiz._id === quizId ? quiz.category._id : null)
+
         const newQuestion = {
             questionText: questionText.questionText,
-            answerOptions
+            answerOptions,
+            category: catID[0],
+            quiz: quizId,
+            created_by: auth.isLoading === false ? auth.user._id : null
         }
         addQuestion(newQuestion);
 
@@ -80,17 +86,17 @@ const CreateQuestions = ({ auth, categories, addQuestion, setCategories, setQuiz
     }
 
     // Access route parameters
-    const { categoryId } = useParams()
+    const { quizId } = useParams()
 
     return (
         auth.isAuthenticated ?
             <Form className="mt-5 mx-5" onSubmit={handleSubmit}>
 
                 {
-                    categories.allcategories && categories.allcategories.map(category =>
-                        category._id === categoryId ?
-                            (<h3 key={category._id} className="text-center mb-4">
-                                <strong>{category.title} Quiz</strong>
+                    allQuizes && allQuizes.map(quiz =>
+                        quiz._id === quizId ?
+                            (<h3 key={quiz._id} className="text-center mb-4">
+                                <strong>{quiz.title} questions</strong>
                             </h3>) : ''
                     )
                 }

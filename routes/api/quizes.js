@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
             //sort quizes by creation_date
             .sort({ creation_date: -1 })
             .populate('category')
+            .populate('questions')
 
         if (!quizes) throw Error('No quizes found');
 

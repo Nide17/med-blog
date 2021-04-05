@@ -32,7 +32,7 @@ const QuizesTabPane = ({ allQuizes, setQuizes, setQuestions, questionsData }) =>
                                 {questionsData && questionsData.map(q =>
 
                                     q.quiz === quiz._id ?
-                                        <ol>
+                                        <ol key="q._id">
                                             <li className="">{q.questionText}</li>
                                         </ol> :
                                         null

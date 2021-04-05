@@ -45,7 +45,9 @@ const SingleCategory = ({ auth, setCategories, allcategories }) => {
 
                                             </ToastHeader>
                                             <ToastBody>
-                                                <p>{quiz.description}</p>
+                                                <p>{quiz.description}</p> <br />
+
+                                                <p className="text-dark">Number of questions: {quiz.questions.length}</p>
                                                 <small>Created on {quiz.creation_date.split('T').slice(0, 1)}</small>
                                             </ToastBody>
                                         </Toast>
