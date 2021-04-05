@@ -14,6 +14,10 @@ router.get('/', async (req, res) => {
             //sort categories by creation_date
             .sort({ creation_date: -1 })
             .populate('quiz')
+        // .exec(function (err, category) {
+        //     if (err) throw Error(err);
+        //     console.log('quizes are %s', category.quiz.length);
+        // })
 
         if (!categories) throw Error('No categories found');
 
@@ -22,6 +26,26 @@ router.get('/', async (req, res) => {
     } catch (err) {
         res.status(400).json({ msg: err.message })
     }
+});
+
+// @route   GET /api/categories/:id
+// @desc    Get one category
+// @access  Needs to be private
+router.get('/:id', async (req, res) => {
+
+    let id = req.params.id;
+    try {
+        //Find the Category by id
+        await Category.findById(id, function (err, category) {
+            res.status(200).json(category);
+        })
+    } catch (err) {
+        res.status(400).json({
+            msg: 'Failed to retrieve! ' + err.message,
+            success: false
+        });
+    }
+
 });
 
 // @route   POST /api/categories
@@ -51,12 +75,12 @@ router.post('/', async (req, res) => {
         if (!savedCategory) throw Error('Something went wrong during creation!');
 
         res.status(200).json({
-                id: savedCategory._id,
-                title: savedCategory.title,
-                description: savedCategory.description,
-                quizes: savedCategory.quizes,
-                created_by: savedCategory.created_by
-            });
+            id: savedCategory._id,
+            title: savedCategory.title,
+            description: savedCategory.description,
+            quizes: savedCategory.quizes,
+            created_by: savedCategory.created_by
+        });
 
     } catch (err) {
         res.status(400).json({ msg: err.message });
