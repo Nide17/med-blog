@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { setCategories } from '../../redux/categories/categories.actions'
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Toast, ToastBody, ToastHeader } from 'reactstrap';
 
 const SingleCategory = ({ auth, setCategories, allcategories }) => {
 
@@ -19,26 +19,37 @@ const SingleCategory = ({ auth, setCategories, allcategories }) => {
     return (
         auth.isAuthenticated ?
 
-            <Row>
+            <>
                 {allcategories && allcategories.map(category => (
 
                     (category._id === categoryId) ?
 
-                        <Col sm="6" className="mt-2" key={category._id}>
-                            <div className="mt-5 mx-5">
-                                <h1>
-                                    {category.title}
-                                </h1>
+                        <div className="mt-5 mx-5 text-center single-category" key={category._id}>
 
-                                <p>{category.description}</p>
-                                <small>Number of Quizes{category.quizes.length}</small>
-                            </div>
+                            <h1>{category.title}</h1>
+                            <small><i className="text-success">"{category.description}"</i></small>
 
-                        </Col> :
+                            <Row className="m-4 d-flex justify-content-between align-items-center text-primary">
+                            
+                            {category.quizes.map(quiz =>(
+                                <Col sm="4" className="mt-2" key={quiz._id}>
+                                    <Toast className="text-center">
+                                        <ToastHeader>
+                                            {quiz.title}
+                                        </ToastHeader>
+                                        <ToastBody>
+                                            <p>{quiz.description}</p>
+                                            <small>Created on {quiz.creation_date.split('T').slice(0, 1)}</small>
+                                        </ToastBody>
+                                    </Toast>
+                                </Col>))}
+
+                            </Row>
+                        </div> :
                         null
                 ))}
 
-            </Row> :
+            </> :
 
             <h3 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Access denied! Login first</h3>
     )

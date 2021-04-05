@@ -13,11 +13,7 @@ router.get('/', async (req, res) => {
         const categories = await Category.find()
             //sort categories by creation_date
             .sort({ creation_date: -1 })
-            .populate('quiz')
-        // .exec(function (err, category) {
-        //     if (err) throw Error(err);
-        //     console.log('quizes are %s', category.quiz.length);
-        // })
+            .populate('quizes')
 
         if (!categories) throw Error('No categories found');
 
