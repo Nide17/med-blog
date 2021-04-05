@@ -61,7 +61,7 @@ const Webmaster = ({ auth }) => {
                                     Quizes
                             </NavLink>
                             </NavItem>
-                            
+
                             <NavItem>
                                 <NavLink
                                     className={classnames({ active: activeTab === '3' })}
@@ -86,7 +86,7 @@ const Webmaster = ({ auth }) => {
                 </Row>
             </> :
 
-            <h3 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Access denied! Login first</h3>
+            <h6 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Login Again!</h6>
     )
 }
 
