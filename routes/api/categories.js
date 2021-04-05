@@ -36,9 +36,12 @@ router.get('/:id', async (req, res) => {
     let id = req.params.id;
     try {
         //Find the Category by id
-        await Category.findById(id, function (err, category) {
+        await Category.findById(id, (err, category) => {
             res.status(200).json(category);
         })
+        // Use the name of the schema path instead of the collection name
+        .populate('quizes')
+
     } catch (err) {
         res.status(400).json({
             msg: 'Failed to retrieve! ' + err.message,
