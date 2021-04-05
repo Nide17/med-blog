@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom'
+import { Row, Col, Button, Toast, ToastBody, ToastHeader } from 'reactstrap';
+import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { setCategories } from '../../redux/categories/categories.actions'
-import { Row, Col, Toast, ToastBody, ToastHeader } from 'reactstrap';
+import AddIcon from '../../images/plus.svg';
+
 
 const SingleCategory = ({ auth, setCategories, allcategories }) => {
 
@@ -10,8 +12,6 @@ const SingleCategory = ({ auth, setCategories, allcategories }) => {
     useEffect(() => {
         setCategories();
     }, [setCategories]);
-
-    console.log(allcategories);
 
     // Access route parameters
     const { categoryId } = useParams()
@@ -30,19 +30,26 @@ const SingleCategory = ({ auth, setCategories, allcategories }) => {
                             <small><i className="text-success">"{category.description}"</i></small>
 
                             <Row className="m-4 d-flex justify-content-between align-items-center text-primary">
-                            
-                            {category.quizes.map(quiz =>(
-                                <Col sm="4" className="mt-2" key={quiz._id}>
-                                    <Toast className="text-center">
-                                        <ToastHeader>
-                                            {quiz.title}
-                                        </ToastHeader>
-                                        <ToastBody>
-                                            <p>{quiz.description}</p>
-                                            <small>Created on {quiz.creation_date.split('T').slice(0, 1)}</small>
-                                        </ToastBody>
-                                    </Toast>
-                                </Col>))}
+
+                                {category.quizes.map(quiz => (
+                                    <Col sm="4" className="mt-2" key={quiz._id}>
+                                        <Toast className="text-center">
+                                            <ToastHeader className="d-flex justify-content-between">
+                                                {quiz.title}
+
+                                                <Link to={`/questions-create/${quiz._id}`} className="text-success">
+                                                    <Button size="sm" outline color="warning" className="ml-5 p-1">
+                                                        <img src={AddIcon} alt="" width="10" height="10" className="" />
+                                                    </Button>
+                                                </Link>
+
+                                            </ToastHeader>
+                                            <ToastBody>
+                                                <p>{quiz.description}</p>
+                                                <small>Created on {quiz.creation_date.split('T').slice(0, 1)}</small>
+                                            </ToastBody>
+                                        </Toast>
+                                    </Col>))}
 
                             </Row>
                         </div> :

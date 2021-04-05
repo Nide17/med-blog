@@ -12,6 +12,7 @@ import { Provider } from 'react-redux'
 import store from './redux/store'
 import Footer from './components/footer/Footer';
 import Create from './components/questions/Create';
+import CreateQuiz from './components/quizes/CreateQuiz';
 
 import { loadUser } from './redux/auth/auth.actions'
 import SingleCategory from './components/categories/SingleCategory';
@@ -42,6 +43,7 @@ const App = () => {
                     </Route>
 
                     <Route exact path="/category/:categoryId" component={SingleCategory} />
+                    <Route exact path="/questions-create/:id" component={CreateQuiz} />
                     <Route exact path="/create" component={Create} />
                     <Route path="/contact" component={Contact} />
                     <Route path="/about" component={About} />
