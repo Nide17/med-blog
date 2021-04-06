@@ -28,7 +28,8 @@ const QuizesTabPane = ({ allQuizes, setQuizes, setQuestions, questionsData }) =>
                                 {quiz.description}
                                 <br />
                                 <br />
-                                <p className="font-weight-bold">Questions</p>
+
+                                {quiz.questions.length > 0 ? <p className="font-weight-bold">Questions ({quiz.questions.length})</p> : null}
 
                                 {quiz.questions && quiz.questions.map(question =>
                                     <ol key={question._id}>

@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import { Row, Col, Card, Button, CardTitle, CardText, TabPane } from 'reactstrap';
 import { connect } from 'react-redux'
-import { setSubscribers } from '../../redux/posts/posts.actions'
+import { setSubscribers, deleteSubscriber } from '../../redux/subscribers/subscribers.actions'
 
-const SubscribersTabPane = ({ subscribedUsers, setSubscribers, }) => {
+import trash from '../../images/trash.svg';
+
+const SubscribersTabPane = ({ subscribedUsers, setSubscribers, deleteSubscriber}) => {
 
     // Lifecycle methods
     useEffect(() => {
@@ -19,7 +21,14 @@ const SubscribersTabPane = ({ subscribedUsers, setSubscribers, }) => {
                     <Col sm="3" key={subscribedUser.email} className="mt-3">
 
                         <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
-                            <CardTitle tag="p">{subscribedUser.name.split(' ').slice(0, 2).join(' ')}</CardTitle>
+
+                            <CardTitle tag="div" className="d-flex justify-content-between">
+                                <p className="mb-0">{subscribedUser.name.split(' ').slice(0, 2).join(' ')}</p>
+                                <Button size="sm" color="link" className="mt-0 p-0" onClick={() => deleteSubscriber(subscribedUser._id)}>
+                                    <img src={trash} alt="" width="16" height="16" />
+                                </Button>
+                            </CardTitle>
+
                             <CardText>
                                 <small>Email: {subscribedUser.email}</small>
                             </CardText>
@@ -40,4 +49,4 @@ const mapStateToProps = state => ({
     subscribedUsers: state.postsReducer.subscribedUsers
 })
 
-export default connect(mapStateToProps, { setSubscribers })(SubscribersTabPane)
+export default connect(mapStateToProps, { setSubscribers, deleteSubscriber })(SubscribersTabPane)

@@ -1,4 +1,4 @@
-import { SET_POSTS, SUBSCRIBETONEWSLETTER, SET_SUBSCRIBERS, SUBSCRIBE_FAIL } from "./posts.types";
+import { SET_POSTS, SUBSCRIBETONEWSLETTER, SET_SUBSCRIBERS, SUBSCRIBE_FAIL, DELETE_SUBSCRIBER, DELETE_SUBSCRIBER_FAIL } from "./subscribers.types";
 import { GET_ERRORS } from "../error/error.types";
 import axios from 'axios';
 
@@ -20,7 +20,7 @@ export const setPosts = () => {
 export const setSubscribers = () => (dispatch, getState) => {
   // dispatch(setQuestionsLoading());
   axios
-    .get('/api/posts/newsletter', tokenConfig(getState))
+    .get('/api/subscribers', tokenConfig(getState))
     .then(res =>
       dispatch({
         type: SET_SUBSCRIBERS,
@@ -36,7 +36,7 @@ export const subscribeToNewsLetter = (subscribedUser) => async (dispatch) => {
 
   try {
     await axios
-      .post('/api/posts/newsletter', subscribedUser)
+      .post('/api/subscribers', subscribedUser)
       .then(res =>
         dispatch({
           type: SUBSCRIBETONEWSLETTER,
@@ -58,3 +58,28 @@ export const subscribeToNewsLetter = (subscribedUser) => async (dispatch) => {
     })
   }
 };
+
+
+// Delete a Subscriber
+export const deleteSubscriber = id => async dispatch => {
+
+  try {
+
+    if (window.confirm("This Subscriber will be deleted permanently!")) {
+      await axios.delete(`/api/subscribers/${id}`)
+      dispatch({
+        type: DELETE_SUBSCRIBER,
+        payload: id
+      })
+    }
+
+  } catch (error) {
+    dispatch(
+      returnErrors(error.response.data, error.response.status, 'DELETE_SUBSCRIBER_FAIL')
+    );
+
+    dispatch({
+      type: DELETE_SUBSCRIBER_FAIL
+    });
+  }
+}

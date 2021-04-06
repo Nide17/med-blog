@@ -3,7 +3,7 @@ import { Container, Col, Row, Form, FormGroup, Input, Button, Alert } from 'reac
 import PostItem from './PostItem'
 
 import { connect } from 'react-redux'
-import { setPosts, subscribeToNewsLetter } from '../../redux/posts/posts.actions'
+import { setPosts, subscribeToNewsLetter } from '../../redux/subscribers/subscribers.actions'
 import { clearErrors } from '../../redux/error/error.actions'
 
 const Posts = ({ postsData, setPosts, subscribeToNewsLetter, error, subscribedUsers, clearErrors }) => {
