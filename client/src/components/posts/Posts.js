@@ -5,6 +5,7 @@ import PostItem from './PostItem'
 import { connect } from 'react-redux'
 import { setPosts, subscribeToNewsLetter } from '../../redux/subscribers/subscribers.actions'
 import { clearErrors } from '../../redux/error/error.actions'
+import ViewCategory from '../categories/ViewCategory';
 
 const Posts = ({ postsData, setPosts, subscribeToNewsLetter, error, subscribedUsers, clearErrors }) => {
 
@@ -50,25 +51,31 @@ const Posts = ({ postsData, setPosts, subscribeToNewsLetter, error, subscribedUs
                 </Col>
 
                 <Col sm="3">
-                    {error.id === "SUBSCRIBE_FAIL" ?
-                        <Alert color='danger'>
-                            <small>{error.msg.msg}</small>
-                        </Alert> :
-                        subscribedUsers[1] !== undefined ?
-                            <Alert color='success'>
-                                <small>{subscribedUsers[1].msg}</small>
-                            </Alert> :
-                            null
-                    }
+                    <Row className="mb-5">
+                        <ViewCategory />
+                    </Row>
 
-                    <Form onSubmit={onSubscribe}>
-                        <FormGroup>
-                            <h6 className="mt-4"><b>Subscribe to our newsletter.</b></h6>
-                            <Input type="text" name="name" bsSize="sm" placeholder="Your name" className="mt-4" onChange={onChangeHandler} required />
-                            <Input type="email" name="email" bsSize="sm" placeholder="Your Email" className="mt-4" onChange={onChangeHandler} required />
-                            <Button color="info" size="sm" className="mt-4">Signup</Button>
-                        </FormGroup>
-                    </Form>
+                    <Row className="mb-5">
+                        {error.id === "SUBSCRIBE_FAIL" ?
+                            <Alert color='danger'>
+                                <small>{error.msg.msg}</small>
+                            </Alert> :
+                            subscribedUsers[1] !== undefined ?
+                                <Alert color='success'>
+                                    <small>{subscribedUsers[1].msg}</small>
+                                </Alert> :
+                                null
+                        }
+
+                        <Form onSubmit={onSubscribe}>
+                            <FormGroup>
+                                <h6 className="mt-4"><b>Subscribe to our newsletter.</b></h6>
+                                <Input type="text" name="name" bsSize="sm" placeholder="Your name" className="mt-4" onChange={onChangeHandler} required />
+                                <Input type="email" name="email" bsSize="sm" placeholder="Your Email" className="mt-4" onChange={onChangeHandler} required />
+                                <Button color="info" size="sm" className="mt-4">Signup</Button>
+                            </FormGroup>
+                        </Form>
+                    </Row>
                 </Col>
 
             </Row>

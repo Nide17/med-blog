@@ -146,6 +146,11 @@ div.question-section {
     margin-left: auto !important;
 }
 
+.quiz-toast .toast-header .mr-auto {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
 .quiz-toast .toast {
     height: 140px !important;
     overflow-y: scroll !important;
@@ -169,9 +174,12 @@ div.question-section {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #b30000;
+    background: #0b3b36;
 }
 
+.badge {
+    line-height: 1.8;
+}
 @keyframes answer {
     from {
         opacity: 0;

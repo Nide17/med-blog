@@ -33,7 +33,7 @@ const quizesReducer = (state = INITIAL_STATE, action) => {
         ...state,
         allQuizes: state.allQuizes.map((quiz) => {
 
-          if (quiz._id === action.payload.idToUpdate) {
+          if (quiz._id === action.payload.qId) {
 
             return {
               ...quiz,

@@ -1,10 +1,18 @@
 import React, { useEffect } from 'react'
-import { Row, Col, Toast, ToastBody, ToastHeader, TabPane } from 'reactstrap';
+import { Row, Col, Button, Toast, ToastBody, ToastHeader, TabPane } from 'reactstrap';
 import { connect } from 'react-redux'
+import { Link } from "react-router-dom";
+import EditQuiz from './EditQuiz';
+
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
+import { deleteQuiz, updateQuiz } from '../../redux/quizes/quizes.actions'
 
-const QuizesTabPane = ({ allQuizes, setQuizes, setQuestions, questionsData }) => {
+import trash from '../../images/trash.svg';
+import AddIcon from '../../images/plus.svg';
+// import EditIcon from '../../images/edit.svg';
+
+const QuizesTabPane = ({ allQuizes, setQuizes, setQuestions, deleteQuiz, updateQuiz }) => {
 
     // Lifecycle methods
     useEffect(() => {
@@ -21,7 +29,20 @@ const QuizesTabPane = ({ allQuizes, setQuizes, setQuestions, questionsData }) =>
 
                         <Toast>
                             <ToastHeader className="text-success">
+
                                 <strong>{quiz.title}</strong>
+                                <div className="actions text-secondary d-flex">
+
+                                    <img src={trash} alt="" width="16" height="16" className="mr-3 mt-1" onClick={() => deleteQuiz(quiz._id)} />
+
+                                    <EditQuiz qId={quiz._id} qTitle={quiz.title} qDesc={quiz.description} />
+                                    
+                                    <Link to={`/questions-create/${quiz._id}`} className="text-secondary">
+                                                            <img src={AddIcon} alt=""  width="12" height="12" className="" /> <small>Questions</small>
+                                                    </Link>
+
+                                </div>
+
                             </ToastHeader>
 
                             <ToastBody>
@@ -53,4 +74,4 @@ const mapStateToProps = state => ({
     questionsData: state.questionsReducer.questionsData
 })
 
-export default connect(mapStateToProps, { setQuizes, setQuestions, setQuestionsLoading })(QuizesTabPane)
+export default connect(mapStateToProps, { setQuizes, setQuestions, setQuestionsLoading, updateQuiz, deleteQuiz })(QuizesTabPane)

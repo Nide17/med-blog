@@ -49,15 +49,15 @@ export const createQuiz = (newQuiz) => async (dispatch) => {
 
 
 // Update a Quiz
-export const updateQuiz = updatedCatg => async dispatch => {
+export const updateQuiz = updatedQuiz => async dispatch => {
 
   try {
 
       await axios
-      .put(`/api/quizes/${updatedCatg.idToUpdate}`, updatedCatg)
+      .put(`/api/quizes/${updatedQuiz.qId}`, updatedQuiz)
       dispatch({
         type: UPDATE_QUIZ,
-        payload: updatedCatg
+        payload: updatedQuiz
       })
 
   } catch (error) {
