@@ -5,6 +5,8 @@ const auth = require('../../middleware/auth')
 
 //Question Model : use capital letters since it's a model
 const Question = require('../../models/Question');
+const Quiz = require('../../models/Quiz');
+const Category = require('../../models/Category');
 
 // @route GET api/questions
 // @route Get All questions

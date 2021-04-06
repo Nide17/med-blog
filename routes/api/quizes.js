@@ -4,6 +4,7 @@ const router = express.Router();
 // Quiz Model
 const Quiz = require('../../models/Quiz');
 const Category = require('../../models/Category');
+const Question = require('../../models/Question');
 
 
 // @route   GET /api/quizes

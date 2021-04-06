@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid';
-import { Button, Col, Form, FormGroup, Label, Input, CustomInput } from 'reactstrap';
+import { Button, Row, Col, Form, FormGroup, Label, Input, CustomInput, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { connect } from 'react-redux';
 import { addQuestion } from '../../redux/questions/questions.actions';
 import { setCategories } from '../../redux/categories/categories.actions'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setQuestions } from '../../redux/questions/questions.actions'
 
-const CreateQuestions = ({ auth, categories, allQuizes, addQuestion, setCategories, setQuizes, setQuestions }) => {
+const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuizes, setQuestions }) => {
 
     const [questionText, setQuestionText] = useState({
         questionText: '',
@@ -43,6 +43,10 @@ const CreateQuestions = ({ auth, categories, allQuizes, addQuestion, setCategori
 
         setAnswerOptions(newAnswerOptions);
     }
+
+
+    // Access route parameters
+    const { quizId } = useParams()
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -85,9 +89,6 @@ const CreateQuestions = ({ auth, categories, allQuizes, addQuestion, setCategori
         setAnswerOptions(values);
     }
 
-    // Access route parameters
-    const { quizId } = useParams()
-
     return (
         auth.isAuthenticated ?
             <Form className="mt-5 mx-5" onSubmit={handleSubmit}>
@@ -95,9 +96,13 @@ const CreateQuestions = ({ auth, categories, allQuizes, addQuestion, setCategori
                 {
                     allQuizes && allQuizes.map(quiz =>
                         quiz._id === quizId ?
-                            (<h3 key={quiz._id} className="text-center mb-4">
-                                <strong>{quiz.title} questions</strong>
-                            </h3>) : ''
+                            (<Row key={quiz._id} className="mb-3">
+                                <Breadcrumb key={quiz._id}>
+                                    <BreadcrumbItem><Link to="/webmaster">{quiz.category.title}</Link></BreadcrumbItem>
+                                    <BreadcrumbItem><Link to={`/category/${quiz.category._id}`}>{quiz.title}</Link></BreadcrumbItem>
+                                    <BreadcrumbItem active>Create Question</BreadcrumbItem>
+                                </Breadcrumb>
+                            </Row>) : ''
                     )
                 }
 

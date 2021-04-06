@@ -146,6 +146,11 @@ div.question-section {
     margin-left: auto !important;
 }
 
+.quiz-toast .toast {
+    height: 140px !important;
+    overflow: scroll !important;
+}
+
 @keyframes answer {
     from {
         opacity: 0;

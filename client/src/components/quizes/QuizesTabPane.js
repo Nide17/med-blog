@@ -17,7 +17,8 @@ const QuizesTabPane = ({ allQuizes, setQuizes, setQuestions, questionsData }) =>
         <TabPane tabId="2">
             <Row>
                 {allQuizes && allQuizes.map(quiz => (
-                    <Col sm="4" key={quiz._id} className="mt-3">
+                    <Col sm="4" key={quiz._id} className="mt-3 quiz-toast">
+
                         <Toast>
                             <ToastHeader className="text-success">
                                 <strong>{quiz.title}</strong>
@@ -29,14 +30,10 @@ const QuizesTabPane = ({ allQuizes, setQuizes, setQuestions, questionsData }) =>
                                 <br />
                                 <p className="font-weight-bold">Questions</p>
 
-                                {questionsData && questionsData.map(q =>
-
-                                    q.quiz === quiz._id ?
-                                        <ol key="q._id">
-                                            <li className="">{q.questionText}</li>
-                                        </ol> :
-                                        null
-
+                                {quiz.questions && quiz.questions.map(question =>
+                                    <ol key={question._id}>
+                                        <li className="">{question.questionText}</li>
+                                    </ol>
                                 )}
 
                             </ToastBody>
