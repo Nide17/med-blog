@@ -52,7 +52,7 @@ router.post('/', async (req, res) => {
 
         res.status(200).json({
             subscriber: {
-                id: savedSubscriber._id,
+                _id: savedSubscriber._id,
                 name: savedSubscriber.name,
                 email: savedSubscriber.email
             }

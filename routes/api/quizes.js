@@ -62,7 +62,7 @@ router.post('/', async (req, res) => {
         if (!savedQuiz) throw Error('Something went wrong during creation!');
 
         res.status(200).json({
-            id: savedQuiz._id,
+            _id: savedQuiz._id,
             title: savedQuiz.title,
             description: savedQuiz.description,
             category: savedQuiz.category,
