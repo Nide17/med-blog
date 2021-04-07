@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink, Alert } from 'reactstrap';
 import AddIcon from '../../images/plus.svg';
 
 import { connect } from 'react-redux';
@@ -11,6 +11,9 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
         name: '',
         description: ''
     })
+
+    // Errors state on form
+    const [errorsState, setErrorsState] = useState([])
 
     //properties of the modal
     const [modal, setModal] = useState(false)
@@ -27,11 +30,25 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
 
         const { name, description } = quizState;
 
+        // VALIDATE
+         if (name.length < 4 || description.length < 4) {
+            setErrorsState(['Insufficient info!']);
+            return
+        }
+        else if (name.length > 15) {
+            setErrorsState(['Title is too long!']);
+            return
+        }
+        else if (description.length > 30) {
+            setErrorsState(['Description is too long!']);
+            return
+        }
+
         // Create new Quiz object
         const newQuiz = {
             title: name,
             description,
-            category:category._id,
+            category: category._id,
             created_by: auth.isLoading === false ? auth.user._id : null
         };
 
@@ -49,7 +66,7 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
     return (
         <div>
             <NavLink onClick={toggle} className="text-success p-0">
-            <img src={AddIcon} alt="" width="10" height="10" className="mb-1"/>
+                <img src={AddIcon} alt="" width="10" height="10" className="mb-1" />
             &nbsp;Add Quiz
             </NavLink>
 
@@ -65,8 +82,14 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
 
                 <ModalBody>
 
-                    {/* {state.msg ? (
-                            <Alert color='danger'>{state.msg}</Alert>) : null} */}
+                {errorsState.length > 0 ?
+                        errorsState.map(err =>
+                            <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
+                                {err}
+                            </Alert>) :
+                        null
+                    }
+
                     <Form onSubmit={onSubmitHandler}>
 
                         <FormGroup>

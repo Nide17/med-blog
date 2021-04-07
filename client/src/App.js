@@ -10,7 +10,6 @@ import Placeholder from './components/placeholder/Placeholder';
 import { Provider } from 'react-redux'
 import store from './redux/store'
 import Footer from './components/footer/Footer';
-import Create from './components/questions/Create';
 import CreateQuestions from './components/questions/CreateQuestions';
 
 import { loadUser } from './redux/auth/auth.actions'
@@ -50,7 +49,6 @@ const App = () => {
 
                     <Route exact path="/category/:categoryId" component={SingleCategory} />
                     <Route exact path="/questions-create/:quizId" component={CreateQuestions} />
-                    <Route exact path="/create" component={Create} />
                     <Route path="/contact" component={Contact} />
                     <Route path="/about" component={About} />
                     <Route path="/ourself" component={Placeholder} />

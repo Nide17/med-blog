@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
 
 const Questions = props => {
-    console.log(props)
+
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
@@ -32,7 +32,6 @@ const Questions = props => {
     };
 
     if (!loading) {
-
 
         if (questionsData.length > 0) {
 
@@ -84,12 +83,15 @@ const Questions = props => {
         else return null
     }
     else {
-        return (<><div className="p-5 m-5 d-flex justify-content-center align-items-center">
-            <Spinner color="warning" style={{ width: '10rem', height: '10rem' }} />
-        </div>
-        <div className="pt-0 mt-0 d-flex justify-content-center align-items-center">
-            <Spinner type="grow" color="success" style={{ width: '10rem', height: '10rem' }} />
-        </div></>)
+
+        return (<>
+            <div className="p-5 m-5 d-flex justify-content-center align-items-center">
+                <Spinner color="warning" style={{ width: '10rem', height: '10rem' }} />
+            </div>
+            <div className="pt-0 mt-0 d-flex justify-content-center align-items-center">
+                <Spinner type="grow" color="success" style={{ width: '10rem', height: '10rem' }} />
+            </div>
+        </>)
     }
 }
 

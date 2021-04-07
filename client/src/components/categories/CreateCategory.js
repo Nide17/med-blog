@@ -35,8 +35,16 @@ const CreateCategory = ({ auth, createCategory }) => {
         const { name, description } = categoryState;
 
         // VALIDATE
-        if (!name || !description) {
-            setErrorsState([...errorsState, 'Please fill all fields!']);
+         if (name.length < 4 || description.length < 4) {
+            setErrorsState(['Insufficient info!']);
+            return
+        }
+        else if (name.length > 15) {
+            setErrorsState(['Title is too long!']);
+            return
+        }
+        else if (description.length > 30) {
+            setErrorsState(['Description is too long!']);
             return
         }
 
@@ -77,10 +85,12 @@ const CreateCategory = ({ auth, createCategory }) => {
 
                 <ModalBody>
 
-                    {
-                        errorsState.length > 0 ?
-                            <Alert color='danger'>{errorsState[0]}</Alert> :
-                            null
+                    {errorsState.length > 0 ?
+                        errorsState.map(err =>
+                            <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
+                                {err}
+                            </Alert>) :
+                        null
                     }
 
                     <Form onSubmit={onSubmitHandler}>

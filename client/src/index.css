@@ -109,6 +109,10 @@ div .jumbotron {
     animation: blinker 1.8s linear infinite;
 }
 
+.blink_more {
+    animation: blinker 1.8s linear infinite;
+}
+
 a.blink_me,
 a.blink_me:active,
 a.blink_me:hover {

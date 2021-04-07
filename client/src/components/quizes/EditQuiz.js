@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input } from 'reactstrap';
-// import PropTypes from 'prop-types';
+import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { updateQuiz } from '../../redux/quizes/quizes.actions'
@@ -14,6 +14,9 @@ const EditQuiz = ({ qId, qTitle, qDesc, auth, updateQuiz }) => {
         name: qTitle,
         description: qDesc,
     })
+
+    // Errors state on form
+    const [errorsState, setErrorsState] = useState([])
 
     //properties of the modal
     const [modal, setModal] = useState(false)
@@ -29,6 +32,20 @@ const EditQuiz = ({ qId, qTitle, qDesc, auth, updateQuiz }) => {
         e.preventDefault();
 
         const { qId, name, description } = quizState;
+
+        // VALIDATE
+        if (name.length < 4 || description.length < 4) {
+            setErrorsState(['Insufficient info!']);
+            return
+        }
+        else if (name.length > 15) {
+            setErrorsState(['Title is too long!']);
+            return
+        }
+        else if (description.length > 30) {
+            setErrorsState(['Description is too long!']);
+            return
+        }
 
         // Create new Quiz object
         const updatedQuiz = {
@@ -60,8 +77,14 @@ const EditQuiz = ({ qId, qTitle, qDesc, auth, updateQuiz }) => {
 
                 <ModalBody>
 
-                    {/* {state.msg ? (
-                            <Alert color='danger'>{state.msg}</Alert>) : null} */}
+                    {errorsState.length > 0 ?
+                        errorsState.map(err =>
+                            <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
+                                {err}
+                            </Alert>) :
+                        null
+                    }
+
                     <Form onSubmit={onSubmitHandler}>
 
                         <FormGroup>
@@ -92,17 +115,12 @@ const EditQuiz = ({ qId, qTitle, qDesc, auth, updateQuiz }) => {
 }
 
 EditQuiz.propTypes = {
-    // isAuthenticated: PropTypes.bool,
-    // error: PropTypes.object,
-    // login: PropTypes.func.isRequired,
-    // clearErrors: PropTypes.func.isRequired,
+    auth: PropTypes.object
 }
 
 // Map  state props
 const mapStateToProps = state => ({
-    auth: state.authReducer,
-    // isAuthenticated: state.authReducer.isAuthenticated,
-    // error: state.errorReducer
+    auth: state.authReducer
 });
 
 export default connect(mapStateToProps, { updateQuiz })(EditQuiz);

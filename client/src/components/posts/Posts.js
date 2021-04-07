@@ -2,10 +2,11 @@ import React, { useEffect, useState, lazy, Suspense } from 'react'
 import { Container, Col, Row, Form, FormGroup, Input, Button, Alert, Spinner } from 'reactstrap';
 
 import { connect } from 'react-redux'
-
+import { Link } from 'react-router-dom'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setPosts, subscribeToNewsLetter } from '../../redux/subscribers/subscribers.actions'
 import { clearErrors } from '../../redux/error/error.actions'
+import infinity from '../../images/infinity.svg';
 const PostItem = lazy(() => import('./PostItem'));
 const ViewCategory = lazy(() => import('../categories/ViewCategory'));
 
@@ -48,7 +49,7 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
         <Container className="posts main mt-4">
             <Row>
                 <Col sm="9" className="mt-md-2">
-                    {allQuizes && allQuizes.map(quiz => (
+                    {allQuizes && allQuizes.slice(0, 6).map(quiz => (
                         <Suspense fallback={<div className="p-1 m-1 d-flex justify-content-center align-items-center">
                             <Spinner style={{ width: '5rem', height: '5rem' }} />{' '}
                         </div>}>
@@ -63,6 +64,13 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                             <Spinner style={{ width: '5rem', height: '5rem' }} />{' '}
                         </div>}>
                             <ViewCategory />
+
+                            <div className="w-100 mt-2 d-flex justify-content-center align-items-center">
+                                <Link to="/webmaster">
+                                    <img src={infinity} alt="" width="30" height="30" className="blink_more" />
+                                </Link>
+                            </div>
+
                         </Suspense>
                     </Row>
 
@@ -84,7 +92,7 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                                     <b>Subscribe to our newsletter.</b>
                                 </h6>
 
-                                <Input type="text" name="name" bsSize="sm" placeholder="Your name" className="mt-4" onChange={onChangeHandler} minlength="4" maxlength="30" required />
+                                <Input type="text" name="name" bsSize="sm" placeholder="Your name" className="mt-4" onChange={onChangeHandler} minLength="4" maxLength="30" required />
 
                                 <Input type="email" name="email" bsSize="sm" placeholder="Your Email" className="mt-4" onChange={onChangeHandler} required />
 

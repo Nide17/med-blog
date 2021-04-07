@@ -11,7 +11,7 @@ const ViewCategory = ({ allcategories, setCategories }) => {
     }, [setCategories]);
 
     return (
-        allcategories.map(category =>
+        allcategories.slice(0, 5).map(category =>
             <React.Fragment key={category._id}>
                 <Button outline color="secondary" id={category.title} block className="px-0 mt-2">{category.title}</Button>
 

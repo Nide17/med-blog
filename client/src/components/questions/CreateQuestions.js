@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid';
-import { Button, Row, Col, Form, FormGroup, Label, Input, CustomInput, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Button, Row, Col, Form, FormGroup, Label, Input, CustomInput, Breadcrumb, BreadcrumbItem, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { addQuestion } from '../../redux/questions/questions.actions';
 import { setCategories } from '../../redux/categories/categories.actions'
@@ -17,6 +17,9 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
     const [answerOptions, setAnswerOptions] = useState([
         { id: uuidv4(), answerText: '', isCorrect: false },
     ]);
+
+    // Errors state on form
+    const [errorsState, setErrorsState] = useState([])
 
 
     // Lifecycle methods
@@ -44,7 +47,6 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
         setAnswerOptions(newAnswerOptions);
     }
 
-
     // Access route parameters
     const { quizId } = useParams()
 
@@ -52,8 +54,12 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
         e.preventDefault();
 
         // VALIDATE
-        if (!questionText.questionText) {
-            alert('Please fill all fields!')
+        if (questionText.questionText.length < 4) {
+            setErrorsState(['Insufficient info!']);
+            return
+        }
+        else if (questionText.questionText.length > 100) {
+            setErrorsState(['Question is too long!']);
             return
         }
 
@@ -105,6 +111,15 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
                                 </Breadcrumb>
                             </Row>) : ''
                     )
+                }
+
+                {/* Error */}
+                {errorsState.length > 0 ?
+                    errorsState.map(err =>
+                        <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
+                            {err}
+                        </Alert>) :
+                    null
                 }
 
                 <FormGroup row>
