@@ -13,7 +13,6 @@ const SingleQuiz = ({ auth, allQuizes, setQuizes }) => {
 
     // Access route parameters
     const { quizId } = useParams()
-    console.log(allQuizes);
 
     return (
         auth.isAuthenticated ?

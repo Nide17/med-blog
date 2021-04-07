@@ -14,7 +14,8 @@ import CreateQuestions from './components/questions/CreateQuestions';
 
 import { loadUser } from './redux/auth/auth.actions'
 import SingleCategory from './components/categories/SingleCategory';
-import SingleQuiz from './components/quizes/SingleQuiz';
+// import SingleQuiz from './components/quizes/SingleQuiz';
+import QuizQuestions from './components/quizes/QuizQuestions';
 
 const Questions = lazy(() => import('./components/questions/Questions'));
 const Webmaster = lazy(() => import('./components/webmaster/Webmaster'));
@@ -49,7 +50,8 @@ const App = () => {
                     </Route>
 
                     <Route exact path="/category/:categoryId" component={SingleCategory} />
-                    <Route exact path="/view-quiz/:quizId" component={SingleQuiz} />
+                    {/* <Route exact path="/view-quiz/:quizId" component={SingleQuiz} /> */}
+                    <Route exact path="/view-quiz/:quizId" component={QuizQuestions} />
                     <Route exact path="/questions-create/:quizId" component={CreateQuestions} />
                     <Route path="/contact" component={Contact} />
                     <Route path="/about" component={About} />
