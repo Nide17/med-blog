@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Card, CardTitle, CardText } from 'reactstrap';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import { getUsers } from '../../redux/auth/auth.actions'
 
-const PostItem = ({quiz, getUsers, users}) => {
+const PostItem = ({ quiz, getUsers, users }) => {
 
     useEffect(() => {
         getUsers()
@@ -21,16 +21,18 @@ const PostItem = ({quiz, getUsers, users}) => {
         <Card body className="bg-secondary py-0 py-md-3">
 
             <CardTitle tag="h4" className="mb-0 text-primary">
-                <Link to={`/view-quiz/${_id}`}>{title} ({questions && questions.length})</Link>
+                <Link to={`/view-quiz/${_id}`}>{title}
+                    &nbsp;<span className="text-danger">({questions && questions.length})</span>
+                </Link>
             </CardTitle>
 
             <div className="small-text d-md-flex justify">
-                <p className="mr-5 my-1 text-danger">{date.toDateString()}</p>
-                <p className="mr-5 my-1 text-danger">-{category.title}</p>
-                <p className="mr-5 my-1 text-danger">-{author && author[1]}</p>
+                <p className="mr-5 my-1 text-dark">{date.toDateString()}</p>
+                <p className="mr-5 my-1 text-dark">-{category.title}</p>
+                <p className="mr-5 my-1 text-dark">-{author && author[1]}</p>
             </div>
 
-            <CardText className="mt-3">{description}</CardText>
+            <CardText className="mt-3 text-secondary">{description}</CardText>
             {/* <div className="tags d-flex">
                 {Keywords && Keywords.map(keyword => (
                     <p className="px-2 mr-2" key={keyword}># {keyword}</p>
@@ -45,4 +47,4 @@ const mapStateToProps = state => ({
     users: state.authReducer.users
 })
 
-export default connect(mapStateToProps, { getUsers})(PostItem)
+export default connect(mapStateToProps, { getUsers })(PostItem)
