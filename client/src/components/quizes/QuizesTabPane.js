@@ -9,9 +9,8 @@ import { setQuizes, deleteQuiz, updateQuiz } from '../../redux/quizes/quizes.act
 
 import trash from '../../images/trash.svg';
 import AddIcon from '../../images/plus.svg';
-// import EditIcon from '../../images/edit.svg';
 
-const QuizesTabPane = ({ allQuizes, setQuizes, setQuestions, deleteQuiz, updateQuiz }) => {
+const QuizesTabPane = ({ allQuizes, setQuizes, setQuestions, deleteQuiz }) => {
 
     // Lifecycle methods
     useEffect(() => {

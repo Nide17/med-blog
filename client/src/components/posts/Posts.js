@@ -50,10 +50,10 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
             <Row>
                 <Col sm="9" className="mt-md-2">
                     {allQuizes && allQuizes.slice(0, 6).map(quiz => (
-                        <Suspense fallback={<div className="p-1 m-1 d-flex justify-content-center align-items-center">
+                        <Suspense key={quiz._id} fallback={<div className="p-1 m-1 d-flex justify-content-center align-items-center">
                             <Spinner style={{ width: '5rem', height: '5rem' }} />{' '}
                         </div>}>
-                            <PostItem key={quiz._id} quiz={quiz} />
+                            <PostItem quiz={quiz} />
                         </Suspense>
                     ))}
                 </Col>

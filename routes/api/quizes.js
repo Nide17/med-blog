@@ -27,6 +27,29 @@ router.get('/', async (req, res) => {
     }
 });
 
+// @route   GET /api/quizes/:id
+// @desc    Get one quiz
+// @access  Needs to be private
+router.get('/:id', async (req, res) => {
+
+    let id = req.params.id;
+    try {
+        //Find the quiz by id
+        await Quiz.findById(id, (err, quiz) => {
+            res.status(200).json(quiz);
+        })
+        // Use the name of the schema path instead of the collection name
+        .populate('category')
+        .populate('questions')
+
+    } catch (err) {
+        res.status(400).json({
+            msg: 'Failed to retrieve! ' + err.message,
+            success: false
+        });
+    }
+
+});
 
 // @route   POST /api/quizes
 // @desc    Create quiz
