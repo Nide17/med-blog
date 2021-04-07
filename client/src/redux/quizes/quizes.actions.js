@@ -1,22 +1,24 @@
 import axios from 'axios';
 import { returnErrors } from '../error/error.actions'
-import { SET_QUIZES, CREATE_QUIZ, CREATE_QUIZ_FAIL, DELETE_QUIZ, DELETE_QUIZ_FAIL,UPDATE_QUIZ, UPDATE_QUIZ_FAIL } from "./quizes.types";
+import { SET_QUIZES, CREATE_QUIZ, CREATE_QUIZ_FAIL, DELETE_QUIZ, DELETE_QUIZ_FAIL, UPDATE_QUIZ, UPDATE_QUIZ_FAIL } from "./quizes.types";
 import { tokenConfig } from '../auth/auth.actions'
 
 // View all quizes
-export const setQuizes = () => (dispatch, getState) => {
+export const setQuizes = () => async (dispatch, getState) => {
   // dispatch(setQuestionsLoading());
-  axios
-    .get('/api/quizes', tokenConfig(getState))
-    .then(res =>
-      dispatch({
-        type: SET_QUIZES,
-        payload: res.data,
-      }),
-    )
-    .catch(err =>
-      dispatch(returnErrors(err.response.data, err.response.status))
-    );
+
+  try {
+    await axios
+      .get('/api/quizes', tokenConfig(getState))
+      .then(res =>
+        dispatch({
+          type: SET_QUIZES,
+          payload: res.data,
+        }),
+      )
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status));
+  }
 };
 
 // Create Quiz
@@ -31,19 +33,9 @@ export const createQuiz = (newQuiz) => async (dispatch) => {
           payload: res.data
         })
       )
-      .catch(err => {
-        dispatch(
-          returnErrors(err.response.data, err.response.status, 'CREATE_QUIZ_FAIL')
-        );
-        dispatch({
-          type: CREATE_QUIZ_FAIL
-        });
-      });
-
-  } catch (error) {
-    dispatch({
-      type: CREATE_QUIZ_FAIL
-    })
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status, 'CREATE_QUIZ_FAIL'));
+    dispatch({ type: CREATE_QUIZ_FAIL })
   }
 };
 
@@ -52,22 +44,16 @@ export const createQuiz = (newQuiz) => async (dispatch) => {
 export const updateQuiz = updatedQuiz => async dispatch => {
 
   try {
-
-      await axios
+    await axios
       .put(`/api/quizes/${updatedQuiz.qId}`, updatedQuiz)
-      dispatch({
-        type: UPDATE_QUIZ,
-        payload: updatedQuiz
-      })
-
-  } catch (error) {
-    dispatch(
-      returnErrors(error.response.data, error.response.status, 'UPDATE_QUIZ_FAIL')
-    );
-
     dispatch({
-      type: UPDATE_QUIZ_FAIL
-    });
+      type: UPDATE_QUIZ,
+      payload: updatedQuiz
+    })
+
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status, 'UPDATE_QUIZ_FAIL'));
+    dispatch({ type: UPDATE_QUIZ_FAIL })
   }
 }
 
@@ -75,7 +61,6 @@ export const updateQuiz = updatedQuiz => async dispatch => {
 export const deleteQuiz = id => async dispatch => {
 
   try {
-
     if (window.confirm("This Quiz will be deleted permanently!")) {
       await axios.delete(`/api/quizes/${id}`)
       dispatch({
@@ -84,13 +69,8 @@ export const deleteQuiz = id => async dispatch => {
       })
     }
 
-  } catch (error) {
-    dispatch(
-      returnErrors(error.response.data, error.response.status, 'DELETE_QUIZ_FAIL')
-    );
-
-    dispatch({
-      type: DELETE_QUIZ_FAIL
-    });
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status, 'DELETE_QUIZ_FAIL'));
+    dispatch({ type: DELETE_QUIZ_FAIL })
   }
 }

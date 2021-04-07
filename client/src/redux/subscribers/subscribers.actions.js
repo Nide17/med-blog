@@ -1,5 +1,4 @@
 import { SET_POSTS, SUBSCRIBETONEWSLETTER, SET_SUBSCRIBERS, SUBSCRIBE_FAIL, DELETE_SUBSCRIBER, DELETE_SUBSCRIBER_FAIL } from "./subscribers.types";
-import { GET_ERRORS } from "../error/error.types";
 import axios from 'axios';
 
 import { tokenConfig } from '../auth/auth.actions'
@@ -17,19 +16,20 @@ export const setPosts = () => {
   };
 };
 
-export const setSubscribers = () => (dispatch, getState) => {
+export const setSubscribers = () => async (dispatch, getState) => {
   // dispatch(setQuestionsLoading());
-  axios
-    .get('/api/subscribers', tokenConfig(getState))
-    .then(res =>
-      dispatch({
-        type: SET_SUBSCRIBERS,
-        payload: res.data,
-      }),
-    )
-    .catch(err =>
-      dispatch(returnErrors(err.response.data, err.response.status))
-    );
+  try {
+    await axios
+      .get('/api/subscribers', tokenConfig(getState))
+      .then(res =>
+        dispatch({
+          type: SET_SUBSCRIBERS,
+          payload: res.data,
+        }),
+      )
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status))
+  }
 };
 
 export const subscribeToNewsLetter = (subscribedUser) => async (dispatch) => {
@@ -43,19 +43,9 @@ export const subscribeToNewsLetter = (subscribedUser) => async (dispatch) => {
           payload: res.data
         })
       )
-      .catch(err => {
-        dispatch(
-          returnErrors(err.response.data, err.response.status, 'SUBSCRIBE_FAIL')
-        );
-        dispatch({
-          type: SUBSCRIBE_FAIL
-        });
-      });
-
-  } catch (error) {
-    dispatch({
-      type: GET_ERRORS
-    })
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status, 'SUBSCRIBE_FAIL'));
+    dispatch({ type: SUBSCRIBE_FAIL })
   }
 };
 
@@ -64,7 +54,6 @@ export const subscribeToNewsLetter = (subscribedUser) => async (dispatch) => {
 export const deleteSubscriber = id => async dispatch => {
 
   try {
-
     if (window.confirm("This Subscriber will be deleted permanently!")) {
       await axios.delete(`/api/subscribers/${id}`)
       dispatch({
@@ -73,13 +62,8 @@ export const deleteSubscriber = id => async dispatch => {
       })
     }
 
-  } catch (error) {
-    dispatch(
-      returnErrors(error.response.data, error.response.status, 'DELETE_SUBSCRIBER_FAIL')
-    );
-
-    dispatch({
-      type: DELETE_SUBSCRIBER_FAIL
-    });
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status, 'DELETE_SUBSCRIBER_FAIL'));
+    dispatch({ type: DELETE_SUBSCRIBER_FAIL })
   }
 }

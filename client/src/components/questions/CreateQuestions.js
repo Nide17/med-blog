@@ -69,6 +69,7 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
             questionText: questionText.questionText,
             answerOptions,
             category: catID[0],
+            creation_date: Date.now,
             quiz: quizId,
             created_by: auth.isLoading === false ? auth.user._id : null
         }

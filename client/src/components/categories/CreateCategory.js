@@ -44,6 +44,7 @@ const CreateCategory = ({ auth, createCategory }) => {
         const newCategory = {
             title: name,
             description,
+            creation_date: Date.now,
             created_by: auth.isLoading === false ? auth.user._id : null
         };
 

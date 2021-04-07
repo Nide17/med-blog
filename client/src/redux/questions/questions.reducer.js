@@ -12,6 +12,7 @@ const questionsReducer = (state = INITIAL_STATE, action) => {
     case SET_QUESTIONS:
       return {
         ...state,
+        loading: false,
         questionsData: action.payload
       };
      

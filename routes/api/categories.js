@@ -54,7 +54,7 @@ router.get('/:id', async (req, res) => {
 // @access  Have to be private
 
 router.post('/', async (req, res) => {
-    const { title, description, quizes, created_by } = req.body;
+    const { title, description, quizes, created_by, creation_date } = req.body;
 
     // Simple validation
     if (!title || !description) {
@@ -68,6 +68,7 @@ router.post('/', async (req, res) => {
         const newCategory = new Category({
             title,
             description,
+            creation_date,
             quizes,
             created_by
         });
@@ -79,6 +80,7 @@ router.post('/', async (req, res) => {
             _id: savedCategory._id,
             title: savedCategory.title,
             description: savedCategory.description,
+            creation_date: savedCategory.creation_date,
             quizes: savedCategory.quizes,
             created_by: savedCategory.created_by
         });

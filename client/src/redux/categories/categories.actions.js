@@ -4,19 +4,22 @@ import { SET_CATEGORIES, SET_CATEGORIES_FAIL, CREATE_CATEGORY, CREATE_CATEGORY_F
 import { tokenConfig } from '../auth/auth.actions'
 
 // View all categories
-export const setCategories = () => (dispatch, getState) => {
+export const setCategories = () => async (dispatch, getState) => {
   // dispatch(setQuestionsLoading());
-  axios
-    .get('/api/categories', tokenConfig(getState))
-    .then(res =>
-      dispatch({
-        type: SET_CATEGORIES,
-        payload: res.data,
-      }))
-    .catch(err => {
-      dispatch(returnErrors(err.response.data, err.response.status, 'SET_CATEGORIES_FAIL'));
-      dispatch({ type: SET_CATEGORIES_FAIL })
-    });
+
+  try {
+    await axios
+      .get('/api/categories', tokenConfig(getState))
+      .then(res =>
+        dispatch({
+          type: SET_CATEGORIES,
+          payload: res.data,
+        }))
+        
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status, 'SET_CATEGORIES_FAIL'));
+    dispatch({ type: SET_CATEGORIES_FAIL })
+  }
 };
 
 // Create category
@@ -30,9 +33,9 @@ export const createCategory = (newCategory) => async (dispatch) => {
           type: CREATE_CATEGORY,
           payload: res.data
         }))
-      // .then(
-      //   // Reload the page after category addition
-      //   window.location.reload())
+    // .then(
+    //   // Reload the page after category addition
+    //   window.location.reload())
 
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'CREATE_CATEGORY_FAIL'));
