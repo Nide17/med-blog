@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
+import { clearErrors } from '../../redux/error/error.actions'
 import CreateCategory from '../categories/CreateCategory';
 import CategoriesTabPane from '../categories/CategoriesTabPane';
 import QuizesTabPane from '../quizes/QuizesTabPane';
@@ -27,6 +28,7 @@ const Webmaster = ({ auth, error }) => {
         if (error.id !== null) {
             setErrorsStateAPI(errorsStateAPI => [...errorsStateAPI, error.msg && error.msg.msg]);
         }
+        clearErrors()
     }, [error])
 
     // render

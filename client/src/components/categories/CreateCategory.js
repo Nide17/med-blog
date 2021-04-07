@@ -12,7 +12,7 @@ const CreateCategory = ({ auth, createCategory }) => {
         description: ''
     })
 
-    // Errors on form
+    // Errors state on form
     const [errorsState, setErrorsState] = useState([])
 
     //properties of the modal
@@ -55,7 +55,6 @@ const CreateCategory = ({ auth, createCategory }) => {
             name: '',
             description: ''
         })
-        console.log(newCategory);
 
         // close the modal
         toggle();

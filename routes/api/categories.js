@@ -76,7 +76,7 @@ router.post('/', async (req, res) => {
         if (!savedCategory) throw Error('Something went wrong during creation!');
 
         res.status(200).json({
-            id: savedCategory._id,
+            _id: savedCategory._id,
             title: savedCategory.title,
             description: savedCategory.description,
             quizes: savedCategory.quizes,
