@@ -45,8 +45,7 @@ const SingleQuiz = ({ auth, allQuizes, setQuizes }) => {
                                             <ToastBody>
                                                 <ListGroup>
                                                     {question.answerOptions.map(answer =>
-                                                        <ListGroupItem color={answer.isCorrect ? 'success' : ''}>{answer.answerText}</ListGroupItem>
-                                                    )}
+                                                        <ListGroupItem color={answer.isCorrect ? 'success' : ''}>{answer.answerText}</ListGroupItem>)}
                                                 </ListGroup>
                                                 <small>Created on {question.creation_date.split('T').slice(0, 1)}</small>
                                             </ToastBody>
