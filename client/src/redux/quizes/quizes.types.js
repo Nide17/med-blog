@@ -1,9 +1,11 @@
 export const SET_QUIZES = 'SET_QUIZES';
-export const CREATE_QUIZ_FAIL = 'CREATE_QUIZ_FAIL';
-export const CREATE_QUIZ_SUCCESS = 'CREATE_QUIZ_SUCCESS';
+
 export const CREATE_QUIZ = 'CREATE_QUIZ';
-export const DELETE_QUIZ = 'DELETE_QUIZ';
+export const CREATE_QUIZ_SUCCESS = 'CREATE_QUIZ_SUCCESS';
+export const CREATE_QUIZ_FAIL = 'CREATE_QUIZ_FAIL';
+
 export const UPDATE_QUIZ = 'UPDATE_QUIZ';
-// export const EDIT_QUIZ = 'EDIT_QUIZ';
 export const UPDATE_QUIZ_FAIL = 'UPDATE_QUIZ_FAIL';
+
+export const DELETE_QUIZ = 'DELETE_QUIZ';
 export const DELETE_QUIZ_FAIL = 'DELETE_QUIZ_FAIL';

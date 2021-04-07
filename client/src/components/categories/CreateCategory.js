@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink } from 'reactstrap';
-// import PropTypes from 'prop-types';
+import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink, Alert } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { createCategory } from '../../redux/categories/categories.actions';
@@ -12,6 +12,9 @@ const CreateCategory = ({ auth, createCategory }) => {
         description: ''
     })
 
+    // Errors on form
+    const [errorsState, setErrorsState] = useState([])
+
     //properties of the modal
     const [modal, setModal] = useState(false)
 
@@ -19,6 +22,10 @@ const CreateCategory = ({ auth, createCategory }) => {
     const toggle = () => setModal(!modal);
 
     const onChangeHandler = e => {
+        // Remove errors
+        setErrorsState([]);
+
+        // Add data
         setCategoryState({ ...categoryState, [e.target.name]: e.target.value });
     };
 
@@ -26,6 +33,12 @@ const CreateCategory = ({ auth, createCategory }) => {
         e.preventDefault();
 
         const { name, description } = categoryState;
+
+        // VALIDATE
+        if (!name || !description) {
+            setErrorsState([...errorsState, 'Please fill all fields!']);
+            return
+        }
 
         // Create new Category object
         const newCategory = {
@@ -37,12 +50,15 @@ const CreateCategory = ({ auth, createCategory }) => {
         // Attempt to create
         createCategory(newCategory);
 
+        // Reset the form
+        setCategoryState({
+            name: '',
+            description: ''
+        })
+        console.log(newCategory);
+
         // close the modal
-        if (modal) {
-            toggle();
-        }
-        // Reload the page after category addition
-        window.location.reload();
+        toggle();
     }
 
     return (
@@ -61,8 +77,12 @@ const CreateCategory = ({ auth, createCategory }) => {
 
                 <ModalBody>
 
-                    {/* {state.msg ? (
-                            <Alert color='danger'>{state.msg}</Alert>) : null} */}
+                    {
+                        errorsState.length > 0 ?
+                            <Alert color='danger'>{errorsState[0]}</Alert> :
+                            null
+                    }
+
                     <Form onSubmit={onSubmitHandler}>
 
                         <FormGroup>
@@ -91,16 +111,12 @@ const CreateCategory = ({ auth, createCategory }) => {
 }
 
 CreateCategory.propTypes = {
-    // isAuthenticated: PropTypes.bool,
-    // error: PropTypes.object,
-    // login: PropTypes.func.isRequired,
-    // clearErrors: PropTypes.func.isRequired,
+    auth: PropTypes.object,
 }
 
 // Map  state props
 const mapStateToProps = state => ({
-    auth: state.authReducer,
-    // error: state.errorReducer
+    auth: state.authReducer
 });
 
 export default connect(

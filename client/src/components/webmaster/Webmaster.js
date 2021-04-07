@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { Row, Col, Button, Toast, ToastBody, ToastHeader, TabContent, Nav, NavItem, NavLink } from 'reactstrap';
+import React, { useState, useEffect, Fragment } from 'react'
+import { Row, Col, Button, Toast, ToastBody, ToastHeader, TabContent, Nav, NavItem, NavLink, Alert } from 'reactstrap';
 import classnames from 'classnames';
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
 
 import CreateCategory from '../categories/CreateCategory';
 import CategoriesTabPane from '../categories/CategoriesTabPane';
 import QuizesTabPane from '../quizes/QuizesTabPane';
 import SubscribersTabPane from './SubscribersTabPane';
 
-
-const Webmaster = ({ auth }) => {
+const Webmaster = ({ auth, error }) => {
 
     // State
     const [activeTab, setActiveTab] = useState('1');
@@ -17,12 +17,24 @@ const Webmaster = ({ auth }) => {
         if (activeTab !== tab) setActiveTab(tab);
     }
 
+    const [visible, setVisible] = useState(true);
+    const onDismiss = () => setVisible(false);
+
+    // Errors on form
+    const [errorsStateAPI, setErrorsStateAPI] = useState([])
+
+    useEffect(() => {
+        if (error.id !== null) {
+            setErrorsStateAPI(errorsStateAPI => [...errorsStateAPI, error.msg && error.msg.msg]);
+        }
+    }, [error])
+
     // render
     return (
         auth.isAuthenticated ?
             <>
                 {/* Title */}
-                <Row className="m-4 d-flex justify-content-between align-items-center text-primary">
+                <Row className="m-4 d-flex justify-content-between align-items-start text-primary">
                     <Toast>
                         <ToastHeader>
                             <strong>Welcome to your webmaster page</strong>
@@ -32,6 +44,17 @@ const Webmaster = ({ auth }) => {
                             Here you can add, edit and remove features!
                         </ToastBody>
                     </Toast>
+
+                    <div className="d-flex flex-column">
+                        {errorsStateAPI.length > 0 ?
+                            errorsStateAPI.map(err =>
+                                <Alert color="danger" isOpen={visible} toggle={onDismiss} key={Math.floor(Math.random() * 1000)}>
+                                    {err}
+                                </Alert>)
+                            :
+                            null
+                        }
+                    </div>
 
                     <div className="master-btns">
                         <Button size="sm" outline color="secondary">
@@ -89,9 +112,15 @@ const Webmaster = ({ auth }) => {
             <h6 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Login Again!</h6>
     )
 }
+Webmaster.propTypes = {
+    auth: PropTypes.object,
+    error: PropTypes.object
+}
 
+// Map  state props
 const mapStateToProps = state => ({
-    auth: state.authReducer
-})
+    auth: state.authReducer,
+    error: state.errorReducer
+});
 
-export default connect(mapStateToProps, null)(Webmaster)
+export default connect(mapStateToProps, {})(Webmaster)

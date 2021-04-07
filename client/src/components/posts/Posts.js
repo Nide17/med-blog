@@ -80,9 +80,14 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
 
                         <Form onSubmit={onSubscribe}>
                             <FormGroup>
-                                <h6 className="mt-4"><b>Subscribe to our newsletter.</b></h6>
-                                <Input type="text" name="name" bsSize="sm" placeholder="Your name" className="mt-4" onChange={onChangeHandler} required />
+                                <h6 className="mt-4">
+                                    <b>Subscribe to our newsletter.</b>
+                                </h6>
+
+                                <Input type="text" name="name" bsSize="sm" placeholder="Your name" className="mt-4" onChange={onChangeHandler} minlength="4" maxlength="30" required />
+
                                 <Input type="email" name="email" bsSize="sm" placeholder="Your Email" className="mt-4" onChange={onChangeHandler} required />
+
                                 <Button color="info" size="sm" className="mt-4">Signup</Button>
                             </FormGroup>
                         </Form>
