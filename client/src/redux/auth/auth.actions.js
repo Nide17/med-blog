@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { returnErrors } from '../error/error.actions'
-import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL } from "./auth.types";
+import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS } from "./auth.types";
 
 // Check token & load user
 export const loadUser = () => (dispatch, getState) => {
@@ -108,3 +108,20 @@ export const tokenConfig = getState => {
   }
   return config
 }
+
+
+// View yr user
+export const getUsers = () => (dispatch, getState) => {
+
+  axios
+    .get('/api/users')
+    .then(res =>
+      dispatch({
+        type: GET_USERS,
+        payload: res.data,
+      }),
+    )
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
+};

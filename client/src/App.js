@@ -2,7 +2,6 @@ import React, { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Spinner } from 'reactstrap';
 import Header from './components/Header';
-import Posts from './components/posts/Posts';
 import Contact from './components/Contact';
 import About from './components/About';
 import Placeholder from './components/placeholder/Placeholder';
@@ -19,6 +18,7 @@ import SingleCategory from './components/categories/SingleCategory';
 
 const Questions = lazy(() => import('./components/questions/Questions'));
 const Webmaster = lazy(() => import('./components/webmaster/Webmaster'));
+const Posts = lazy(() => import('./components/posts/Posts'));
 
 const App = () => {
 
@@ -32,7 +32,13 @@ const App = () => {
                 <Header />
 
                 <Switch>
-                    <Route exact path="/" component={Posts} />
+                    <Route exact path="/">
+                        <Suspense fallback={<div className="p-5 m-5 d-flex justify-content-center align-items-center">
+                            <Spinner style={{ width: '10rem', height: '10rem' }} />{' '}
+                        </div>}>
+                            <Posts />
+                        </Suspense>
+                    </Route>
 
                     <Route exact path="/questions">
                         <Suspense fallback={<div className="p-5 m-5 d-flex justify-content-center align-items-center">

@@ -12,13 +12,13 @@ const ViewCategory = ({ allcategories, setCategories }) => {
 
     return (
         allcategories.map(category =>
-            <>
+            <React.Fragment key={category._id}>
                 <Button outline color="secondary" id={category.title} block className="px-0 mt-2">{category.title}</Button>
 
                 <UncontrolledCollapse toggler={`#${category.title}`} className="w-100">
                     <ListGroup>
                         {category.quizes.map(quiz =>
-                            <ListGroupItem className="d-flex justify-content-between">
+                            <ListGroupItem key={quiz._id} className="d-flex justify-content-between">
                                 <p className="m-0">{quiz.title}</p>
                                 <Badge color="info">{quiz.questions.length}</Badge>
                             </ListGroupItem>
@@ -26,7 +26,7 @@ const ViewCategory = ({ allcategories, setCategories }) => {
 
                     </ListGroup>
                 </UncontrolledCollapse>
-            </>
+            </React.Fragment>
         )
     );
 }

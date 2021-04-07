@@ -1,4 +1,4 @@
-import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL } from "./auth.types";
+import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS } from "./auth.types";
 
 const INITIAL_STATE = {
   token: localStorage.getItem('token'),
@@ -11,11 +11,17 @@ const authReducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-    case USER_LOADING:
+    case GET_USERS:
       return {
         ...state,
-        isLoading: true
+        users: action.payload
       };
+
+      case USER_LOADING:
+        return {
+          ...state,
+          isLoading: true
+        };
 
     case USER_LOADED:
       return {

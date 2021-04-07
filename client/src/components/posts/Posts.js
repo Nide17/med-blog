@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Col, Row, Form, FormGroup, Input, Button, Alert } from 'reactstrap';
-import PostItem from './PostItem'
+import React, { useEffect, useState, lazy, Suspense } from 'react'
+import { Container, Col, Row, Form, FormGroup, Input, Button, Alert, Spinner } from 'reactstrap';
 
 import { connect } from 'react-redux'
+
+import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setPosts, subscribeToNewsLetter } from '../../redux/subscribers/subscribers.actions'
 import { clearErrors } from '../../redux/error/error.actions'
-import ViewCategory from '../categories/ViewCategory';
+const PostItem = lazy(() => import('./PostItem'));
+const ViewCategory = lazy(() => import('../categories/ViewCategory'));
 
-const Posts = ({ postsData, setPosts, subscribeToNewsLetter, error, subscribedUsers, clearErrors }) => {
+const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, error, setQuizes, allQuizes }) => {
 
     const [state, setState] = useState({
         name: '',
@@ -18,7 +20,8 @@ const Posts = ({ postsData, setPosts, subscribeToNewsLetter, error, subscribedUs
 
         // Inside this callback function, we set posts when the component is mounted.
         setPosts();
-    }, [setPosts]);
+        setQuizes()
+    }, [setPosts, setQuizes]);
 
     const onChangeHandler = e => {
         clearErrors();
@@ -45,14 +48,22 @@ const Posts = ({ postsData, setPosts, subscribeToNewsLetter, error, subscribedUs
         <Container className="posts main mt-4">
             <Row>
                 <Col sm="9" className="mt-md-2">
-                    {postsData && postsData.map(post => (
-                        <PostItem key={post.id} post={post} />
+                    {allQuizes && allQuizes.map(quiz => (
+                        <Suspense fallback={<div className="p-1 m-1 d-flex justify-content-center align-items-center">
+                            <Spinner style={{ width: '5rem', height: '5rem' }} />{' '}
+                        </div>}>
+                            <PostItem key={quiz._id} quiz={quiz} />
+                        </Suspense>
                     ))}
                 </Col>
 
                 <Col sm="3">
                     <Row className="mb-5">
-                        <ViewCategory />
+                        <Suspense fallback={<div className="p-1 m-1 d-flex justify-content-center align-items-center">
+                            <Spinner style={{ width: '5rem', height: '5rem' }} />{' '}
+                        </div>}>
+                            <ViewCategory />
+                        </Suspense>
                     </Row>
 
                     <Row className="mb-5">
@@ -86,7 +97,9 @@ const Posts = ({ postsData, setPosts, subscribeToNewsLetter, error, subscribedUs
 const mapStateToProps = state => ({
     postsData: state.postsReducer.postsData,
     error: state.errorReducer,
-    subscribedUsers: state.postsReducer.subscribedUsers
+    subscribedUsers: state.postsReducer.subscribedUsers,
+    allQuizes: state.quizesReducer.allQuizes,
+    questionsData: state.questionsReducer.questionsData,
 })
 
-export default connect(mapStateToProps, { setPosts, subscribeToNewsLetter, clearErrors })(Posts)
+export default connect(mapStateToProps, { setPosts, subscribeToNewsLetter, clearErrors, setQuizes })(Posts)

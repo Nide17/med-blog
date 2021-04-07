@@ -4,8 +4,6 @@ import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, N
 
 import { connect } from 'react-redux';
 import { createCategory } from '../../redux/categories/categories.actions';
-// import { login } from '../../redux/auth/auth.actions';
-// import { clearErrors } from '../../redux/error/error.actions'
 
 const CreateCategory = ({ auth, createCategory }) => {
 

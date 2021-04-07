@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
-import { Row, Col, Button, Toast, ToastBody, ToastHeader, TabPane } from 'reactstrap';
+import { Row, Col, Toast, ToastBody, ToastHeader, TabPane } from 'reactstrap';
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
 import EditQuiz from './EditQuiz';
 
-import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
-import { deleteQuiz, updateQuiz } from '../../redux/quizes/quizes.actions'
+import { setQuizes, deleteQuiz, updateQuiz } from '../../redux/quizes/quizes.actions'
 
 import trash from '../../images/trash.svg';
 import AddIcon from '../../images/plus.svg';
