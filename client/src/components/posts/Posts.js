@@ -47,22 +47,37 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
 
     return (
         <Container className="posts main mt-4">
+
+            <blockquote className="blockquote text-center mt-4">
+                <h1 className="mb-0 lead text-uppercase font-weight-bold">Knowing matter, so does quizzing!</h1>
+                <small class="text-muted">Welcome, test out your wishes!</small>
+            </blockquote>
+
             <Row>
                 <Col sm="9" className="mt-md-2">
-                    {allQuizes && allQuizes.slice(0, 6).map(quiz => (
-                        <Suspense key={quiz._id} fallback={<div className="p-1 m-1 d-flex justify-content-center align-items-center">
-                            <Spinner style={{ width: '5rem', height: '5rem' }} />{' '}
-                        </div>}>
-                            <PostItem quiz={quiz} />
-                        </Suspense>
-                    ))}
+                    <Suspense
+                        fallback={
+                            <div className="p-1 m-1 d-flex justify-content-center align-items-center">
+                                <Spinner style={{ width: '5rem', height: '5rem' }} />
+                            </div>
+                        }>
+                        <h3 className="mb-0 lead font-weight-bold">Newest Quizes</h3>
+                        {allQuizes && allQuizes.slice(0, 6).map(quiz => (
+                            <PostItem key={quiz._id} quiz={quiz} />
+                        ))}
+                    </Suspense>
+
                 </Col>
 
                 <Col sm="3">
                     <Row className="mb-5">
-                        <Suspense fallback={<div className="p-1 m-1 d-flex justify-content-center align-items-center">
-                            <Spinner style={{ width: '5rem', height: '5rem' }} />{' '}
-                        </div>}>
+                        <Suspense
+                            fallback=
+                            {
+                                <div className="p-1 m-1 d-flex justify-content-center align-items-center">
+                                    <Spinner style={{ width: '5rem', height: '5rem' }} />{' '}
+                                </div>
+                            }>
                             <ViewCategory />
 
                             <div className="w-100 mt-2 d-flex justify-content-center align-items-center">

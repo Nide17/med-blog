@@ -33,12 +33,6 @@ const PostItem = ({ quiz, getUsers, users }) => {
             </div>
 
             <CardText className="mt-3 text-secondary">{description}</CardText>
-            {/* <div className="tags d-flex">
-                {Keywords && Keywords.map(keyword => (
-                    <p className="px-2 mr-2" key={keyword}># {keyword}</p>
-                ))}
-
-            </div> */}
         </Card>
     )
 }

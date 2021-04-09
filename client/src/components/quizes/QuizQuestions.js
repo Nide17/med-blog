@@ -41,61 +41,61 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions }) => {
     };
 
     return (
-    // if (!loading) {
+        // if (!loading) {
 
-    allQuizes && allQuizes.map(quiz => (
+        allQuizes && allQuizes.map(quiz => (
 
-        (quiz._id === quizId) ?
+            (quiz._id === quizId) ?
 
-            (quiz.questions.length > 0) ?
-                <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80">
+                (quiz.questions.length > 0) ?
+                    <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80">
 
-                    {showScore ?
-                        <div className='score-section text-center'>
+                        {showScore ?
+                            <div className='score-section text-center'>
 
-                            <h5>You scored <b style={{ color: "#B4654A" }}>{score}</b> out of <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>
-                            </h5>
+                                <h5>You scored <b style={{ color: "#B4654A" }}>{score}</b> out of <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>
+                                </h5>
 
-                            <a href="/questions">
-                                <button type="button" className="btn btn-outline-info mt-3">
-                                    Back to quiz
+                                <a href="/questions">
+                                    <button type="button" className="btn btn-outline-info mt-3">
+                                        Back to quiz
                                     </button>
-                            </a>
+                                </a>
 
-                        </div> :
+                            </div> :
 
-                        <div className="question-view">
-                            <Row>
-                                <Col>
-                                    <div className='question-section my-2 mx-auto w-75'>
-                                        <h4 className='question-count text-uppercase text-center text-secondary font-weight-bold'>
-                                            <span>Question <b style={{ color: "#B4654A" }}>{currentQuestion + 1}</b></span>/{quiz.questions.length}
-                                        </h4>
-                                        <h5 className='q-txt mt-4 font-weight-bold text-center'>{quiz.questions[currentQuestion].questionText && quiz.questions[currentQuestion].questionText}</h5>
-                                    </div>
-                                </Col>
-                            </Row>
+                            <div className="question-view">
+                                <Row>
+                                    <Col>
+                                        <div className='question-section my-2 mx-auto w-75'>
+                                            <h4 className='question-count text-uppercase text-center text-secondary font-weight-bold'>
+                                                <span>Question <b style={{ color: "#B4654A" }}>{currentQuestion + 1}</b></span>/{quiz.questions.length}
+                                            </h4>
+                                            <h5 className='q-txt mt-4 font-weight-bold text-center'>{quiz.questions[currentQuestion].questionText && quiz.questions[currentQuestion].questionText}</h5>
+                                        </div>
+                                    </Col>
+                                </Row>
 
-                            <Row>
-                                <Col>
-                                    <div className='answer d-flex flex-column mx-auto mt-2 w-25'>
-                                        {quiz.questions && quiz.questions[currentQuestion].answerOptions.map((answerOption, index) => (
+                                <Row>
+                                    <Col>
+                                        <div className='answer d-flex flex-column mx-auto mt-2 w-25'>
+                                            {quiz.questions && quiz.questions[currentQuestion].answerOptions.map((answerOption, index) => (
 
-                                            <button className="answer-option my-3 p-2 btn btn-outline-info rounded" key={index} onClick={() => handleAnswerButtonClick(answerOption.isCorrect)}>
-                                                {answerOption.answerText}
-                                            </button>
+                                                <button className="answer-option my-3 p-2 btn btn-outline-info rounded" key={index} onClick={() => handleAnswerButtonClick(answerOption.isCorrect)}>
+                                                    {answerOption.answerText}
+                                                </button>
 
-                                        ))}
-                                    </div>
-                                </Col>
-                            </Row>
-                        </div>}
+                                            ))}
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </div>}
 
-                </Container> :
+                    </Container> :
 
-                null :
+                    null :
 
-            <></>)))
+                <></>)))
     // }
 
     // else {
