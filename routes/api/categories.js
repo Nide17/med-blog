@@ -101,9 +101,9 @@ router.put('/:id', async (req, res) => {
         const category = await Category.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
         res.status(200).json(category);
 
-    } catch (error) {
+    } catch (err) {
         res.status(400).json({
-            msg: 'Failed to update! ' + error.message,
+            msg: 'Failed to update! ' + err.message,
             success: false
         });
     }
@@ -126,10 +126,10 @@ router.delete('/:id', async (req, res) => {
 
         res.status(200).json({ msg: "Deleted successfully!" });
 
-    } catch (error) {
+    } catch (err) {
         res.status(400).json({
             success: false,
-            msg: error.message
+            msg: err.message
         });
     }
 
