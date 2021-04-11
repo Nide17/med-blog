@@ -54,8 +54,6 @@ router.post("/", async (req, res) => {
 
 
   } catch (err) {
-    console.log(err);
-
     if (err.name === "ValidationError") {
       return res.status(400).send(err.errors);
     }
