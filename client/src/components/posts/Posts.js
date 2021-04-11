@@ -18,7 +18,6 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
     })
 
     useEffect(() => {
-
         // Inside this callback function, we set posts when the component is mounted.
         setPosts();
         setQuizes()
@@ -50,10 +49,10 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
 
             <blockquote className="blockquote text-center mt-4">
                 <h1 className="mb-0 lead text-uppercase font-weight-bold">Knowing matter, so does quizzing!</h1>
-                <small class="text-muted">Welcome, test out your wishes!</small>
+                <small className="text-muted">Welcome, test out your wishes!</small>
             </blockquote>
 
-            <Row>
+            <Row className="mt-lg-5">
                 <Col sm="9" className="mt-md-2">
                     <Suspense
                         fallback={
@@ -61,10 +60,17 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                                 <Spinner style={{ width: '5rem', height: '5rem' }} />
                             </div>
                         }>
-                        <h3 className="mb-0 lead font-weight-bold">Newest Quizes</h3>
-                        {allQuizes && allQuizes.slice(0, 6).map(quiz => (
+                        <h3 className="mb-3 text-center lead font-weight-bold">Newest Quizes</h3>
+                        {allQuizes && allQuizes.slice(0, 5).map(quiz => (
                             <PostItem key={quiz._id} quiz={quiz} />
                         ))}
+
+                        {allQuizes.length > 0 ? <div className="mt-4 d-flex justify-content-center">
+                        <Link to="/allposts">
+                        <Button outline color="info">Load more ...</Button>
+                        </Link>
+                        </div>: null}
+                        
                     </Suspense>
 
                 </Col>

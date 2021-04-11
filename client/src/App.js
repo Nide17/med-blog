@@ -16,6 +16,7 @@ import { loadUser } from './redux/auth/auth.actions'
 import SingleCategory from './components/categories/SingleCategory';
 // import SingleQuiz from './components/quizes/SingleQuiz';
 import QuizQuestions from './components/quizes/QuizQuestions';
+import AllPosts from './components/posts/AllPosts';
 
 const Questions = lazy(() => import('./components/questions/Questions'));
 const Webmaster = lazy(() => import('./components/webmaster/Webmaster'));
@@ -35,15 +36,23 @@ const App = () => {
                 <Switch>
                     <Route exact path="/">
                         <Suspense fallback={<div className="p-5 m-5 d-flex justify-content-center align-items-center">
-                            <Spinner style={{ width: '10rem', height: '10rem' }} />{' '}
+                            <Spinner style={{ width: '10rem', height: '10rem' }} />
                         </div>}>
                             <Posts />
                         </Suspense>
                     </Route>
 
+                    <Route exact path="/allposts">
+                        <Suspense fallback={<div className="p-5 m-5 d-flex justify-content-center align-items-center">
+                            <Spinner style={{ width: '10rem', height: '10rem' }} />
+                        </div>}>
+                            <AllPosts />
+                        </Suspense>
+                    </Route>                    
+
                     <Route exact path="/questions">
                         <Suspense fallback={<div className="p-5 m-5 d-flex justify-content-center align-items-center">
-                            <Spinner style={{ width: '10rem', height: '10rem' }} />{' '}
+                            <Spinner style={{ width: '10rem', height: '10rem' }} />
                         </div>}>
                             <Questions />
                         </Suspense>
@@ -63,7 +72,7 @@ const App = () => {
 
                     <Route exact path="/webmaster">
                         <Suspense fallback={<div className="p-5 m-5 d-flex justify-content-center align-items-center">
-                            <Spinner style={{ width: '10rem', height: '10rem' }} />{' '}
+                            <Spinner style={{ width: '10rem', height: '10rem' }} />
                         </div>}>
                             <Webmaster />
                         </Suspense>

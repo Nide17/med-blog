@@ -109,6 +109,15 @@ div .jumbotron {
     animation: blinker 1.8s linear infinite;
 }
 
+.blink_load {
+    color: #ffffff !important;
+    background-color: #157A6E;
+    padding: .8rem;
+    border: 1px solid #ffffff;
+    border-radius: 5px !important;
+    animation: blinker 1.8s linear infinite;
+}
+
 .blink_more {
     animation: blinker 1.8s linear infinite;
 }
