@@ -38,6 +38,10 @@ button.btn-primary {
     background-color: #157A6E !important;
 }
 
+.modal-header .close {
+    color: red;
+}
+
 header .close {
     color: red;
     font-size: 2.5rem
@@ -199,6 +203,7 @@ div.question-section {
 .badge {
     line-height: 1.8;
 }
+
 @keyframes answer {
     from {
         opacity: 0;

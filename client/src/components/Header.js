@@ -50,7 +50,7 @@ const Header = (props) => {
 
                 {
                     isOpen ?
-                        <Button close onClick={toggle} className="px-3 mr-1 text-danger" /> :
+                        <Button close onClick={toggle} className="px-3 mr-1 text-danger d-lg-none" /> :
                         <NavbarToggler onClick={toggle} />
                 }
 
