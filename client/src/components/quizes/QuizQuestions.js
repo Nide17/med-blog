@@ -48,6 +48,8 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading }) => {
                         <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80">
 
                             {showScore ?
+
+                            
                                 <div className='score-section text-center'>
 
                                     <h5>You scored <b style={{ color: "#B4654A" }}>{score}</b> out of <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>
