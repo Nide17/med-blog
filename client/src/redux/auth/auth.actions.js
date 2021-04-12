@@ -1,10 +1,31 @@
 import axios from 'axios';
 import { returnErrors } from '../error/error.actions'
-import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS } from "./auth.types";
+import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS, UPDATE_USER, DELETE_USER, UPDATE_USER_FAIL, DELETE_USER_FAIL } from "./auth.types";
+
+
+//HELPER FUNCTION TO GET THE TOKEN - SETUP CONFIG/headers and token
+export const tokenConfig = getState => {
+
+  // Get token from localStorage
+  const token = getState().authReducer.token;
+
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  // If token, add to header
+  if (token) {
+    config.headers['x-auth-token'] = token;
+  }
+  return config
+}
 
 // Check token & load user
 export const loadUser = () => (dispatch, getState) => {
-  
+
   // User loading
   dispatch({ type: USER_LOADING });
 
@@ -22,6 +43,23 @@ export const loadUser = () => (dispatch, getState) => {
       })
     });
 }
+
+// View all users
+export const getUsers = () => async (dispatch, getState) => {
+
+  try {
+    await axios
+      .get('/api/users', tokenConfig(getState))
+      .then(res =>
+        dispatch({
+          type: GET_USERS,
+          payload: res.data,
+        }),
+      )
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status))
+  }
+};
 
 // Register User
 export const register = ({ name, email, password }) => dispatch => {
@@ -83,45 +121,43 @@ export const login = ({ email, password }) =>
 
 
 // Logout USER
-export const logout = (history) => async dispatch => {
+export const logout = () => async dispatch => {
   dispatch({
-      type: LOGOUT_SUCCESS
+    type: LOGOUT_SUCCESS
   })
 }
 
-//HELPER FUNCTION TO GET THE TOKEN - SETUP CONFIG/headers and token
-export const tokenConfig = getState => {
+// Update a USER
+export const updateUser = updatedUser => async dispatch => {
 
-  // Get token from localStorage
-  const token = getState().authReducer.token;
+  try {
+    await axios
+      .put(`/api/users/${updatedUser.uId}`, updatedUser)
+    dispatch({
+      type: UPDATE_USER,
+      payload: updatedUser
+    })
 
-  // Headers
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  // If token, add to header
-  if (token) {
-    config.headers['x-auth-token'] = token;
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status, 'UPDATE_USER_FAIL'));
+    dispatch({ type: UPDATE_USER_FAIL })
   }
-  return config
 }
 
+// Delete a USER
+export const deleteUser = id => async dispatch => {
 
-// View yr user
-export const getUsers = () => (dispatch, getState) => {
-
-  axios
-    .get('/api/users')
-    .then(res =>
+  try {
+    if (window.confirm("This User will be deleted permanently!")) {
+      await axios.delete(`/api/users/${id}`)
       dispatch({
-        type: GET_USERS,
-        payload: res.data,
-      }),
-    )
-    .catch(err =>
-      dispatch(returnErrors(err.response.data, err.response.status))
-    );
-};
+        type: DELETE_USER,
+        payload: id
+      })
+    }
+
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status, 'DELETE_USER_FAIL'));
+    dispatch({ type: DELETE_USER_FAIL })
+  }
+}

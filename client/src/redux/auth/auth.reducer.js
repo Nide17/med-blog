@@ -1,10 +1,11 @@
-import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS } from "./auth.types";
+import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS, DELETE_USER, UPDATE_USER, DELETE_USER_FAIL, UPDATE_USER_FAIL } from "./auth.types";
 
 const INITIAL_STATE = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   isLoading: false,
-  user: null
+  user: null,
+  users: []
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -17,11 +18,11 @@ const authReducer = (state = INITIAL_STATE, action) => {
         users: action.payload
       };
 
-      case USER_LOADING:
-        return {
-          ...state,
-          isLoading: true
-        };
+    case USER_LOADING:
+      return {
+        ...state,
+        isLoading: true
+      };
 
     case USER_LOADED:
       return {
@@ -54,9 +55,43 @@ const authReducer = (state = INITIAL_STATE, action) => {
         isLoading: false
       };
 
+
+    //Users CRUD 
+    case DELETE_USER_FAIL:
+    case UPDATE_USER_FAIL:
+      return {
+        ...state,
+        msg: "Failed!"
+      };
+
+    case UPDATE_USER:
+      return {
+        ...state,
+        users: state.users.map((user) => {
+
+          if (user._id === action.payload.uId) {
+
+            return {
+              ...user,
+              title: action.payload.title,
+              description: action.payload.description,
+              last_updated_by: action.payload.last_updated_by
+            }
+
+          } else return user;
+        })
+      }
+
+    case DELETE_USER:
+      return {
+        ...state,
+        users: state.users.filter(user => user._id !== action.payload)
+      }
+
+
     default:
       return state;
   }
-};
+}
 
 export default authReducer;

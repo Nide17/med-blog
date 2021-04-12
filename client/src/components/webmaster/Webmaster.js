@@ -9,6 +9,7 @@ import CreateCategory from '../categories/CreateCategory';
 import CategoriesTabPane from '../categories/CategoriesTabPane';
 import QuizesTabPane from '../quizes/QuizesTabPane';
 import SubscribersTabPane from './SubscribersTabPane';
+import UsersTabPane from '../users/UsersTabPane';
 
 const Webmaster = ({ auth, error }) => {
     // State
@@ -77,7 +78,7 @@ const Webmaster = ({ auth, error }) => {
                                         className={classnames({ active: activeTab === '1' })}
                                         onClick={() => { toggle('1'); }}>
                                         Categories
-                            </NavLink>
+                                    </NavLink>
                                 </NavItem>
 
                                 <NavItem>
@@ -85,7 +86,7 @@ const Webmaster = ({ auth, error }) => {
                                         className={classnames({ active: activeTab === '2' })}
                                         onClick={() => { toggle('2'); }}>
                                         Quizes
-                            </NavLink>
+                                    </NavLink>
                                 </NavItem>
 
                                 <NavItem>
@@ -93,7 +94,15 @@ const Webmaster = ({ auth, error }) => {
                                         className={classnames({ active: activeTab === '3' })}
                                         onClick={() => { toggle('3'); }}>
                                         Subscribers
-                            </NavLink>
+                                    </NavLink>
+                                </NavItem>
+
+                                <NavItem>
+                                    <NavLink
+                                        className={classnames({ active: activeTab === '4' })}
+                                        onClick={() => { toggle('4'); }}>
+                                        Users
+                                    </NavLink>
                                 </NavItem>
 
                             </Nav>
@@ -106,6 +115,7 @@ const Webmaster = ({ auth, error }) => {
                                 <CategoriesTabPane />
                                 <SubscribersTabPane />
                                 <QuizesTabPane />
+                                <UsersTabPane />
 
                             </TabContent>
                         </Col>
