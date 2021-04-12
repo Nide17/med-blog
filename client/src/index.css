@@ -38,8 +38,9 @@ button.btn-primary {
     background-color: #157A6E !important;
 }
 
-.modal-header .close {
+header .close {
     color: red;
+    font-size: 2.5rem
 }
 
 nav .collapse .navbar-text {
@@ -164,6 +165,11 @@ div.question-section {
     margin-left: 0 !important;
 }
 
+.users-toast .toast-header .mr-auto {
+    display: flex;
+    justify-content: space-between;
+}
+
 .quiz-toast .toast {
     height: 140px !important;
     overflow-y: scroll !important;
@@ -271,10 +277,6 @@ div.question-section {
 
     .answer.w-25 {
         width: 75% !important;
-    }
-
-    nav .collapse .logout {
-        display: block !important;
     }
 
 }

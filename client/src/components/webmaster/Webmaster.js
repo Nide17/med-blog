@@ -71,7 +71,7 @@ const Webmaster = ({ auth, error }) => {
                     <Row className="m-4">
                         <Col sm="12">
 
-                            <Nav tabs>
+                            <Nav tabs className="d-block d-sm-flex">
 
                                 <NavItem>
                                     <NavLink

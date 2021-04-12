@@ -2,57 +2,39 @@ import React, { useEffect } from 'react'
 import { Row, Col, Toast, ToastBody, ToastHeader, TabPane } from 'reactstrap';
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
-// import EditUser from './EditUser';
+import EditUser from './EditUser';
 
-import { setUsers, deleteUser, updateUser } from '../../redux/users/users.actions'
+import { getUsers, deleteUser, updateUser } from '../../redux/auth/auth.actions'
 
-// import trash from '../../images/trash.svg';
+import trash from '../../images/trash.svg';
 
-const UsersTabPane = ({ allUsers, setUsers, deleteUser }) => {
+const UsersTabPane = ({ users, getUsers, deleteUser }) => {
 
     // Lifecycle methods
     useEffect(() => {
-        setUsers();
-    }, [setUsers]);
+        getUsers();
+    }, [getUsers]);
 
     return (
 
-        <TabPane tabId="2">
+        <TabPane tabId="4">
             <Row>
-                {allUsers && allUsers.map(user => (
-                    <Col sm="4" key={user._id} className="mt-3 quiz-toast">
+                {users && users.map(user => (
+                    <Col sm="4" key={user._id} className="mt-3 users-toast">
 
                         <Toast>
                             <ToastHeader className="text-success">
 
-                                <strong>{user.title}</strong>
+                                <strong>{user.email}</strong>
                                 <div className="actions text-secondary d-flex">
-
-                                    {/* <img src={trash} alt="" width="16" height="16" className="mr-3 mt-1" onClick={() => deleteUser(user._id)} />
-
-                                    <EditUser uId={user._id} qTitle={user.title} qDesc={user.description} />
-                                    
-                                    <Link to={`/questions-create/${user._id}`} className="text-secondary">
-                                                            <img src={AddIcon} alt=""  width="12" height="12" className="" /> <small>Questions</small>
-                                                    </Link> */}
-
+                                    <img src={trash} alt="" width="16" height="16" className="mx-4 mt-1" onClick={() => deleteUser(user._id)} />
+                                    <EditUser uId={user._id} uName={user.name} uRole={user.role} uEmail={user.email}/>
                                 </div>
-
                             </ToastHeader>
 
                             <ToastBody>
-                                {user.description}
-                                <br />
-                                <br />
-
-                                {user.questions.length > 0 ? <p className="font-weight-bold">Questions ({user.questions.length})</p> : null}
-
-                                {user.questions && user.questions.map(question =>
-                                    <ol key={question._id}>
-                                        <li className="">{question.questionText}</li>
-                                    </ol>
-                                )}
-
+                                <p className="font-weight-bold">{user.name}</p>
+                                <p>{user.role}</p>
                             </ToastBody>
                         </Toast>
 
@@ -65,7 +47,7 @@ const UsersTabPane = ({ allUsers, setUsers, deleteUser }) => {
 }
 
 const mapStateToProps = state => ({
-    allUsers: state.usersReducer.allUsers
+    users: state.authReducer.users
 })
 
-export default connect(mapStateToProps, { setUsers, updateUser, deleteUser })(UsersTabPane)
+export default connect(mapStateToProps, { getUsers, updateUser, deleteUser })(UsersTabPane)

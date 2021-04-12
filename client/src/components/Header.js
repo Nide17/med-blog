@@ -22,7 +22,7 @@ const Header = (props) => {
                 </span>
             </NavbarText>
 
-            <NavbarText className="mx-0 logout">
+            <NavbarText className="logout ml-3">
                 <Logout />
             </NavbarText>
         </>

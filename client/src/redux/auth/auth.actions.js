@@ -49,7 +49,7 @@ export const getUsers = () => async (dispatch, getState) => {
 
   try {
     await axios
-      .get('/api/users', tokenConfig(getState))
+      .get('/api/users')
       .then(res =>
         dispatch({
           type: GET_USERS,
