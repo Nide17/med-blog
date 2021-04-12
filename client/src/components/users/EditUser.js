@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
-import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { updateUser } from '../../redux/auth/auth.actions'
 import EditIcon from '../../images/edit.svg';
 
-const EditUser = ({ uName, uRole, uEmail, updateUser }) => {
+const EditUser = ({ uId, uName, uRole, uEmail, updateUser }) => {
 
     const [userState, setUserState] = useState({
-    
+        uId,
         name: uName,
         role: uRole,
         email: uEmail
@@ -31,7 +30,7 @@ const EditUser = ({ uName, uRole, uEmail, updateUser }) => {
     const onSubmitHandler = e => {
         e.preventDefault();
 
-        const { name, role, email } = userState;
+        const { uId, name, role, email } = userState;
 
         // VALIDATE
         if (name.length < 4 || role.length < 4 || email.length < 4) {
@@ -49,7 +48,7 @@ const EditUser = ({ uName, uRole, uEmail, updateUser }) => {
 
         // Create new User object
         const updatedUser = {
-        
+            uId,
             name,
             role,
             email
@@ -123,13 +122,5 @@ const EditUser = ({ uName, uRole, uEmail, updateUser }) => {
     );
 }
 
-EditUser.propTypes = {
-    auth: PropTypes.object
-}
 
-// Map  state props
-const mapStateToProps = state => ({
-    auth: state.authReducer
-});
-
-export default connect(mapStateToProps, { updateUser })(EditUser);
+export default connect(null, { updateUser })(EditUser);

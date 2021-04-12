@@ -3,7 +3,7 @@ import { Row, Col, Toast, ToastBody, ToastHeader, TabPane } from 'reactstrap';
 import { connect } from 'react-redux'
 import EditUser from './EditUser';
 
-import { getUsers, deleteUser, updateUser } from '../../redux/auth/auth.actions'
+import { getUsers, deleteUser } from '../../redux/auth/auth.actions'
 
 import trash from '../../images/trash.svg';
 
@@ -49,4 +49,4 @@ const mapStateToProps = state => ({
     users: state.authReducer.users
 })
 
-export default connect(mapStateToProps, { getUsers, updateUser, deleteUser })(UsersTabPane)
+export default connect(mapStateToProps, { getUsers, deleteUser })(UsersTabPane)

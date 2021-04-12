@@ -73,9 +73,9 @@ const authReducer = (state = INITIAL_STATE, action) => {
 
             return {
               ...user,
-              title: action.payload.title,
-              description: action.payload.description,
-              last_updated_by: action.payload.last_updated_by
+              name: action.payload.name,
+              role: action.payload.role,
+              email: action.payload.email
             }
 
           } else return user;
