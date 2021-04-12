@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Row, Col, Toast, ToastBody, ToastHeader, TabPane } from 'reactstrap';
 import { connect } from 'react-redux'
-import { Link } from "react-router-dom";
 import EditUser from './EditUser';
 
 import { getUsers, deleteUser, updateUser } from '../../redux/auth/auth.actions'

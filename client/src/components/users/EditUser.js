@@ -3,16 +3,16 @@ import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, A
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { updateQuiz } from '../../redux/quizes/quizes.actions'
+import { updateUser } from '../../redux/auth/auth.actions'
 import EditIcon from '../../images/edit.svg';
-// import { clearErrors } from '../../redux/error/error.actions'
 
-const EditQuiz = ({ qId, qTitle, qDesc, auth, updateQuiz }) => {
+const EditUser = ({ uName, uRole, uEmail, updateUser }) => {
 
-    const [quizState, setQuizState] = useState({
-        qId,
-        name: qTitle,
-        description: qDesc,
+    const [userState, setUserState] = useState({
+    
+        name: uName,
+        role: uRole,
+        email: uEmail
     })
 
     // Errors state on form
@@ -25,38 +25,38 @@ const EditQuiz = ({ qId, qTitle, qDesc, auth, updateQuiz }) => {
     const toggle = () => setModal(!modal);
 
     const onChangeHandler = e => {
-        setQuizState({ ...quizState, [e.target.name]: e.target.value });
+        setUserState({ ...userState, [e.target.name]: e.target.value });
     };
 
     const onSubmitHandler = e => {
         e.preventDefault();
 
-        const { qId, name, description } = quizState;
+        const { name, role, email } = userState;
 
         // VALIDATE
-        if (name.length < 4 || description.length < 4) {
+        if (name.length < 4 || role.length < 4 || email.length < 4) {
             setErrorsState(['Insufficient info!']);
             return
         }
-        else if (name.length > 15) {
-            setErrorsState(['Title is too long!']);
+        else if (name.length > 30) {
+            setErrorsState(['Name is too long!']);
             return
         }
-        else if (description.length > 30) {
-            setErrorsState(['Description is too long!']);
+        else if (role === '') {
+            setErrorsState(['Role is required!']);
             return
         }
 
-        // Create new Quiz object
-        const updatedQuiz = {
-            qId,
-            title: name,
-            description,
-            last_updated_by: auth.isLoading === false ? auth.user.id : null
+        // Create new User object
+        const updatedUser = {
+        
+            name,
+            role,
+            email
         };
 
         // Attempt to update
-        updateQuiz(updatedQuiz);
+        updateUser(updatedUser);
 
         // close the modal
         if (modal) {
@@ -73,7 +73,7 @@ const EditQuiz = ({ qId, qTitle, qDesc, auth, updateQuiz }) => {
                 toggle={toggle}
             >
 
-                <ModalHeader toggle={toggle} className="bg-primary text-white">Edit Quiz</ModalHeader>
+                <ModalHeader toggle={toggle} className="bg-primary text-white">Edit User</ModalHeader>
 
                 <ModalBody>
 
@@ -90,20 +90,29 @@ const EditQuiz = ({ qId, qTitle, qDesc, auth, updateQuiz }) => {
                         <FormGroup>
 
                             <Label for="name">
-                                <strong>Title</strong>
+                                <strong>Name</strong>
                             </Label>
 
-                            <Input type="text" name="name" id="name" placeholder="Quiz name ..." className="mb-3" onChange={onChangeHandler} value={quizState.name} />
+                            <Input type="text" name="name" id="name" placeholder="User name ..." className="mb-3" onChange={onChangeHandler} value={userState.name} />
 
-                            <Label for="description">
-                                <strong>Description</strong>
+                            <Label for="role">
+                                <strong>Role</strong>
                             </Label>
 
-                            <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={onChangeHandler} value={quizState.description} />
+                            <Input type="select" name="role" id="role" placeholder="Category role ..." className="mb-3" onChange={onChangeHandler} value={userState.role}>
+                                <option>Admin</option>
+                                <option>Visitor</option>
+                            </Input>
+
+                            <Label for="email">
+                                <strong>Email</strong>
+                            </Label>
+
+                            <Input type="email" name="email" id="email" placeholder="Category email ..." className="mb-3" onChange={onChangeHandler} value={userState.email} />
 
                             <Button color="success" style={{ marginTop: '2rem' }} block>
                                 Update
-                                </Button>
+                            </Button>
 
                         </FormGroup>
 
@@ -114,7 +123,7 @@ const EditQuiz = ({ qId, qTitle, qDesc, auth, updateQuiz }) => {
     );
 }
 
-EditQuiz.propTypes = {
+EditUser.propTypes = {
     auth: PropTypes.object
 }
 
@@ -123,4 +132,4 @@ const mapStateToProps = state => ({
     auth: state.authReducer
 });
 
-export default connect(mapStateToProps, { updateQuiz })(EditQuiz);
+export default connect(mapStateToProps, { updateUser })(EditUser);
