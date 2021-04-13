@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
 // @route Create a Score
 // @route Public
 
-router.post("/", auth, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
 
     const newScore = await Score.create(req.body);

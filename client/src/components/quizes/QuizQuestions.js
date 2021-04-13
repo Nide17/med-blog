@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types';
 import { Container, Col, Row, Spinner } from 'reactstrap';
 import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
+import { createScore } from '../../redux/scores/scores.actions'
 
-const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading }) => {
+const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScore, auth }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [showScore, setShowScore] = useState(false);
@@ -49,19 +51,41 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading }) => {
 
                             {showScore ?
 
-                            
-                                <div className='score-section text-center'>
+                                auth.isAuthenticated ?
 
-                                    <h5>You scored <b style={{ color: "#B4654A" }}>{score}</b> out of <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>
-                                    </h5>
+                                    createScore({
+                                        marks: score,
+                                        out_of: quiz.questions.length,
+                                        category: quiz.category._id,
+                                        quiz: quiz._id,
+                                        taken_by: auth.isLoading === false ? auth.user._id : null
+                                    }) &&
 
-                                    <a href="/">
-                                        <button type="button" className="btn btn-outline-info mt-3">
-                                            Back Home
+                                    <div className='score-section text-center'>
+
+                                        <h5>You scored <b style={{ color: "#B4654A" }}>{score}</b> out of <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>
+                                        </h5>
+
+                                        <a href="/">
+                                            <button type="button" className="btn btn-outline-info mt-3">
+                                                Back Home
                                     </button>
-                                    </a>
+                                        </a>
 
-                                </div> :
+                                    </div> :
+
+                                    <div className='score-section text-center'>
+
+                                        <h5>You scored <b style={{ color: "#B4654A" }}>{score}</b> out of <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>
+                                        </h5>
+
+                                        <a href="/">
+                                            <button type="button" className="btn btn-outline-info mt-3">
+                                                Back Home
+                                    </button>
+                                        </a>
+
+                                    </div> :
 
                                 <div className="question-view">
                                     <Row>
@@ -115,6 +139,10 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading }) => {
     }
 }
 
+QuizQuestions.propTypes = {
+    auth: PropTypes.object
+}
+
 const mapStateToProps = state => ({
     auth: state.authReducer,
     allQuizes: state.quizesReducer.allQuizes,
@@ -122,4 +150,4 @@ const mapStateToProps = state => ({
     loading: state.questionsReducer.loading
 });
 
-export default connect(mapStateToProps, { setQuestions, setQuestionsLoading, setQuizes })(QuizQuestions)
+export default connect(mapStateToProps, { setQuestions, setQuestionsLoading, setQuizes, createScore })(QuizQuestions)
