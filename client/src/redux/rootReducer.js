@@ -5,7 +5,8 @@ import errorReducer from './error/error.reducer';
 import authReducer from './auth/auth.reducer';
 import categoriesReducer from './categories/categories.reducer';
 import quizesReducer from './quizes/quizes.reducer';
+import scoresReducer from './scores/scores.reducer';
 
-const rootReducer = combineReducers({ postsReducer, questionsReducer, errorReducer, authReducer, categoriesReducer, quizesReducer });
+const rootReducer = combineReducers({ postsReducer, questionsReducer, errorReducer, authReducer, categoriesReducer, quizesReducer, scoresReducer });
 
 export default rootReducer;
