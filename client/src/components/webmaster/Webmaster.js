@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Row, Col, Button, Toast, ToastBody, ToastHeader, TabContent, Nav, NavItem, NavLink, Alert } from 'reactstrap';
 import classnames from 'classnames';
 import { connect } from 'react-redux'
@@ -10,6 +10,7 @@ import CategoriesTabPane from '../categories/CategoriesTabPane';
 import QuizesTabPane from '../quizes/QuizesTabPane';
 import SubscribersTabPane from './SubscribersTabPane';
 import UsersTabPane from '../users/UsersTabPane';
+import Reports from './Reports';
 
 const Webmaster = ({ auth, error }) => {
     // State
@@ -121,7 +122,7 @@ const Webmaster = ({ auth, error }) => {
                         </Col>
                     </Row>
                 </> :
-                <h6 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Only admins are allowed!</h6> :
+                <Reports userId={auth.user._Id}/> :
             <h6 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Login Again!</h6>
     )
 }
