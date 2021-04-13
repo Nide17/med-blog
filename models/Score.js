@@ -21,7 +21,7 @@ const ScoreSchema = new Schema({
     category: {
         type: Schema.Types.ObjectId,
         ref: 'category'
-      },
+    },
     quiz: {
         type: Schema.Types.ObjectId,
         ref: 'quiz'
@@ -32,5 +32,5 @@ const ScoreSchema = new Schema({
     }
 });
 
-//Question: the name of this model
+//Score: the name of this model
 module.exports = mongoose.model('score', ScoreSchema);
