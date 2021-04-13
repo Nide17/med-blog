@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
 
     // Sign and generate token
     const token = jwt.sign(
-      { id: user._id },
+      { _id: user._id },
       config.get('jwtSecret'),
       { expiresIn: '24h' }
     );
@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
     res.status(200).json({
       token,
       user: {
-        id: user._id,
+        _id: user._id,
         name: user.name,
         email: user.email,
         role: user.role
@@ -85,7 +85,7 @@ router.post('/register', async (req, res) => {
 
     // Sign and generate token
     const token = jwt.sign(
-      { id: savedUser._id },
+      { _id: savedUser._id },
       config.get('jwtSecret'),
       { expiresIn: '24h' }
     );
@@ -93,7 +93,7 @@ router.post('/register', async (req, res) => {
     res.status(200).json({
       token,
       user: {
-        id: savedUser.id,
+        _id: savedUser._id,
         name: savedUser.name,
         email: savedUser.email,
         role: savedUser.role
@@ -110,7 +110,7 @@ router.post('/register', async (req, res) => {
 
 router.get('/user', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user._id).select('-password');
     if (!user) throw Error('User Does not exist');
     res.json(user);
   } catch (err) {
