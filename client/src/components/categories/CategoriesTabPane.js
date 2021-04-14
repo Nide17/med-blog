@@ -8,7 +8,7 @@ import AddQuiz from '../quizes/AddQuiz';
 import EditCategory from './EditCategory';
 import DeleteIcon from '../../images/remove.svg';
 
-const CategoriesTabPane = ({categories, setCategories, deleteCategory }) => {
+const CategoriesTabPane = ({ currentUser, categories, setCategories, deleteCategory }) => {
 
     // Lifecycle methods
     useEffect(() => {
@@ -21,6 +21,7 @@ const CategoriesTabPane = ({categories, setCategories, deleteCategory }) => {
 
             <Row>
                 {categories.allcategories && categories.allcategories.map(category => (
+
                     <Col sm="6" className="mt-2" key={category._id}>
 
                         <Card body>
@@ -39,15 +40,22 @@ const CategoriesTabPane = ({categories, setCategories, deleteCategory }) => {
                                     <strong><AddQuiz category={category} /></strong>
                                 </Button>
 
-                                <Button size="sm" color="link" className="mx-2">
-                                    <EditCategory idToUpdate={category._id} editTitle={category.title} editingCategory={category.description} />
-                                </Button>
+                                {
+                                    currentUser.role === 'Admin' ?
+                                        <>
+                                            <Button size="sm" color="link" className="mx-2">
+                                                <EditCategory idToUpdate={category._id} editTitle={category.title} editingCategory={category.description} />
+                                            </Button>
 
-                                <Button size="sm" color="link" className="mx-2" onClick={() => deleteCategory(category._id)}>
-                                    <img src={DeleteIcon} alt="" width="16" height="16" />
-                                </Button>
+                                            <Button size="sm" color="link" className="mx-2" onClick={() => deleteCategory(category._id)}>
+                                                <img src={DeleteIcon} alt="" width="16" height="16" />
+                                            </Button>
+                                        </>
+                                        : null
+                                }
 
                             </div>
+
                         </Card>
                     </Col>
                 ))}

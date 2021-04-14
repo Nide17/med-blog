@@ -36,7 +36,7 @@ const Webmaster = ({ auth, error }) => {
     return (
         auth.isAuthenticated ?
 
-            auth.user.role === 'Admin' ?
+            auth.user.role !== 'Visitor' ?
                 <>
                     <Row className="m-4 d-flex justify-content-between align-items-start text-primary">
                         <Toast>
@@ -89,21 +89,26 @@ const Webmaster = ({ auth, error }) => {
                                     </NavLink>
                                 </NavItem>
 
-                                <NavItem>
-                                    <NavLink
-                                        className={classnames({ active: activeTab === '3' })}
-                                        onClick={() => { toggle('3'); }}>
-                                        Subscribers
+                                {
+                                    auth.user.role === 'Admin' ?
+                                        <>
+                                            <NavItem>
+                                                <NavLink
+                                                    className={classnames({ active: activeTab === '3' })}
+                                                    onClick={() => { toggle('3'); }}>
+                                                    Subscribers
                                     </NavLink>
-                                </NavItem>
+                                            </NavItem>
 
-                                <NavItem>
-                                    <NavLink
-                                        className={classnames({ active: activeTab === '4' })}
-                                        onClick={() => { toggle('4'); }}>
-                                        Users
+                                            <NavItem>
+                                                <NavLink
+                                                    className={classnames({ active: activeTab === '4' })}
+                                                    onClick={() => { toggle('4'); }}>
+                                                    Users
                                     </NavLink>
-                                </NavItem>
+                                            </NavItem>
+                                        </> : null
+                                }
 
                             </Nav>
                         </Col>
@@ -112,16 +117,16 @@ const Webmaster = ({ auth, error }) => {
 
                             <TabContent activeTab={activeTab}>
 
-                                <CategoriesTabPane />
-                                <SubscribersTabPane />
-                                <QuizesTabPane />
-                                <UsersTabPane />
+                                <CategoriesTabPane currentUser={auth.user} />
+                                <SubscribersTabPane currentUser={auth.user} />
+                                <QuizesTabPane currentUser={auth.user} />
+                                <UsersTabPane currentUser={auth.user} />
 
                             </TabContent>
                         </Col>
                     </Row>
                 </> :
-                <Reports userId={auth.user._id}/> :
+                <Reports userId={auth.user._id} /> :
             <h6 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Login Again!</h6>
     )
 }

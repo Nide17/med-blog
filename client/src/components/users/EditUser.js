@@ -100,6 +100,7 @@ const EditUser = ({ uId, uName, uRole, uEmail, updateUser }) => {
 
                             <Input type="select" name="role" id="role" placeholder="Category role ..." className="mb-3" onChange={onChangeHandler} value={userState.role}>
                                 <option>Admin</option>
+                                <option>Creator</option>
                                 <option>Visitor</option>
                             </Input>
 

@@ -10,7 +10,7 @@ import { setQuizes, deleteQuiz, updateQuiz } from '../../redux/quizes/quizes.act
 import trash from '../../images/trash.svg';
 import AddIcon from '../../images/plus.svg';
 
-const QuizesTabPane = ({ allQuizes, setQuizes, setQuestions, deleteQuiz }) => {
+const QuizesTabPane = ({ currentUser, allQuizes, setQuizes, setQuestions, deleteQuiz }) => {
 
     // Lifecycle methods
     useEffect(() => {
@@ -23,43 +23,45 @@ const QuizesTabPane = ({ allQuizes, setQuizes, setQuestions, deleteQuiz }) => {
         <TabPane tabId="2">
             <Row>
                 {allQuizes && allQuizes.map(quiz => (
-                    <Col sm="4" key={quiz._id} className="mt-3 quiz-toast">
 
-                        <Toast>
-                            <ToastHeader className="text-success">
-                                <strong>{quiz.title}</strong>
-                                <div className="actions text-secondary d-flex">
+                    currentUser._id === quiz.created_by._id ?
 
-                                    <img src={trash} alt="" width="16" height="16" className="mr-3 mt-1" onClick={() => deleteQuiz(quiz._id)} />
+                        <Col sm="4" key={quiz._id} className="mt-3 quiz-toast">
 
-                                    <EditQuiz qId={quiz._id} qTitle={quiz.title} qDesc={quiz.description} />
+                            <Toast>
+                                <ToastHeader className="text-success">
+                                    <strong>{quiz.title}</strong>
+                                    <div className="actions text-secondary d-flex">
 
-                                    <Link to={`/questions-create/${quiz._id}`} className="text-secondary">
-                                        <img src={AddIcon} alt="" width="12" height="12" className="" /> <small>Questions</small>
-                                    </Link>
+                                        <img src={trash} alt="" width="16" height="16" className="mr-3 mt-1" onClick={() => deleteQuiz(quiz._id)} />
 
-                                </div>
+                                        <EditQuiz qId={quiz._id} qTitle={quiz.title} qDesc={quiz.description} />
 
-                            </ToastHeader>
+                                        <Link to={`/questions-create/${quiz._id}`} className="text-secondary">
+                                            <img src={AddIcon} alt="" width="12" height="12" className="" /> <small>Questions</small>
+                                        </Link>
 
-                            <ToastBody>
-                                <small>{quiz.created_by.name}</small>
-                                <br />
-                                {quiz.description}
-                                <br />
+                                    </div>
 
-                                {quiz.questions.length > 0 ? <p className="font-weight-bold">Questions ({quiz.questions.length})</p> : null}
+                                </ToastHeader>
 
-                                {quiz.questions && quiz.questions.map(question =>
-                                    <ol key={question._id}>
-                                        <li>{question.questionText}</li>
-                                    </ol>
-                                )}
+                                <ToastBody>
+                                    <small>{quiz.created_by.name}</small>
+                                    <br />
+                                    {quiz.description}
+                                    <br /><br />
+                                    {quiz.questions.length > 0 ? <p className="font-weight-bold">Questions ({quiz.questions.length})</p> : null}
 
-                            </ToastBody>
-                        </Toast>
+                                    {quiz.questions && quiz.questions.map(question =>
+                                        <ol key={question._id}>
+                                            <li>{question.questionText}</li>
+                                        </ol>
+                                    )}
 
-                    </Col>
+                                </ToastBody>
+                            </Toast>
+
+                        </Col> : 'Not allowed!'
                 ))}
             </Row>
 
