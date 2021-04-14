@@ -24,7 +24,7 @@ const QuizesTabPane = ({ currentUser, allQuizes, setQuizes, setQuestions, delete
             <Row>
                 {allQuizes && allQuizes.map(quiz => (
 
-                    currentUser._id === quiz.created_by._id ?
+                    currentUser.role === 'Admin' || currentUser._id === quiz.created_by._id ?
 
                         <Col sm="4" key={quiz._id} className="mt-3 quiz-toast">
 
@@ -61,7 +61,7 @@ const QuizesTabPane = ({ currentUser, allQuizes, setQuizes, setQuestions, delete
                                 </ToastBody>
                             </Toast>
 
-                        </Col> : 'Not allowed!'
+                        </Col> : null
                 ))}
             </Row>
 
