@@ -47,7 +47,7 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
                 (quiz._id === quizId) ?
 
                     (quiz.questions.length > 0) ?
-                        <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80">
+                        <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80" key={Math.floor(Math.random() * 1000)}>
 
                             {showScore ?
 
