@@ -46,13 +46,15 @@ const SingleCategory = ({ auth, setCategories, allcategories }) => {
                                             <ToastBody>
                                                 <p className="text-dark">Number of questions: {quiz.questions.length}</p>
 
-                                                <p>
-                                                    <Link to={`/questions-create/${quiz._id}`} className="text-success">
-                                                        <Button size="sm" outline color="warning" className="p-1">
-                                                            <img src={AddIcon} alt="" width="10" height="10" className="" />&nbsp;Add Questions
+                                                {auth.user._id === quiz.created_by ?
+                                                    <p>
+                                                        <Link to={`/questions-create/${quiz._id}`} className="text-success">
+                                                            <Button size="sm" outline color="warning" className="p-1">
+                                                                <img src={AddIcon} alt="" width="10" height="10" className="" />&nbsp;Add Questions
                                                     </Button>
-                                                    </Link>
-                                                </p>
+                                                        </Link>
+                                                    </p> :
+                                                    null}
 
                                                 <small>Created on {quiz.creation_date.split('T').slice(0, 1)}</small>
                                             </ToastBody>

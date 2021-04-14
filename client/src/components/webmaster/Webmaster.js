@@ -60,11 +60,13 @@ const Webmaster = ({ auth, error }) => {
                             }
                         </div>
 
-                        <div className="master-btns">
-                            <Button size="sm" outline color="secondary">
-                                <CreateCategory />
-                            </Button>
-                        </div>
+                        {auth.user.role === 'Admin' ?
+                            <div className="master-btns">
+                                <Button size="sm" outline color="secondary">
+                                    <CreateCategory />
+                                </Button>
+                            </div> :
+                            null}
 
                     </Row>
 
