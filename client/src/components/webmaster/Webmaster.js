@@ -38,7 +38,7 @@ const Webmaster = ({ auth, error }) => {
 
             auth.user.role === 'Admin' ?
                 <>
-                    {/* Title */}
+
                     <Row className="m-4 d-flex justify-content-between align-items-start text-primary">
                         <Toast>
                             <ToastHeader>
@@ -122,7 +122,7 @@ const Webmaster = ({ auth, error }) => {
                         </Col>
                     </Row>
                 </> :
-                <Reports userId={auth.user._Id}/> :
+                <Reports userId={auth.user._id}/> :
             <h6 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Login Again!</h6>
     )
 }
