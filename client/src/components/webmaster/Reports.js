@@ -17,20 +17,19 @@ const Reports = ({ userId, allScores, setScores }) => {
             </Row>
 
             <Row>
-
                 {allScores && allScores.map(score => (
 
-                    userId === score.taken_by ?
+                    userId === score.taken_by._id ?
 
                         <Col sm="4" key={score._id} className="m-3 users-toast">
                             <Toast>
                                 <ToastHeader className="text-success">
-                                    <strong>{score.quiz}</strong>
+                                    &nbsp;<strong> {score.quiz.title}</strong>
                                 </ToastHeader>
 
                                 <ToastBody>
                                     <p className="font-weight-bold">
-                                        {score.taken_by}
+                                        {score.taken_by.name}
                                     </p>
                                     <p><strong className="text-warning">Score: </strong>
                                         {score.marks}/{score.out_of}</p>

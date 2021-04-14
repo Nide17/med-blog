@@ -6,7 +6,6 @@ const Quiz = require('../../models/Quiz');
 const Category = require('../../models/Category');
 const Question = require('../../models/Question');
 
-
 // @route   GET /api/quizes
 // @desc    Get quizes
 // @access  Needs to be private

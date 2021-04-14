@@ -38,7 +38,6 @@ const Webmaster = ({ auth, error }) => {
 
             auth.user.role === 'Admin' ?
                 <>
-
                     <Row className="m-4 d-flex justify-content-between align-items-start text-primary">
                         <Toast>
                             <ToastHeader>

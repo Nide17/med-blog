@@ -30,5 +30,5 @@ const UserSchema = new Schema({
   }
 });
 
-//Question: the name of this model
+//User: the name of this model
 module.exports = mongoose.model('user', UserSchema);

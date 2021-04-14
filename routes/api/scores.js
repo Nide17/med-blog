@@ -6,24 +6,31 @@ const auth = require('../../middleware/auth')
 
 //Score Model : use capital letters since it's a model
 const Score = require('../../models/Score');
+const User = require('../../models/User');
+const Quiz = require('../../models/Quiz');
 
 // @route GET api/scores
 // @route Get All scores
 // @route Public
 
 //we use router. instead of app. and / because we are already in this dir
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
 
-  //find Method to find in the scores in db
-  Score.find()
+  try {
+      const scores = await Score.find()
+          //sort scores by creation_date
+          .sort({ test_date: -1 })
+          .populate('quiz')
+          .populate('taken_by')
 
-    //sort scores by date desc(-1)
-    .sort({ date: -1 })
+      if (!scores) throw Error('No scores found');
 
-    //return a promise
-    .then(scores => res.json(scores));
+      res.status(200).json(scores);
+
+  } catch (err) {
+      res.status(400).json({ msg: err.message })
+  }
 });
-
 
 // POST ENDPOINT //
 // @route POST api/scores
