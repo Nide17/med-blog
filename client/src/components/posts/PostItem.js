@@ -29,7 +29,7 @@ const PostItem = ({ quiz, getUsers, users }) => {
             <div className="small-text d-md-flex justify">
                 <p className="mr-5 my-1 text-dark">{date.toDateString()}</p>
                 <p className="mr-5 my-1 text-dark">-{category.title}</p>
-                <p className="mr-5 my-1 text-dark">-{author && author[1]}</p>
+                <p className="mr-5 my-1 text-dark">-{author && author[0]}</p>
             </div>
 
             <CardText className="mt-3 text-secondary">{description}</CardText>

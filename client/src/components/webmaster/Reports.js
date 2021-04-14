@@ -29,12 +29,15 @@ const Reports = ({ userId, allScores, setScores }) => {
                                 </ToastHeader>
 
                                 <ToastBody>
-                                    <p className="font-weight-bold">{score.taken_by}</p>
-                                    <p><strong className="text-warning">Score: </strong>{score.marks}/{score.out_of}</p>
+                                    <p className="font-weight-bold">
+                                        {score.taken_by}
+                                    </p>
+                                    <p><strong className="text-warning">Score: </strong>
+                                        {score.marks}/{score.out_of}</p>
                                 </ToastBody>
                             </Toast>
 
-                        </Col>: null
+                        </Col> : null
                 ))}
             </Row>
         </>
