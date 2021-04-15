@@ -122,7 +122,7 @@ const Webmaster = ({ auth, error }) => {
                                 <CategoriesTabPane currentUser={auth.user} />
                                 <SubscribersTabPane currentUser={auth.user} />
                                 <QuizesTabPane currentUser={auth.user} />
-                                <UsersTabPane currentUser={auth.user} />
+                                <UsersTabPane />
 
                             </TabContent>
                         </Col>

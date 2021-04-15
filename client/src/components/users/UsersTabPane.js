@@ -8,7 +8,7 @@ import { getUsers, deleteUser } from '../../redux/auth/auth.actions'
 import trash from '../../images/trash.svg';
 
 const UsersTabPane = ({ users, getUsers, deleteUser }) => {
-
+console.log(users);
     // Lifecycle methods
     useEffect(() => {
         getUsers();

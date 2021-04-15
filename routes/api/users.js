@@ -1,5 +1,6 @@
 // CRUD for users
 const express = require("express");
+const config = require('config')
 const router = express.Router();
 const { auth, authRole } = require('../../middleware/auth');
 
@@ -16,7 +17,7 @@ router.get('/', async (req, res) => {
   try {
     const users = await User.find();
     if (!users) throw Error('No users exist');
-    res.json(users);
+    res.status(200).json(users);
 
   } catch (err) {
     res.status(400).json({ msg: err.message });

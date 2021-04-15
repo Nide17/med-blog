@@ -45,7 +45,7 @@ export const loadUser = () => (dispatch, getState) => {
 }
 
 // View all users
-export const getUsers = () => async (dispatch, getState) => {
+export const getUsers = () => async (dispatch) => {
 
   try {
     await axios
