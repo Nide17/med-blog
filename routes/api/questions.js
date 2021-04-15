@@ -30,12 +30,11 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST ENDPOINT //
 // @route POST api/questions
 // @route Create a Question
-// @route Private
+// @route Accessed by Admin and Creator
 
-router.post("/", async (req, res) => {
+router.post("/", auth, authRole(['Admin', 'Creator']), async (req, res) => {
   try {
     let newQuestion = await Question.findOne({ questionText: req.body.questionText });
 
@@ -67,7 +66,7 @@ router.post("/", async (req, res) => {
 // @route Private
 //:id placeholder, findId=we get it from the parameter in url
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
   try {
     //Find the question by id
     await Question.findById(req.params.id, (err, question) => {
@@ -88,10 +87,10 @@ router.get('/:id', async (req, res) => {
 
 // @route DELETE api/questions
 // @route delete a Question
-// @route Private
+// @route Private: Accessed by admin only
 
 //:id placeholder, findId=we get it from the parameter in url
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, authRole(['Admin']), async (req, res) => {
 
   try {
     //Find the Question to delete by id first

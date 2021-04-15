@@ -5,11 +5,13 @@ const Category = require('../../models/Category');
 const Question = require('../../models/Question');
 const Quiz = require('../../models/Quiz');
 
+const { auth, authRole } = require('../../middleware/auth');
+
 // @route   GET /api/categories
 // @desc    Get categories
 // @access  Needs to be private
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
 
     try {
         const categories = await Category.find()
@@ -28,8 +30,8 @@ router.get('/', async (req, res) => {
 
 // @route   GET /api/categories/:id
 // @desc    Get one category
-// @access  Needs to be private
-router.get('/:id', async (req, res) => {
+// @access Private: accessed by logged in user
+router.get('/:id', auth, async (req, res) => {
 
     let id = req.params.id;
     try {
@@ -51,9 +53,9 @@ router.get('/:id', async (req, res) => {
 
 // @route   POST /api/categories
 // @desc    Create a category
-// @access  Have to be private
+// @access Private: Accessed by admin only
 
-router.post('/', async (req, res) => {
+router.post('/', auth, authRole(['Admin']), async (req, res) => {
     const { title, description, quizes, created_by, creation_date } = req.body;
 
     // Simple validation
@@ -92,9 +94,9 @@ router.post('/', async (req, res) => {
 
 // @route PUT api/categories/:id
 // @route UPDATE one Category
-// @route Private
+// @access Private: Accessed by admin only
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, authRole(['Admin']), async (req, res) => {
 
     try {
         //Find the Category by id
@@ -111,9 +113,10 @@ router.put('/:id', async (req, res) => {
 
 // @route DELETE api/categories/:id
 // @route delete a Category
-// @route Private
+// @route Private: Accessed by admin only
 //:id placeholder, findById = we get it from the parameter in url
-router.delete('/:id', async (req, res) => {
+
+router.delete('/:id', auth, authRole(['Admin']), async (req, res) => {
 
     try {
         const category = await Category.findById(req.params.id);

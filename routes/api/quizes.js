@@ -7,8 +7,8 @@ const Category = require('../../models/Category');
 const Question = require('../../models/Question');
 
 // @route   GET /api/quizes
-// @desc    Get quizes
-// @access  Needs to be private
+// @desc    Get all quizes
+// @access  Public
 router.get('/', async (req, res) => {
 
     try {
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 // @route   GET /api/quizes/:id
 // @desc    Get one quiz
 // @access  Needs to be private
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
 
     let id = req.params.id;
     try {
@@ -54,7 +54,8 @@ router.get('/:id', async (req, res) => {
 // @route   POST /api/quizes
 // @desc    Create quiz
 // @access  Have to be private
-router.post('/', async (req, res) => {
+
+router.post('/', auth, async (req, res) => {
 
     const { title, description, category, created_by } = req.body;
 
@@ -100,8 +101,9 @@ router.post('/', async (req, res) => {
 
 // @route PUT api/quizes/:id
 // @route UPDATE one Quiz
-// @route Private
-router.put('/:id', async (req, res) => {
+// @route Private: Accessed by admin only
+
+router.put('/:id', auth, authRole(['Admin']), async (req, res) => {
 
     try {
         //Find the Quiz by id
@@ -119,9 +121,10 @@ router.put('/:id', async (req, res) => {
 
 // @route DELETE api/quizes/:id
 // @route delete a Quiz
-// @route Private
+// @route Private: Accessed by admin only
 //:id placeholder, findById = we get it from the parameter in url
-router.delete('/:id', async (req, res) => {
+
+router.delete('/:id', auth, authRole(['Admin']), async (req, res) => {
 
     try {
         const quiz = await Quiz.findById(req.params.id);
