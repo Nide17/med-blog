@@ -17,18 +17,18 @@ const Quiz = require('../../models/Quiz');
 router.get('/', auth, async (req, res) => {
 
   try {
-      const scores = await Score.find()
-          //sort scores by creation_date
-          .sort({ test_date: -1 })
-          .populate('quiz')
-          .populate('taken_by')
+    const scores = await Score.find()
+      //sort scores by creation_date
+      .sort({ test_date: -1 })
+      .populate('quiz')
+      .populate('taken_by')
 
-      if (!scores) throw Error('No scores found');
+    if (!scores) throw Error('No scores found');
 
-      res.status(200).json(scores);
+    res.status(200).json(scores);
 
   } catch (err) {
-      res.status(400).json({ msg: err.message })
+    res.status(400).json({ msg: err.message })
   }
 });
 

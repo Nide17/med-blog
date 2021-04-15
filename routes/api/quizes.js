@@ -6,6 +6,8 @@ const Quiz = require('../../models/Quiz');
 const Category = require('../../models/Category');
 const Question = require('../../models/Question');
 
+const { auth, authRole } = require('../../middleware/auth');
+
 // @route   GET /api/quizes
 // @desc    Get all quizes
 // @access  Public

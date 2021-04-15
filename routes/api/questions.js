@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 // auth middleware to protect routes
-const auth = require('../../middleware/auth')
+const { auth, authRole } = require('../../middleware/auth');
+
 
 //Question Model : use capital letters since it's a model
 const Question = require('../../models/Question');
