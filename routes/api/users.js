@@ -11,7 +11,7 @@ const User = require('../../models/User');
 // @desc    Get all users
 // @access Private: Accessed by admin only
 
-router.get('/', auth, authRole(['Admin']), async (req, res) => {
+router.get('/', async (req, res) => {
 
   try {
     const users = await User.find();
