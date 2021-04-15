@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require('config')
 const router = express.Router();
-const auth = require('../../middleware/auth');
+const { auth } = require('../../middleware/auth');
 
 // User Model
 const User = require('../../models/User');
@@ -30,7 +30,10 @@ router.post('/login', async (req, res) => {
 
     // Sign and generate token
     const token = jwt.sign(
-      { _id: user._id },
+      {
+        _id: user._id,
+        role: user.role
+      },
       config.get('jwtSecret'),
       { expiresIn: '24h' }
     );
@@ -85,7 +88,10 @@ router.post('/register', async (req, res) => {
 
     // Sign and generate token
     const token = jwt.sign(
-      { _id: savedUser._id },
+      {
+        _id: savedUser._id,
+        role: savedUser.role
+      },
       config.get('jwtSecret'),
       { expiresIn: '24h' }
     );
@@ -106,7 +112,7 @@ router.post('/register', async (req, res) => {
 
 // @route   GET api/auth/user
 // @desc    Get user data to keep logged in user token bcz jwt data are stateless
-// @access  Private
+// @access  Private: Accessed by any logged in user
 
 router.get('/user', auth, async (req, res) => {
   try {

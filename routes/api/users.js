@@ -1,15 +1,17 @@
 // CRUD for users
 const express = require("express");
 const router = express.Router();
+const { auth, authRole } = require('../../middleware/auth');
+
 
 // User Model
 const User = require('../../models/User');
 
 // @route   GET api/users
 // @desc    Get all users
-// @access  Private
+// @access Private: Accessed by admin only
 
-router.get('/', async (req, res) => {
+router.get('/', auth, authRole(['Admin']), async (req, res) => {
 
   try {
     const users = await User.find();
@@ -24,8 +26,9 @@ router.get('/', async (req, res) => {
 
 // @route   GET /api/users/:id
 // @desc    Get one User
-// @access  Needs to be private
-router.get('/:id', async (req, res) => {
+// @access  Private: Accessed by admin only
+
+router.get('/:id', auth, authRole(['Admin']), async (req, res) => {
 
   let id = req.params.id;
   try {
@@ -46,9 +49,9 @@ router.get('/:id', async (req, res) => {
 
 // @route PUT api/users/:id
 // @route UPDATE one User
-// @route Private
+// @route Private: Accessed by admin only
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, authRole(['Admin']), async (req, res) => {
 
   try {
     //Find the User by id
@@ -66,9 +69,9 @@ router.put('/:id', async (req, res) => {
 
 // @route DELETE api/users/:id
 // @route delete a User
-// @route Private
+// @route Private: Accessed by admin only
 //:id placeholder, findById = we get it from the parameter in url
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, authRole(['Admin']), async (req, res) => {
 
   try {
     const user = await User.findById(req.params.id);
@@ -89,6 +92,5 @@ router.delete('/:id', async (req, res) => {
   }
 
 });
-
 
 module.exports = router;
