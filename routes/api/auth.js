@@ -1,10 +1,10 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require('config');
+const config = require('config')
 const router = express.Router();
-// const auth = require('../../middleware/auth');
-import auth from '../../middleware/auth';
+// const { auth } = require('../../middleware/auth');
+
 // User Model
 const User = require('../../models/User');
 
@@ -31,7 +31,8 @@ router.post('/login', async (req, res) => {
     // Sign and generate token
     const token = jwt.sign(
       {
-        id: user._id
+        _id: user._id,
+        role: user.role
       },
       config.get('jwtSecret'),
       { expiresIn: '24h' }
@@ -42,7 +43,7 @@ router.post('/login', async (req, res) => {
     res.status(200).json({
       token,
       user: {
-        id: user._id,
+        _id: user._id,
         name: user.name,
         email: user.email,
         role: user.role
@@ -88,7 +89,8 @@ router.post('/register', async (req, res) => {
     // Sign and generate token
     const token = jwt.sign(
       {
-        id: savedUser._id
+        _id: savedUser._id,
+        role: savedUser.role
       },
       config.get('jwtSecret'),
       { expiresIn: '24h' }
@@ -97,7 +99,7 @@ router.post('/register', async (req, res) => {
     res.status(200).json({
       token,
       user: {
-        id: savedUser._id,
+        _id: savedUser._id,
         name: savedUser.name,
         email: savedUser.email,
         role: savedUser.role
@@ -112,9 +114,9 @@ router.post('/register', async (req, res) => {
 // @desc    Get user data to keep logged in user token bcz jwt data are stateless
 // @access  Private: Accessed by any logged in user
 
-router.get('/user', auth, async (req, res) => {
+router.get('/user', async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user._id).select('-password');
     if (!user) throw Error('User Does not exist');
     res.json(user);
   } catch (err) {
