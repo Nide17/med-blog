@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require('config')
 
-const auth = (req, res, next) => {
+const auth = async (req, res, next) => {
 
   const token = req.header('x-auth-token');
 
@@ -11,7 +11,7 @@ const auth = (req, res, next) => {
 
   try {
     // Verify token
-    const decoded = jwt.verify(token, config.get('jwtSecret'));
+    const decoded = await jwt.verify(token, config.get('jwtSecret'));
 
     // Add user from payload
     req.user = decoded;
@@ -46,6 +46,7 @@ const authRole = (roles) => (req, res, next) => {
   }
 
   let authorized = false;
+
   //if user has a role that is required to access any API
   roles.forEach(role => {
     authorized = req.user.role === role;

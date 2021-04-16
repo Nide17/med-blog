@@ -57,7 +57,7 @@ router.get('/:id', auth, async (req, res) => {
 // @desc    Create quiz
 // @access  Have to be private
 
-router.post('/', auth, async (req, res) => {
+router.post('/', authRole(['Creator']), async (req, res) => {
 
     const { title, description, category, created_by } = req.body;
 
