@@ -1,7 +1,7 @@
 const express = require("express");
 const config = require('config')
 const router = express.Router();
-const { auth, authRole } = require('../../middleware/auth');
+// const auth = require('../../middleware/auth');
 
 // SubscribedUser Model
 const SubscribedUser = require('../../models/SubscribedUser');
@@ -11,7 +11,7 @@ const SubscribedUser = require('../../models/SubscribedUser');
 // @desc    Get subscribers
 // @access  Private: Accessed by admin only
 
-router.get('/', auth, authRole(['Admin']), async (req, res) => {
+router.get('/', async (req, res) => {
 
   try {
     const subscribers = await SubscribedUser.find()
@@ -68,7 +68,7 @@ router.post('/', async (req, res) => {
 // @route GET one Subscriber
 // @route Private: Accessed by admin only
 
-router.get('/:id', auth, authRole(['Admin']), async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     //Find the subscriber by id
     const subscriber = await SubscribedUser.findById(req.params.id);
@@ -88,7 +88,7 @@ router.get('/:id', auth, authRole(['Admin']), async (req, res) => {
 // @route Private: Accessed by admin only
 
 //:id placeholder, findId=we get it from the parameter in url
-router.delete('/:id', auth, authRole(['Admin']), async (req, res) => {
+router.delete('/:id', async (req, res) => {
 
   try {
     //Find the subscriber to delete by id first

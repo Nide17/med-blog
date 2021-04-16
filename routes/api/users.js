@@ -2,7 +2,7 @@
 const express = require("express");
 const config = require('config')
 const router = express.Router();
-const { auth, authRole } = require('../../middleware/auth');
+// const auth = require('../../middleware/auth');
 
 
 // User Model
@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
 // @desc    Get one User
 // @access  Private: Accessed by admin only
 
-router.get('/:id', auth, authRole(['Admin']), async (req, res) => {
+router.get('/:id', async (req, res) => {
 
   let id = req.params.id;
   try {
@@ -52,7 +52,7 @@ router.get('/:id', auth, authRole(['Admin']), async (req, res) => {
 // @route UPDATE one User
 // @route Private: Accessed by admin only
 
-router.put('/:id', auth, authRole(['Admin']), async (req, res) => {
+router.put('/:id', async (req, res) => {
 
   try {
     //Find the User by id
@@ -72,7 +72,7 @@ router.put('/:id', auth, authRole(['Admin']), async (req, res) => {
 // @route delete a User
 // @route Private: Accessed by admin only
 //:id placeholder, findById = we get it from the parameter in url
-router.delete('/:id', auth, authRole(['Admin']), async (req, res) => {
+router.delete('/:id', async (req, res) => {
 
   try {
     const user = await User.findById(req.params.id);

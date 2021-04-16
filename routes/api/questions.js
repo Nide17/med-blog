@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 // auth middleware to protect routes
-const { auth, authRole } = require('../../middleware/auth');
+// const auth = require('../../middleware/auth');
 
 
 //Question Model : use capital letters since it's a model
@@ -35,7 +35,7 @@ router.get('/', async (req, res) => {
 // @route Create a Question
 // @route Accessed by Admin and Creator
 
-router.post("/", auth, authRole(['Admin', 'Creator']), async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     let newQuestion = await Question.findOne({ questionText: req.body.questionText });
 
@@ -67,7 +67,7 @@ router.post("/", auth, authRole(['Admin', 'Creator']), async (req, res) => {
 // @route Private
 //:id placeholder, findId=we get it from the parameter in url
 
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     //Find the question by id
     await Question.findById(req.params.id, (err, question) => {
@@ -91,7 +91,7 @@ router.get('/:id', auth, async (req, res) => {
 // @route Private: Accessed by admin only
 
 //:id placeholder, findId=we get it from the parameter in url
-router.delete('/:id', auth, authRole(['Admin']), async (req, res) => {
+router.delete('/:id', async (req, res) => {
 
   try {
     //Find the Question to delete by id first

@@ -1,8 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require('config')
 
-const auth = async (req, res, next) => {
-
+function auth (req, res, next) {
   const token = req.header('x-auth-token');
 
   // Check for token
@@ -11,54 +10,14 @@ const auth = async (req, res, next) => {
 
   try {
     // Verify token
-    const decoded = await jwt.verify(token, config.get('jwtSecret'));
+    const decoded = jwt.verify(token, config.get('jwtSecret'));
 
     // Add user from payload
     req.user = decoded;
     next();
-
   } catch (e) {
     res.status(400).json({ msg: 'Token is not valid' });
   }
-
 };
 
-// ROLE
-const authRole = (roles) => (req, res, next) => {
-
-  const token = req.header('x-auth-token');
-  // Check for token
-  if (!token)
-    return res.status(401).json({ msg: 'No token, authorizaton denied' });
-
-  // Verify token
-  const decoded = jwt.verify(token, config.get('jwtSecret'));
-
-  // Add user from payload
-  req.user = decoded;
-
-  if (!req.user) {
-    return res.status(401).json({
-      success: false,
-      message: 'Session expired',
-      code: 'SESSION_EXPIRED'
-    });
-  }
-
-  let authorized = false;
-
-  //if user has a role that is required to access any API
-  roles.forEach(role => {
-    authorized = req.user.role === role;
-  })
-  if (authorized) {
-    return next();
-  }
-
-  return res.status(401).json({
-    success: false,
-    message: 'Unauthorized',
-  })
-}
-
-module.exports = { auth, authRole };
+module.exports = auth;
