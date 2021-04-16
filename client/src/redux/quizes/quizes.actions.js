@@ -22,11 +22,11 @@ export const setQuizes = () => async (dispatch, getState) => {
 };
 
 // Create Quiz
-export const createQuiz = (newQuiz) => async (dispatch) => {
+export const createQuiz = (newQuiz) => async (dispatch, getState) => {
 
   try {
     await axios
-      .post('/api/quizes', newQuiz)
+      .post('/api/quizes', newQuiz, tokenConfig(getState))
       .then(res =>
         dispatch({
           type: CREATE_QUIZ,

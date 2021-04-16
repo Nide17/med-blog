@@ -31,7 +31,7 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
         const { name, description } = quizState;
 
         // VALIDATE
-         if (name.length < 4 || description.length < 4) {
+        if (name.length < 4 || description.length < 4) {
             setErrorsState(['Insufficient info!']);
             return
         }
@@ -60,7 +60,7 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
             toggle();
         }
         // Reload the page after Quiz addition
-        window.location.reload();
+        // window.location.reload();
     }
 
     return (
@@ -82,7 +82,7 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
 
                 <ModalBody>
 
-                {errorsState.length > 0 ?
+                    {errorsState.length > 0 ?
                         errorsState.map(err =>
                             <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
                                 {err}

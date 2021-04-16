@@ -7,6 +7,7 @@ const Category = require('../../models/Category');
 const Question = require('../../models/Question');
 
 // const auth = require('../../middleware/auth');
+import auth from '../../middleware/auth';
 
 // @route   GET /api/quizes
 // @desc    Get all quizes
@@ -57,7 +58,7 @@ router.get('/:id', async (req, res) => {
 // @desc    Create quiz
 // @access  Have to be private
 
-router.post('/',  async (req, res) => {
+router.post('/',  auth, async (req, res) => {
 
     const { title, description, category, created_by } = req.body;
 
