@@ -61,16 +61,18 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                             </div>
                         }>
                         <h3 className="mb-3 text-center lead font-weight-bold">Newest Quizes</h3>
-                        {allQuizes && allQuizes.slice(0, 5).map(quiz => (
-                            <PostItem key={quiz._id} quiz={quiz} />
+                        {allQuizes && allQuizes.slice(0, 7).map(quiz => (
+                            quiz.questions.length > 0 ?
+                                <PostItem key={quiz._id} quiz={quiz} /> : null
+
                         ))}
 
                         {allQuizes.length > 0 ? <div className="mt-4 d-flex justify-content-center">
-                        <Link to="/allposts">
-                        <Button outline color="info">Load more ...</Button>
-                        </Link>
-                        </div>: null}
-                        
+                            <Link to="/allposts">
+                                <Button outline color="info">Load more ...</Button>
+                            </Link>
+                        </div> : null}
+
                     </Suspense>
 
                 </Col>
