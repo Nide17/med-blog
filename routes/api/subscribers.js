@@ -11,7 +11,7 @@ const SubscribedUser = require('../../models/SubscribedUser');
 // @desc    Get subscribers
 // @access  Private: Accessed by admin only
 
-router.get('/', auth, authRole(['Admin', 'Creator']), async (req, res) => {
+router.get('/', auth, authRole(['Admin']), async (req, res) => {
 
   try {
     const subscribers = await SubscribedUser.find()
