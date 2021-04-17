@@ -42,7 +42,7 @@ if (name.length < 4 || description.length < 4) {
             setErrorsState(['Title is too long!']);
             return
         }
-        else if (description.length > 30) {
+        else if (description.length > 80) {
             setErrorsState(['Description is too long!']);
             return
         }

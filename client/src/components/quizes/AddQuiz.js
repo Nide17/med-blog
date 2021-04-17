@@ -39,7 +39,7 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
             setErrorsState(['Title is too long!']);
             return
         }
-        else if (description.length > 30) {
+        else if (description.length > 80) {
             setErrorsState(['Description is too long!']);
             return
         }

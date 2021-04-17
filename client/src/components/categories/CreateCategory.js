@@ -35,7 +35,7 @@ const CreateCategory = ({ auth, createCategory }) => {
         const { name, description } = categoryState;
 
         // VALIDATE
-         if (name.length < 4 || description.length < 4) {
+        if (name.length < 4 || description.length < 4) {
             setErrorsState(['Insufficient info!']);
             return
         }
@@ -43,7 +43,7 @@ const CreateCategory = ({ auth, createCategory }) => {
             setErrorsState(['Title is too long!']);
             return
         }
-        else if (description.length > 30) {
+        else if (description.length > 80) {
             setErrorsState(['Description is too long!']);
             return
         }

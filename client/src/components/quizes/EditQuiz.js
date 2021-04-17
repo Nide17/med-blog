@@ -42,7 +42,7 @@ const EditQuiz = ({ qId, qTitle, qDesc, auth, updateQuiz }) => {
             setErrorsState(['Title is too long!']);
             return
         }
-        else if (description.length > 30) {
+        else if (description.length > 80) {
             setErrorsState(['Description is too long!']);
             return
         }
