@@ -4,12 +4,12 @@ import { tokenConfig } from '../auth/auth.actions'
 import { returnErrors } from "../error/error.actions";
 
 // Dispatches an action. This is the only way to trigger a state change.
-export const setQuestions = () => async dispatch => {
+export const setQuestions = () => async (dispatch, getState) => {
     await dispatch(setQuestionsLoading());
 
     try {
         await axios
-        .get('/api/questions')
+        .get('/api/questions', tokenConfig(getState))
         .then(res =>
             dispatch({
                 type: SET_QUESTIONS,

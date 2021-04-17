@@ -24,7 +24,7 @@ const postsReducer = (state = INITIAL_STATE, action) => {
     case SUBSCRIBETONEWSLETTER:
       return {
         ...state,
-        subscribedUsers: [...state.subscribedUsers, action.payload, ({msg: "Success!"})]
+        subscribedUsers: [...state.subscribedUsers, action.payload]
       };
 
     case SUBSCRIBE_FAIL:

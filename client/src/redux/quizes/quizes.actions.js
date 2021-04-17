@@ -41,11 +41,11 @@ export const createQuiz = (newQuiz) => async (dispatch, getState) => {
 
 
 // Update a Quiz
-export const updateQuiz = updatedQuiz => async dispatch => {
+export const updateQuiz = updatedQuiz => async (dispatch, getState) => {
 
   try {
     await axios
-      .put(`/api/quizes/${updatedQuiz.qId}`, updatedQuiz)
+      .put(`/api/quizes/${updatedQuiz.qId}`, updatedQuiz, tokenConfig(getState))
     dispatch({
       type: UPDATE_QUIZ,
       payload: updatedQuiz
@@ -58,11 +58,11 @@ export const updateQuiz = updatedQuiz => async dispatch => {
 }
 
 // Delete a Quiz
-export const deleteQuiz = id => async dispatch => {
+export const deleteQuiz = id => async (dispatch, getState) => {
 
   try {
     if (window.confirm("This Quiz will be deleted permanently!")) {
-      await axios.delete(`/api/quizes/${id}`)
+      await axios.delete(`/api/quizes/${id}`, tokenConfig(getState))
       dispatch({
         type: DELETE_QUIZ,
         payload: id

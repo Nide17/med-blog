@@ -5,7 +5,7 @@ import { setSubscribers, deleteSubscriber } from '../../redux/subscribers/subscr
 
 import trash from '../../images/trash.svg';
 
-const SubscribersTabPane = ({ currentUser, subscribedUsers, setSubscribers, deleteSubscriber }) => {
+const SubscribersTabPane = ({ subscribedUsers, setSubscribers, deleteSubscriber }) => {
 
     // Lifecycle methods
     useEffect(() => {
@@ -24,13 +24,9 @@ const SubscribersTabPane = ({ currentUser, subscribedUsers, setSubscribers, dele
 
                             <CardTitle tag="div" className="d-flex justify-content-between">
                                 <p className="mb-0">{subscribedUser.name.split(' ').slice(0, 2).join(' ')}</p>
-                                {
-                                    currentUser.role === 'Admin' ?
                                         <Button size="sm" color="link" className="mt-0 p-0" onClick={() => deleteSubscriber(subscribedUser._id)}>
                                             <img src={trash} alt="" width="16" height="16" />
                                         </Button>
-                                        : null
-                                }
                             </CardTitle>
 
                             <CardText>

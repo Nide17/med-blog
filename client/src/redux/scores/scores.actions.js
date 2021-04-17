@@ -21,11 +21,11 @@ export const setScores = () => async (dispatch, getState) => {
 };
 
 // Create Score
-export const createScore = (newScore) => async (dispatch) => {
+export const createScore = (newScore) => async (dispatch, getState) => {
 
   try {
     await axios
-      .post('/api/scores', newScore)
+      .post('/api/scores', newScore, tokenConfig(getState))
       .then(res =>
         dispatch({
           type: CREATE_SCORE,
@@ -40,11 +40,11 @@ export const createScore = (newScore) => async (dispatch) => {
 
 
 // Update a Score
-export const updateScore = updatedScore => async dispatch => {
+export const updateScore = updatedScore => async (dispatch, getState) => {
 
   try {
     await axios
-      .put(`/api/scores/${updatedScore.sId}`, updatedScore)
+      .put(`/api/scores/${updatedScore.sId}`, updatedScore, tokenConfig(getState))
     dispatch({
       type: UPDATE_SCORE,
       payload: updatedScore
@@ -57,11 +57,11 @@ export const updateScore = updatedScore => async dispatch => {
 }
 
 // Delete a Score
-export const deleteScore = id => async dispatch => {
+export const deleteScore = id => async (dispatch, getState) => {
 
   try {
     if (window.confirm("This Score will be deleted permanently!")) {
-      await axios.delete(`/api/scores/${id}`)
+      await axios.delete(`/api/scores/${id}`, tokenConfig(getState))
       dispatch({
         type: DELETE_SCORE,
         payload: id

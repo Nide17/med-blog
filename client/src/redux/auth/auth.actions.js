@@ -45,11 +45,11 @@ export const loadUser = () => (dispatch, getState) => {
 }
 
 // View all users
-export const getUsers = () => async (dispatch) => {
+export const getUsers = () => async (dispatch, getState) => {
 
   try {
     await axios
-      .get('/api/users')
+      .get('/api/users', tokenConfig(getState))
       .then(res =>
         dispatch({
           type: GET_USERS,
@@ -128,11 +128,11 @@ export const logout = () => async dispatch => {
 }
 
 // Update a USER
-export const updateUser = updatedUser => async dispatch => {
+export const updateUser = updatedUser => async (dispatch, getState) => {
 
   try {
     await axios
-      .put(`/api/users/${updatedUser.uId}`, updatedUser)
+      .put(`/api/users/${updatedUser.uId}`, updatedUser, tokenConfig(getState))
     dispatch({
       type: UPDATE_USER,
       payload: updatedUser
@@ -145,11 +145,11 @@ export const updateUser = updatedUser => async dispatch => {
 }
 
 // Delete a USER
-export const deleteUser = id => async dispatch => {
+export const deleteUser = id => async (dispatch, getState) => {
 
   try {
     if (window.confirm("This User will be deleted permanently!")) {
-      await axios.delete(`/api/users/${id}`)
+      await axios.delete(`/api/users/${id}`, tokenConfig(getState))
       dispatch({
         type: DELETE_USER,
         payload: id

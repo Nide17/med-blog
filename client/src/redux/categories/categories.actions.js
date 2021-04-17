@@ -23,19 +23,19 @@ export const setCategories = () => async (dispatch, getState) => {
 };
 
 // Create category
-export const createCategory = (newCategory) => async (dispatch) => {
+export const createCategory = (newCategory) => async (dispatch, getState) => {
 
   try {
     await axios
-      .post('/api/categories', newCategory)
+      .post('/api/categories', newCategory, tokenConfig(getState))
       .then(res =>
         dispatch({
           type: CREATE_CATEGORY,
           payload: res.data
         }))
-    // .then(
-    //   // Reload the page after category addition
-    //   window.location.reload())
+    .then(
+      // Reload the page after category addition
+      window.location.reload())
 
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'CREATE_CATEGORY_FAIL'));
@@ -45,11 +45,11 @@ export const createCategory = (newCategory) => async (dispatch) => {
 
 
 // Update a category
-export const updateCategory = updatedCatg => async dispatch => {
+export const updateCategory = updatedCatg => async (dispatch, getState) => {
 
   try {
     await axios
-      .put(`/api/categories/${updatedCatg.idToUpdate}`, updatedCatg)
+      .put(`/api/categories/${updatedCatg.idToUpdate}`, updatedCatg, tokenConfig(getState))
       .then(() =>
         dispatch({
           type: UPDATE_CATEGORY,
@@ -64,11 +64,11 @@ export const updateCategory = updatedCatg => async dispatch => {
 
 
 // Delete a category
-export const deleteCategory = id => async dispatch => {
+export const deleteCategory = id => async (dispatch, getState) => {
 
   try {
     if (window.confirm("This category will be deleted permanently!")) {
-      await axios.delete(`/api/categories/${id}`)
+      await axios.delete(`/api/categories/${id}`, tokenConfig(getState))
         .then(() =>
           dispatch({
             type: DELETE_CATEGORY,

@@ -17,7 +17,7 @@ export const setPosts = () => {
 };
 
 export const setSubscribers = () => async (dispatch, getState) => {
-  // dispatch(setQuestionsLoading());
+
   try {
     await axios
       .get('/api/subscribers', tokenConfig(getState))
@@ -51,11 +51,11 @@ export const subscribeToNewsLetter = (subscribedUser) => async (dispatch) => {
 
 
 // Delete a Subscriber
-export const deleteSubscriber = id => async dispatch => {
+export const deleteSubscriber = id => async (dispatch, getState) => {
 
   try {
     if (window.confirm("This Subscriber will be deleted permanently!")) {
-      await axios.delete(`/api/subscribers/${id}`)
+      await axios.delete(`/api/subscribers/${id}`, tokenConfig(getState))
       dispatch({
         type: DELETE_SUBSCRIBER,
         payload: id

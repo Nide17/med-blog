@@ -99,7 +99,7 @@ const Webmaster = ({ auth, error }) => {
                                                     className={classnames({ active: activeTab === '3' })}
                                                     onClick={() => { toggle('3'); }}>
                                                     Subscribers
-                                    </NavLink>
+                                                </NavLink>
                                             </NavItem>
 
                                             <NavItem>
@@ -107,7 +107,7 @@ const Webmaster = ({ auth, error }) => {
                                                     className={classnames({ active: activeTab === '4' })}
                                                     onClick={() => { toggle('4'); }}>
                                                     Users
-                                    </NavLink>
+                                                </NavLink>
                                             </NavItem>
                                         </> : null
                                 }
@@ -116,16 +116,14 @@ const Webmaster = ({ auth, error }) => {
                         </Col>
 
                         <Col sm="12">
-
                             <TabContent activeTab={activeTab}>
-
                                 <CategoriesTabPane currentUser={auth.user} />
-                                <SubscribersTabPane currentUser={auth.user} />
                                 <QuizesTabPane currentUser={auth.user} />
+                                <SubscribersTabPane />
                                 <UsersTabPane />
-
                             </TabContent>
                         </Col>
+                        
                     </Row>
                 </> :
                 <Reports userId={auth.user._id} /> :

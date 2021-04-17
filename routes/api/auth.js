@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require('config')
 const router = express.Router();
-// const { auth } = require('../../middleware/auth');
+const { auth } = require('../../middleware/auth');
 
 // User Model
 const User = require('../../models/User');
@@ -114,7 +114,8 @@ router.post('/register', async (req, res) => {
 // @desc    Get user data to keep logged in user token bcz jwt data are stateless
 // @access  Private: Accessed by any logged in user
 
-router.get('/user', async (req, res) => {
+router.get('/user', auth, async (req, res) => {
+
   try {
     const user = await User.findById(req.user._id).select('-password');
     if (!user) throw Error('User Does not exist');
