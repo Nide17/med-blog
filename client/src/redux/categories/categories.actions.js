@@ -5,7 +5,6 @@ import { tokenConfig } from '../auth/auth.actions'
 
 // View all categories
 export const setCategories = () => async (dispatch, getState) => {
-  // dispatch(setQuestionsLoading());
 
   try {
     await axios

@@ -48,7 +48,7 @@ const App = () => {
                         </div>}>
                             <AllPosts />
                         </Suspense>
-                    </Route>                    
+                    </Route>
 
                     <Route exact path="/questions">
                         <Suspense fallback={<div className="p-5 m-5 d-flex justify-content-center align-items-center">
@@ -59,11 +59,11 @@ const App = () => {
                     </Route>
 
                     <Route exact path="/category/:categoryId" component={SingleCategory} />
-                    {/* <Route exact path="/view-quiz/:quizId" component={SingleQuiz} /> */}
                     <Route exact path="/view-quiz/:quizId" component={QuizQuestions} />
                     <Route exact path="/questions-create/:quizId" component={CreateQuestions} />
                     <Route path="/contact" component={Contact} />
                     <Route path="/about" component={About} />
+                    <Route path="/blog" component={Placeholder} />
                     <Route path="/ourself" component={Placeholder} />
                     <Route path="/news" component={Placeholder} />
                     <Route path="/faqs" component={Placeholder} />

@@ -9,9 +9,9 @@ const { auth, authRole } = require('../../middleware/auth');
 
 // @route   GET /api/categories
 // @desc    Get categories
-// @access  Needs to be private
+// @access  Public
 
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
 
     try {
         const categories = await Category.find()
