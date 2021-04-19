@@ -17,9 +17,7 @@ router.get('/', async (req, res) => {
   try {
     const contacts = await Contact.find()
       //sort contacts by creation_date
-      .sort({ test_date: -1 })
-      .populate('quiz')
-      .populate('taken_by')
+      .sort({ contact_date: -1 })
 
     if (!contacts) throw Error('No contacts found');
 

@@ -7,7 +7,7 @@ import { sendMsg } from '../redux/contacts/contacts.actions'
 const Contact = ({clearErrors, error, sendMsg}) => {
 
     const [state, setState] = useState({
-        name: '',
+        contact_name: '',
         email: '',
         message: ''
     })
@@ -21,16 +21,16 @@ const Contact = ({clearErrors, error, sendMsg}) => {
     const onContact = e => {
         e.preventDefault();
 
-        const { name, email, message } = state;
+        const { contact_name, email, message } = state;
 
         // Create user object
         const contactMsg = {
-            name,
+            contact_name,
             email,
             message
         };
 
-        // Attempt to subscribe
+        // Attempt to contact
         sendMsg(contactMsg);
     }
 
@@ -67,7 +67,7 @@ const Contact = ({clearErrors, error, sendMsg}) => {
                          */}
                     <Form onSubmit={onContact}>
                         <FormGroup>
-                            <Input type="text" name="name" placeholder="Name" minLength="4" maxLength="30" onChange={onChangeHandler} required />
+                            <Input type="text" name="contact_name" placeholder="Name" minLength="4" maxLength="30" onChange={onChangeHandler} required />
                         </FormGroup>
                         <FormGroup>
                             <Input type="email" name="email" placeholder="Email" onChange={onChangeHandler} required />
@@ -78,9 +78,9 @@ const Contact = ({clearErrors, error, sendMsg}) => {
                                 <Input type="textarea" name="message" placeholder="Message" minLength="10" maxLength="300" onChange={onChangeHandler} required />
                             </Col>
                         </FormGroup>
+                        <Button color="primary">Submit</Button>
                     </Form>
 
-                    <Button color="primary">Submit</Button>
                 </Col>
             </Row>
         </div>
