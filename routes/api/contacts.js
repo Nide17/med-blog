@@ -12,7 +12,7 @@ const Contact = require('../../models/Contact');
 // @route Private: accessed by logged in user
 
 //we use router. instead of app. and / because we are already in this dir
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
 
   try {
     const contacts = await Contact.find()
