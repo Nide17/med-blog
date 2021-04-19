@@ -11,18 +11,26 @@ const app = express();
 app.use(express.json());
 
 //DB Config
-const db = config.get('mongoURI');
+const dbURI = config.get('mongoURI');
 
 //connect to Mongo
-mongoose
-    .connect(db, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-        useFindAndModify: false
-    })
-    .then(() => console.log('MongoDB connected ...'))
-    .catch(err => console.log(err));
+const connectDB = async () => {
+    await mongoose.
+        connect(dbURI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true,
+            useFindAndModify: false
+        })
+        .then(() => console.log('MongoDB connected ...'),
+            err => {
+                console.error(`Connection error: ${err.stack}`)
+                process.exit(1)
+            }
+        )
+}
+
+connectDB().catch(err => console.error(err))
 
 // Bring in routes from the api
 //Use routes / All requests going to the api/questions goes the questions variable at the top questions.js file

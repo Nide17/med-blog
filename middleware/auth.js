@@ -48,16 +48,18 @@ const authRole = (roles) => (req, res, next) => {
   let authorized = false;
 
   //if user has a role that is required to access any API
-  roles.forEach(role => {
-    authorized = req.user.role === role;
+  roles.forEach(rol => {
+    authorized = true;
+    console.log(`${rol} Allowed!`)
   })
+
   if (authorized) {
     return next();
   }
 
   return res.status(401).json({
     success: false,
-    message: 'Unauthorized',
+    msg: 'Unauthorized',
   })
 }
 

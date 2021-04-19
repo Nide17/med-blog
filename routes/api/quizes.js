@@ -40,9 +40,9 @@ router.get('/:id', auth, async (req, res) => {
         await Quiz.findById(id, (err, quiz) => {
             res.status(200).json(quiz);
         })
-        // Use the name of the schema path instead of the collection name
-        .populate('category')
-        .populate('questions')
+            // Use the name of the schema path instead of the collection name
+            .populate('category')
+            .populate('questions')
 
     } catch (err) {
         res.status(400).json({
@@ -57,7 +57,7 @@ router.get('/:id', auth, async (req, res) => {
 // @desc    Create quiz
 // @access  Have to be private
 
-router.post('/', authRole(['Creator']), async (req, res) => {
+router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 
     const { title, description, category, created_by } = req.body;
 
