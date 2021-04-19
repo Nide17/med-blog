@@ -7,7 +7,7 @@ const Contact = () => {
             <Jumbotron className="m-md-5 py-0 text-center text-center">
                 <h1 className="display-3 font-weight-bold">Let's connect!</h1>
                 <p className="lead">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. A magni quas nulla ipsam exercitationem blanditiis ea iure corporis qui facilis?
+                    Med Blog is a web blog application that provides a multi-category space for people to quiz from. It gives people good time to fix what they studied and even prepare for exams.
                 </p>
 
                 <hr className="my-2" />
