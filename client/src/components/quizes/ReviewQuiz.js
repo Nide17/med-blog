@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types';
-import { Container, Col, Row, Spinner } from 'reactstrap';
+import { Container, Col, Row, Spinner, Button } from 'reactstrap';
 import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
 import { createScore } from '../../redux/scores/scores.actions'
 
-const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScore, auth }) => {
+const ReviewQuiz = ({ allQuizes, setQuizes, setQuestions, loading, createScore, auth }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0)
-    const [showScore, setShowScore] = useState(false);
-    const [score, setScore] = useState(0);
+    const [lastAnswer, setLastAnswer] = useState(false);
 
     useEffect(() => {
         // Inside this callback function, we set questions when the component is mounted.
@@ -22,11 +21,7 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
     // Access route parameters
     const { quizId } = useParams()
 
-    const handleAnswerButtonClick = (isCorrect) => {
-
-        if (isCorrect) {
-            setScore(score + 1);
-        }
+    const handleNextAnswer = () => {
 
         const nextQuestion = currentQuestion + 1;
 
@@ -34,11 +29,21 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
             (quiz._id === quizId) ?
                 (nextQuestion < quiz.questions.length) ?
                     setCurrentQuestion(nextQuestion) :
-                    setShowScore(true) :
+                    setLastAnswer(true) :
                 null))
     };
 
-    const Reload = () => window.location.reload()
+    const handlePrevAnswer = () => {
+
+        const prevQuestion = currentQuestion - 1;
+
+        allQuizes && allQuizes.map(quiz => (
+            (quiz._id === quizId) ?
+                (prevQuestion > 0) ?
+                    setCurrentQuestion(prevQuestion) :
+                    alert('No previous available!') :
+                null))
+    };
 
     if (!loading) {
 
@@ -51,57 +56,36 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
                     (quiz.questions.length > 0) ?
                         <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80" key={Math.floor(Math.random() * 1000)}>
 
-                            {showScore ?
+                            {lastAnswer ?
 
                                 auth.isAuthenticated ?
 
-                                    createScore({
-                                        marks: score,
-                                        out_of: quiz.questions.length,
-                                        category: quiz.category._id,
-                                        quiz: quiz._id,
-                                        taken_by: auth.isLoading === false ? auth.user._id : null
-                                    }) &&
-
                                     <div className='score-section text-center'>
 
-                                        <h5>You scored <b style={{ color: "#B4654A" }}>{score}</b> out of <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>
-                                        </h5>
+                                        <h5 className="text-center font-weight-bold">Reviewing finished!</h5>
 
-                                        <button type="button" className="btn btn-outline-success mt-3" onClick={Reload}>
-                                            Retake
-                                            </button>
-                                        &nbsp;&nbsp;
-                                        <Link to={`/review-quiz/${quiz._id}`}>
+                                        <Link to={`/view-quiz/${quiz._id}`}>
                                             <button type="button" className="btn btn-outline-success mt-3">
-                                                Review
+                                                Retake
                                             </button>
                                         </Link>
+                                        &nbsp;&nbsp;
+                                        <a href="/">
+                                            <button type="button" className="btn btn-outline-info mt-3">
+                                                Back Home
+                                            </button>
+                                        </a>
 
                                     </div> :
 
                                     <div className='score-section text-center'>
-
-                                        <h5>You scored <b style={{ color: "#B4654A" }}>{score}</b> out of <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>
-                                        </h5>
-
-                                        <a href={`/view-quiz/${quiz._id}`}>
-                                            <button type="button" className="btn btn-outline-success mt-3" onClick={Reload}>
-                                                Retake
-                                            </button>
-                                        </a>
-                                        &nbsp;&nbsp;
-                                        <Link to={`/review-quiz/${quiz._id}`}>
-                                            <button type="button" className="btn btn-outline-success mt-3">
-                                                Review
-                                            </button>
-                                        </Link>
-
+                                        <h5>Only members are allowed!</h5>
                                     </div> :
 
                                 <div className="question-view">
                                     <Row>
                                         <Col>
+                                            <h6 className="text-warning mb-5 ml-lg-5">Reviewing ...</h6>
                                             <div className='question-section my-2 mx-auto w-75'>
                                                 <h4 className='question-count text-uppercase text-center text-secondary font-weight-bold'>
                                                     <span>Question <b style={{ color: "#B4654A" }}>{currentQuestion + 1}</b></span>/{quiz.questions.length}
@@ -116,11 +100,18 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
                                             <div className='answer d-flex flex-column mx-auto mt-2 w-25'>
                                                 {quiz.questions && quiz.questions[currentQuestion].answerOptions.map((answerOption, index) => (
 
-                                                    <button className="answer-option my-3 p-2 btn btn-outline-info rounded" key={index} onClick={() => handleAnswerButtonClick(answerOption.isCorrect)}>
+                                                    <button
+                                                        className={`answer-option my-3 p-2 btn btn-outline-${answerOption.isCorrect ? 'success' : 'danger'} rounded`}
+                                                        key={index}>
                                                         {answerOption.answerText}
                                                     </button>
 
                                                 ))}
+                                            </div>
+                                            <div className="prevNext d-flex justify-content-between">
+                                                <Button color="info" className="ml-5" onClick={handlePrevAnswer}>Previous</Button>
+                                                <Button color="info" className="mr-5" onClick={handleNextAnswer}>
+                                                    {lastAnswer ? 'End' : 'Next'}</Button>
                                             </div>
                                         </Col>
                                     </Row>
@@ -151,7 +142,7 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
     }
 }
 
-QuizQuestions.propTypes = {
+ReviewQuiz.propTypes = {
     auth: PropTypes.object
 }
 
@@ -162,4 +153,4 @@ const mapStateToProps = state => ({
     loading: state.questionsReducer.loading
 });
 
-export default connect(mapStateToProps, { setQuestions, setQuestionsLoading, setQuizes, createScore })(QuizQuestions)
+export default connect(mapStateToProps, { setQuestions, setQuestionsLoading, setQuizes, createScore })(ReviewQuiz)
