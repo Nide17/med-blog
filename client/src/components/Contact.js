@@ -1,7 +1,39 @@
-import React from 'react'
-import { Jumbotron, Button, Col, Row, FormGroup, Input } from 'reactstrap';
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { Jumbotron, Button, Col, Row, Form, FormGroup, Input } from 'reactstrap';
+import { clearErrors } from '../redux/error/error.actions'
+import { sendMsg } from '../redux/contacts/contacts.actions'
 
-const Contact = () => {
+const Contact = ({clearErrors, error, sendMsg}) => {
+
+    const [state, setState] = useState({
+        name: '',
+        email: '',
+        message: ''
+    })
+
+    const onChangeHandler = e => {
+        clearErrors();
+        const { name, value } = e.target
+        setState(state => ({ ...state, [name]: value }))
+    };
+
+    const onContact = e => {
+        e.preventDefault();
+
+        const { name, email, message } = state;
+
+        // Create user object
+        const contactMsg = {
+            name,
+            email,
+            message
+        };
+
+        // Attempt to subscribe
+        sendMsg(contactMsg);
+    }
+
     return (
         <div>
             <Jumbotron className="m-md-5 py-0 text-center text-center">
@@ -11,10 +43,7 @@ const Contact = () => {
                 </p>
 
                 <hr className="my-2" />
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, est.</p>
-                <p className="lead mt-4">
-                    <Button color="primary">Learn More</Button>
-                </p>
+                <p>Do you need further clarifications? Don't hesitate to contact us!</p>
             </Jumbotron>
 
             <Row className="mx-2 px-1 mx-md-5 px-md-5 contact d-md-flex justify-content-center">
@@ -24,18 +53,32 @@ const Contact = () => {
                 </Col>
 
                 <Col sm="6" className="mb-5">
-                    <FormGroup>
-                        <Input type="email" name="email" placeholder="Name" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Input type="password" name="password" placeholder="Email" />
-                    </FormGroup>
 
-                    <FormGroup row>
-                        <Col>
-                            <Input type="textarea" name="text" placeholder="Message" />
-                        </Col>
-                    </FormGroup>
+                {/* {error.id === "SUBSCRIBE_FAIL" ?
+                            <Alert color='danger'>
+                                <small>{error.msg.msg}</small>
+                            </Alert> :
+                            subscribedUsers[1] !== undefined ?
+                                <Alert color='success'>
+                                    <small>{subscribedUsers[1].msg}</small>
+                                </Alert> :
+                                null
+                        }
+                         */}
+                    <Form onSubmit={onContact}>
+                        <FormGroup>
+                            <Input type="text" name="name" placeholder="Name" minLength="4" maxLength="30" onChange={onChangeHandler} required />
+                        </FormGroup>
+                        <FormGroup>
+                            <Input type="email" name="email" placeholder="Email" onChange={onChangeHandler} required />
+                        </FormGroup>
+
+                        <FormGroup row>
+                            <Col>
+                                <Input type="textarea" name="message" placeholder="Message" minLength="10" maxLength="300" onChange={onChangeHandler} required />
+                            </Col>
+                        </FormGroup>
+                    </Form>
 
                     <Button color="primary">Submit</Button>
                 </Col>
@@ -44,4 +87,8 @@ const Contact = () => {
     )
 }
 
-export default Contact
+const mapStateToProps = state => ({
+    error: state.errorReducer
+})
+
+export default connect(mapStateToProps, { clearErrors, sendMsg })(Contact)

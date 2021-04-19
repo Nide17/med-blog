@@ -18,51 +18,18 @@ const About = () => {
                 </p>
 
                 <hr className="my-2" />
-                <p>Reach us on brucendati@gmail.com for further details.</p>
+                <p>Reach us on <strong> brucendati@gmail.com </strong>for further details.</p>
             </Jumbotron>
 
             <Row className="about mx-md-5 my-md-5">
                 <Col sm="12">
-                    <h3 className="display-4 text-center mb-md-3">About the authors</h3>
+                    <h3 className="display-4 text-center mb-md-5 mt-0 pt-0">About the authors</h3>
                 </Col>
                 <Col sm="6">
-                    <CardImg top width="100%" src={bruce} alt="Card image" />
+                    <CardImg top width="90%" src={bruce} alt="Card image" />
                     <Card body>
                         <CardTitle tag="h5">Ndatimana Patrice Bruce</CardTitle>
                         <CardText><strong>Owner and Idea Innovator</strong></CardText>
-                        <p>
-                            <strong>
-                                <img src={whatsapp} alt="" width="20" height="20" />&nbsp;&nbsp;0788551997
-                        </strong>
-                        </p>
-
-                        <div className="d-flex">
-                            <Button size="sm" color="link" className="ml-0 pl-0 mr-2">
-                                <Link to="https://www.linkedin.com/in/niyomwungeri-parmenide-ishimwe-1a5394123/">
-                                    <img src={linkedin} alt="" width="20" height="20" />
-                                </Link>
-                            </Button>
-
-                            <Button size="sm" color="link" className="mx-2">
-                                <Link to="https://www.instagram.com/ishimwe_parmenide/">
-                                    <img src={instagram} alt="" width="20" height="20" />
-                                </Link>
-                            </Button>
-
-                            <Button size="sm" color="link" className="mx-2">
-                                <Link to="https://www.facebook.com/nide.drogba.7/">
-                                    <img src={facebook} alt="" width="20" height="20" />
-                                </Link>
-                            </Button>
-                        </div>
-                    </Card>
-                </Col>
-
-                <Col sm="6">
-                    <CardImg top width="90%" src={parmenide} alt="Card image" />
-                    <Card body>
-                        <CardTitle tag="h4">Niyomwungeri Parmenide Ishimwe</CardTitle>
-                        <CardText><strong>Application Developer</strong></CardText>
                         <p>
                             <strong>
                                 <img src={whatsapp} alt="" width="20" height="20" />&nbsp;&nbsp;0780579067
@@ -89,7 +56,41 @@ const About = () => {
                             </Button>
                         </div>
 
+                    </Card>
+                </Col>
 
+                <Col sm="6">
+                    <CardImg top width="90%" src={parmenide} alt="Card image" />
+                    <Card body>
+                        <CardTitle tag="h4">Niyomwungeri Parmenide Ishimwe</CardTitle>
+                        <CardText><strong>Application Developer</strong></CardText>
+
+                        <p>
+                            <strong>
+                                <img src={whatsapp} alt="" width="20" height="20" />&nbsp;&nbsp;0788551997
+                        </strong>
+                        </p>
+
+                        <div className="d-flex">
+                            <Button size="sm" color="link" className="ml-0 pl-0 mr-2">
+                                <Link to="https://www.linkedin.com/in/niyomwungeri-parmenide-ishimwe-1a5394123/">
+                                    <img src={linkedin} alt="" width="20" height="20" />
+                                </Link>
+                            </Button>
+
+                            <Button size="sm" color="link" className="mx-2">
+                                <Link to="https://www.instagram.com/ishimwe_parmenide/">
+                                    <img src={instagram} alt="" width="20" height="20" />
+                                </Link>
+                            </Button>
+
+                            <Button size="sm" color="link" className="mx-2">
+                                <Link to="https://www.facebook.com/nide.drogba.7/">
+                                    <img src={facebook} alt="" width="20" height="20" />
+                                </Link>
+                            </Button>
+                        </div>
+                        
                     </Card>
                 </Col>
             </Row>
