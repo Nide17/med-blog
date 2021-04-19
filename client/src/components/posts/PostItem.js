@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import { getUsers } from '../../redux/auth/auth.actions'
 
-const PostItem = ({ quiz, getUsers, users }) => {
+const PostItem = ({ quiz, getUsers }) => {
 
     useEffect(() => {
         getUsers()
@@ -14,25 +14,22 @@ const PostItem = ({ quiz, getUsers, users }) => {
 
     let date = new Date(creation_date);
 
-    const author = users && users.map(user =>
-        user._id === created_by ? user.name : null)
-
     return (
         <Card body className="bg-secondary py-0 py-md-3">
 
             <CardTitle tag="h4" className="mb-0 text-primary">
-                <Link to={`/view-quiz/${_id}`}>{title}
+                <Link to={`/view-quiz/${_id}`}>{title && title}
                     &nbsp;<span className="text-danger">({questions && questions.length})</span>
                 </Link>
             </CardTitle>
 
             <div className="small-text d-md-flex justify">
                 <p className="mr-5 my-1 text-dark">{date.toDateString()}</p>
-                <p className="mr-5 my-1 text-dark">-{category.title}</p>
-                <p className="mr-5 my-1 text-dark">-{author && author[0]}</p>
+                <p className="mr-5 my-1 text-dark">-{category && category.title}</p>
+                <p className="mr-5 my-1 text-dark">{created_by && created_by.name}</p>
             </div>
 
-            <CardText className="mt-3 text-secondary">{description}</CardText>
+            <CardText className="mt-3 text-secondary">{description && description}</CardText>
         </Card>
     )
 }

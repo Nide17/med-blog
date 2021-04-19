@@ -11,7 +11,7 @@ const PostItem = lazy(() => import('./PostItem'));
 const ViewCategory = lazy(() => import('../categories/ViewCategory'));
 
 const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, error, setQuizes, allQuizes }) => {
-
+console.log(allQuizes)
     const [state, setState] = useState({
         name: '',
         email: ''
@@ -61,7 +61,7 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                             </div>
                         }>
                         <h3 className="mb-3 text-center lead font-weight-bold">Newest Quizes</h3>
-                        {allQuizes && allQuizes.slice(0, 7).map(quiz => (
+                        {allQuizes && allQuizes.slice(0, 20).map(quiz => (
                             quiz.questions.length > 0 ?
                                 <PostItem key={quiz._id} quiz={quiz} /> : null
 
