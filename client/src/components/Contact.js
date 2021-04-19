@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Jumbotron, Button, Col, Row, Form, FormGroup, Input } from 'reactstrap';
+import { Jumbotron, Button, Col, Row, Form, FormGroup, Input, Alert } from 'reactstrap';
 import { clearErrors } from '../redux/error/error.actions'
 import { sendMsg } from '../redux/contacts/contacts.actions'
 
-const Contact = ({clearErrors, error, sendMsg}) => {
+const Contact = ({ clearErrors, error, sendMsg }) => {
 
     const [state, setState] = useState({
         contact_name: '',
@@ -54,17 +54,13 @@ const Contact = ({clearErrors, error, sendMsg}) => {
 
                 <Col sm="6" className="mb-5">
 
-                {/* {error.id === "SUBSCRIBE_FAIL" ?
-                            <Alert color='danger'>
-                                <small>{error.msg.msg}</small>
-                            </Alert> :
-                            subscribedUsers[1] !== undefined ?
-                                <Alert color='success'>
-                                    <small>{subscribedUsers[1].msg}</small>
-                                </Alert> :
-                                null
-                        }
-                         */}
+                    {error.id === "ADD_CONTACT_FAIL" ?
+                        <Alert color='danger'>
+                            <small>{error.msg.msg}</small>
+                        </Alert> :
+                        null
+                    }
+
                     <Form onSubmit={onContact}>
                         <FormGroup>
                             <Input type="text" name="contact_name" placeholder="Name" minLength="4" maxLength="30" onChange={onChangeHandler} required />
