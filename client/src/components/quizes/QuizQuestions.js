@@ -91,9 +91,9 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
                                             </button>
                                         </a>
                                         &nbsp;&nbsp;
-                                        <Link to={`/review-quiz/${quiz._id}`}>
+                                        <Link to='/'>
                                             <button type="button" className="btn btn-outline-success mt-3">
-                                                Review
+                                                Back Home
                                             </button>
                                         </Link>
 
