@@ -16,12 +16,12 @@ const Reports = ({ userId, allScores, setScores }) => {
                 <h3>Your past scores</h3>
             </Row>
 
-            <Row>
+            <Row className="mx-0">
                 {allScores && allScores.map(score => (
 
                     userId === score.taken_by._id ?
 
-                        <Col sm="4" key={score._id} className="m-3 users-toast">
+                        <Col sm="3" key={score._id} className="px-2 mt-2 users-toast">
                             <Toast>
                                 <ToastHeader className="text-success">
                                     &nbsp;<strong> {score.quiz.title}</strong>
@@ -33,6 +33,9 @@ const Reports = ({ userId, allScores, setScores }) => {
                                     </p>
                                     <p><strong className="text-warning">Score: </strong>
                                         {score.marks}/{score.out_of}</p>
+                                    <small className="text-center">
+                                        On {score.test_date.split('T').slice(0, 2).join(' at ')}
+                                    </small>
                                 </ToastBody>
                             </Toast>
 
