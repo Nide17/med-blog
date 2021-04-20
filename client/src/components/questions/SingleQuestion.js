@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { Row, Col, Toast, ToastBody, ToastHeader, Breadcrumb, BreadcrumbItem, ListGroup, ListGroupItem } from 'reactstrap';
-import { useParams } from 'react-router-dom'
+import { Row, ListGroup, ListGroupItem } from 'reactstrap';
+import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { setQuestions } from '../../redux/questions/questions.actions'
+import { setQuestions, deleteQuestion } from '../../redux/questions/questions.actions'
+import trash from '../../images/trash.svg';
+import EditIcon from '../../images/edit.svg';
 
-const SingleQuestion = ({ auth, questionsData, setQuestions }) => {
+const SingleQuestion = ({ auth, questionsData, setQuestions, deleteQuestion }) => {
 
     // Lifecycle methods
     useEffect(() => {
@@ -14,6 +16,11 @@ const SingleQuestion = ({ auth, questionsData, setQuestions }) => {
     // Access route parameters
     const { questionId } = useParams()
 
+    const deleteQn = () => {
+        deleteQuestion(questionId)
+        window.location.href('/webmaster')
+    }
+
     return (
         auth.isAuthenticated ?
 
@@ -21,17 +28,30 @@ const SingleQuestion = ({ auth, questionsData, setQuestions }) => {
                 {questionsData && questionsData.map(question => (
 
                     (question._id === questionId) ?
-                        <div className="mt-5 mx-5 single-category">
+                        <div className="mt-5 mx-5 single-category" key={question._id}>
 
                             <Row className="m-4 d-block text-primary">
-                                <h4 className="mb-4">{question.questionText}</h4>
+
+                                <div className="d-flex justify-content-between title-actions">
+                                    <h4 className="mb-4">{question.questionText}</h4>
+
+                                    <div className="actions">
+                                        <img src={trash} alt="" width="16" height="16" className="mr-3" onClick={deleteQn} />
+
+                                        <Link to={`/edit-question/${question._id}`} className="text-secondary">
+                                            <img src={EditIcon} alt="" width="16" height="16" className="mr-3" />
+                                        </Link>
+                                    </div>
+                                </div>
+
                                 <ListGroup>
                                     {question && question.answerOptions.map(answerOpt => (
-                                        <ListGroupItem color={answerOpt.isCorrect ? 'success' : ''}>
+                                        <ListGroupItem color={answerOpt.isCorrect ? 'success' : ''} key={answerOpt._id}>
                                             {answerOpt.answerText}
                                         </ListGroupItem>)
                                     )}
                                 </ListGroup>
+
                             </Row>
                         </div> : null))}
             </> :
@@ -44,4 +64,4 @@ const mapStateToProps = state => ({
     questionsData: state.questionsReducer.questionsData
 });
 
-export default connect(mapStateToProps, { setQuestions })(SingleQuestion);
+export default connect(mapStateToProps, { setQuestions, deleteQuestion })(SingleQuestion);

@@ -1,4 +1,4 @@
-import { SET_QUESTIONS, QUESTIONS_LOADING, ADD_QUESTION, DELETE_QUESTION, GET_ERRORS } from "./questions.types";
+import { SET_QUESTIONS, QUESTIONS_LOADING, ADD_QUESTION, UPDATE_QUESTION, UPDATE_QUESTION_FAIL, DELETE_QUESTION, GET_ERRORS } from "./questions.types";
 import axios from 'axios';
 import { tokenConfig } from '../auth/auth.actions'
 import { returnErrors } from "../error/error.actions";
@@ -9,12 +9,12 @@ export const setQuestions = () => async (dispatch, getState) => {
 
     try {
         await axios
-        .get('/api/questions', tokenConfig(getState))
-        .then(res =>
-            dispatch({
-                type: SET_QUESTIONS,
-                payload: res.data
-            }))
+            .get('/api/questions', tokenConfig(getState))
+            .then(res =>
+                dispatch({
+                    type: SET_QUESTIONS,
+                    payload: res.data
+                }))
     } catch (err) {
         dispatch(returnErrors(err.response.data, err.response.status))
     }
@@ -39,17 +39,38 @@ export const addQuestion = question => async (dispatch, getState) => {
     }
 };
 
-export const deleteQuestion = id => async (dispatch, getState) => {
+// Update a Question
+export const updateQuestion = updatedQuestion => async (dispatch, getState) => {
 
     try {
         await axios
-            .delete(`/api/questions/${id}`, tokenConfig(getState))
-            .then(res =>
-                dispatch({
-                    type: DELETE_QUESTION,
-                    payload: id
-                }),
-                alert('Added Successfully!'))
+            .put(`/api/questions/${updatedQuestion.qtId}`, updatedQuestion, tokenConfig(getState))
+        dispatch({
+            type: UPDATE_QUESTION,
+            payload: updatedQuestion
+        })
+        alert('Updated Successfully!')
+
+    } catch (err) {
+        dispatch(returnErrors(err.response.data, err.response.status, 'UPDATE_QUESTION_FAIL'));
+        dispatch({ type: UPDATE_QUESTION_FAIL })
+    }
+}
+
+// Delete a Question
+export const deleteQuestion = id => async (dispatch, getState) => {
+
+    try {
+        if (window.confirm("This Question will be deleted permanently!")) {
+            await axios
+                .delete(`/api/questions/${id}`, tokenConfig(getState))
+                .then(res =>
+                    dispatch({
+                        type: DELETE_QUESTION,
+                        payload: id
+                    }),
+                    alert('Deleted Successfully!'))
+        }
 
     } catch (err) {
         dispatch(returnErrors(err.response.data, err.response.status, 'GET_ERRORS'));
