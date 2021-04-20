@@ -39,7 +39,7 @@ const ReviewQuiz = ({ allQuizes, setQuizes, setQuestions, loading, createScore, 
 
         allQuizes && allQuizes.map(quiz => (
             (quiz._id === quizId) ?
-                (prevQuestion > 0) ?
+                (prevQuestion >= 0) ?
                     setCurrentQuestion(prevQuestion) :
                     alert('No previous available!') :
                 null))
