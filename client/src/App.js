@@ -14,8 +14,8 @@ import CreateQuestions from './components/questions/CreateQuestions';
 
 import { loadUser } from './redux/auth/auth.actions'
 import SingleCategory from './components/categories/SingleCategory';
-// import SingleQuiz from './components/quizes/SingleQuiz';
 import QuizQuestions from './components/quizes/QuizQuestions';
+import SingleQuestion from './components/questions/SingleQuestion';
 import ReviewQuiz from './components/quizes/ReviewQuiz';
 import AllPosts from './components/posts/AllPosts';
 
@@ -61,6 +61,7 @@ const App = () => {
 
                     <Route exact path="/category/:categoryId" component={SingleCategory} />
                     <Route exact path="/view-quiz/:quizId" component={QuizQuestions} />
+                    <Route exact path="/view-question/:questionId" component={SingleQuestion} />
                     <Route exact path="/review-quiz/:quizId" component={ReviewQuiz} />
                     <Route exact path="/questions-create/:quizId" component={CreateQuestions} />
                     <Route path="/contact" component={Contact} />

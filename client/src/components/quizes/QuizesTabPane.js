@@ -46,7 +46,7 @@ const QuizesTabPane = ({ currentUser, allQuizes, setQuizes, setQuestions, delete
                                 </ToastHeader>
 
                                 <ToastBody>
-                                    <small>{quiz.created_by.name}</small>
+                                    <small>({quiz.created_by.name})</small>
                                     <br />
                                     {quiz.description}
                                     <br /><br />
@@ -54,11 +54,15 @@ const QuizesTabPane = ({ currentUser, allQuizes, setQuizes, setQuestions, delete
 
                                     {quiz.questions && quiz.questions.map(question =>
                                         <ol key={question._id}>
-                                            <li>{question.questionText}</li>
+                                            <li>
+                                                <Link to={`/view-question/${question._id}`}>
+                                                    {question.questionText}
+                                                </Link>
+                                            </li>
                                         </ol>
                                     )}
-
                                 </ToastBody>
+
                             </Toast>
 
                         </Col> : null
