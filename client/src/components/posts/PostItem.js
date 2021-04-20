@@ -25,8 +25,9 @@ const PostItem = ({ quiz, getUsers }) => {
 
             <div className="small-text d-md-flex justify">
                 <p className="mr-5 my-1 text-dark">{date.toDateString()}</p>
-                <p className="mr-5 my-1 text-dark">-{category && category.title}</p>
-                <p className="mr-5 my-1 text-dark">{created_by && created_by.name}</p>
+                <p className="mr-5 my-1 text-dark">-{category && category.title}
+                    <small>&nbsp;({created_by && created_by.name})</small>
+                </p>
             </div>
 
             <CardText className="mt-3 text-secondary">{description && description}</CardText>
