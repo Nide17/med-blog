@@ -7,6 +7,12 @@ import { setQuestions, updateQuestion } from '../../redux/questions/questions.ac
 
 const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => {
 
+    const [questionText, setQuestionText] = useState({
+        questionText: ''
+    })
+
+    const [answerOptions, setAnswerOptions] = useState([]);
+
     // Lifecycle methods
     useEffect(() => {
         setQuestions();
@@ -15,20 +21,19 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => 
     // Access route parameters
     const { questionId } = useParams()
 
+    const selectedQuestion = questionsData && questionsData.find(qn =>
+        qn._id === questionId ? qn : null)
+
+
     // const selectedQuestion = questionsData && questionsData.map(qn =>
     //     qn._id === questionId ? qn : null)
 
-    const selectedQuestion = questionsData && questionsData.find(qn => qn._id === questionId)
-
-    const [questionText, setQuestionText] = useState({
-        questionText: selectedQuestion.questionText
-    })
-
+    console.log(selectedQuestion && selectedQuestion.answerOptions)
 
     // const [answerOptions, setAnswerOptions] = useState([
     //     { id: uuidv4(), answerText: selectedQuestion.answerText, isCorrect: selectedQuestion.isCorrect }
     // ]);
-    const [answerOptions, setAnswerOptions] = useState(selectedQuestion.answerOptions);
+
 
     // Errors state on form
     // const [errorsState, setErrorsState] = useState([])
@@ -39,7 +44,7 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => 
     }
 
     const handleAnswerChangeInput = (id, event) => {
-        const updatedAnswerOptions = answerOptions.map(i => {
+        const updatedAnswerOptions = answerOptions && answerOptions.map(i => {
             if (id === i.id) {
                 event.target.type === "checkbox" ?
                     i[event.target.name] = event.target.checked :
@@ -122,12 +127,11 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => 
             <FormGroup row>
                 <Label for="examplequestion" sm={2}>Question Edit</Label>
                 <Col sm={10}>
-                {console.log(questionText)}
-                    <Input type="text" name="questionText" value={questionText} id="examplequestion" placeholder="Question here ..." onChange={onQuestionChangeHandler} required />
+                    <Input type="text" name="questionText" value={selectedQuestion && selectedQuestion.questionText} id="examplequestion" placeholder="Question here ..." onChange={onQuestionChangeHandler} required />
                 </Col>
             </FormGroup>
-{/* 
-            {answerOptions.map(answerOption => (
+
+            {selectedQuestion && selectedQuestion.answerOptions.map(answerOption => (
 
                 <div key={answerOption.id}>
 
@@ -141,7 +145,7 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => 
 
                         <Col sm={6} xl={2} className="my-3 my-sm-2 d-sm-flex justify-content-around">
                             <CustomInput type="checkbox" name="isCorrect" value={answerOption.isCorrect}
-                                onChange={event => handleAnswerChangeInput(answerOption.id, event)} id={answerOption.id} label="Is Correct?" required />
+                                onChange={event => handleAnswerChangeInput(answerOption.id, event)} id={answerOption.id} label="Is Correct?" required checked={answerOption.isCorrect} />
                         </Col>
 
                         <Col sm={6} xl={1} className="my-3 my-sm-2">
@@ -159,7 +163,7 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => 
                 <Col sm={{ size: 10, offset: 2 }} className="pl-0">
                     <Button className="btn btn-info btn-sm" type="submit" onClick={handleSubmit}>Add New</Button>
                 </Col>
-            </FormGroup> */}
+            </FormGroup>
 
         </Form>
         //  :
