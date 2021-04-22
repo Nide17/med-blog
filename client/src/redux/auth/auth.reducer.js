@@ -1,4 +1,4 @@
-import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS, DELETE_USER, UPDATE_USER, DELETE_USER_FAIL, UPDATE_USER_FAIL } from "./auth.types";
+import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS, DELETE_USER, UPDATE_USER, DELETE_USER_FAIL, UPDATE_USER_FAIL, USERS_LOADING } from "./auth.types";
 
 const INITIAL_STATE = {
   token: localStorage.getItem('token'),
@@ -15,6 +15,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
     case GET_USERS:
       return {
         ...state,
+        isLoading: false,
         users: action.payload
       };
 
@@ -86,6 +87,12 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         users: state.users.filter(user => user._id !== action.payload)
+      }
+
+    case USERS_LOADING:
+      return {
+        ...state,
+        isLoading: true
       }
 
 

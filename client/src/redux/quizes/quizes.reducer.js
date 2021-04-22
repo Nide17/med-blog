@@ -1,7 +1,8 @@
-import { SET_QUIZES, CREATE_QUIZ, CREATE_QUIZ_FAIL, DELETE_QUIZ, DELETE_QUIZ_FAIL, UPDATE_QUIZ, UPDATE_QUIZ_FAIL } from "./quizes.types";
+import { SET_QUIZES, CREATE_QUIZ, CREATE_QUIZ_FAIL, DELETE_QUIZ, DELETE_QUIZ_FAIL, UPDATE_QUIZ, UPDATE_QUIZ_FAIL, QUIZES_LOADING } from "./quizes.types";
 
 const INITIAL_STATE = {
-  allQuizes: []
+  allQuizes: [],
+  isLoading: true
 };
 
 const quizesReducer = (state = INITIAL_STATE, action) => {
@@ -11,6 +12,7 @@ const quizesReducer = (state = INITIAL_STATE, action) => {
     case SET_QUIZES:
       return {
         ...state,
+        isLoading: false,
         allQuizes: action.payload
       };
 
@@ -51,7 +53,13 @@ const quizesReducer = (state = INITIAL_STATE, action) => {
           ...state,
           allQuizes: state.allQuizes.filter(quiz => quiz._id !== action.payload)
         }
-  
+        
+        case QUIZES_LOADING:
+          return {
+            ...state,
+            isLoading: true
+          }
+    
 
     default:
       return state;

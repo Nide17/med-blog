@@ -3,6 +3,7 @@ import { Row, Col, Card, Button, CardTitle, CardText, TabPane } from 'reactstrap
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
 import { setCategories, deleteCategory } from '../../redux/categories/categories.actions'
+import ReactLoading from "react-loading";
 
 import AddQuiz from '../quizes/AddQuiz';
 import EditCategory from './EditCategory';
@@ -19,6 +20,7 @@ const CategoriesTabPane = ({ currentUser, categories, setCategories, deleteCateg
     return (
         <TabPane tabId="1">
 
+        {categories.isLoading ? <ReactLoading type="spinningBubbles" color="#33FFFC" />:
             <Row>
                 {categories.allcategories && categories.allcategories.map(category => (
 
@@ -60,6 +62,7 @@ const CategoriesTabPane = ({ currentUser, categories, setCategories, deleteCateg
                     </Col>
                 ))}
             </Row>
+        }
 
         </TabPane>
     )

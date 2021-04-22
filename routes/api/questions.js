@@ -67,7 +67,7 @@ router.post("/", auth, authRole(['Admin', 'Creator']), async (req, res) => {
 // @route Private
 //:id placeholder, findId=we get it from the parameter in url
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
   try {
     //Find the question by id
     await Question.findById(req.params.id, (err, question) => {
@@ -90,7 +90,7 @@ router.get('/:id', async (req, res) => {
 // @route UPDATE one Question
 // @access Private: Accessed by admin only
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
 
   try {
     //Find the Question by id

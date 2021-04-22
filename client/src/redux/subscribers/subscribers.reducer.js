@@ -1,8 +1,9 @@
-import { SET_POSTS, SUBSCRIBETONEWSLETTER, SET_SUBSCRIBERS, SUBSCRIBE_FAIL, DELETE_SUBSCRIBER, DELETE_SUBSCRIBER_FAIL } from "./subscribers.types";
+import { SET_POSTS, SUBSCRIBETONEWSLETTER, SET_SUBSCRIBERS, SUBSCRIBE_FAIL, DELETE_SUBSCRIBER, DELETE_SUBSCRIBER_FAIL, SUBSCRIBERS_LOADING } from "./subscribers.types";
 
 const INITIAL_STATE = {
   postsData: [],
-  subscribedUsers: []
+  subscribedUsers: [],
+  isLoading: true
 };
 
 const postsReducer = (state = INITIAL_STATE, action) => {
@@ -12,6 +13,7 @@ const postsReducer = (state = INITIAL_STATE, action) => {
     case SET_POSTS:
       return {
         ...state,
+        isLoading: false,
         postsData: action.payload
       };
 
@@ -39,6 +41,13 @@ const postsReducer = (state = INITIAL_STATE, action) => {
           ...state,
           subscribedUsers: state.subscribedUsers.filter(subscriber => subscriber._id !== action.payload)
         }
+
+        case SUBSCRIBERS_LOADING:
+          return {
+            ...state,
+            isLoading: true
+          }
+    
 
     default:
       return state;

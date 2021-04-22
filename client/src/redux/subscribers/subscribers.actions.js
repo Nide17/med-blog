@@ -1,4 +1,4 @@
-import { SET_POSTS, SUBSCRIBETONEWSLETTER, SET_SUBSCRIBERS, SUBSCRIBE_FAIL, DELETE_SUBSCRIBER, DELETE_SUBSCRIBER_FAIL } from "./subscribers.types";
+import { SET_POSTS, SUBSCRIBETONEWSLETTER, SET_SUBSCRIBERS, SUBSCRIBE_FAIL, DELETE_SUBSCRIBER, DELETE_SUBSCRIBER_FAIL, SUBSCRIBERS_LOADING } from "./subscribers.types";
 import axios from 'axios';
 
 import { tokenConfig } from '../auth/auth.actions'
@@ -17,6 +17,7 @@ export const setPosts = () => {
 };
 
 export const setSubscribers = () => async (dispatch, getState) => {
+  await dispatch(setSubscribersLoading());
 
   try {
     await axios
@@ -49,7 +50,6 @@ export const subscribeToNewsLetter = (subscribedUser) => async (dispatch) => {
   }
 };
 
-
 // Delete a Subscriber
 export const deleteSubscriber = id => async (dispatch, getState) => {
 
@@ -66,4 +66,13 @@ export const deleteSubscriber = id => async (dispatch, getState) => {
     dispatch(returnErrors(err.response.data, err.response.status, 'DELETE_SUBSCRIBER_FAIL'));
     dispatch({ type: DELETE_SUBSCRIBER_FAIL })
   }
+}
+
+export const setSubscribersLoading = () => {
+  //Return an action to the reducer
+  return {
+      //action 
+      type: SUBSCRIBERS_LOADING
+
+  };
 }

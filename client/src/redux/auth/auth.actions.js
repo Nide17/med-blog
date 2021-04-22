@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { returnErrors } from '../error/error.actions'
-import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS, UPDATE_USER, DELETE_USER, UPDATE_USER_FAIL, DELETE_USER_FAIL } from "./auth.types";
+import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS, UPDATE_USER, DELETE_USER, UPDATE_USER_FAIL, DELETE_USER_FAIL, USERS_LOADING } from "./auth.types";
 
 
 //HELPER FUNCTION TO GET THE TOKEN - SETUP CONFIG/headers and token
@@ -46,6 +46,7 @@ export const loadUser = () => (dispatch, getState) => {
 
 // View all users
 export const getUsers = () => async (dispatch, getState) => {
+  await dispatch(setUsersLoading());
 
   try {
     await axios
@@ -160,4 +161,13 @@ export const deleteUser = id => async (dispatch, getState) => {
     dispatch(returnErrors(err.response.data, err.response.status, 'DELETE_USER_FAIL'));
     dispatch({ type: DELETE_USER_FAIL })
   }
+}
+
+export const setUsersLoading = () => {
+  //Return an action to the reducer
+  return {
+      //action 
+      type: USERS_LOADING
+
+  };
 }

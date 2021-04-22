@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { Row, Col, Toast, ToastBody, ToastHeader, TabPane } from 'reactstrap';
+import ReactLoading from "react-loading";
+
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
 import EditQuiz from './EditQuiz';
@@ -10,7 +12,7 @@ import { setQuizes, deleteQuiz, updateQuiz } from '../../redux/quizes/quizes.act
 import trash from '../../images/trash.svg';
 import AddIcon from '../../images/plus.svg';
 
-const QuizesTabPane = ({ currentUser, allQuizes, setQuizes, setQuestions, deleteQuiz }) => {
+const QuizesTabPane = ({ currentUser, quizes, setQuizes, setQuestions, deleteQuiz }) => {
 
     // Lifecycle methods
     useEffect(() => {
@@ -21,8 +23,10 @@ const QuizesTabPane = ({ currentUser, allQuizes, setQuizes, setQuestions, delete
     return (
 
         <TabPane tabId="2">
+        
+        {quizes.isLoading ? <ReactLoading type="spinningBubbles" color="#33FFFC" />:
             <Row>
-                {allQuizes && allQuizes.map(quiz => (
+                {quizes.allQuizes && quizes.allQuizes.map(quiz => (
 
                     currentUser.role === 'Admin' || currentUser._id === quiz.created_by._id ?
 
@@ -68,13 +72,14 @@ const QuizesTabPane = ({ currentUser, allQuizes, setQuizes, setQuestions, delete
                         </Col> : null
                 ))}
             </Row>
+        }
 
         </TabPane>
     )
 }
 
 const mapStateToProps = state => ({
-    allQuizes: state.quizesReducer.allQuizes,
+    quizes: state.quizesReducer,
     questionsData: state.questionsReducer.questionsData
 })
 

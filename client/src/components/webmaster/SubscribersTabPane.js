@@ -17,7 +17,7 @@ const SubscribersTabPane = ({ subscribedUsers, setSubscribers, deleteSubscriber 
         <TabPane tabId="3">
 
             <Row>
-                {subscribedUsers && subscribedUsers.map(subscribedUser => (
+                {subscribedUsers && subscribedUsers.subscribedUsers.map(subscribedUser => (
                     <Col sm="3" key={subscribedUser.email} className="mt-3">
 
                         <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
@@ -46,7 +46,7 @@ const SubscribersTabPane = ({ subscribedUsers, setSubscribers, deleteSubscriber 
 }
 
 const mapStateToProps = state => ({
-    subscribedUsers: state.postsReducer.subscribedUsers
+    subscribedUsers: state.postsReducer
 })
 
 export default connect(mapStateToProps, { setSubscribers, deleteSubscriber })(SubscribersTabPane)

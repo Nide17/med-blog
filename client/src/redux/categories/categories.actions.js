@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { returnErrors } from '../error/error.actions'
-import { SET_CATEGORIES, SET_CATEGORIES_FAIL, CREATE_CATEGORY, CREATE_CATEGORY_FAIL, DELETE_CATEGORY, DELETE_CATEGORY_FAIL, UPDATE_CATEGORY, UPDATE_CATEGORY_FAIL } from "./categories.types";
+import { SET_CATEGORIES, SET_CATEGORIES_FAIL, CREATE_CATEGORY, CREATE_CATEGORY_FAIL, DELETE_CATEGORY, DELETE_CATEGORY_FAIL, UPDATE_CATEGORY, UPDATE_CATEGORY_FAIL, CATEGORIES_LOADING } from "./categories.types";
 import { tokenConfig } from '../auth/auth.actions'
 
 // View all categories
 export const setCategories = () => async (dispatch, getState) => {
+  await dispatch(setCategoriesLoading());
 
   try {
     await axios
@@ -77,5 +78,14 @@ export const deleteCategory = id => async (dispatch, getState) => {
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'DELETE_CATEGORY_FAIL'));
     dispatch({ type: DELETE_CATEGORY_FAIL });
+  }
+}
+
+export const setCategoriesLoading = () => {
+  //Return an action to the reducer
+  return {
+      //action 
+      type: CATEGORIES_LOADING
+
   }
 }

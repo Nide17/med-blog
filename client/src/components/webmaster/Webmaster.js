@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import ReactLoading from "react-loading";
 import { Row, Col, Button, Toast, ToastBody, ToastHeader, TabContent, Nav, NavItem, NavLink, Alert } from 'reactstrap';
 import classnames from 'classnames';
 import { connect } from 'react-redux'
@@ -123,11 +124,22 @@ const Webmaster = ({ auth, error }) => {
                                 <UsersTabPane />
                             </TabContent>
                         </Col>
-                        
+
                     </Row>
                 </> :
                 <Reports userId={auth.user._id} /> :
-            <h6 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Login Again!</h6>
+
+            // If not authenticated or loading
+            <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                {
+                    auth.isLoading ?
+                        <>
+                            <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                            <p className="d-block">Loading user ...</p>
+                        </> :
+                        'Please Login Again!'
+                }
+            </div>
     )
 }
 Webmaster.propTypes = {

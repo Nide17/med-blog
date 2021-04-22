@@ -1,4 +1,5 @@
 export const SET_QUIZES = 'SET_QUIZES';
+export const QUIZES_LOADING = 'QUIZES_LOADING';
 
 export const CREATE_QUIZ = 'CREATE_QUIZ';
 export const CREATE_QUIZ_SUCCESS = 'CREATE_QUIZ_SUCCESS';

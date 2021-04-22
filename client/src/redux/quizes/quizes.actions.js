@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { returnErrors } from '../error/error.actions'
-import { SET_QUIZES, CREATE_QUIZ, CREATE_QUIZ_FAIL, DELETE_QUIZ, DELETE_QUIZ_FAIL, UPDATE_QUIZ, UPDATE_QUIZ_FAIL } from "./quizes.types";
+import { SET_QUIZES, CREATE_QUIZ, CREATE_QUIZ_FAIL, DELETE_QUIZ, DELETE_QUIZ_FAIL, UPDATE_QUIZ, UPDATE_QUIZ_FAIL, QUIZES_LOADING } from "./quizes.types";
 import { tokenConfig } from '../auth/auth.actions'
 
 // View all quizes
 export const setQuizes = () => async (dispatch, getState) => {
-  // dispatch(setQuestionsLoading());
+  await dispatch(setQuizesLoading());
 
   try {
     await axios
@@ -73,4 +73,13 @@ export const deleteQuiz = id => async (dispatch, getState) => {
     dispatch(returnErrors(err.response.data, err.response.status, 'DELETE_QUIZ_FAIL'));
     dispatch({ type: DELETE_QUIZ_FAIL })
   }
+}
+
+export const setQuizesLoading = () => {
+  //Return an action to the reducer
+  return {
+      //action 
+      type: QUIZES_LOADING
+
+  };
 }
