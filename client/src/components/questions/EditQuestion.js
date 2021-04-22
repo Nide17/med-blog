@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid';
 import { Button, Row, Col, Form, FormGroup, Label, Input, CustomInput, Breadcrumb, BreadcrumbItem, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { setQuestions, updateQuestion } from '../../redux/questions/questions.actions';
@@ -79,12 +78,14 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
     };
 
     const handleAddFields = () => {
-        setAnswerOptionsState([...answerOptionsState, { id: uuidv4(), answerText: '', isCorrect: false }])
+        setAnswerOptionsState([...answerOptionsState, { answerText: '', isCorrect: false }])
     }
 
-    const handleRemoveFields = id => {
+    const handleRemoveFields = _id => {
+
         const values = [...answerOptionsState];
-        values.splice(values.findIndex(value => value.id === id), 1);
+        values.splice(values.findIndex(value => value._id === _id), 1);
+        console.log(values)
         setAnswerOptionsState(values);
     }
 
