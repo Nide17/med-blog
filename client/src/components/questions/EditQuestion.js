@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid';
 import { Button, Col, Form, FormGroup, Label, Input, CustomInput } from 'reactstrap';
 import { connect } from 'react-redux';
@@ -7,8 +7,9 @@ import { setQuestions, updateQuestion } from '../../redux/questions/questions.ac
 
 const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => {
 
-    // Access route parameters
+    // Access route parameters & history
     const { questionId } = useParams()
+    const { push } = useHistory()
 
     const selectedQuestion = questionsData && questionsData.find(qn =>
         qn._id === questionId ? qn : null)
@@ -20,8 +21,8 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => 
     })
 
     const [answerOptionsState, setAnswerOptionsState] = useState(selectedQuestion && selectedQuestion.answerOptions);
-// console.log(answerOptionsState)
-// console.log(selectedQuestion && selectedQuestion.answerOptions)
+    // console.log(answerOptionsState)
+    // console.log(selectedQuestion && selectedQuestion.answerOptions)
     // Lifecycle methods
     useEffect(() => {
         setQuestions();
@@ -41,8 +42,8 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => 
             if (id === oneAnswer._id) {
 
                 event.target.type === "checkbox" ?
-                oneAnswer[event.target.name] = event.target.checked :
-                oneAnswer[event.target.name] = event.target.value
+                    oneAnswer[event.target.name] = event.target.checked :
+                    oneAnswer[event.target.name] = event.target.value
             }
             return oneAnswer;
         })
@@ -73,14 +74,14 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => 
 
 
         const updatedQuestion = {
-            questionTextState,
-            answerOptionsState
+            qtId: questionId,
+            questionText: questionTextState.questionText,
+            answerOptions: answerOptionsState
         }
         updateQuestion(updatedQuestion);
 
-        // Back to single question
-        // window.location.href = `{/view-question/${selectedQuestion && selectedQuestion._id}`}
-        
+        // Back to webmaster
+        push('/webmaster')
     };
 
     const handleAddFields = () => {

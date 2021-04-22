@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Row, ListGroup, ListGroupItem } from 'reactstrap';
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { setQuestions, deleteQuestion } from '../../redux/questions/questions.actions'
 import trash from '../../images/trash.svg';
@@ -15,10 +15,11 @@ const SingleQuestion = ({ auth, questionsData, setQuestions, deleteQuestion }) =
 
     // Access route parameters
     const { questionId } = useParams()
+    const { push } = useHistory()
 
     const deleteQn = () => {
         deleteQuestion(questionId)
-        window.location.href('/webmaster')
+        push('/webmaster')
     }
 
     return (

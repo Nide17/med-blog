@@ -67,7 +67,7 @@ router.post("/", auth, authRole(['Admin', 'Creator']), async (req, res) => {
 // @route Private
 //:id placeholder, findId=we get it from the parameter in url
 
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     //Find the question by id
     await Question.findById(req.params.id, (err, question) => {
@@ -85,6 +85,26 @@ router.get('/:id', auth, async (req, res) => {
   }
 
 });
+
+// @route PUT api/questions/:id
+// @route UPDATE one Question
+// @access Private: Accessed by admin only
+
+router.put('/:id', async (req, res) => {
+
+  try {
+      //Find the Question by id
+      const question = await Question.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
+      res.status(200).json(question);
+
+  } catch (err) {
+      res.status(400).json({
+          msg: 'Failed to update! ' + err.message,
+          success: false
+      });
+  }
+});
+
 
 // @route DELETE api/questions
 // @route delete a Question
