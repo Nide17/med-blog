@@ -96,11 +96,11 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
                 <Row className="mb-3">
                     <Breadcrumb>
                         <BreadcrumbItem>
-                            <Link to={`/category/:${selectedQuestion.category && selectedQuestion.category._id}`}>{selectedQuestion.category && selectedQuestion.category.title}</Link>
+                            <Link to={`/category/${selectedQuestion.category && selectedQuestion.category._id}`}>{selectedQuestion.category && selectedQuestion.category.title}</Link>
                         </BreadcrumbItem>
 
                         <BreadcrumbItem>
-                            <Link to={`/view-quiz/:${selectedQuestion.quiz && selectedQuestion.quiz._id}`}>{selectedQuestion.quiz && selectedQuestion.quiz.title}</Link>
+                            <Link to={`/view-quiz/${selectedQuestion.quiz && selectedQuestion.quiz._id}`}>{selectedQuestion.quiz && selectedQuestion.quiz.title}</Link>
                         </BreadcrumbItem>
 
                         <BreadcrumbItem active>Edit Question</BreadcrumbItem>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Row, ListGroup, ListGroupItem } from 'reactstrap';
+import { Row, ListGroup, ListGroupItem, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link, useParams, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { setQuestions, deleteQuestion } from '../../redux/questions/questions.actions'
@@ -30,6 +30,19 @@ const SingleQuestion = ({ auth, questionsData, setQuestions, deleteQuestion }) =
 
                     (question._id === questionId) ?
                         <div className="mt-5 mx-5 single-category" key={question._id}>
+
+                            <Row className="mb-3">
+                                <Breadcrumb>
+                                    <BreadcrumbItem>
+                                        <Link to={`/category/${question.category && question.category._id}`}>{question.category && question.category.title}</Link>
+                                    </BreadcrumbItem>
+                                    <BreadcrumbItem>
+                                        <Link to={`/view-quiz/${question.quiz && question.quiz._id}`}>{question.quiz && question.quiz.title}</Link>
+                                    </BreadcrumbItem>
+
+                                    <BreadcrumbItem active>View Question</BreadcrumbItem>
+                                </Breadcrumb>
+                            </Row>
 
                             <Row className="m-4 d-block text-primary">
 
