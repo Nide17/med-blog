@@ -5,7 +5,7 @@ import { Button, Col, Form, FormGroup, Label, Input, CustomInput } from 'reactst
 import { connect } from 'react-redux';
 import { setQuestions, updateQuestion } from '../../redux/questions/questions.actions';
 
-const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => {
+const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQuizes }) => {
 
     // Access route parameters & history
     const { questionId } = useParams()
@@ -14,15 +14,13 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => 
     const selectedQuestion = questionsData && questionsData.find(qn =>
         qn._id === questionId ? qn : null)
 
-    // console.log(selectedQuestion && selectedQuestion.answerOptions)
 
     const [questionTextState, setQuestionTextState] = useState({
         questionText: selectedQuestion && selectedQuestion.questionText
     })
 
     const [answerOptionsState, setAnswerOptionsState] = useState(selectedQuestion && selectedQuestion.answerOptions);
-    // console.log(answerOptionsState)
-    // console.log(selectedQuestion && selectedQuestion.answerOptions)
+
     // Lifecycle methods
     useEffect(() => {
         setQuestions();
@@ -55,23 +53,19 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => 
         e.preventDefault();
 
         // VALIDATE
-        // if (questionText.questionText.length < 4) {
+        // if (questionTextState.questionText.length < 4) {
         //     setErrorsState(['Insufficient info!']);
         //     return
         // }
-        // else if (questionText.questionText.length > 300) {
+        // else if (questionTextState.questionText.length > 300) {
         //     setErrorsState(['Question is too long!']);
         //     return
         // }
 
-        // else if (answerOptions.length <= 1) {
+        // else if (answerOptionsState.length <= 1) {
         //     alert('Answers are not sufficient!')
         //     return
         // }
-
-        // const catID = allQuizes && allQuizes.map(quiz =>
-        //     quiz._id === questionId ? quiz.category._id : null)
-
 
         const updatedQuestion = {
             qtId: questionId,
@@ -171,6 +165,7 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => 
 const mapStateToProps = state => ({
     auth: state.authReducer,
     categories: state.categoriesReducer,
+    allQuizes: state.quizesReducer.allQuizes,
     questionsData: state.questionsReducer.questionsData
 });
 

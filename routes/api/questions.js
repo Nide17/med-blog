@@ -93,15 +93,15 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
 
   try {
-      //Find the Question by id
-      const question = await Question.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
-      res.status(200).json(question);
+    //Find the Question by id
+    const question = await Question.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
+    res.status(200).json(question);
 
   } catch (err) {
-      res.status(400).json({
-          msg: 'Failed to update! ' + err.message,
-          success: false
-      });
+    res.status(400).json({
+      msg: 'Failed to update! ' + err.message,
+      success: false
+    });
   }
 });
 
