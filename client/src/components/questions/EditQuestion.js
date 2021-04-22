@@ -7,53 +7,47 @@ import { setQuestions, updateQuestion } from '../../redux/questions/questions.ac
 
 const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => {
 
-    const [questionText, setQuestionText] = useState({
-        questionText: ''
-    })
-
-    const [answerOptions, setAnswerOptions] = useState([]);
-
-    // Lifecycle methods
-    useEffect(() => {
-        setQuestions();
-    }, [setQuestions]);
-
     // Access route parameters
     const { questionId } = useParams()
 
     const selectedQuestion = questionsData && questionsData.find(qn =>
         qn._id === questionId ? qn : null)
 
+    // console.log(selectedQuestion && selectedQuestion.answerOptions)
 
-    // const selectedQuestion = questionsData && questionsData.map(qn =>
-    //     qn._id === questionId ? qn : null)
+    const [questionTextState, setQuestionTextState] = useState({
+        questionText: selectedQuestion && selectedQuestion.questionText
+    })
 
-    console.log(selectedQuestion && selectedQuestion.answerOptions)
-
-    // const [answerOptions, setAnswerOptions] = useState([
-    //     { id: uuidv4(), answerText: selectedQuestion.answerText, isCorrect: selectedQuestion.isCorrect }
-    // ]);
-
+    const [answerOptionsState, setAnswerOptionsState] = useState(selectedQuestion && selectedQuestion.answerOptions);
+// console.log(answerOptionsState)
+// console.log(selectedQuestion && selectedQuestion.answerOptions)
+    // Lifecycle methods
+    useEffect(() => {
+        setQuestions();
+    }, [setQuestions]);
 
     // Errors state on form
     // const [errorsState, setErrorsState] = useState([])
 
     const onQuestionChangeHandler = e => {
         const { name, value } = e.target
-        setQuestionText(state => ({ ...state, [name]: value }))
+        setQuestionTextState(questionTextState => ({ ...questionTextState, [name]: value }))
     }
 
     const handleAnswerChangeInput = (id, event) => {
-        const updatedAnswerOptions = answerOptions && answerOptions.map(i => {
-            if (id === i.id) {
+        const updatedAnswerOptions = answerOptionsState && answerOptionsState.map(oneAnswer => {
+
+            if (id === oneAnswer._id) {
+
                 event.target.type === "checkbox" ?
-                    i[event.target.name] = event.target.checked :
-                    i[event.target.name] = event.target.value
+                oneAnswer[event.target.name] = event.target.checked :
+                oneAnswer[event.target.name] = event.target.value
             }
-            return i;
+            return oneAnswer;
         })
 
-        setAnswerOptions(updatedAnswerOptions);
+        setAnswerOptionsState((updatedAnswerOptions));
     }
 
     const handleSubmit = (e) => {
@@ -79,23 +73,24 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => 
 
 
         const updatedQuestion = {
-            questionText,
-            answerOptions
+            questionTextState,
+            answerOptionsState
         }
-        // updateQuestion(updatedQuestion);
-        console.log(updatedQuestion);
+        updateQuestion(updatedQuestion);
+
         // Back to single question
-        // 
+        // window.location.href = `{/view-question/${selectedQuestion && selectedQuestion._id}`}
+        
     };
 
     const handleAddFields = () => {
-        setAnswerOptions([...answerOptions, { id: uuidv4(), answerText: '', isCorrect: false }])
+        setAnswerOptionsState([...answerOptionsState, { id: uuidv4(), answerText: '', isCorrect: false }])
     }
 
     const handleRemoveFields = id => {
-        const values = [...answerOptions];
+        const values = [...answerOptionsState];
         values.splice(values.findIndex(value => value.id === id), 1);
-        setAnswerOptions(values);
+        setAnswerOptionsState(values);
     }
 
     return (
@@ -127,29 +122,29 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions }) => 
             <FormGroup row>
                 <Label for="examplequestion" sm={2}>Question Edit</Label>
                 <Col sm={10}>
-                    <Input type="text" name="questionText" value={selectedQuestion && selectedQuestion.questionText} id="examplequestion" placeholder="Question here ..." onChange={onQuestionChangeHandler} required />
+                    <Input type="text" name="questionText" value={questionTextState.questionText} id="examplequestion" placeholder="Question here ..." onChange={onQuestionChangeHandler} required />
                 </Col>
             </FormGroup>
 
-            {selectedQuestion && selectedQuestion.answerOptions.map(answerOption => (
+            {answerOptionsState && answerOptionsState.map(answerOption => (
 
-                <div key={answerOption.id}>
+                <div key={answerOption._id}>
 
                     <FormGroup row>
                         <Label for="exampleanswer" sm={2}>Answer</Label>
 
                         <Col sm={10} xl={7}>
                             <Input type="text" name="answerText" value={answerOption.answerText}
-                                onChange={event => handleAnswerChangeInput(answerOption.id, event)} id="exampleanswer" placeholder="Answer here ..." required />
+                                onChange={event => handleAnswerChangeInput(answerOption._id, event)} id="exampleanswer" placeholder="Answer here ..." required />
                         </Col>
 
                         <Col sm={6} xl={2} className="my-3 my-sm-2 d-sm-flex justify-content-around">
                             <CustomInput type="checkbox" name="isCorrect" value={answerOption.isCorrect}
-                                onChange={event => handleAnswerChangeInput(answerOption.id, event)} id={answerOption.id} label="Is Correct?" required checked={answerOption.isCorrect} />
+                                onChange={event => handleAnswerChangeInput(answerOption._id, event)} id={answerOption._id} label="Is Correct?" required checked={answerOption.isCorrect} />
                         </Col>
 
                         <Col sm={6} xl={1} className="my-3 my-sm-2">
-                            <Button disabled={answerOptions.length === 1} color="danger" onClick={() => handleRemoveFields(answerOption.id)}> - </Button>{' '}
+                            <Button disabled={answerOptionsState.length === 1} color="danger" onClick={() => handleRemoveFields(answerOption._id)}> - </Button>{' '}
                             <Button color="danger" onClick={handleAddFields}> + </Button>{' '}
                         </Col>
 
