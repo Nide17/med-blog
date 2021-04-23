@@ -32,6 +32,13 @@ const Contact = ({ clearErrors, error, sendMsg }) => {
 
         // Attempt to contact
         sendMsg(contactMsg);
+
+        // Reset fields
+        setState({
+            contact_name: '',
+            email: '',
+            message: ''
+        })
     }
 
     return (
@@ -63,15 +70,15 @@ const Contact = ({ clearErrors, error, sendMsg }) => {
 
                     <Form onSubmit={onContact}>
                         <FormGroup>
-                            <Input type="text" name="contact_name" placeholder="Name" minLength="4" maxLength="30" onChange={onChangeHandler} required />
+                            <Input type="text" name="contact_name" placeholder="Name" minLength="4" maxLength="30" onChange={onChangeHandler} value={state.contact_name} required />
                         </FormGroup>
                         <FormGroup>
-                            <Input type="email" name="email" placeholder="Email" onChange={onChangeHandler} required />
+                            <Input type="email" name="email" placeholder="Email" onChange={onChangeHandler} value={state.email} required />
                         </FormGroup>
 
                         <FormGroup row>
                             <Col>
-                                <Input type="textarea" name="message" placeholder="Message" minLength="10" maxLength="300" onChange={onChangeHandler} required />
+                                <Input type="textarea" name="message" placeholder="Message" minLength="10" maxLength="300" onChange={onChangeHandler} value={state.message} required />
                             </Col>
                         </FormGroup>
                         <Button color="primary">Submit</Button>
