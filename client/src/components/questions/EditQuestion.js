@@ -154,7 +154,7 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
 
                 <FormGroup check row>
                     <Col sm={{ size: 10, offset: 2 }} className="pl-0">
-                        <Button className="btn btn-info btn-sm" type="submit" onClick={handleSubmit}>Add New</Button>
+                        <Button className="btn btn-info btn-sm" type="submit" onClick={handleSubmit}>Update</Button>
                     </Col>
                 </FormGroup>
 
