@@ -115,7 +115,8 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
                                     <Row>
                                         <Col>
                                             <div className='answer d-flex flex-column mx-auto mt-2 w-lg-50'>
-                                                {quiz.questions && quiz.questions[currentQuestion].answerOptions.map((answerOption, index) => (
+
+                                                {quiz.questions && quiz.questions[currentQuestion].answerOptions.sort(() => 0.5 - Math.random()).map((answerOption, index) => (
 
                                                     <li key={index} style={{ listStyleType: "upper-latin" }} className="text-info font-weight-bold">
                                                         <button className="answer-option my-3 p-2 btn btn-outline-info rounded" onClick={() => handleAnswerButtonClick(answerOption.isCorrect)} style={{ width: "96%" }}>
