@@ -23,56 +23,57 @@ const QuizesTabPane = ({ currentUser, quizes, setQuizes, setQuestions, deleteQui
     return (
 
         <TabPane tabId="2">
-        
-        {quizes.isLoading ? <ReactLoading type="spinningBubbles" color="#33FFFC" />:
-            <Row>
-                {quizes.allQuizes && quizes.allQuizes.map(quiz => (
 
-                    currentUser.role === 'Admin' || currentUser._id === quiz.created_by._id ?
+            {quizes.isLoading ? <ReactLoading type="spinningBubbles" color="#33FFFC" /> :
+                <Row>
+                    {quizes.allQuizes && quizes.allQuizes.map(quiz => (
 
-                        <Col sm="4" key={quiz._id} className="mt-3 quiz-toast">
+                        currentUser.role === 'Admin' || currentUser._id === quiz.created_by._id ?
 
-                            <Toast>
-                                <ToastHeader className="text-success">
-                                    <strong>{quiz.title}</strong>
-                                    <div className="actions text-secondary d-flex">
+                            <Col sm="4" key={quiz._id} className="mt-3 quiz-toast">
 
-                                        <img src={trash} alt="" width="16" height="16" className="mr-3 mt-1" onClick={() => deleteQuiz(quiz._id)} />
+                                <Toast>
+                                    <ToastHeader className="text-success">
+                                        <strong>{quiz.title}</strong>
+                                        <div className="actions text-secondary d-flex">
 
-                                        <EditQuiz qId={quiz._id} qTitle={quiz.title} qDesc={quiz.description} />
+                                            <img src={trash} alt="" width="16" height="16" className="mr-3 mt-1" onClick={() => deleteQuiz(quiz._id)} />
 
-                                        <Link to={`/questions-create/${quiz._id}`} className="text-secondary">
-                                            <img src={AddIcon} alt="" width="12" height="12" className="" /> <small>Questions</small>
-                                        </Link>
+                                            <EditQuiz qId={quiz._id} qTitle={quiz.title} qDesc={quiz.description} />
 
-                                    </div>
+                                            <Link to={`/questions-create/${quiz._id}`} className="text-secondary">
+                                                <img src={AddIcon} alt="" width="12" height="12" className="" /> <small>Questions</small>
+                                            </Link>
 
-                                </ToastHeader>
+                                        </div>
 
-                                <ToastBody>
-                                    <small>({quiz.created_by.name})</small>
-                                    <br />
-                                    {quiz.description}
-                                    <br /><br />
-                                    {quiz.questions && quiz.questions.length > 0 ? <p className="font-weight-bold">Questions ({quiz.questions.length})</p> : null}
+                                    </ToastHeader>
 
-                                    {quiz.questions && quiz.questions.map(question =>
-                                        <ol key={question._id}>
-                                            <li>
-                                                <Link to={`/view-question/${question._id}`}>
-                                                    {question.questionText}
-                                                </Link>
-                                            </li>
-                                        </ol>
-                                    )}
-                                </ToastBody>
+                                    <ToastBody>
+                                        <small>({quiz.created_by.name})</small>
+                                        <br />
+                                        {quiz.description}
+                                        <br /><br />
+                                        {quiz.questions && quiz.questions.length > 0 ? <p className="font-weight-bold">Questions ({quiz.questions.length})</p> : null}
 
-                            </Toast>
+                                        {quiz.questions && quiz.questions.map((question, index) =>
+                                            <ul key={question._id}>
+                                                <li style={{ listStyle: "none" }}>
+                                                    {index + 1}.&nbsp;
+                                                    <Link to={`/view-question/${question._id}`}>
+                                                        {question.questionText}
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        )}
+                                    </ToastBody>
 
-                        </Col> : null
-                ))}
-            </Row>
-        }
+                                </Toast>
+
+                            </Col> : null
+                    ))}
+                </Row>
+            }
 
         </TabPane>
     )
