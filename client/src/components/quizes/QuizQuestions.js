@@ -100,6 +100,7 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
                                     </div> :
 
                                 <div className="question-view">
+                                    {/* Question */}
                                     <Row>
                                         <Col>
                                             <div className='question-section my-2 mx-auto w-75'>
@@ -110,15 +111,17 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
                                             </div>
                                         </Col>
                                     </Row>
-
+                                    {/* Answers */}
                                     <Row>
                                         <Col>
-                                            <div className='answer d-flex flex-column mx-auto mt-2 w-25'>
+                                            <div className='answer d-flex flex-column mx-auto mt-2 w-50'>
                                                 {quiz.questions && quiz.questions[currentQuestion].answerOptions.map((answerOption, index) => (
-
-                                                    <button className="answer-option my-3 p-2 btn btn-outline-info rounded" key={index} onClick={() => handleAnswerButtonClick(answerOption.isCorrect)}>
-                                                        {answerOption.answerText}
-                                                    </button>
+                                                    
+                                                    <li style={{ listStyleType: "lower-alpha" }}>
+                                                        <button className="answer-option my-3 p-2 btn btn-outline-info rounded" key={index} onClick={() => handleAnswerButtonClick(answerOption.isCorrect)}>
+                                                            {answerOption.answerText}
+                                                        </button>
+                                                    </li>
 
                                                 ))}
                                             </div>
