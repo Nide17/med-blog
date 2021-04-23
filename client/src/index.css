@@ -284,4 +284,8 @@ div.question-section {
         width: 75% !important;
     }
 
+    button.answer-option {
+        width: 90%!important
+    }
+
 }
