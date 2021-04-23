@@ -12,6 +12,7 @@ import QuizesTabPane from '../quizes/QuizesTabPane';
 import SubscribersTabPane from './SubscribersTabPane';
 import UsersTabPane from '../users/UsersTabPane';
 import Reports from './Reports';
+import LoginModal from '../auth/LoginModal'
 
 const Webmaster = ({ auth, error }) => {
     // State
@@ -137,7 +138,7 @@ const Webmaster = ({ auth, error }) => {
                             <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
                             <p className="d-block">Loading user ...</p>
                         </> :
-                        'Please Login Again!'
+                        <LoginModal />
                 }
             </div>
     )

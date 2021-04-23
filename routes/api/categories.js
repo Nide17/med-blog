@@ -48,7 +48,6 @@ router.get('/:id', auth, async (req, res) => {
             success: false
         });
     }
-
 });
 
 // @route   POST /api/categories

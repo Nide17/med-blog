@@ -11,7 +11,7 @@ const PostItem = lazy(() => import('./PostItem'));
 const ViewCategory = lazy(() => import('../categories/ViewCategory'));
 
 const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, error, setQuizes, allQuizes }) => {
-console.log(allQuizes)
+
     const [state, setState] = useState({
         name: '',
         email: ''
@@ -119,7 +119,7 @@ console.log(allQuizes)
 
                                 <Input type="email" name="email" bsSize="sm" placeholder="Your Email" className="mt-4" onChange={onChangeHandler} required />
 
-                                <Button color="info" size="sm" className="mt-4">Signup</Button>
+                                <Button color="info" size="sm" className="mt-4">Subscribe</Button>
                             </FormGroup>
                         </Form>
                     </Row>
