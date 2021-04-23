@@ -1,7 +1,8 @@
-import { GET_CONTACTS, GET_CONTACT, ADD_CONTACT, DELETE_CONTACT, ADD_CONTACT_FAIL, DELETE_CONTACT_FAIL } from "./contacts.types";
+import { GET_CONTACTS, GET_CONTACT, ADD_CONTACT, DELETE_CONTACT, ADD_CONTACT_FAIL, DELETE_CONTACT_FAIL, CONTACTS_LOADING } from "./contacts.types";
 
 const INITIAL_STATE = {
-  contacts: []
+  contacts: [],
+  isLoading: true
 };
 
 const contactsReducer = (state = INITIAL_STATE, action) => {
@@ -11,6 +12,7 @@ const contactsReducer = (state = INITIAL_STATE, action) => {
     case GET_CONTACTS:
       return {
         ...state,
+        isLoading: false,
         contacts: action.payload
       };
 
@@ -38,6 +40,13 @@ const contactsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         contacts: state.contacts.filter(contact => contact._id !== action.payload)
       }
+
+    case CONTACTS_LOADING:
+      return {
+        ...state,
+        isLoading: true
+      }
+
 
     default:
       return state;

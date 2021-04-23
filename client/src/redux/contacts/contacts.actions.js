@@ -1,4 +1,4 @@
-import { GET_CONTACTS, ADD_CONTACT, DELETE_CONTACT, ADD_CONTACT_FAIL, DELETE_CONTACT_FAIL } from "./contacts.types";
+import { GET_CONTACTS, ADD_CONTACT, DELETE_CONTACT, ADD_CONTACT_FAIL, DELETE_CONTACT_FAIL, CONTACTS_LOADING } from "./contacts.types";
 import axios from 'axios';
 
 import { tokenConfig } from '../auth/auth.actions'
@@ -7,6 +7,7 @@ import { returnErrors } from "../error/error.actions";
 // dispatch(action)
 // Dispatches an action. This is the only way to trigger a state change.
 export const getContacts = () => async (dispatch, getState) => {
+  await dispatch(setContactsLoading());
 
   try {
     await axios
@@ -55,5 +56,14 @@ export const deleteContact = id => async (dispatch, getState) => {
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'DELETE_CONTACT_FAIL'));
     dispatch({ type: DELETE_CONTACT_FAIL })
+  }
+}
+
+export const setContactsLoading = () => {
+  //Return an action to the reducer
+  return {
+      //action 
+      type: CONTACTS_LOADING
+
   }
 }

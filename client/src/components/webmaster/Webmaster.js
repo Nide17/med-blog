@@ -13,6 +13,7 @@ import SubscribersTabPane from './SubscribersTabPane';
 import UsersTabPane from '../users/UsersTabPane';
 import Reports from './Reports';
 import LoginModal from '../auth/LoginModal'
+import ContactsTabPane from '../contacts/ContactsTabPane';
 
 const Webmaster = ({ auth, error }) => {
     // State
@@ -111,6 +112,14 @@ const Webmaster = ({ auth, error }) => {
                                                     Users
                                                 </NavLink>
                                             </NavItem>
+
+                                            <NavItem>
+                                                <NavLink
+                                                    className={classnames({ active: activeTab === '5' })}
+                                                    onClick={() => { toggle('5'); }}>
+                                                    Contacts
+                                                </NavLink>
+                                            </NavItem>
                                         </> : null
                                 }
 
@@ -123,6 +132,7 @@ const Webmaster = ({ auth, error }) => {
                                 <QuizesTabPane currentUser={auth.user} />
                                 <SubscribersTabPane />
                                 <UsersTabPane />
+                                <ContactsTabPane currentUser={auth.user}/>
                             </TabContent>
                         </Col>
 
