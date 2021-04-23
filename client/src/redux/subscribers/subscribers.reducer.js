@@ -20,6 +20,7 @@ const postsReducer = (state = INITIAL_STATE, action) => {
     case SET_SUBSCRIBERS:
       return {
         ...state,
+        isLoading: false,
         subscribedUsers: action.payload
       };
 
