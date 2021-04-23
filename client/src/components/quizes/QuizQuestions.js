@@ -118,7 +118,7 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
                                                 {quiz.questions && quiz.questions[currentQuestion].answerOptions.map((answerOption, index) => (
 
                                                     <li key={index} style={{ listStyleType: "upper-latin" }} className="text-info font-weight-bold">
-                                                        <button className="answer-option my-3 p-2 btn btn-outline-info rounded" onClick={() => handleAnswerButtonClick(answerOption.isCorrect)}>
+                                                        <button className="answer-option my-3 p-2 btn btn-outline-info rounded" onClick={() => handleAnswerButtonClick(answerOption.isCorrect)} style={{ width: "95%" }}>
                                                             {answerOption.answerText}
                                                         </button>
                                                     </li>
