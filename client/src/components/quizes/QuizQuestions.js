@@ -105,8 +105,7 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
                                     {/* Countdown */}
                                     <CountDown
                                         handleAnswerButtonClick={handleAnswerButtonClick}
-                                        initialMinute={0}
-                                        initialSeconds={quiz.questions && quiz.questions[currentQuestion].answerOptions.length * 20} />
+                                        timeInSecs={quiz.questions && quiz.questions[currentQuestion].answerOptions.length * 20} />
 
                                     {/* Question */}
                                     <Row>

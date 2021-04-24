@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Col, Row } from 'reactstrap';
 
-const CountDown = ({ initialSeconds, initialMinute, handleAnswerButtonClick }) => {
+const CountDown = ({ timeInSecs, handleAnswerButtonClick }) => {
 
-    const [minutes, setMinutes] = useState(initialMinute);
+    let initialMinutes = Math.floor(timeInSecs / 60);
+    let initialSeconds = Math.ceil(timeInSecs % 60);
+
+    const [minutes, setMinutes] = useState(initialMinutes);
     const [seconds, setSeconds] = useState(initialSeconds);
 
     useEffect(() => {
@@ -18,8 +21,8 @@ const CountDown = ({ initialSeconds, initialMinute, handleAnswerButtonClick }) =
                 if (minutes === 0) {
                     clearInterval(myInterval)
                 } else {
-                    setMinutes(minutes - 1);
                     setSeconds(59);
+                    setMinutes(minutes - 1);
                 }
             }
 
