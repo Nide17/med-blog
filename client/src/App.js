@@ -4,6 +4,7 @@ import { Spinner } from 'reactstrap';
 import Header from './components/Header';
 import Contact from './components/Contact';
 import About from './components/About';
+import CountDown from './components/quizes/CountDown';
 import Placeholder from './components/placeholder/Placeholder';
 
 // REDUX
@@ -60,6 +61,7 @@ const App = () => {
                         </Suspense>
                     </Route>
 
+                    <Route exact path="/countdown" component={CountDown} />
                     <Route exact path="/category/:categoryId" component={SingleCategory} />
                     <Route exact path="/view-quiz/:quizId" component={QuizQuestions} />
                     <Route exact path="/view-question/:questionId" component={SingleQuestion} />

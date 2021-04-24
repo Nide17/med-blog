@@ -6,8 +6,9 @@ import { connect } from 'react-redux'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
 import { createScore } from '../../redux/scores/scores.actions'
+import CountDown from './CountDown';
 
-const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScore, auth }) => {
+const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [showScore, setShowScore] = useState(false);
@@ -30,7 +31,7 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
 
         const nextQuestion = currentQuestion + 1;
 
-        allQuizes && allQuizes.map(quiz => (
+        quizes && quizes.allQuizes.map(quiz => (
             (quiz._id === quizId) ?
                 (nextQuestion < quiz.questions.length) ?
                     setCurrentQuestion(nextQuestion) :
@@ -40,11 +41,11 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
 
     const Reload = () => window.location.reload()
 
-    if (!loading) {
+    if (!quizes.isLoading) {
 
         return (
 
-            allQuizes && allQuizes.map(quiz => (
+            quizes && quizes.allQuizes.map(quiz => (
 
                 (quiz._id === quizId) ?
 
@@ -100,6 +101,13 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
                                     </div> :
 
                                 <div className="question-view">
+
+                                    {/* Countdown */}
+                                    <CountDown
+                                        handleAnswerButtonClick={handleAnswerButtonClick}
+                                        initialMinute={0}
+                                        initialSeconds={quiz.questions && quiz.questions[currentQuestion].answerOptions.length * 20} />
+
                                     {/* Question */}
                                     <Row>
                                         <Col>
@@ -107,10 +115,12 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
                                                 <h4 className='question-count text-uppercase text-center text-secondary font-weight-bold'>
                                                     <span>Question <b style={{ color: "#B4654A" }}>{currentQuestion + 1}</b></span>/{quiz.questions.length}
                                                 </h4>
+
                                                 <h5 className='q-txt mt-4 font-weight-bold text-center'>{quiz.questions[currentQuestion].questionText && quiz.questions[currentQuestion].questionText}</h5>
                                             </div>
                                         </Col>
                                     </Row>
+
                                     {/* Answers */}
                                     <Row>
                                         <Col>
@@ -123,8 +133,8 @@ const QuizQuestions = ({ allQuizes, setQuizes, setQuestions, loading, createScor
                                                             {answerOption.answerText}
                                                         </button>
                                                     </li>
-
                                                 ))}
+
                                             </div>
                                         </Col>
                                     </Row>
@@ -161,9 +171,8 @@ QuizQuestions.propTypes = {
 
 const mapStateToProps = state => ({
     auth: state.authReducer,
-    allQuizes: state.quizesReducer.allQuizes,
-    questionsData: state.questionsReducer.questionsData,
-    loading: state.questionsReducer.loading
+    quizes: state.quizesReducer,
+    questionsData: state.questionsReducer.questionsData
 });
 
 export default connect(mapStateToProps, { setQuestions, setQuestionsLoading, setQuizes, createScore })(QuizQuestions)
