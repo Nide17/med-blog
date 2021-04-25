@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import RegisterModal from './RegisterModal'
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink, Alert } from 'reactstrap';
 import PropTypes from 'prop-types';
 
@@ -98,6 +99,11 @@ class LoginModal extends Component {
                             </FormGroup>
 
                         </Form>
+
+                        <div className="d-flex">
+                           <p className="p-2">No account yet?</p><RegisterModal />
+                        </div>
+
                     </ModalBody>
                 </Modal>
             </div>
