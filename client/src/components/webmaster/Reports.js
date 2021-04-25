@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import {Link} from 'react-router-dom'
 import { Row, Col, Toast, ToastBody, ToastHeader } from 'reactstrap';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -28,11 +29,15 @@ const Reports = ({ userId, allScores, setScores }) => {
                                 </ToastHeader>
 
                                 <ToastBody>
-                                    <p className="font-weight-bold">
-                                        {score.taken_by.name}
+
+                                    <Link to={`/review-quiz/${score.quiz._id}`} className="font-weight-bold text-info">
+                                        Review Quiz
+                                    </Link>
+                                    <p>Score:&nbsp;
+                                    <strong className="text-warning">
+                                            {score.marks}/{score.out_of}
+                                        </strong>
                                     </p>
-                                    <p><strong className="text-warning">Score: </strong>
-                                        {score.marks}/{score.out_of}</p>
                                     <small className="text-center">
                                         On {score.test_date.split('T').slice(0, 2).join(' at ')}
                                     </small>
