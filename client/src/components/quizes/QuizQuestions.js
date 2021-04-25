@@ -7,6 +7,7 @@ import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
 import { createScore } from '../../redux/scores/scores.actions'
 import CountDown from './CountDown';
+import LoginModal from '../auth/LoginModal'
 
 const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) => {
 
@@ -92,11 +93,9 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
                                             </button>
                                         </a>
                                         &nbsp;&nbsp;
-                                        <Link to='/'>
-                                            <button type="button" className="btn btn-outline-success mt-3">
-                                                Back Home
+                                            <button type="button" className="btn btn-outline-success mt-3 p-0">
+                                                <LoginModal review={'Login to Review'} textColor={'text-danger'}/>
                                             </button>
-                                        </Link>
 
                                     </div> :
 

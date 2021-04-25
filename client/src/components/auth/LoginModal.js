@@ -69,7 +69,9 @@ class LoginModal extends Component {
     render() {
         return (
             <div>
-                <NavLink onClick={this.toggle} className="text-warning">Login</NavLink>
+                <NavLink onClick={this.toggle} className={this.props.textColor || 'text-warning'}>
+                    {this.props.review || 'Login'}
+                    </NavLink>
 
                 <Modal
                     // Set it to the state of modal true or false
