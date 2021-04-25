@@ -21,6 +21,7 @@ router.get('/', auth, async (req, res) => {
       //sort scores by creation_date
       .sort({ test_date: -1 })
       .populate('quiz')
+      .populate('category')
       .populate('taken_by')
 
     if (!scores) throw Error('No scores found');
