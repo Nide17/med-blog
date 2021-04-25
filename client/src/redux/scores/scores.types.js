@@ -1,4 +1,5 @@
 export const GET_SCORES = 'GET_SCORES';
+export const SCORES_LOADING = 'SCORES_LOADING';
 
 export const CREATE_SCORE = 'CREATE_SCORE';
 export const CREATE_SCORE_SUCCESS = 'CREATE_SCORE_SUCCESS';

@@ -1,7 +1,8 @@
-import { GET_SCORES, CREATE_SCORE, CREATE_SCORE_FAIL, DELETE_SCORE, DELETE_SCORE_FAIL, UPDATE_SCORE, UPDATE_SCORE_FAIL } from "./scores.types";
+import { GET_SCORES, CREATE_SCORE, CREATE_SCORE_FAIL, DELETE_SCORE, DELETE_SCORE_FAIL, UPDATE_SCORE, UPDATE_SCORE_FAIL, SCORES_LOADING } from "./scores.types";
 
 const INITIAL_STATE = {
-  allScores: []
+  allScores: [],
+  isLoading: true
 };
 
 const scoresReducer = (state = INITIAL_STATE, action) => {
@@ -11,6 +12,7 @@ const scoresReducer = (state = INITIAL_STATE, action) => {
     case GET_SCORES:
       return {
         ...state,
+        isLoading: false,
         allScores: action.payload
       };
 
@@ -51,6 +53,13 @@ const scoresReducer = (state = INITIAL_STATE, action) => {
           ...state,
           allScores: state.allScores.filter(score => score._id !== action.payload)
         }
+
+        case SCORES_LOADING:
+          return {
+            ...state,
+            isLoading: true
+          }
+    
   
 
     default:

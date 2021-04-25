@@ -34,7 +34,11 @@ const QuizesTabPane = ({ currentUser, quizes, setQuizes, setQuestions, deleteQui
 
                                 <Toast>
                                     <ToastHeader className="text-success">
-                                        <strong>{quiz.title}</strong>
+                                    <Link to={`/quiz-ranking/${quiz._id}`}>
+                                        <strong>{quiz.title}</strong> 
+                                        <small>&nbsp;(Ranking)</small>
+                                        </Link>
+
                                         <div className="actions text-secondary d-flex">
 
                                             <img src={trash} alt="" width="16" height="16" className="mr-3 mt-1" onClick={() => deleteQuiz(quiz._id)} />
@@ -46,6 +50,7 @@ const QuizesTabPane = ({ currentUser, quizes, setQuizes, setQuestions, deleteQui
                                             </Link>
 
                                         </div>
+                                       
 
                                     </ToastHeader>
 

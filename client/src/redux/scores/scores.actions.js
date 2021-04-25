@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { returnErrors } from '../error/error.actions'
-import { GET_SCORES, CREATE_SCORE, CREATE_SCORE_FAIL, DELETE_SCORE, DELETE_SCORE_FAIL, UPDATE_SCORE, UPDATE_SCORE_FAIL } from "./scores.types";
+import { GET_SCORES, CREATE_SCORE, CREATE_SCORE_FAIL, DELETE_SCORE, DELETE_SCORE_FAIL, UPDATE_SCORE, UPDATE_SCORE_FAIL, SCORES_LOADING } from "./scores.types";
 import { tokenConfig } from '../auth/auth.actions'
 
 // View all scores
 export const setScores = () => async (dispatch, getState) => {
+  await dispatch(setScoresLoading());
 
   try {
     await axios
@@ -72,4 +73,13 @@ export const deleteScore = id => async (dispatch, getState) => {
     dispatch(returnErrors(err.response.data, err.response.status, 'DELETE_SCORE_FAIL'));
     dispatch({ type: DELETE_SCORE_FAIL })
   }
+}
+
+export const setScoresLoading = () => {
+  //Return an action to the reducer
+  return {
+      //action 
+      type: SCORES_LOADING
+
+  };
 }

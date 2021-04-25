@@ -26,7 +26,9 @@ const Reports = ({ userId, allScores, setScores }) => {
                             <Toast>
                                 <ToastHeader className="text-success">
                                     <strong>{score.quiz.title}</strong>&nbsp;
-                                    <small className="d-flex align-items-center">({score.category.title})</small>
+                                    <small className="d-flex align-items-center">
+                                        ({score.category.title})
+                                    </small>
                                 </ToastHeader>
 
                                 <ToastBody>

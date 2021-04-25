@@ -19,6 +19,7 @@ import QuizQuestions from './components/quizes/QuizQuestions';
 import SingleQuestion from './components/questions/SingleQuestion';
 import EditQuestion from './components/questions/EditQuestion';
 import ReviewQuiz from './components/quizes/ReviewQuiz';
+import QuizRanking from './components/quizes/QuizRanking';
 import AllPosts from './components/posts/AllPosts';
 
 const Questions = lazy(() => import('./components/questions/Questions'));
@@ -67,6 +68,7 @@ const App = () => {
                     <Route exact path="/view-question/:questionId" component={SingleQuestion} />
                     <Route exact path="/edit-question/:questionId" component={EditQuestion} />
                     <Route exact path="/review-quiz/:quizId" component={ReviewQuiz} />
+                    <Route exact path="/quiz-ranking/:quizId" component={QuizRanking} />
                     <Route exact path="/questions-create/:quizId" component={CreateQuestions} />
                     <Route path="/contact" component={Contact} />
                     <Route path="/about" component={About} />
