@@ -31,9 +31,11 @@ const Reports = ({ userId, allScores, setScores }) => {
 
                                 <ToastBody>
 
-                                    <Link to={`/review-quiz/${score.quiz._id}`} className="font-weight-bold text-info">
-                                        Review Quiz
-                                    </Link>
+                                    {score.quiz.questions.length > 0 ?
+                                        <Link to={`/review-quiz/${score.quiz._id}`} className="font-weight-bold text-info">
+                                            Review Quiz
+                                    </Link> :
+                                        'Quiz not available!'}
 
                                     <p className="mt-1">Score:&nbsp;
                                         <strong className="text-warning">
