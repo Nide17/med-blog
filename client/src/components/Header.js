@@ -18,7 +18,11 @@ const Header = (props) => {
         <>
             <NavbarText className="mx-0 text-warning">
                 <span>
-                    <small>{user ? `Welcome ${user.name.split(" ").splice(-1)}` : ''}</small>
+                    <Link to="/webmaster">
+                    <small className="text-warning">
+                        {user ? `Account (${user.name.split(" ").splice(-1)})` : ''}
+                        </small>
+                    </Link>
                 </span>
             </NavbarText>
 
