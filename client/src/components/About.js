@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { Jumbotron, Col, Row, Card, CardTitle, CardText, CardImg, Button } from 'reactstrap';
 import bruce from '../images/Bruceimg.png'
 import parmenide from '../images/Parmenideimg.png'
@@ -38,21 +37,21 @@ const About = () => {
 
                         <div className="d-flex">
                             <Button size="sm" color="link" className="ml-0 pl-0 mr-2">
-                                <Link to="https://www.linkedin.com/in/ndatimana-patrice-bruce-20b363195/">
+                                <a href="https://www.linkedin.com/in/ndatimana-patrice-bruce-20b363195/">
                                     <img src={linkedin} alt="" width="20" height="20" />
-                                </Link>
+                                </a>
                             </Button>
 
                             <Button size="sm" color="link" className="mx-2">
-                                <Link to="https://www.instagram.com/dr.active4/">
+                                <a href="https://www.instagram.com/dr.active4/">
                                     <img src={instagram} alt="" width="20" height="20" />
-                                </Link>
+                                </a>
                             </Button>
 
                             <Button size="sm" color="link" className="mx-2">
-                                <Link to="https://www.facebook.com/ndatimana.bruce">
+                                <a href="https://www.facebook.com/ndatimana.bruce">
                                     <img src={facebook} alt="" width="20" height="20" />
-                                </Link>
+                                </a>
                             </Button>
                         </div>
 
@@ -73,21 +72,21 @@ const About = () => {
 
                         <div className="d-flex">
                             <Button size="sm" color="link" className="ml-0 pl-0 mr-2">
-                                <Link to="https://www.linkedin.com/in/niyomwungeri-parmenide-ishimwe-1a5394123/">
+                                <a href="https://www.linkedin.com/in/niyomwungeri-parmenide-ishimwe-1a5394123/">
                                     <img src={linkedin} alt="" width="20" height="20" />
-                                </Link>
+                                </a>
                             </Button>
 
                             <Button size="sm" color="link" className="mx-2">
-                                <Link to="https://www.instagram.com/ishimwe_parmenide/">
+                                <a href="https://www.instagram.com/ishimwe_parmenide/">
                                     <img src={instagram} alt="" width="20" height="20" />
-                                </Link>
+                                </a>
                             </Button>
 
                             <Button size="sm" color="link" className="mx-2">
-                                <Link to="https://www.facebook.com/nide.drogba.7/">
+                                <a href="https://www.facebook.com/nide.drogba.7/">
                                     <img src={facebook} alt="" width="20" height="20" />
-                                </Link>
+                                </a>
                             </Button>
                         </div>
                         
