@@ -23,13 +23,13 @@ const Footer = () => {
                                 </div>
 
                                 <ul className="social-network social-circle">
-                                    <li><a href="#/" className="icoFacebook" title="Facebook">
+                                    <li><a href="https://www.facebook.com/ndatimana.bruce" className="icoFacebook" title="Facebook">
                                         <i className="fa fa-facebook"></i>
                                     </a></li>
-                                    <li><a href="#/" className="icoLinkedin" title="Linkedin">
+                                    <li><a href="https://www.linkedin.com/in/ndatimana-patrice-bruce-20b363195/" className="icoLinkedin" title="Linkedin">
                                         <i className="fa fa-linkedin"></i>
                                     </a></li>
-                                    <li><a href="#/" className="icoInstagram" title="Instagram">
+                                    <li><a href="https://www.instagram.com/dr.active4/" className="icoInstagram" title="Instagram">
                                         <i className="fa fa-instagram"></i>
                                     </a></li>
                                 </ul>
@@ -75,7 +75,6 @@ const Footer = () => {
                                 <p className="text-center">&copy; Copyright 2021 - Quiz Blog.  All rights reserved.</p>
                             </div>
                         </div>
-
 
                     </div>
                 </div>
