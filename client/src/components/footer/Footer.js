@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from "react-router-dom";
 import './footer.css'
-import logo from '../../images/Logo Med-Blog.svg'
+import logo from '../../images/quizLogo.svg'
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 
 const Footer = () => {

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import RegisterModal from './auth/RegisterModal';
 import LoginModal from './auth/LoginModal';
 import Logout from './auth/Logout';
-import logo from '../images/Logo Med-Blog.svg'
+import logo from '../images/quizLogo.svg'
 import { connect } from 'react-redux';
 
 const Header = (props) => {
