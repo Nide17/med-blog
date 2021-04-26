@@ -72,7 +72,7 @@ const Footer = () => {
 
                         <div className="row">
                             <div className="col-md-12 copy">
-                                <p className="text-center">&copy; Copyright 2021 - Med Blog.  All rights reserved.</p>
+                                <p className="text-center">&copy; Copyright 2021 - Quiz Blog.  All rights reserved.</p>
                             </div>
                         </div>
 
