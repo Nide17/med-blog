@@ -1,5 +1,5 @@
-### Medecine Blog
+### quiz-blog-rw
 
-This project was created to provide information about medecines and all health frequently asked questions
+This project was created to provide information about quizes and all asked questions
 
-It hosted at this [Link](https://med-blog-rw.herokuapp.com).  
+It hosted at this [Link](https://quiz-blog-rw.herokuapp.com).  

@@ -1,7 +1,7 @@
 {
-  "name": "med-blog-rw",
+  "name": "quiz-blog-rw",
   "version": "1.0.0",
-  "description": "Backend of med-blog",
+  "description": "Backend of quiz-blog",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
