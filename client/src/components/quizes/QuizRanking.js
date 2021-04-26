@@ -16,6 +16,7 @@ const QuizRanking = ({ auth, quizes, scores, setQuizes, setScores }) => {
     }, [setQuizes, setScores]);
 
     const { quizId } = useParams()
+    let i=1;
 
     return (
 
@@ -55,7 +56,7 @@ const QuizRanking = ({ auth, quizes, scores, setQuizes, setScores }) => {
 
                                 score && score.quiz && quizId === score.quiz._id ?
                                     <tr key={score._id}>
-                                        <th scope="row">#</th>
+                                        <th scope="row">{i++}</th>
                                         <td>{score.taken_by ? score.taken_by.name : 'No name'}</td>
                                         <td>{score.taken_by ? score.taken_by.email : 'No mail'}</td>
                                         <td>{score.quiz.title}</td>
