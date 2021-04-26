@@ -10,6 +10,7 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
     const { questionId } = useParams()
     const { push } = useHistory()
 
+    // Find one question with id
     const selectedQuestion = questionsData && questionsData.find(qn =>
         qn._id === questionId ? qn : null)
 
@@ -85,7 +86,7 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
 
         const values = [...answerOptionsState];
         values.splice(values.findIndex(value => value._id === _id), 1);
-        console.log(values)
+
         setAnswerOptionsState(values);
     }
 

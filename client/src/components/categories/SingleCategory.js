@@ -1,17 +1,22 @@
 import React, { useEffect } from 'react';
+import ReactLoading from "react-loading";
+import LoginModal from '../auth/LoginModal'
 import { Row, Col, Button, Toast, ToastBody, ToastHeader, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { setCategories } from '../../redux/categories/categories.actions'
+import { setQuizes } from '../../redux/quizes/quizes.actions'
+
 import AddIcon from '../../images/plus.svg';
 
 
-const SingleCategory = ({ auth, setCategories, allcategories }) => {
+const SingleCategory = ({ auth, setCategories, setQuizes, quizes, allcategories }) => {
 
     // Lifecycle methods
     useEffect(() => {
         setCategories();
-    }, [setCategories]);
+        setQuizes();
+    }, [setCategories, setQuizes]);
 
     // Access route parameters
     const { categoryId } = useParams()
@@ -28,11 +33,15 @@ const SingleCategory = ({ auth, setCategories, allcategories }) => {
 
                             <Row key={category._id}>
                                 <Breadcrumb>
-                                    <BreadcrumbItem><Link to="/webmaster">{category.title}</Link></BreadcrumbItem>
+                                    <BreadcrumbItem>
+                                        <Link to="/webmaster">{category.title}</Link>
+                                    </BreadcrumbItem>
                                     <BreadcrumbItem active>Quizes</BreadcrumbItem>
                                 </Breadcrumb>
                             </Row>
-                            <small><i className="text-success text-left">"{category.description}"</i></small>
+                            <small>
+                                <i className="text-success text-left">"{category.description}"</i>
+                            </small>
 
                             <Row className="m-4 d-flex justify-content-between align-items-center text-primary">
 
@@ -44,14 +53,18 @@ const SingleCategory = ({ auth, setCategories, allcategories }) => {
                                                 {quiz.title}
                                             </ToastHeader>
                                             <ToastBody>
-                                                <p className="text-dark">Number of questions: {quiz.questions.length}</p>
+
+                                                {quizes && quizes.allQuizes.map(qz =>
+                                                        qz._id === quiz._id ?
+                                                            <p className="text-dark">Number of questions: {qz.questions.length}</p>
+                                                            : null)}
 
                                                 {auth.user._id === quiz.created_by ?
                                                     <p>
                                                         <Link to={`/questions-create/${quiz._id}`} className="text-success">
                                                             <Button size="sm" outline color="warning" className="p-1">
                                                                 <img src={AddIcon} alt="" width="10" height="10" className="" />&nbsp;Add Questions
-                                                    </Button>
+                                                            </Button>
                                                         </Link>
                                                     </p> :
                                                     null}
@@ -69,13 +82,24 @@ const SingleCategory = ({ auth, setCategories, allcategories }) => {
 
             </> :
 
-            <h6 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Login Again!</h6>
+            // If not authenticated or loading
+            <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                {
+                    auth.isLoading ?
+                        <>
+                            <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                            <p className="d-block">Loading user ...</p>
+                        </> :
+                        <LoginModal />
+                }
+            </div>
     )
 }
 
 const mapStateToProps = state => ({
     auth: state.authReducer,
+    quizes: state.quizesReducer,
     allcategories: state.categoriesReducer.allcategories
 });
 
-export default connect(mapStateToProps, { setCategories })(SingleCategory);
+export default connect(mapStateToProps, { setQuizes, setCategories })(SingleCategory);
