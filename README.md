@@ -1,4 +1,4 @@
-# Nide17 _ Med-Blog
+# Nide17_quiz-blog-rw
 
 This repo is about a full-stack med-blog app done with React.js, Node.js, Express.js and MongoDB.
 
