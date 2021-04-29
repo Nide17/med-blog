@@ -6,13 +6,9 @@ import { connect } from 'react-redux'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
 import { createScore } from '../../redux/scores/scores.actions'
-import CountDown from './CountDown';
-import LoginModal from '../auth/LoginModal'
 import QuizQuestions from './QuizQuestions';
 
 const GetReady = ({ quizes, setQuizes, setQuestions, createScore, auth }) => {
-
-    const [ready, setReady] = useState(false);
 
     useEffect(() => {
         // Inside this callback function, we set questions when the component is mounted.
@@ -30,10 +26,6 @@ const GetReady = ({ quizes, setQuizes, setQuestions, createScore, auth }) => {
             quizes && quizes.allQuizes.map(quiz => (
 
                 (quiz._id === quizId) ?
-
-                    ready ?
-
-                        <QuizQuestions readyQuiz={quiz} /> :
 
                         <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80" key={Math.floor(Math.random() * 1000)}>
 
