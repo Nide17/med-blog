@@ -9,9 +9,9 @@ import { createScore } from '../../redux/scores/scores.actions'
 import CountDown from './CountDown';
 import LoginModal from '../auth/LoginModal'
 
-const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) => {
+const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth, readyQuiz }) => {
 
-    const [currentQuestion, setCurrentQuestion] = useState(0)
+    const [currentQuestion, setCurrentQuestion] = useState(0);
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
 
@@ -22,7 +22,7 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
     }, [setQuizes, setQuestions]);
 
     // Access route parameters
-    const { quizId } = useParams()
+    const { readyQuizId } = useParams()
 
     const handleAnswerButtonClick = (isCorrect) => {
 
@@ -33,7 +33,7 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
         const nextQuestion = currentQuestion + 1;
 
         quizes && quizes.allQuizes.map(quiz => (
-            (quiz._id === quizId) ?
+            (quiz._id === readyQuizId) ?
                 (nextQuestion < quiz.questions.length) ?
                     setCurrentQuestion(nextQuestion) :
                     setShowScore(true) :
@@ -48,7 +48,7 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
 
             quizes && quizes.allQuizes.map(quiz => (
 
-                (quiz._id === quizId) ?
+                (quiz._id === readyQuizId) ?
 
                     (quiz.questions.length > 0) ?
                         <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80" key={Math.floor(Math.random() * 1000)}>
@@ -94,8 +94,8 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
                                         </a>
                                         &nbsp;&nbsp;
                                             <button type="button" className="btn btn-outline-success mt-3 p-0">
-                                                <LoginModal review={'Login to Review'} textColor={'text-danger'}/>
-                                            </button>
+                                            <LoginModal review={'Login to Review'} textColor={'text-danger'} />
+                                        </button>
 
                                     </div> :
 

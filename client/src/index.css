@@ -204,6 +204,14 @@ div.question-section {
     line-height: 1.8;
 }
 
+.question-view .card .btn-outline-primary {
+    color: white;
+    border-color: white;
+}
+
+.question-view .card .btn-secondary {
+    background-color: #157A6E;
+}
 @keyframes answer {
     from {
         opacity: 0;
