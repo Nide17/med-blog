@@ -126,6 +126,7 @@ export const logout = () => async dispatch => {
   dispatch({
     type: LOGOUT_SUCCESS
   })
+  alert('Bye!')
 }
 
 // Update a USER
@@ -134,10 +135,12 @@ export const updateUser = updatedUser => async (dispatch, getState) => {
   try {
     await axios
       .put(`/api/users/${updatedUser.uId}`, updatedUser, tokenConfig(getState))
-    dispatch({
-      type: UPDATE_USER,
-      payload: updatedUser
-    })
+      .then(res =>
+        dispatch({
+          type: UPDATE_USER,
+          payload: updatedUser
+        }),
+        alert('Updated Successfully!'))
 
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'UPDATE_USER_FAIL'));
@@ -150,11 +153,14 @@ export const deleteUser = id => async (dispatch, getState) => {
 
   try {
     if (window.confirm("This User will be deleted permanently!")) {
-      await axios.delete(`/api/users/${id}`, tokenConfig(getState))
-      dispatch({
-        type: DELETE_USER,
-        payload: id
-      })
+      await axios
+        .delete(`/api/users/${id}`, tokenConfig(getState))
+        .then(res =>
+          dispatch({
+            type: DELETE_USER,
+            payload: id
+          }),
+          alert('Deleted Successfully!'))
     }
 
   } catch (err) {
@@ -166,8 +172,8 @@ export const deleteUser = id => async (dispatch, getState) => {
 export const setUsersLoading = () => {
   //Return an action to the reducer
   return {
-      //action 
-      type: USERS_LOADING
+    //action 
+    type: USERS_LOADING
 
   };
 }

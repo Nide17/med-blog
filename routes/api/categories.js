@@ -39,8 +39,8 @@ router.get('/:id', auth, async (req, res) => {
         await Category.findById(id, (err, category) => {
             res.status(200).json(category);
         })
-        // Use the name of the schema path instead of the collection name
-        .populate('quizes')
+            // Use the name of the schema path instead of the collection name
+            .populate('quizes')
 
     } catch (err) {
         res.status(400).json({
@@ -125,8 +125,6 @@ router.delete('/:id', auth, authRole(['Admin']), async (req, res) => {
 
         if (!removedCategory)
             throw Error('Something went wrong while deleting!');
-
-        res.status(200).json({ msg: "Deleted successfully!" });
 
     } catch (err) {
         res.status(400).json({

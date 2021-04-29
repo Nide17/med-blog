@@ -22,7 +22,8 @@ const SingleQuiz = ({ auth, allQuizes, setQuizes }) => {
             <>
                 {allQuizes && allQuizes.map(quiz => (
 
-                    (quiz._id === quizId) ?
+                    quiz._id === quizId ?
+                    
                         <div className="mt-5 mx-5 single-category">
 
                             <Row>

@@ -32,7 +32,8 @@ export const sendMsg = (contactMsg) => async (dispatch) => {
         dispatch({
           type: ADD_CONTACT,
           payload: res.data
-        })
+        }),
+        alert('Sent Successfully!')
       )
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'ADD_CONTACT_FAIL'));
@@ -46,11 +47,14 @@ export const deleteContact = id => async (dispatch, getState) => {
 
   try {
     if (window.confirm("This Contact will be deleted permanently!")) {
-      await axios.delete(`/api/contacts/${id}`, tokenConfig(getState))
-      dispatch({
-        type: DELETE_CONTACT,
-        payload: id
-      })
+      await axios
+        .delete(`/api/contacts/${id}`, tokenConfig(getState))
+        .then(res =>
+          dispatch({
+            type: DELETE_CONTACT,
+            payload: id
+          }),
+          alert('Deleted Successfully!'))
     }
 
   } catch (err) {
@@ -62,8 +66,8 @@ export const deleteContact = id => async (dispatch, getState) => {
 export const setContactsLoading = () => {
   //Return an action to the reducer
   return {
-      //action 
-      type: CONTACTS_LOADING
+    //action 
+    type: CONTACTS_LOADING
 
   }
 }

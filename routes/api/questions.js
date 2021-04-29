@@ -22,41 +22,13 @@ router.get('/', async (req, res) => {
       .sort({ creation_date: -1 })
       .populate('category')
       .populate('quiz')
+      .populate('created_by')
 
     if (!questions) throw Error('No questions found');
 
     res.status(200).json(questions);
   } catch (err) {
     res.status(400).json({ msg: err.message })
-  }
-});
-
-// @route POST api/questions
-// @route Create a Question
-// @route Accessed by Admin and Creator
-
-router.post("/", auth, authRole(['Admin', 'Creator']), async (req, res) => {
-  try {
-    let newQuestion = await Question.findOne({ questionText: req.body.questionText });
-
-    if (newQuestion) {
-      return res.status(400).send("A Question already exists!");
-    }
-
-    const result = await Question.create(req.body);
-    res.send(result);
-
-    // Update the Quiz on Question creation
-    await Quiz.updateOne(
-      { "_id": req.body.quiz },
-      { $push: { "questions": result._id } }
-    );
-
-  } catch (err) {
-    if (err.name === "ValidationError") {
-      return res.status(400).send(err.errors);
-    }
-    res.status(500).send("Something went wrong");
   }
 });
 
@@ -83,6 +55,40 @@ router.get('/:id', auth, async (req, res) => {
     });
   }
 
+});
+
+// @route POST api/questions
+// @route Create a Question
+// @route Accessed by Admin and Creator
+
+router.post("/", auth, authRole(['Admin', 'Creator']), async (req, res) => {
+
+  try {
+    let qtn = await Question.findOne({ questionText: req.body.questionText });
+
+    if (qtn) {
+      return res.status(400).send("A Question already exists!");
+    }
+
+    const newQuestion = new Question(req.body);
+    const savedQuestion = await newQuestion.save();
+
+    // Update the Quiz on Question creation
+    await Quiz.updateOne(
+      { "_id": req.body.quiz },
+      { $push: { "questions": savedQuestion._id } }
+    );
+
+    if (!savedQuestion) throw Error('Something went wrong during creation!');
+
+    res.status(200).json(savedQuestion);
+
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      return res.status(400).send(err.errors);
+    }
+    res.status(500).send("Something went wrong");
+  }
 });
 
 // @route PUT api/questions/:id

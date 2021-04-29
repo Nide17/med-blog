@@ -42,7 +42,8 @@ export const subscribeToNewsLetter = (subscribedUser) => async (dispatch) => {
         dispatch({
           type: SUBSCRIBETONEWSLETTER,
           payload: res.data
-        })
+        }),
+        alert('Subscribed Successfully!')
       )
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'SUBSCRIBE_FAIL'));
@@ -55,11 +56,14 @@ export const deleteSubscriber = id => async (dispatch, getState) => {
 
   try {
     if (window.confirm("This Subscriber will be deleted permanently!")) {
-      await axios.delete(`/api/subscribers/${id}`, tokenConfig(getState))
-      dispatch({
-        type: DELETE_SUBSCRIBER,
-        payload: id
-      })
+      await axios
+        .delete(`/api/subscribers/${id}`, tokenConfig(getState))
+        .then(res =>
+          dispatch({
+            type: DELETE_SUBSCRIBER,
+            payload: id
+          }),
+          alert('Deleted Successfully!'))
     }
 
   } catch (err) {
@@ -71,8 +75,8 @@ export const deleteSubscriber = id => async (dispatch, getState) => {
 export const setSubscribersLoading = () => {
   //Return an action to the reducer
   return {
-      //action 
-      type: SUBSCRIBERS_LOADING
+    //action 
+    type: SUBSCRIBERS_LOADING
 
   };
 }

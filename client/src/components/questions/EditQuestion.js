@@ -19,7 +19,6 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
         // Find the ID of category the quiz is in
     const qnQuiz = allQuizes && allQuizes.find(quiz =>
         quiz._id === selectedQuestion.quiz._id ? quiz : null)
-    // console.log(qnQuiz)
 
     const [questionTextState, setQuestionTextState] = useState({
         questionText: selectedQuestion && selectedQuestion.questionText

@@ -15,7 +15,7 @@ export const setCategories = () => async (dispatch, getState) => {
           type: SET_CATEGORIES,
           payload: res.data,
         }))
-        
+
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'SET_CATEGORIES_FAIL'));
     dispatch({ type: SET_CATEGORIES_FAIL })
@@ -32,10 +32,11 @@ export const createCategory = (newCategory) => async (dispatch, getState) => {
         dispatch({
           type: CREATE_CATEGORY,
           payload: res.data
-        }))
-    .then(
+        }),
+        alert('Created Successfully!'))
+
       // Reload the page after category addition
-      window.location.reload())
+      .then(window.location.reload())
 
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'CREATE_CATEGORY_FAIL'));
@@ -54,7 +55,8 @@ export const updateCategory = updatedCatg => async (dispatch, getState) => {
         dispatch({
           type: UPDATE_CATEGORY,
           payload: updatedCatg
-        }))
+        }),
+        alert('Updated Successfully!'))
 
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'UPDATE_CATEGORY_FAIL'));
@@ -73,7 +75,8 @@ export const deleteCategory = id => async (dispatch, getState) => {
           dispatch({
             type: DELETE_CATEGORY,
             payload: id
-          }))
+          }),
+          alert('Deleted Successfully!'))
     }
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'DELETE_CATEGORY_FAIL'));
@@ -84,8 +87,8 @@ export const deleteCategory = id => async (dispatch, getState) => {
 export const setCategoriesLoading = () => {
   //Return an action to the reducer
   return {
-      //action 
-      type: CATEGORIES_LOADING
+    //action 
+    type: CATEGORIES_LOADING
 
   }
 }

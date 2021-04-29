@@ -69,13 +69,13 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
             return
         }
 
-        const catID = allQuizes && allQuizes.map(quiz =>
-            quiz._id === quizId ? quiz.category._id : null)
+        const qnQuiz = allQuizes && allQuizes.find(quiz =>
+            quiz._id === quizId ? quiz : null)
 
         const newQuestion = {
             questionText: questionText.questionText,
             answerOptions,
-            category: catID[0],
+            category: qnQuiz.category._id,
             creation_date: Date.now,
             quiz: quizId,
             created_by: auth.isLoading === false ? auth.user._id : null

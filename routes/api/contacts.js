@@ -39,6 +39,9 @@ router.post("/", async (req, res) => {
     const newContact = await Contact.create(req.body);
     res.send(newContact);
 
+    if (!newContact) throw Error('Something went wrong!');
+    res.status(200).json({ msg: "Sent successfully!" });
+
   } catch (err) {
     console.log(err);
 

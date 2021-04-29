@@ -31,7 +31,7 @@ export const addQuestion = question => async (dispatch, getState) => {
                     type: ADD_QUESTION,
                     payload: res.data
                 }),
-                alert('Added Successfully!'))
+                alert('Created Successfully!'))
 
     } catch (err) {
         dispatch(returnErrors(err.response.data, err.response.status, 'GET_ERRORS'));
@@ -45,12 +45,12 @@ export const updateQuestion = updatedQuestion => async (dispatch, getState) => {
     try {
         await axios
             .put(`/api/questions/${updatedQuestion.qtId}`, updatedQuestion, tokenConfig(getState))
-        dispatch({
-            type: UPDATE_QUESTION,
-            payload: updatedQuestion
-        })
-        console.log(updatedQuestion)
-        alert('Updated Successfully!')
+            .then(res =>
+                dispatch({
+                    type: UPDATE_QUESTION,
+                    payload: updatedQuestion
+                }),
+                alert('Updated Successfully!'))
 
     } catch (err) {
         dispatch(returnErrors(err.response.data, err.response.status, 'UPDATE_QUESTION_FAIL'));

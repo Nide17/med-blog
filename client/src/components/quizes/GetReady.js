@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types';
 import { Container, Col, Row, Card, Button, CardTitle, CardText, Spinner } from 'reactstrap';
 import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
-import { createScore } from '../../redux/scores/scores.actions'
-import QuizQuestions from './QuizQuestions';
 
-const GetReady = ({ quizes, setQuizes, setQuestions, createScore, auth }) => {
+const GetReady = ({ quizes, setQuizes, setQuestions }) => {
 
     useEffect(() => {
         // Inside this callback function, we set questions when the component is mounted.
@@ -27,49 +25,48 @@ const GetReady = ({ quizes, setQuizes, setQuestions, createScore, auth }) => {
 
                 (quiz._id === quizId) ?
 
-                        <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80" key={Math.floor(Math.random() * 1000)}>
+                    <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80" key={Math.floor(Math.random() * 1000)}>
 
-                            <div className="question-view">
+                        <div className="question-view">
 
-                                {/* Question */}
-                                <Row>
-                                    <Col>
+                            <Row>
+                                <Col>
 
-                                        <Card body className='question-section text-center my-2 mx-auto w-75'>
-                                            <CardTitle tag="h5" className='question-count text-uppercase text-center text-secondary font-weight-bold'>
-                                                {quiz.title}&nbsp;({quiz.questions && quiz.questions.length})
-                                            </CardTitle>
+                                    <Card body className='question-section text-center my-2 mx-auto w-75'>
+                                        <CardTitle tag="h5" className='question-count text-uppercase text-center text-secondary font-weight-bold'>
+                                            {quiz.title}&nbsp;({quiz.questions && quiz.questions.length})
+                                        </CardTitle>
 
-                                            <CardText>
-                                                {quiz.description}
-                                            </CardText>
+                                        <CardText>
+                                            {quiz.description}
+                                        </CardText>
 
-                                            <div className='answer d-flex justify-content-center mx-auto mt-2 w-lg-50'>
-                                                <Link to={`/attempt-quiz/${quiz._id}`}>
-                                                    <Button className="btn btn-outline-primary mt-3">
-                                                        Attempt Quiz
-                                                    </Button>
-                                                </Link>
+                                        <div className='answer d-flex justify-content-center mx-auto mt-2 w-lg-50'>
+                                            <Link to={`/attempt-quiz/${quiz._id}`}>
+                                                <Button className="btn btn-outline-primary mt-3">
+                                                    Attempt Quiz
+                                                </Button>
+                                            </Link>
                                             &nbsp;&nbsp;
 
                                             <Link to={'/'}>
-                                                    <Button className="btn btn-outline-primary mt-3">
-                                                        Back
-                                            </Button>
-                                                </Link>
-                                            </div>
+                                                <Button className="btn btn-outline-primary mt-3">
+                                                    Back
+                                                </Button>
+                                            </Link>
+                                        </div>
 
-                                            <small className="mt-3">
-                                                ~{quiz.category && quiz.category.title}~
-                                            </small>
+                                        <small className="mt-3">
+                                            ~{quiz.category && quiz.category.title}~
+                                        </small>
 
-                                        </Card>
+                                    </Card>
 
-                                    </Col>
-                                </Row>
-                            </div>
+                                </Col>
+                            </Row>
+                        </div>
 
-                        </Container> :
+                    </Container> :
 
                     null)))
     }
@@ -85,7 +82,6 @@ const GetReady = ({ quizes, setQuizes, setQuestions, createScore, auth }) => {
             <div className="pt-5 d-flex justify-content-center align-items-center">
                 <Spinner type="grow" color="success" style={{ width: '10rem', height: '10rem' }} />
             </div>
-
         </>)
     }
 }
@@ -100,4 +96,4 @@ const mapStateToProps = state => ({
     questionsData: state.questionsReducer.questionsData
 });
 
-export default connect(mapStateToProps, { setQuestions, setQuestionsLoading, setQuizes, createScore })(GetReady)
+export default connect(mapStateToProps, { setQuestions, setQuestionsLoading, setQuizes })(GetReady)

@@ -137,8 +137,6 @@ router.delete('/:id', auth, authRole(['Admin']), async (req, res) => {
         if (!removedQuiz)
             throw Error('Something went wrong while deleting!');
 
-        res.status(200).json({ msg: "Deleted successfully!" });
-
     } catch (err) {
         res.status(400).json({
             success: false,

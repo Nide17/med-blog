@@ -25,6 +25,7 @@ const QuizesTabPane = ({ currentUser, quizes, setQuizes, setQuestions, deleteQui
         <TabPane tabId="2">
 
             {quizes.isLoading ? <ReactLoading type="spinningBubbles" color="#33FFFC" /> :
+
                 <Row>
                     {quizes.allQuizes && quizes.allQuizes.map(quiz => (
 
