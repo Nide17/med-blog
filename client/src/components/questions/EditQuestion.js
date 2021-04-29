@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom'
 import { Button, Row, Col, Form, FormGroup, Label, Input, CustomInput, Breadcrumb, BreadcrumbItem, Alert } from 'reactstrap';
+import ReactLoading from "react-loading";
+import LoginModal from '../auth/LoginModal'
 import { connect } from 'react-redux';
 import { setQuestions, updateQuestion } from '../../redux/questions/questions.actions';
 
@@ -14,6 +16,10 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
     const selectedQuestion = questionsData && questionsData.find(qn =>
         qn._id === questionId ? qn : null)
 
+        // Find the ID of category the quiz is in
+    const qnQuiz = allQuizes && allQuizes.find(quiz =>
+        quiz._id === selectedQuestion.quiz._id ? quiz : null)
+    // console.log(qnQuiz)
 
     const [questionTextState, setQuestionTextState] = useState({
         questionText: selectedQuestion && selectedQuestion.questionText
@@ -69,9 +75,11 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
 
         const updatedQuestion = {
             qtId: questionId,
+            category: qnQuiz.category._id,
             questionText: questionTextState.questionText,
             answerOptions: answerOptionsState
         }
+        
         updateQuestion(updatedQuestion);
 
         // Back to webmaster
@@ -161,7 +169,18 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
 
             </Form>
             :
-            <h3 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Login Again</h3>
+
+            // If not authenticated or loading
+            <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                {
+                    auth.isLoading ?
+                        <>
+                            <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                            <p className="d-block">Loading user ...</p>
+                        </> :
+                        <LoginModal />
+                }
+            </div>
     )
 }
 

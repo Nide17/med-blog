@@ -56,7 +56,7 @@ const SingleCategory = ({ auth, setCategories, setQuizes, quizes, allcategories 
 
                                                 {quizes && quizes.allQuizes.map(qz =>
                                                         qz._id === quiz._id ?
-                                                            <p className="text-dark">Number of questions: {qz.questions.length}</p>
+                                                            <p key={qz._id} className="text-dark">Number of questions: {qz.questions.length}</p>
                                                             : null)}
 
                                                 {auth.user._id === quiz.created_by ?

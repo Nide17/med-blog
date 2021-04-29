@@ -34,7 +34,7 @@ const EditCategory = ({ idToUpdate, editTitle, editingCategory, auth, updateCate
         const { idToUpdate, name, description } = categoryState;
 
         // VALIDATE
-if (name.length < 4 || description.length < 4) {
+        if (name.length < 4 || description.length < 4) {
             setErrorsState(['Insufficient info!']);
             return
         }

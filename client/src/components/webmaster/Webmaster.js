@@ -132,7 +132,7 @@ const Webmaster = ({ auth, error }) => {
                                 <QuizesTabPane currentUser={auth.user} />
                                 <SubscribersTabPane />
                                 <UsersTabPane />
-                                <ContactsTabPane currentUser={auth.user}/>
+                                <ContactsTabPane currentUser={auth.user} />
                             </TabContent>
                         </Col>
 
@@ -153,6 +153,7 @@ const Webmaster = ({ auth, error }) => {
             </div>
     )
 }
+
 Webmaster.propTypes = {
     auth: PropTypes.object,
     error: PropTypes.object

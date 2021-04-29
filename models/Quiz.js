@@ -21,7 +21,8 @@ const QuizSchema = new Schema({
   },
   category: {
     type: Schema.Types.ObjectId,
-    ref: 'category'
+    ref: 'category',
+    unique: true
   },
   questions: [
     {
@@ -31,11 +32,13 @@ const QuizSchema = new Schema({
   ],
   created_by: {
     type: Schema.Types.ObjectId,
-    ref: 'user'
+    ref: 'user',
+    unique: true
   },
   last_updated_by: {
     type: Schema.Types.ObjectId,
-    ref: 'user'
+    ref: 'user',
+    unique: true
   }
 });
 

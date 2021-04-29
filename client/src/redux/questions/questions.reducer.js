@@ -32,6 +32,8 @@ const questionsReducer = (state = INITIAL_STATE, action) => {
             return {
               ...question,
               title: action.payload.title,
+              quiz: action.payload.quiz,
+              oldQuizID: action.payload.oldQuizID,
               description: action.payload.description,
               last_updated_by: action.payload.last_updated_by
             }

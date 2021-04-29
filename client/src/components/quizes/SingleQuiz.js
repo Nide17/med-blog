@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { Row, Col, Toast, ToastBody, ToastHeader, Breadcrumb, BreadcrumbItem, ListGroup, ListGroupItem } from 'reactstrap';
+import ReactLoading from "react-loading";
+import LoginModal from '../auth/LoginModal'
 import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { setQuizes } from '../../redux/quizes/quizes.actions'
@@ -55,7 +57,18 @@ const SingleQuiz = ({ auth, allQuizes, setQuizes }) => {
                             </Row>
                         </div> : null))}
             </> :
-            <h6 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Login Again!</h6>
+
+            // If not authenticated or loading
+            <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                {
+                    auth.isLoading ?
+                        <>
+                            <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                            <p className="d-block">Loading user ...</p>
+                        </> :
+                        <LoginModal />
+                }
+            </div>
     )
 }
 

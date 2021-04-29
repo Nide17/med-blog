@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
 import { Row, ListGroup, ListGroupItem, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link, useParams, useHistory } from 'react-router-dom'
+import ReactLoading from "react-loading";
+import LoginModal from '../auth/LoginModal'
 import { connect } from 'react-redux';
 import { setQuestions, deleteQuestion } from '../../redux/questions/questions.actions'
 import trash from '../../images/trash.svg';
 import EditIcon from '../../images/edit.svg';
+import ChangeQuizModal from './ChangeQuizModal';
 
-const SingleQuestion = ({ auth, questionsData, setQuestions, deleteQuestion }) => {
+const SingleQuestion = ({ auth, quest, setQuestions, deleteQuestion }) => {
 
     // Lifecycle methods
     useEffect(() => {
@@ -25,57 +28,76 @@ const SingleQuestion = ({ auth, questionsData, setQuestions, deleteQuestion }) =
     return (
         auth.isAuthenticated ?
 
-            <>
-                {questionsData && questionsData.map(question => (
+            quest.isLoading ?
 
-                    (question._id === questionId) ?
-                        <div className="mt-5 mx-5 single-category" key={question._id}>
+                <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                    <ReactLoading type="cylon" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                </div> :
 
-                            <Row className="mb-3">
-                                <Breadcrumb>
-                                    <BreadcrumbItem>
-                                        <Link to={`/category/${question.category && question.category._id}`}>{question.category && question.category.title}</Link>
-                                    </BreadcrumbItem>
-                                    <BreadcrumbItem>
-                                        <Link to={`/view-quiz/${question.quiz && question.quiz._id}`}>{question.quiz && question.quiz.title}</Link>
-                                    </BreadcrumbItem>
+                <>
+                    {quest && quest.questionsData.map(question => (
 
-                                    <BreadcrumbItem active>View Question</BreadcrumbItem>
-                                </Breadcrumb>
-                            </Row>
+                        (question._id === questionId) ?
+                            <div className="mt-5 mx-5 single-category" key={question._id}>
 
-                            <Row className="m-4 d-block text-primary">
+                                <Row className="mb-3">
+                                    <Breadcrumb>
+                                        <BreadcrumbItem>
+                                            <Link to={`/category/${question.category && question.category._id}`}>{question.category && question.category.title}</Link>
+                                        </BreadcrumbItem>
+                                        <BreadcrumbItem>
+                                            <Link to={`/view-quiz/${question.quiz && question.quiz._id}`}>{question.quiz && question.quiz.title}</Link>
+                                        </BreadcrumbItem>
 
-                                <div className="d-flex justify-content-between title-actions">
-                                    <h4 className="mb-4">{question.questionText}</h4>
+                                        <BreadcrumbItem active>View Question</BreadcrumbItem>
+                                    </Breadcrumb>
+                                </Row>
 
-                                    <div className="actions">
-                                        <img src={trash} alt="" width="16" height="16" className="mr-3" onClick={deleteQn} />
+                                <Row className="m-4 d-block text-primary">
 
-                                        <Link to={`/edit-question/${question._id}`} className="text-secondary">
-                                            <img src={EditIcon} alt="" width="16" height="16" className="mr-3" />
-                                        </Link>
+                                    <div className="d-flex justify-content-between title-actions">
+                                        <h4 className="mb-4">{question.questionText}</h4>
+
+                                        <div className="actions">
+                                            <ChangeQuizModal questionID={question._id} questionCatID={question.category && question.category._id} quizID={question.quiz._id} />
+
+                                            <img src={trash} alt="" width="16" height="16" className="mr-3" onClick={deleteQn} />
+
+                                            <Link to={`/edit-question/${question._id}`} className="text-secondary">
+                                                <img src={EditIcon} alt="" width="16" height="16" className="mr-3" />
+                                            </Link>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <ListGroup>
-                                    {question && question.answerOptions.map(answerOpt => (
-                                        <ListGroupItem color={answerOpt.isCorrect ? 'success' : ''} key={answerOpt._id}>
-                                            {answerOpt.answerText}
-                                        </ListGroupItem>)
-                                    )}
-                                </ListGroup>
+                                    <ListGroup>
+                                        {question && question.answerOptions.map(answerOpt => (
+                                            <ListGroupItem color={answerOpt.isCorrect ? 'success' : ''} key={answerOpt._id}>
+                                                {answerOpt.answerText}
+                                            </ListGroupItem>)
+                                        )}
+                                    </ListGroup>
 
-                            </Row>
-                        </div> : null))}
-            </> :
-            <h6 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Login Again!</h6>
+                                </Row>
+                            </div> : null))}
+                </> :
+
+            // If not authenticated or loading
+            <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                {
+                    auth.isLoading ?
+                        <>
+                            <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                            <p className="d-block">Loading user ...</p>
+                        </> :
+                        <LoginModal />
+                }
+            </div>
     )
 }
 
 const mapStateToProps = state => ({
     auth: state.authReducer,
-    questionsData: state.questionsReducer.questionsData
+    quest: state.questionsReducer
 });
 
 export default connect(mapStateToProps, { setQuestions, deleteQuestion })(SingleQuestion);

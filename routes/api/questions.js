@@ -52,7 +52,6 @@ router.post("/", auth, authRole(['Admin', 'Creator']), async (req, res) => {
       { $push: { "questions": result._id } }
     );
 
-
   } catch (err) {
     if (err.name === "ValidationError") {
       return res.status(400).send(err.errors);
@@ -96,6 +95,18 @@ router.put('/:id', auth, async (req, res) => {
     //Find the Question by id
     const question = await Question.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
     res.status(200).json(question);
+
+    // Update the Quiz on Question creation
+    await Quiz.updateOne(
+      { "_id": req.body.quiz },
+      { $push: { "questions": question._id } }
+    );
+
+    // Delete Question in old quiz
+    await Quiz.updateOne(
+      { "_id": req.body.oldQuizID },
+      { $pull: { "questions": question._id } }
+    );
 
   } catch (err) {
     res.status(400).json({

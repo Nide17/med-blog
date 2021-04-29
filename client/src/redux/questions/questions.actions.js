@@ -49,6 +49,7 @@ export const updateQuestion = updatedQuestion => async (dispatch, getState) => {
             type: UPDATE_QUESTION,
             payload: updatedQuestion
         })
+        console.log(updatedQuestion)
         alert('Updated Successfully!')
 
     } catch (err) {

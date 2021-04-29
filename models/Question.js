@@ -33,19 +33,23 @@ const QuestionSchema = new Schema({
     },
     category: {
         type: Schema.Types.ObjectId,
-        ref: 'category'
+        ref: 'category',
+        unique: true
       },
     quiz: {
         type: Schema.Types.ObjectId,
-        ref: 'quiz'
+        ref: 'quiz',
+        unique: true
     },
     created_by: {
         type: Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        unique: true
     },
     last_updated_by: {
         type: Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        unique: true
     }
 });
 

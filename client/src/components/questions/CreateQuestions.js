@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid';
 import { Button, Row, Col, Form, FormGroup, Label, Input, CustomInput, Breadcrumb, BreadcrumbItem, Alert } from 'reactstrap';
+import ReactLoading from "react-loading";
+import LoginModal from '../auth/LoginModal'
 import { connect } from 'react-redux';
 import { addQuestion } from '../../redux/questions/questions.actions';
 import { setCategories } from '../../redux/categories/categories.actions'
@@ -20,7 +22,6 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
 
     // Errors state on form
     const [errorsState, setErrorsState] = useState([])
-
 
     // Lifecycle methods
     useEffect(() => {
@@ -98,6 +99,7 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
 
     return (
         auth.isAuthenticated ?
+
             <Form className="mt-5 mx-5" onSubmit={handleSubmit}>
 
                 {
@@ -164,7 +166,18 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
                 </FormGroup>
 
             </Form> :
-            <h3 className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">Login Again</h3>
+
+            // If not authenticated or loading
+            <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                {
+                    auth.isLoading ?
+                        <>
+                            <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                            <p className="d-block">Loading user ...</p>
+                        </> :
+                        <LoginModal />
+                }
+            </div>
     )
 }
 
