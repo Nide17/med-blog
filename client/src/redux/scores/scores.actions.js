@@ -31,9 +31,7 @@ export const createScore = (newScore) => async (dispatch, getState) => {
         dispatch({
           type: CREATE_SCORE,
           payload: res.data
-        }),
-        alert('Score Saved!')
-      )
+        }))
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'CREATE_SCORE_FAIL'));
     dispatch({ type: CREATE_SCORE_FAIL })
