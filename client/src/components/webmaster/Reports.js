@@ -37,7 +37,7 @@ const Reports = ({ userId, allScores, setScores }) => {
                                         <Link to={`/review-quiz/${score.quiz._id}`} className="font-weight-bold text-info">
                                             Review Quiz
                                     </Link> :
-                                        'Quiz not available!'}
+                                        <p className="text-danger">Quiz unavailable!</p>}
 
                                     <p className="mt-1">Score:&nbsp;
                                         <strong className="text-warning">
