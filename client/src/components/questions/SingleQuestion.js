@@ -58,7 +58,7 @@ const SingleQuestion = ({ auth, quest, setQuestions, deleteQuestion }) => {
                                     <div className="d-flex justify-content-between title-actions">
                                         <h4 className="mb-4">{question.questionText}</h4>
 
-                                        <div className="actions">
+                                        <div className="actions d-flex align-items-center">
                                             <ChangeQuizModal questionID={question._id} questionCatID={question.category && question.category._id} quizID={question.quiz._id} />
 
                                             <img src={trash} alt="" width="16" height="16" className="mr-3" onClick={deleteQn} />

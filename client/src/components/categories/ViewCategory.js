@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import { UncontrolledCollapse, Button, ListGroup, ListGroupItem, Badge } from 'reactstrap';
 import { setCategories } from '../../redux/categories/categories.actions'
@@ -19,8 +20,10 @@ const ViewCategory = ({ allcategories, setCategories }) => {
                     <ListGroup>
                         {category.quizes.map(quiz =>
                             <ListGroupItem key={quiz._id} className="d-flex justify-content-between">
-                                <p className="m-0">{quiz.title}</p>
-                                <Badge color="info">{quiz.questions.length}</Badge>
+                                <Link to={`/view-quiz/${quiz._id}`} className="m-0">
+                                {quiz.title}
+                                </Link>
+                                <Badge color="info" className="ml-lg-2">{quiz.questions.length}</Badge>
                             </ListGroupItem>
                         )}
 
