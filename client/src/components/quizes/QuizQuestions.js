@@ -67,7 +67,8 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth, rea
 
                                     <div className='score-section text-center'>
 
-                                        <h5>You scored <b style={{ color: "#B4654A" }}>{score}</b> out of <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>
+                                        <h5>You get <b style={{ color: "#B4654A" }}>{score}</b> questions right from <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>.
+                                        <small className="text-info"> (~{score * 100 / quiz.questions.length}%)</small>
                                         </h5>
 
                                         <button type="button" className="btn btn-outline-success mt-3" onClick={Reload}>
@@ -84,7 +85,8 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth, rea
 
                                     <div className='score-section text-center'>
 
-                                        <h5>You scored <b style={{ color: "#B4654A" }}>{score}</b> out of <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>
+                                        <h5>You get <b style={{ color: "#B4654A" }}>{score}</b> questions right from <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>.
+                                        <small className="text-info"> (~{score * 100 / quiz.questions.length}%)</small>
                                         </h5>
 
                                         <a href={`/view-quiz/${quiz._id}`}>
