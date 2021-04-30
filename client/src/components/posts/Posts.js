@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setPosts, subscribeToNewsLetter } from '../../redux/subscribers/subscribers.actions'
 import { clearErrors } from '../../redux/error/error.actions'
-import infinity from '../../images/infinity.svg';
 const PostItem = lazy(() => import('./PostItem'));
 const ViewCategory = lazy(() => import('../categories/ViewCategory'));
 
@@ -87,12 +86,6 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                                 </div>
                             }>
                             <ViewCategory />
-
-                            <div className="w-100 mt-2 d-flex justify-content-center align-items-center">
-                                <Link to="/webmaster">
-                                    <img src={infinity} alt="" width="30" height="30" className="blink_more" />
-                                </Link>
-                            </div>
 
                         </Suspense>
                     </Row>
