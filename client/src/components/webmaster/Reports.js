@@ -25,15 +25,15 @@ const Reports = ({ userId, allScores, setScores }) => {
                         <Col sm="3" key={score._id} className="px-2 mt-2 users-toast">
                             <Toast>
                                 <ToastHeader className="text-success">
-                                    <strong>{score.quiz.title}</strong>&nbsp;
+                                    <strong>{score.quiz && score.quiz.title}</strong>&nbsp;
                                     <small className="d-flex align-items-center">
-                                        ({score.category.title})
+                                        ({score.category && score.category.title})
                                     </small>
                                 </ToastHeader>
 
                                 <ToastBody>
 
-                                    {score.quiz.questions.length > 0 ?
+                                    {score.quiz && score.quiz.questions.length > 0 ?
                                         <Link to={`/review-quiz/${score.quiz._id}`} className="font-weight-bold text-info">
                                             Review Quiz
                                     </Link> :
