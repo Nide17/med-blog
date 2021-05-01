@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Toast, ToastBody, ToastHeader, TabPane } from 'reactstrap';
+import { Row, Col, Toast, ToastBody, ToastHeader, TabPane, ListGroup, ListGroupItem } from 'reactstrap';
 import ReactLoading from "react-loading";
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ import { setQuizes, deleteQuiz, updateQuiz } from '../../redux/quizes/quizes.act
 import trash from '../../images/trash.svg';
 import AddIcon from '../../images/plus.svg';
 
-const QuizesTabPane = ({ currentUser, quizes, setQuizes, setQuestions, deleteQuiz }) => {
+const QuizesTabPane = ({ currentUser, quizes, questionsData, setQuizes, setQuestions, deleteQuiz }) => {
 
     const [searchKey, setSearchKey] = useState('')
     const [searchKeyQ, setSearchKeyQ] = useState('')
@@ -37,6 +37,26 @@ const QuizesTabPane = ({ currentUser, quizes, setQuizes, setQuestions, deleteQui
                         </Col>
                     </Row>
 
+                    <Row>
+                        <ListGroup>
+                            {questionsData && questionsData
+                                .filter(question => {
+
+                                    if (searchKeyQ === "") {
+                                        return null
+                                    } else if (question.questionText.toLowerCase().includes(searchKeyQ.toLowerCase())) {
+                                        return question
+                                    }
+                                    return null
+                                })
+                                .map(question => (
+                                    <ListGroupItem key={question._id} tag="a" href={`/view-question/${question._id}`}>
+                                        {question.questionText}
+                                    </ListGroupItem>
+                                ))}
+
+                        </ListGroup>
+                    </Row>
                     <Row>
                         {quizes && quizes.allQuizes
                             .filter(quiz => {
@@ -83,26 +103,16 @@ const QuizesTabPane = ({ currentUser, quizes, setQuizes, setQuestions, deleteQui
                                                 <br /><br />
                                                 {quiz.questions && quiz.questions.length > 0 ? <p className="font-weight-bold">Questions ({quiz.questions.length})</p> : null}
 
-                                                {quiz && quiz.questions
-                                                    .filter(question => {
-
-                                                        if (searchKeyQ === "") {
-                                                            return question
-                                                        } else if (question.questionText.toLowerCase().includes(searchKeyQ.toLowerCase())) {
-                                                            return question
-                                                        }
-                                                        return null
-                                                    })
-                                                    .map((question, index) =>
-                                                        <ul key={question._id}>
-                                                            <li style={{ listStyle: "none" }}>
-                                                                {index + 1}.&nbsp;
+                                                {quiz && quiz.questions.map((question, index) =>
+                                                    <ul key={question._id}>
+                                                        <li style={{ listStyle: "none" }}>
+                                                            {index + 1}.&nbsp;
                                                     <Link to={`/view-question/${question._id}`}>
-                                                                    {question.questionText}
-                                                                </Link>
-                                                            </li>
-                                                        </ul>
-                                                    )}
+                                                                {question.questionText}
+                                                            </Link>
+                                                        </li>
+                                                    </ul>
+                                                )}
                                             </ToastBody>
 
                                         </Toast>

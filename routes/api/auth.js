@@ -49,8 +49,8 @@ router.post('/login', async (req, res) => {
         role: user.role
       }
     });
-  } catch (e) {
-    res.status(400).json({ msg: e.message });
+  } catch (err) {
+    res.status(400).json({ msg: "Network error!" });
   }
 });
 
