@@ -213,19 +213,19 @@ div.question-section {
     background-color: #157A6E;
 }
 
-.posts .search input {
+.search input {
     border-radius: 5px;
     border-color: #157A6E;
     height: 2.2rem;
     padding: .35rem .9rem;
 }
 
-.posts .search input::placeholder {
+.search input::placeholder {
     font-size: 1rem;
     margin-left: 2rem !important;
 }
 
-.posts .search .input-group-append span {
+.search .input-group-append span {
     background-color: #157A6E;
     border-color: #157A6E;
 }
@@ -314,17 +314,17 @@ div.question-section {
     button.answer-option {
         width: 90% !important
     }
-    .posts .search input::placeholder {
+    .search input::placeholder {
         font-size: .7rem;
         margin-left: 1rem !important;
     }
 
-    .posts .search input {
+    .search input {
         height: 1.8rem;
         padding: .35rem .9rem;
     }
     
-    .posts div.input-group-append {
+    div.input-group-append {
         height: 1.8rem;
     }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react'
 import { Container, Col, Row, Form, FormGroup, Input, Button, Alert, Spinner } from 'reactstrap';
-import searchImg from '../../images/loupe.svg'
+import SearchInput from '../SearchInput'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
@@ -64,23 +64,7 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                         <h3 className="mb-3 text-center lead font-weight-bold">Newest Quizes</h3>
 
                         {/* Search */}
-                        <form className="form-inline mb-4">
-                            <div className="input-group mx-auto search w-75">
-                                <input
-                                    type="text"
-                                    className="form-control "
-                                    placeholder=" Search quizes here ...  "
-                                    aria-label="Search"
-                                    onChange={e => { setSearchKey(e.target.value) }}
-                                />
-
-                                <div className="input-group-append" >
-                                    <span className="input-group-text py-1 by-0" id="basic-addon2" type="submit">
-                                        <img src={searchImg} alt="search" width="14" height="14" />
-                                    </span>
-                                </div>
-                            </div>
-                        </form>
+                        <SearchInput setSearchKey={setSearchKey} placeholder=" Search quizes here ...  " />
 
                         {allQuizes && allQuizes
                             .filter(quiz => {
