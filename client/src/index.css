@@ -215,25 +215,25 @@ div.question-section {
 
 .posts .search input {
     border-radius: 5px;
-    border-color: #0975b8;
+    border-color: #157A6E;
     height: 2.32rem;
     padding: .35rem .9rem;
-  }
+}
 
 
 .posts .search input::placeholder {
-    font-size: .8rem;
+    font-size: 1rem;
     margin-left: 2rem !important;
-  }
-  
-  .posts .search .input-group-append span {
+}
+
+.posts .search .input-group-append span {
     background-color: #157A6E;
     border-color: #157A6E;
-  }
-  
-  .posts .search .input-group-append .fa-search {
+}
+
+.posts .search .input-group-append .fa-search {
     color: #ffffff;
-  }
+}
 
 
 @keyframes answer {
@@ -317,7 +317,7 @@ div.question-section {
     }
 
     button.answer-option {
-        width: 90%!important
+        width: 90% !important
     }
 
 }
