@@ -16,6 +16,8 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
         email: ''
     })
 
+    const [searchKey, setSearchKey] = useState('')
+
     useEffect(() => {
         // Inside this callback function, we set posts when the component is mounted.
         setPosts();
@@ -51,7 +53,7 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                 <small className="text-muted">Welcome, test out your wishes!</small>
             </blockquote>
 
-            <Row className="mt-lg-5">
+            <Row className="mt-5">
                 <Col sm="8" className="mt-md-2">
                     <Suspense
                         fallback={
@@ -61,28 +63,49 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                         }>
                         <h3 className="mb-3 text-center lead font-weight-bold">Newest Quizes</h3>
 
+                        {/* Search */}
                         <form className="form-inline mb-4">
                             <div className="input-group mx-auto search w-75">
-                                <input type="text" className="form-control " placeholder=" Search quizes here ...  " aria-label="Search" />
+                                <input
+                                    type="text"
+                                    className="form-control "
+                                    placeholder=" Search quizes here ...  "
+                                    aria-label="Search"
+                                    onChange={e => { setSearchKey(e.target.value) }}
+                                />
+
                                 <div className="input-group-append" >
                                     <span className="input-group-text py-1 by-0" id="basic-addon2" type="submit">
-                                    <img src={searchImg} alt="search" width="14" height="14" />
+                                        <img src={searchImg} alt="search" width="14" height="14" />
                                     </span>
                                 </div>
                             </div>
                         </form>
 
-                        {allQuizes && allQuizes.slice(0, 20).map(quiz => (
-                            quiz.questions.length > 0 ?
-                                <PostItem key={quiz._id} quiz={quiz} /> : null
+                        {allQuizes && allQuizes
+                            .filter(quiz => {
 
-                        ))}
+                                if (searchKey === "") {
+                                    return quiz
+                                } else if (quiz.title.toLowerCase().includes(searchKey.toLowerCase())) {
+                                    return quiz
+                                }
+                                return null
+                            })
+                            .slice(0, 15)
+                            .map(quiz => (
+                                quiz.questions.length > 0 ?
+                                    <PostItem key={quiz._id} quiz={quiz} /> : null
+                            ))}
 
-                        {allQuizes.length > 0 ? <div className="mt-4 d-flex justify-content-center">
-                            <Link to="/allposts">
-                                <Button outline color="info">Load more ...</Button>
-                            </Link>
-                        </div> : null}
+                        {allQuizes.length > 0 ?
+
+                            <div className="mt-4 d-flex justify-content-center">
+                                <Link to="/allposts">
+                                    <Button outline color="info">Load all quizes ...</Button>
+                                </Link>
+                            </div> :
+                            null}
 
                     </Suspense>
 
