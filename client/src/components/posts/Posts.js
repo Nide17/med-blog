@@ -76,7 +76,7 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                                 }
                                 return null
                             })
-                            .slice(0, 15)
+                            .slice(0, 10)
                             .map(quiz => (
                                 quiz.questions.length > 0 ?
                                     <PostItem key={quiz._id} quiz={quiz} /> : null
