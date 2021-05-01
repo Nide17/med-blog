@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Form, FormGroup, Input, NavbarText, Button } from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Form, FormGroup, NavbarText, Button } from 'reactstrap';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import RegisterModal from './auth/RegisterModal';

@@ -86,7 +86,7 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
 
                             <div className="mt-4 d-flex justify-content-center">
                                 <Link to="/allposts">
-                                    <Button outline color="info">Load all quizes ...</Button>
+                                    <Button outline color="info">View all quizes ...</Button>
                                 </Link>
                             </div> :
                             null}
