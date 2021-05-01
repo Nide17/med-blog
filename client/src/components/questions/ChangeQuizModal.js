@@ -59,9 +59,9 @@ const ChangeQuizModal = ({ auth, updateQuestion, setQuizes, allQuizes, questionI
         auth.isAuthenticated ?
 
             <div>
-                <Button onClick={toggle} color="info" size="sm" className="mr-3">
+                <Button onClick={toggle} color="info" size="sm" className="mr-3 p-1 w-100">
                     Change Quiz
-             </Button>
+                </Button>
 
                 <Modal
                     // Set it to the state of modal true or false

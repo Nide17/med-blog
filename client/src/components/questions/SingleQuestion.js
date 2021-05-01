@@ -55,16 +55,16 @@ const SingleQuestion = ({ auth, quest, setQuestions, deleteQuestion }) => {
 
                                 <Row className="m-4 d-block text-primary">
 
-                                    <div className="d-flex justify-content-between title-actions">
+                                    <div className="d-lg-flex mb-5 justify-content-between title-actions">
                                         <h4 className="mb-4">{question.questionText}</h4>
 
                                         <div className="actions d-flex align-items-center">
                                             <ChangeQuizModal questionID={question._id} questionCatID={question.category && question.category._id} quizID={question.quiz._id} />
 
-                                            <img src={trash} alt="" width="16" height="16" className="mr-3" onClick={deleteQn} />
+                                            <img src={trash} alt="" width="16" height="16" className="mx-2" onClick={deleteQn} />
 
                                             <Link to={`/edit-question/${question._id}`} className="text-secondary">
-                                                <img src={EditIcon} alt="" width="16" height="16" className="mr-3" />
+                                                <img src={EditIcon} alt="" width="16" height="16" />
                                             </Link>
                                         </div>
                                     </div>
