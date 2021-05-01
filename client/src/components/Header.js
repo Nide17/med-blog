@@ -64,7 +64,7 @@ const Header = (props) => {
 
                         <Form className="ml-lg-5 py-2">
                             <FormGroup className="my-auto">
-                                <Input type="search" name="search" placeholder="Search ..." bsSize="sm" className="py-0" style={{ width: "250px" }} />
+                                {/* <Input type="search" name="search" placeholder="Search ..." bsSize="sm" className="py-0" style={{ width: "250px" }} /> */}
                             </FormGroup>
                         </Form>
                     </Nav>
