@@ -60,6 +60,16 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                             </div>
                         }>
                         <h3 className="mb-3 text-center lead font-weight-bold">Newest Quizes</h3>
+
+                        <form className="form-inline mb-4">
+                            <div className="input-group mx-auto search w-75">
+                                <input type="text" className="form-control " placeholder=" Search quizes here ...  " aria-label="Search" />
+                                <div className="input-group-append" >
+                                    <span className="input-group-text" id="basic-addon2" type="submit"><i className="fa fa-search fa-lg"></i></span>
+                                </div>
+                            </div>
+                        </form>
+
                         {allQuizes && allQuizes.slice(0, 20).map(quiz => (
                             quiz.questions.length > 0 ?
                                 <PostItem key={quiz._id} quiz={quiz} /> : null

@@ -212,6 +212,30 @@ div.question-section {
 .question-view .card .btn-secondary {
     background-color: #157A6E;
 }
+
+.posts .search input {
+    border-radius: 5px;
+    border-color: #0975b8;
+    height: 2.32rem;
+    padding: .35rem .9rem;
+  }
+
+
+.posts .search input::placeholder {
+    font-size: .8rem;
+    margin-left: 2rem !important;
+  }
+  
+  .posts .search .input-group-append span {
+    background-color: #157A6E;
+    border-color: #157A6E;
+  }
+  
+  .posts .search .input-group-append .fa-search {
+    color: #ffffff;
+  }
+
+
 @keyframes answer {
     from {
         opacity: 0;
