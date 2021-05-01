@@ -1,6 +1,6 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react'
 import { Container, Col, Row, Form, FormGroup, Input, Button, Alert, Spinner } from 'reactstrap';
-
+import searchImg from '../../images/loupe.svg'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
@@ -65,7 +65,9 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                             <div className="input-group mx-auto search w-75">
                                 <input type="text" className="form-control " placeholder=" Search quizes here ...  " aria-label="Search" />
                                 <div className="input-group-append" >
-                                    <span className="input-group-text" id="basic-addon2" type="submit"><i className="fa fa-search fa-lg"></i></span>
+                                    <span className="input-group-text py-1 by-0" id="basic-addon2" type="submit">
+                                    <img src={searchImg} alt="search" width="14" height="14" />
+                                    </span>
                                 </div>
                             </div>
                         </form>
