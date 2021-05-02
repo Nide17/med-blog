@@ -8,6 +8,7 @@ import { setQuestions, setQuestionsLoading } from '../../redux/questions/questio
 import { createScore } from '../../redux/scores/scores.actions'
 import CountDown from './CountDown';
 import LoginModal from '../auth/LoginModal'
+import SimilarQuizes from './SimilarQuizes';
 
 const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth, readyQuiz }) => {
 
@@ -51,96 +52,101 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth, rea
                 (quiz._id === readyQuizId) ?
 
                     (quiz.questions.length > 0) ?
-                        <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80" key={Math.floor(Math.random() * 1000)}>
 
-                            {showScore ?
+                        <div key={Math.floor(Math.random() * 1000)}>
+                            <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80">
 
-                                auth.isAuthenticated ?
+                                {showScore ?
 
-                                    createScore({
-                                        marks: score,
-                                        out_of: quiz.questions.length,
-                                        category: quiz.category._id,
-                                        quiz: quiz._id,
-                                        taken_by: auth.isLoading === false ? auth.user._id : null
-                                    }) &&
+                                    auth.isAuthenticated ?
 
-                                    <div className='score-section text-center'>
+                                        createScore({
+                                            marks: score,
+                                            out_of: quiz.questions.length,
+                                            category: quiz.category._id,
+                                            quiz: quiz._id,
+                                            taken_by: auth.isLoading === false ? auth.user._id : null
+                                        }) &&
 
-                                        <h5>You get <b style={{ color: "#B4654A" }}>{score}</b> questions right from <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>.
+                                        <div className='score-section text-center'>
+
+                                            <h5>You got <b style={{ color: "#B4654A" }}>{score}</b> questions right from <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>.
                                         <small className="text-info"> (~{score * 100 / quiz.questions.length}%)</small>
-                                        </h5>
+                                            </h5>
 
-                                        <button type="button" className="btn btn-outline-success mt-3" onClick={Reload}>
-                                            Retake
-                                            </button>
-                                        &nbsp;&nbsp;
-                                        <Link to={`/review-quiz/${quiz._id}`}>
-                                            <button type="button" className="btn btn-outline-success mt-3">
-                                                Review
-                                            </button>
-                                        </Link>
-
-                                    </div> :
-
-                                    <div className='score-section text-center'>
-
-                                        <h5>You get <b style={{ color: "#B4654A" }}>{score}</b> questions right from <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>.
-                                        <small className="text-info"> (~{score * 100 / quiz.questions.length}%)</small>
-                                        </h5>
-
-                                        <a href={`/view-quiz/${quiz._id}`}>
                                             <button type="button" className="btn btn-outline-success mt-3" onClick={Reload}>
                                                 Retake
                                             </button>
-                                        </a>
+                                        &nbsp;&nbsp;
+                                        <Link to={`/review-quiz/${quiz._id}`}>
+                                                <button type="button" className="btn btn-outline-success mt-3">
+                                                    Review
+                                            </button>
+                                            </Link>
+
+                                        </div> :
+
+                                        <div className='score-section text-center'>
+
+                                            <h5>You got <b style={{ color: "#B4654A" }}>{score}</b> questions right from <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>.
+                                        <small className="text-info"> (~{score * 100 / quiz.questions.length}%)</small>
+                                            </h5>
+
+                                            <a href={`/view-quiz/${quiz._id}`}>
+                                                <button type="button" className="btn btn-outline-success mt-3" onClick={Reload}>
+                                                    Retake
+                                            </button>
+                                            </a>
                                         &nbsp;&nbsp;
                                             <button type="button" className="btn btn-outline-success mt-3 p-0">
-                                            <LoginModal review={'Login to Review'} textColor={'text-danger'} />
-                                        </button>
+                                                <LoginModal review={'Login to Review'} textColor={'text-danger'} />
+                                            </button>
 
-                                    </div> :
+                                        </div> :
 
-                                <div className="question-view">
+                                    <div className="question-view">
 
-                                    {/* Countdown */}
-                                    <CountDown
-                                        handleAnswerButtonClick={handleAnswerButtonClick}
-                                        timeInSecs={quiz.questions && quiz.questions[currentQuestion].answerOptions.length * 7 + 10} />
+                                        {/* Countdown */}
+                                        <CountDown
+                                            handleAnswerButtonClick={handleAnswerButtonClick}
+                                            timeInSecs={quiz.questions && quiz.questions[currentQuestion].answerOptions.length * 7 + 10} />
 
-                                    {/* Question */}
-                                    <Row>
-                                        <Col>
-                                            <div className='question-section my-2 mx-auto w-75'>
-                                                <h4 className='question-count text-uppercase text-center text-secondary font-weight-bold'>
-                                                    <span>Question <b style={{ color: "#B4654A" }}>{currentQuestion + 1}</b></span>/{quiz.questions.length}
-                                                </h4>
+                                        {/* Question */}
+                                        <Row>
+                                            <Col>
+                                                <div className='question-section my-2 mx-auto w-75'>
+                                                    <h4 className='question-count text-uppercase text-center text-secondary font-weight-bold'>
+                                                        <span>Question <b style={{ color: "#B4654A" }}>{currentQuestion + 1}</b></span>/{quiz.questions.length}
+                                                    </h4>
 
-                                                <h5 className='q-txt mt-4 font-weight-bold text-center'>{quiz.questions[currentQuestion].questionText && quiz.questions[currentQuestion].questionText}</h5>
-                                            </div>
-                                        </Col>
-                                    </Row>
+                                                    <h5 className='q-txt mt-4 font-weight-bold text-center'>{quiz.questions[currentQuestion].questionText && quiz.questions[currentQuestion].questionText}</h5>
+                                                </div>
+                                            </Col>
+                                        </Row>
 
-                                    {/* Answers */}
-                                    <Row>
-                                        <Col>
-                                            <div className='answer d-flex flex-column mx-auto mt-2 w-lg-50'>
+                                        {/* Answers */}
+                                        <Row>
+                                            <Col>
+                                                <div className='answer d-flex flex-column mx-auto mt-2 w-lg-50'>
 
-                                                {quiz.questions && quiz.questions[currentQuestion].answerOptions.sort(() => 0.5 - Math.random()).map((answerOption, index) => (
+                                                    {quiz.questions && quiz.questions[currentQuestion].answerOptions.sort(() => 0.5 - Math.random()).map((answerOption, index) => (
 
-                                                    <li key={index} style={{ listStyleType: "upper-latin" }} className="text-info font-weight-bold">
-                                                        <button className="answer-option my-3 p-2 btn btn-outline-info rounded" onClick={() => handleAnswerButtonClick(answerOption.isCorrect)} style={{ width: "96%" }}>
-                                                            {answerOption.answerText}
-                                                        </button>
-                                                    </li>
-                                                ))}
+                                                        <li key={index} style={{ listStyleType: "upper-latin" }} className="text-info font-weight-bold">
+                                                            <button className="answer-option my-3 p-2 btn btn-outline-info rounded" onClick={() => handleAnswerButtonClick(answerOption.isCorrect)} style={{ width: "96%" }}>
+                                                                {answerOption.answerText}
+                                                            </button>
+                                                        </li>
+                                                    ))}
 
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </div>}
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </div>}
 
-                        </Container> :
+                            </Container>
+
+                            {showScore ? <SimilarQuizes catID={quiz.category._id} /> : null}
+                        </div> :
 
                         <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80">
                             <h5>No questions to show!</h5>
