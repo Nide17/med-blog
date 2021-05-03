@@ -37,7 +37,7 @@ const SimilarQuizes = ({ catID, categories, setCategories }) => {
                                         </Card>
                                     </Col>
 
-                                )).slice(0, 2) : null
+                                )).slice(0, 3) : null
 
                         )}
 

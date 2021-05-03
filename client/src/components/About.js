@@ -11,9 +11,9 @@ const About = () => {
     return (
         <div>
             <Jumbotron className="m-md-5 py-0 text-center">
-                <h1 className="display-3 font-weight-bold">Med-Blog</h1>
+                <h1 className="display-3 font-weight-bold">Quiz-Blog</h1>
                 <p className="lead">
-                    Med Blog is a web blog application that provides a multi-category space for people to quiz from. It gives people good time to fix what they studied and even prepare for exams.
+                    Quiz Blog is a web blog application that provides a multi-category space for people to quiz from. It gives people good time to fix what they studied and even prepare for exams.
                 </p>
 
                 <hr className="my-2" />
