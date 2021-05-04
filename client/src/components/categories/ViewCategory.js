@@ -14,13 +14,13 @@ const ViewCategory = ({ allcategories, setCategories }) => {
     return (
         allcategories.slice(0, 5).map(category =>
             <React.Fragment key={category._id}>
-                <Button outline color="secondary" id={category.title.split(' ').join('-')} block className="px-0 mt-2">{category.title}</Button>
+                <Button outline color="secondary" id={category.title.split(' ').join('-')} block className="px-0 mt-2 text-capitalize">{category.title}</Button>
 
                 <UncontrolledCollapse toggler={`#${category.title.split(' ').join('-')}`} className="w-100">
                     <ListGroup>
                         {category.quizes.map(quiz =>
                             <ListGroupItem key={quiz._id} className="d-flex justify-content-between">
-                                <Link to={`/view-quiz/${quiz._id}`} className="m-0">
+                                <Link to={`/view-quiz/${quiz._id}`} className="m-0 text-capitalize">
                                 {quiz.title}
                                 </Link>
                                 <Badge color="info" className="ml-lg-2">{quiz.questions.length > 50 ? '30+' : quiz.questions.length}</Badge>

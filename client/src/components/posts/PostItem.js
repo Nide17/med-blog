@@ -30,7 +30,7 @@ const PostItem = ({ quiz, getUsers }) => {
                 </p>
             </div>
 
-            <CardText className="mt-3 text-secondary">{description && description}</CardText>
+            <CardText className="mt-3 text-secondary text-capitalize">{description && description}</CardText>
         </Card>
     )
 }

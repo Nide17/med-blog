@@ -46,7 +46,7 @@ const Contact = ({ clearErrors, error, sendMsg }) => {
             <Jumbotron className="m-md-5 py-0 text-center text-center">
                 <h1 className="display-3 font-weight-bold">Let's connect!</h1>
                 <p className="lead">
-                    Quiz Blog is a web blog application that provides a multi-category space for people to quiz from. It gives people good time to fix what they studied and even prepare for exams.
+                    Quiz Blog is a web application that provides a multi-category space for people to quiz from. It gives people good time to fix what they studied and even prepare for exams.
                 </p>
 
                 <hr className="my-2" />

@@ -124,7 +124,7 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                         <Form onSubmit={onSubscribe}>
                             <FormGroup>
                                 <h6 className="mt-4">
-                                    <b>Subscribe to our newsletter.</b>
+                                    <b>Subscribe To Our Newsletter.</b>
                                 </h6>
 
                                 <Input type="text" name="name" bsSize="sm" placeholder="Your name" className="mt-4" onChange={onChangeHandler} minLength="4" maxLength="30" required />

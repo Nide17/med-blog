@@ -31,7 +31,7 @@ const Posts = ({ setPosts, setQuizes, allQuizes }) => {
                                 <Spinner style={{ width: '5rem', height: '5rem' }} />
                             </div>
                         }>
-                        <h3 className="mb-3 text-center lead font-weight-bold">Newest Quizes</h3>
+                        <h3 className="mb-3 text-center lead font-weight-bold">All Quizes</h3>
                         {allQuizes && allQuizes.map(quiz => (
                             <PostItem key={quiz._id} quiz={quiz} />
                         ))}
