@@ -17,7 +17,7 @@ const PostItem = ({ quiz, getUsers }) => {
     return (
         <Card body className="bg-secondary py-0 py-md-3">
 
-            <CardTitle tag="h4" className="mb-0 text-primary">
+            <CardTitle tag="h4" className="mb-0 text-primary text-capitalize">
                 <Link to={`/view-quiz/${_id}`}>{title && title}
                     &nbsp;<span className="text-danger">({questions && questions.length})</span>
                 </Link>
