@@ -35,7 +35,7 @@ router.post('/login', async (req, res) => {
         role: user.role
       },
       config.get('jwtSecret'),
-      { expiresIn: '24h' }
+      { expiresIn: '2h' }
     );
 
     if (!token) throw Error('Couldnt sign the token');
@@ -93,7 +93,7 @@ router.post('/register', async (req, res) => {
         role: savedUser.role
       },
       config.get('jwtSecret'),
-      { expiresIn: '24h' }
+      { expiresIn: '2h' }
     );
 
     res.status(200).json({
