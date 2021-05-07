@@ -167,7 +167,9 @@ router.post('/forgot-password', async (req, res) => {
       createdAt: Date.now(),
     }).save();
 
-    const clientURL = config.get('CLIENT_URL')
+    const clientURL = process.env.NODE_ENV === 'production' ? 
+    'https://quiz-blog-rw.herokuapp.com': 
+    config.get('CLIENT_URL')
 
     const link = `${clientURL}/reset-password?token=${resetToken}&id=${userToReset._id}`;
 

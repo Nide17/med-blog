@@ -129,7 +129,6 @@ export const logout = () => async dispatch => {
   dispatch({
     type: LOGOUT_SUCCESS
   })
-  alert('Bye!')
 }
 
 
