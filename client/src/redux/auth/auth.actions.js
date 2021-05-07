@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { returnErrors } from '../error/error.actions'
-import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS, UPDATE_USER, DELETE_USER, UPDATE_USER_FAIL, DELETE_USER_FAIL, USERS_LOADING } from "./auth.types";
+import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS, UPDATE_USER, DELETE_USER, UPDATE_USER_FAIL, DELETE_USER_FAIL, USERS_LOADING, RESET_PASSWORD, FORGOT_PASSWORD, UNEXISTING_EMAIL } from "./auth.types";
 
 
 //HELPER FUNCTION TO GET THE TOKEN - SETUP CONFIG/headers and token
@@ -44,6 +44,7 @@ export const loadUser = () => (dispatch, getState) => {
     });
 }
 
+
 // View all users
 export const getUsers = () => async (dispatch, getState) => {
   await dispatch(setUsersLoading());
@@ -61,6 +62,7 @@ export const getUsers = () => async (dispatch, getState) => {
     dispatch(returnErrors(err.response.data, err.response.status))
   }
 };
+
 
 // Register User
 export const register = ({ name, email, password }) => dispatch => {
@@ -88,6 +90,7 @@ export const register = ({ name, email, password }) => dispatch => {
       });
     });
 }
+
 
 // Login User
 export const login = ({ email, password }) =>
@@ -129,13 +132,14 @@ export const logout = () => async dispatch => {
   alert('Bye!')
 }
 
+
 // Update a USER
 export const updateUser = updatedUser => async (dispatch, getState) => {
 
   try {
     await axios
       .put(`/api/users/${updatedUser.uId}`, updatedUser, tokenConfig(getState))
-      .then(res =>
+      .then(() =>
         dispatch({
           type: UPDATE_USER,
           payload: updatedUser
@@ -148,6 +152,45 @@ export const updateUser = updatedUser => async (dispatch, getState) => {
   }
 }
 
+// Forgot password
+export const sendResetLink = fEmail => async (dispatch) => {
+
+  try {
+
+    await axios
+      .post('/api/auth/forgot-password', fEmail)
+      .then(() =>
+        dispatch({
+          type: FORGOT_PASSWORD,
+          payload: fEmail
+        }))
+
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status, 'UNEXISTING_EMAIL'));
+    dispatch({ type: UNEXISTING_EMAIL })
+  }
+}
+
+
+// Forgot password
+export const sendNewPassword = updatePsw => async (dispatch) => {
+
+  try {
+
+    await axios
+      .post('/api/auth/reset-password', updatePsw)
+      .then(() =>
+        dispatch({
+          type: RESET_PASSWORD,
+          payload: updatePsw
+        }))
+
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status));
+  }
+}
+
+
 // Delete a USER
 export const deleteUser = id => async (dispatch, getState) => {
 
@@ -155,7 +198,7 @@ export const deleteUser = id => async (dispatch, getState) => {
     if (window.confirm("This User will be deleted permanently!")) {
       await axios
         .delete(`/api/users/${id}`, tokenConfig(getState))
-        .then(res =>
+        .then(() =>
           dispatch({
             type: DELETE_USER,
             payload: id

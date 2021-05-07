@@ -5,6 +5,8 @@ import Header from './components/Header';
 import Contact from './components/Contact';
 import About from './components/About';
 import CountDown from './components/quizes/CountDown';
+import ForgotPassword from './components/auth/ForgotPassword';
+import ResetPassword from './components/auth/ResetPassword';
 import Placeholder from './components/placeholder/Placeholder';
 
 // REDUX
@@ -63,6 +65,8 @@ const App = () => {
                         </Suspense>
                     </Route>
 
+                    <Route exact path="/forgot-password" component={ForgotPassword} />
+                    <Route exact path="/reset-password" component={ResetPassword} />
                     <Route exact path="/countdown" component={CountDown} />
                     <Route exact path="/category/:categoryId" component={SingleCategory} />
                     <Route exact path="/view-quiz/:quizId" component={GetReady} />

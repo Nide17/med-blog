@@ -11,7 +11,7 @@ class RegisterModal extends Component {
     //properties of the modal
     state = {
         // initialy doesn't show
-        modal: false,
+        modalReg: false,
         name: '',
         email: '',
         password: '',
@@ -30,21 +30,21 @@ class RegisterModal extends Component {
             }
         }
 
-        // If Authenticated, close modal
-        if (this.state.modal) {
+        // If Authenticated, close modalReg
+        if (this.state.modalReg) {
             if (isAuthenticated) {
                 this.toggle();
             }
         }
     }
 
-    //showing and hiding modal
+    //showing and hiding modalReg
     toggle = () => {
 
         // Clear errors
         this.props.clearErrors();
         this.setState({
-            modal: !this.state.modal
+            modalReg: !this.state.modalReg
         });
     };
 
@@ -74,8 +74,8 @@ class RegisterModal extends Component {
                 <NavLink onClick={this.toggle} className="text-warning">Register</NavLink>
 
                 <Modal
-                    // Set it to the state of modal true or false
-                    isOpen={this.state.modal}
+                    // Set it to the state of modalReg true or false
+                    isOpen={this.state.modalReg}
                     toggle={this.toggle}>
 
                     <ModalHeader toggle={this.toggle} className="bg-primary text-white">Register</ModalHeader>

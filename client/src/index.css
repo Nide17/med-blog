@@ -230,7 +230,18 @@ div.question-section {
     border-color: #157A6E;
 }
 
+.modal-content {
+    height: 72vh;
+}
 
+.forgot-password .search input {
+    border-radius: 25px;
+}
+
+.forgot-password button.d-block{
+    border-radius: 25px;
+    background-color: #157A6E;
+}
 @keyframes answer {
     from {
         opacity: 0;
@@ -250,6 +261,10 @@ div.question-section {
 @media(max-width: 1024px) {
     .answer-option.btn.btn-outline-info {
         transition: none;
+    }
+
+    .modal-content {
+        height: 44vh;
     }
 }
 
@@ -314,6 +329,7 @@ div.question-section {
     button.answer-option {
         width: 90% !important
     }
+
     .search input::placeholder {
         font-size: .7rem;
         margin-left: 1rem !important;
@@ -323,9 +339,28 @@ div.question-section {
         height: 1.8rem;
         padding: .35rem .9rem;
     }
-    
+
     div.input-group-append {
         height: 1.8rem;
     }
 
+    .modal-content {
+        height: 64vh;
+    }
+
+    .forgot-password .w-50 {
+        width: 100%!important;
+    }
+}
+
+@media(max-width: 400px) {
+    .modal-content {
+        height: 75vh;
+    }
+}
+
+@media(max-width: 320px) {
+    .modal-content {
+        height: 84vh;
+    }
 }

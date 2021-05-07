@@ -122,6 +122,4 @@ const mapStateToProps = state => ({
     auth: state.authReducer
 });
 
-export default connect(
-    mapStateToProps,
-    { createQuiz })(AddQuiz);
+export default connect(mapStateToProps, { createQuiz })(AddQuiz);

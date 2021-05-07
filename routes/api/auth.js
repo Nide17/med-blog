@@ -1,12 +1,15 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const config = require('config')
 const router = express.Router();
 const { auth } = require('../../middleware/auth');
+const sendEmail = require("./pswd-reset/sendEmail");
 
 // User Model
 const User = require('../../models/User');
+const PswdResetToken = require('../../models/PswdResetToken');
 
 // @route   POST api/auth/login
 // @desc    Login user
@@ -50,7 +53,7 @@ router.post('/login', async (req, res) => {
       }
     });
   } catch (err) {
-    res.status(400).json({ msg: "Network error!" });
+    res.status(400).json({ msg: "Retry!" });
   }
 });
 
@@ -60,11 +63,21 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
+  const emailTest = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+  const pswdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   // Simple validation
   if (!name || !email || !password) {
     return res.status(400).json({ msg: 'Please fill all fields' });
   }
+
+  else if (!emailTest.test(email)) {
+    return res.status(400).json({ msg: 'Please provide a valid email!' });
+}
+
+  else if (!pswdRegex.test(password)) {
+    return res.status(400).json({ msg: 'Password should be greater than 7 and having special characters, number, and uppercase and lowercase letters' });
+}
 
   try {
     const user = await User.findOne({ email });
@@ -86,6 +99,14 @@ router.post('/register', async (req, res) => {
     const savedUser = await newUser.save();
     if (!savedUser) throw Error('Something went wrong saving the user');
 
+    sendEmail(
+      savedUser.email,
+      "Welcome to Quiz Blog, your account is created!",
+      {
+        name: savedUser.name,
+      },
+      "./template/welcome.handlebars");
+
     // Sign and generate token
     const token = jwt.sign(
       {
@@ -105,10 +126,116 @@ router.post('/register', async (req, res) => {
         role: savedUser.role
       }
     });
-  } catch (e) {
-    res.status(400).json({ msg: e.message });
+  } catch (err) {
+    res.status(400).json({ msg: err.message });
   }
 });
+
+// @route  POST api/auth/forgot-password
+// @desc    
+// @access  
+
+router.post('/forgot-password', async (req, res) => {
+
+  const email = req.body.email
+
+  try {
+    const userToReset = await User.findOne({ email });
+
+    if (!userToReset) throw Error('User Does not exist');
+
+    res.json(userToReset);
+
+    // check if there is an existing token for this user & delete it.
+    let tokn = await PswdResetToken.findOne({ userId: userToReset._id });
+    if (tokn) {
+      await tokn.deleteOne()
+    };
+
+    // create a new random token 
+    let resetToken = crypto.randomBytes(32).toString("hex");
+
+    // Create salt and hash
+    const salt = await bcrypt.genSalt(10);
+    if (!salt) throw Error('Something went wrong with bcrypt');
+
+    const hash = await bcrypt.hash(resetToken, salt);
+
+    await new PswdResetToken({
+      userId: userToReset._id,
+      token: hash,
+      createdAt: Date.now(),
+    }).save();
+
+    const clientURL = config.get('CLIENT_URL')
+
+    const link = `${clientURL}/reset-password?token=${resetToken}&id=${userToReset._id}`;
+
+    sendEmail(
+      userToReset.email,
+      "Password reset for your Quiz Blog account!",
+      {
+        name: userToReset.name,
+        link: link,
+      },
+      "./template/requestResetPassword.handlebars"
+    );
+
+    return link;
+
+  } catch (err) {
+    res.status(400).json({ msg: err.message });
+  }
+});
+
+// @route   POST api/auth/reset-password
+// @desc    
+// @access  
+
+router.post('/reset-password', async (req, res) => {
+
+  const { userId, token, password } = req.body;
+
+  let passwordResetToken = await PswdResetToken.findOne({ userId });
+
+  if (!passwordResetToken) {
+    throw new Error("Invalid or expired password reset token");
+  }
+
+  const isValid = await bcrypt.compare(token, passwordResetToken.token);
+
+  if (!isValid) {
+    throw new Error("Invalid or expired password reset token");
+  }
+
+  // Create salt and hash
+  const salt = await bcrypt.genSalt(10);
+  if (!salt) throw Error('Something went wrong with bcrypt');
+
+  const hash = await bcrypt.hash(password, salt);
+
+  // process sent new data
+  await User.updateOne(
+    { _id: userId },
+    { $set: { password: hash } },
+    { new: true }
+  );
+
+  const resetUser = await User.findById({ _id: userId });
+
+  sendEmail(
+    resetUser.email,
+    "Password reset for your Quiz Blog account is successful!",
+    {
+      name: resetUser.name,
+    },
+    "./template/resetPassword.handlebars");
+
+  await passwordResetToken.deleteOne();
+
+  return true;
+})
+
 
 // @route   GET api/auth/user
 // @desc    Get user data to keep logged in user token bcz jwt data are stateless

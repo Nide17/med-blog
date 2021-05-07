@@ -12,7 +12,7 @@ class LoginModal extends Component {
     //properties of the modal
     state = {
         // initialy doesn't show
-        modal: false,
+        modalLogin: false,
         email: '',
         password: '',
         msg: null
@@ -30,21 +30,21 @@ class LoginModal extends Component {
             }
         }
 
-        // If Authenticated, Close modal
-        if (this.state.modal) {
+        // If Authenticated, Close modalLogin
+        if (this.state.modalLogin) {
             if (isAuthenticated) {
                 this.toggle();
             }
         }
     }
 
-    //showing and hiding modal
+    //showing and hiding modalLogin
     toggle = () => {
 
         // Clear errors
         this.props.clearErrors();
         this.setState({
-            modal: !this.state.modal
+            modalLogin: !this.state.modalLogin
         });
     };
 
@@ -76,7 +76,7 @@ class LoginModal extends Component {
 
                 <Modal
                     // Set it to the state of modal true or false
-                    isOpen={this.state.modal}
+                    isOpen={this.state.modalLogin}
                     toggle={this.toggle}>
 
                     <ModalHeader toggle={this.toggle} className="bg-primary text-white">Login</ModalHeader>
@@ -100,6 +100,9 @@ class LoginModal extends Component {
 
                         </Form>
 
+                        <a href="forgot-password">
+                        <p className="p-2">Forgot password?</p>
+                        </a>
                         <div className="d-flex">
                            <p className="p-2">No account yet?</p><RegisterModal />
                         </div>

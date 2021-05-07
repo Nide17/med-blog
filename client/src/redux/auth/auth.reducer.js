@@ -1,11 +1,12 @@
-import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS, DELETE_USER, UPDATE_USER, DELETE_USER_FAIL, UPDATE_USER_FAIL, USERS_LOADING } from "./auth.types";
+import { USER_LOADED, USER_LOADING, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_SUCCESS, REGISTER_FAIL, GET_USERS, DELETE_USER, UPDATE_USER, DELETE_USER_FAIL, UPDATE_USER_FAIL, USERS_LOADING, RESET_PASSWORD, FORGOT_PASSWORD, UNEXISTING_EMAIL } from "./auth.types";
 
 const INITIAL_STATE = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   isLoading: false,
   user: null,
-  users: []
+  users: [],
+  pswdResetToken: null
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -60,6 +61,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
     //Users CRUD 
     case DELETE_USER_FAIL:
     case UPDATE_USER_FAIL:
+    case UNEXISTING_EMAIL:
       return {
         ...state,
         msg: "Failed!"
@@ -77,6 +79,32 @@ const authReducer = (state = INITIAL_STATE, action) => {
               name: action.payload.name,
               role: action.payload.role,
               email: action.payload.email
+            }
+
+          } else return user;
+        })
+      }
+
+
+    case FORGOT_PASSWORD:
+      return {
+        ...state,
+        email: state.users.find(user =>
+          user.email === action.payload.email ? action.payload.email : null)
+      }
+
+
+    case RESET_PASSWORD:
+      return {
+        ...state,
+        users: state.users.map((user) => {
+
+          if (user._id === action.payload.userId) {
+
+            return {
+              ...user,
+              token: action.payload.token,
+              password: action.payload.password
             }
 
           } else return user;
