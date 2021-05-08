@@ -7,10 +7,12 @@ const sendEmail = async (email, subject, payload, template) => {
   try {
     // create reusable transporter object using the default SMTP transport
     const transporter = nodemailer.createTransport({
-      // host: 'smtp.gmail.com',
+      host: 'smtp.gmail.com',
       port: 465,
       secure: true,
-      service: 'Gmail',
+      service: 'gmail',
+      socketTimeout: 5000,
+      logger: true,
       auth: {
         // naturally, replace both with your real credentials or an application-specific password
         user: 'nidehazard10@gmail.com',
