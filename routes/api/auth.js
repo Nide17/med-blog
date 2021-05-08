@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
       }
     });
   } catch (err) {
-    res.status(400).json({ msg: "Retry!" });
+    res.status(400).json({ msg: "Failed!" });
   }
 });
 

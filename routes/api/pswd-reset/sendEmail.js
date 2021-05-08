@@ -5,6 +5,7 @@ const path = require("path");
 
 const sendEmail = async (email, subject, payload, template) => {
   try {
+
     // create reusable transporter object using the default SMTP transport
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -12,7 +13,6 @@ const sendEmail = async (email, subject, payload, template) => {
       secure: true,
       service: 'gmail',
       auth: {
-        // naturally, replace both with your real credentials or an application-specific password
         user: 'nidehazard10@gmail.com',
         pass: 'hazard17'
       },
@@ -23,7 +23,7 @@ const sendEmail = async (email, subject, payload, template) => {
 
     const options = () => {
       return {
-        from: 'nidehazard10@gmail.com',
+        from: '"Quiz Blog (no-reply)" <nidehazard10@gmail.com>',
         to: email,
         subject: subject,
         html: compiledTemplate(payload),
