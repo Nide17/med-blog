@@ -231,7 +231,7 @@ div.question-section {
 }
 
 .modal-content {
-    height: 75vh;
+    height: fit-content;
 }
 
 .forgot-password .search input {
@@ -261,10 +261,6 @@ div.question-section {
 @media(max-width: 1024px) {
     .answer-option.btn.btn-outline-info {
         transition: none;
-    }
-
-    .modal-content {
-        height: 44vh;
     }
 }
 
@@ -344,23 +340,7 @@ div.question-section {
         height: 1.8rem;
     }
 
-    .modal-content {
-        height: 64vh;
-    }
-
     .forgot-password .w-50 {
         width: 100%!important;
-    }
-}
-
-@media(max-width: 400px) {
-    .modal-content {
-        height: 75vh;
-    }
-}
-
-@media(max-width: 320px) {
-    .modal-content {
-        height: 84vh;
     }
 }
