@@ -31,8 +31,10 @@ const SimilarQuizes = ({ catID, categories, setCategories }) => {
                                         <Card body>
                                             <CardTitle tag="h5">{quiz.title} ({quiz.questions.length})</CardTitle>
                                             <CardText>{quiz.description}</CardText>
-                                            <Button>
-                                                <Link to={`/view-quiz/${quiz._id}`}>Attempt</Link>
+                                            <Button color="info">
+                                                <Link to={`/view-quiz/${quiz._id}`} className="text-white">
+                                                    Attempt
+                                                </Link>
                                             </Button>
                                         </Card>
                                     </Col>
