@@ -14,7 +14,7 @@ const sendEmail = async (email, subject, payload, template) => {
       service: 'gmail',
       auth: {
         user: 'nidehazard10@gmail.com',
-        pass: 'hazard17'
+        pass: 'jarszmvucngisiji'
       },
     });
 
