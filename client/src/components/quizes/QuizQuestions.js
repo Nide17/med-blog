@@ -10,7 +10,7 @@ import CountDown from './CountDown';
 import LoginModal from '../auth/LoginModal'
 import SimilarQuizes from './SimilarQuizes';
 
-const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth, readyQuiz }) => {
+const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [showScore, setShowScore] = useState(false);
