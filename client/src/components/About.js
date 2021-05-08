@@ -37,13 +37,13 @@ const About = () => {
 
                         <div className="d-flex">
                             <Button size="sm" color="link" className="ml-0 pl-0 mr-2">
-                                <a href="https://www.linkedin.com/in/ndatimana-patrice-bruce-20b363195/">
+                                <a href="https://www.linkedin.com/in/ndatimana-patrice-bruce-20b363195">
                                     <img src={linkedin} alt="" width="20" height="20" />
                                 </a>
                             </Button>
 
                             <Button size="sm" color="link" className="mx-2">
-                                <a href="https://www.instagram.com/dr.active4/">
+                                <a href="https://www.instagram.com/dr.active4">
                                     <img src={instagram} alt="" width="20" height="20" />
                                 </a>
                             </Button>
