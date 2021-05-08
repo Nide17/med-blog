@@ -16,6 +16,10 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
         questionText: '',
     })
 
+    const [durationState, setDurationState] = useState({
+        duration: 24
+    })
+
     const [answerOptions, setAnswerOptions] = useState([
         { id: uuidv4(), answerText: '', isCorrect: false },
     ]);
@@ -33,6 +37,11 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
     const onQuestionChangeHandler = e => {
         const { name, value } = e.target
         setQuestionText(state => ({ ...state, [name]: value }))
+    }
+
+    const onDurationChangeHandler = e => {
+        const { name, value } = e.target
+        setDurationState(durationState => ({ ...durationState, [name]: value }))
     }
 
     const handleAnswerChangeInput = (id, event) => {
@@ -78,12 +87,14 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
             category: qnQuiz.category._id,
             creation_date: Date.now,
             quiz: quizId,
-            created_by: auth.isLoading === false ? auth.user._id : null
+            created_by: auth.isLoading === false ? auth.user._id : null,
+            duration: durationState.duration
         }
         addQuestion(newQuestion);
 
         // Reset form fields
         setQuestionText({ questionText: '' })
+        setDurationState({ duration: 24 })
         setAnswerOptions([{ id: uuidv4(), answerText: '', isCorrect: false }])
     };
 
@@ -128,6 +139,13 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
                     <Label for="examplequestion" sm={2}>Question</Label>
                     <Col sm={10}>
                         <Input type="text" name="questionText" value={questionText.questionText || ""} id="examplequestion" placeholder="Question here ..." onChange={onQuestionChangeHandler} required />
+                    </Col>
+                </FormGroup>
+
+                <FormGroup row>
+                    <Label sm={2}>Question Duration</Label>
+                    <Col sm={3}>
+                        <Input type="number" name="duration" value={durationState.duration || 0} placeholder="Time in seconds ..." onChange={onDurationChangeHandler} required />
                     </Col>
                 </FormGroup>
 
