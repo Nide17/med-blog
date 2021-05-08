@@ -35,7 +35,7 @@ const QuestionSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'category',
         unique: true
-      },
+    },
     quiz: {
         type: Schema.Types.ObjectId,
         ref: 'quiz',
@@ -50,6 +50,11 @@ const QuestionSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'user',
         unique: true
+    },
+    duration: {
+        type: Number,
+        required: true,
+        default: 40
     }
 });
 

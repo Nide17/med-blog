@@ -73,7 +73,7 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
                                             <h5>You got <b style={{ color: "#B4654A" }}>{score}</b> questions right from <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>.
 
                                         <small className="text-info">
-                                                    (~{Math.round(score * 100 / quiz.questions.length)}%)
+                                                    ( ~{Math.round(score * 100 / quiz.questions.length)}%)
                                         </small></h5>
 
                                             <button type="button" className="btn btn-outline-success mt-3" onClick={Reload}>
@@ -92,16 +92,17 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
 
                                             <h5>You got <b style={{ color: "#B4654A" }}>{score}</b> questions right from <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>.
 
-<small className="text-info">
-                                                    (~{Math.round(score * 100 / quiz.questions.length)}%)
-</small></h5>
+                                                <small className="text-info">
+                                                    ( ~{Math.round(score * 100 / quiz.questions.length)}%)
+                                                </small></h5>
 
                                             <a href={`/view-quiz/${quiz._id}`}>
                                                 <button type="button" className="btn btn-outline-success mt-3" onClick={Reload}>
                                                     Retake
                                             </button>
                                             </a>
-                                        &nbsp;&nbsp;
+                                            &nbsp;&nbsp;
+
                                             <button type="button" className="btn btn-outline-success mt-3 p-0">
                                                 <LoginModal review={'Login to Review'} textColor={'text-danger'} />
                                             </button>
@@ -113,7 +114,7 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
                                         {/* Countdown */}
                                         <CountDown
                                             handleAnswerButtonClick={handleAnswerButtonClick}
-                                            timeInSecs={quiz.questions && quiz.questions[currentQuestion].answerOptions.length * 7 + 10} />
+                                            timeInSecs={quiz.questions[currentQuestion] && quiz.questions[currentQuestion].duration} />
 
                                         {/* Question */}
                                         <Row>
@@ -123,7 +124,7 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
                                                         <span>Question <b style={{ color: "#B4654A" }}>{currentQuestion + 1}</b></span>/{quiz.questions.length}
                                                     </h4>
 
-                                                    <h5 className='q-txt mt-4 font-weight-bold text-center'>{quiz.questions[currentQuestion].questionText && quiz.questions[currentQuestion].questionText}</h5>
+                                                    <h5 className='q-txt mt-4 font-weight-bold text-center'>{quiz.questions[currentQuestion] && quiz.questions[currentQuestion].questionText}</h5>
                                                 </div>
                                             </Col>
                                         </Row>

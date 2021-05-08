@@ -102,7 +102,7 @@ router.put('/:id', auth, async (req, res) => {
     const question = await Question.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
     res.status(200).json(question);
 
-    // Update the Quiz on Question creation
+    // Update the Quiz on Question updating
     await Quiz.updateOne(
       { "_id": req.body.quiz },
       { $push: { "questions": question._id } }

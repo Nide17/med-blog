@@ -35,7 +35,8 @@ const questionsReducer = (state = INITIAL_STATE, action) => {
               quiz: action.payload.quiz,
               oldQuizID: action.payload.oldQuizID,
               description: action.payload.description,
-              last_updated_by: action.payload.last_updated_by
+              last_updated_by: action.payload.last_updated_by,
+              duration: action.payload.duration
             }
 
           } else return question;
