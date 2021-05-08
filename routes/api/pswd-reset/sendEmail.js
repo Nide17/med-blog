@@ -2,20 +2,19 @@ const nodemailer = require("nodemailer");
 const handlebars = require("handlebars");
 const fs = require("fs");
 const path = require("path");
-const config = require('config')
 
 const sendEmail = async (email, subject, payload, template) => {
   try {
     // create reusable transporter object using the default SMTP transport
     const transporter = nodemailer.createTransport({
-      host: config.get('EMAIL_HOST'),
-      port: config.get('EMAIL_PORT'),
-      secure: true,
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      service: 'Gmail',
       auth: {
         // naturally, replace both with your real credentials or an application-specific password
-        user: config.get('EMAIL_USERNAME'),
-        pass: config.get('EMAIL_PASSWORD'),
+        user: 'nidehazard10@gmail.com',
+        pass: 'hazard17'
       },
     });
 
@@ -24,7 +23,7 @@ const sendEmail = async (email, subject, payload, template) => {
 
     const options = () => {
       return {
-        from: config.get('FROM_EMAIL'),
+        from: 'nidehazard10@gmail.com',
         to: email,
         subject: subject,
         html: compiledTemplate(payload),
