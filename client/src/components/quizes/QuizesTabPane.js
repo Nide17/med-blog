@@ -110,6 +110,8 @@ const QuizesTabPane = ({ currentUser, quizes, questionsData, setQuizes, setQuest
                                                     <Link to={`/view-question/${question._id}`}>
                                                                 {question.questionText}
                                                             </Link>
+                                                            <strong className="text-danger">
+                                                            ({question.answerOptions.length}) answers</strong>
                                                         </li>
                                                     </ul>
                                                 )}
