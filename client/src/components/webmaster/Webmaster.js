@@ -74,7 +74,7 @@ const Webmaster = ({ auth, error }) => {
                     </Row>
 
                     <Row className="m-4">
-                        <Col sm="12">
+                        <Col sm="12" className="px-0">
 
                             <Nav tabs className="d-block d-sm-flex">
 
@@ -126,7 +126,7 @@ const Webmaster = ({ auth, error }) => {
                             </Nav>
                         </Col>
 
-                        <Col sm="12">
+                        <Col sm="12" className="px-0">
                             <TabContent activeTab={activeTab}>
                                 <CategoriesTabPane currentUser={auth.user} />
                                 <QuizesTabPane currentUser={auth.user} />
