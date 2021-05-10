@@ -15,7 +15,7 @@ const PostItem = ({ quiz, getUsers }) => {
     let date = new Date(creation_date);
 
     return (
-        <Card body className="bg-secondary py-0 py-md-3">
+        <Card body className="bg-secondary py-3">
 
             <CardTitle tag="h4" className="mb-0 text-primary text-capitalize">
                 <Link to={`/view-quiz/${_id}`}>{title && title}
@@ -30,7 +30,7 @@ const PostItem = ({ quiz, getUsers }) => {
                 </p>
             </div>
 
-            <CardText className="mt-3 text-secondary text-capitalize">{description && description}</CardText>
+            <CardText className="mt-1 text-secondary text-capitalize">{description && description}</CardText>
         </Card>
     )
 }

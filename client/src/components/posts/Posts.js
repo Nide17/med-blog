@@ -46,14 +46,14 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
     }
 
     return (
-        <Container className="posts main mt-4">
+        <Container className="posts main px-0 mt-4">
 
             <blockquote className="blockquote text-center mt-4">
                 <h1 className="mb-0 lead text-uppercase font-weight-bold">Knowing matter, so does quizzing!</h1>
                 <small className="text-muted">Welcome, test out your wishes!</small>
             </blockquote>
 
-            <Row className="mt-5">
+            <Row className="mt-5 mx-0">
                 <Col sm="8" className="mt-md-2">
                     <Suspense
                         fallback={
