@@ -24,7 +24,7 @@ const SingleQuiz = ({ auth, allQuizes, setQuizes }) => {
 
                     quiz._id === quizId ?
                     
-                        <div className="mt-5 mx-5 single-category">
+                        <div className="mt-5 mx-3 mx-lg-5 single-category">
 
                             <Row>
                                 <Breadcrumb>

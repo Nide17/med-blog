@@ -23,10 +23,10 @@ const UsersTabPane = ({ users, getUsers, deleteUser }) => {
                     <ReactLoading type="spinningBubbles" color="#33FFFC" /> :
                     <Row>
                         {users && users.users.map(user => (
-                            <Col sm="4" key={user._id} className="mt-3 users-toast">
+                            <Col sm="3" key={user._id} className="mt-3 users-toast">
 
                                 <Toast>
-                                    <ToastHeader className="text-success">
+                                    <ToastHeader className="text-success overflow-auto">
 
                                         <strong>{user.email}</strong>
                                         <div className="actions text-secondary d-flex">

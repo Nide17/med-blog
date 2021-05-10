@@ -72,7 +72,7 @@ const QuizesTabPane = ({ currentUser, quizes, questionsData, setQuizes, setQuest
 
                                 currentUser.role === 'Admin' || currentUser._id === quiz.created_by._id ?
 
-                                    <Col sm="4" key={quiz._id} className="mt-3 quiz-toast">
+                                    <Col sm="3" key={quiz._id} className="mt-3 quiz-toast">
 
                                         <Toast>
                                             <ToastHeader className="text-success">
@@ -97,21 +97,26 @@ const QuizesTabPane = ({ currentUser, quizes, questionsData, setQuizes, setQuest
                                             </ToastHeader>
 
                                             <ToastBody>
-                                                <small>({quiz.created_by.name})</small>
-                                                <br />
                                                 {quiz.description}
-                                                <br /><br />
+                                                <br />
+                                                <small className="mb-2 text-success font-weight-bold">
+                                               🧑 By {quiz.created_by.name}
+                                                </small>
+                                                <br />
+                                                <br />
+
                                                 {quiz.questions && quiz.questions.length > 0 ? <p className="font-weight-bold">Questions ({quiz.questions.length})</p> : null}
 
                                                 {quiz && quiz.questions.map((question, index) =>
-                                                    <ul key={question._id}>
+                                                    <ul key={question._id} className="pl-1">
                                                         <li style={{ listStyle: "none" }}>
                                                             {index + 1}.&nbsp;
-                                                    <Link to={`/view-question/${question._id}`}>
+
+                                                            <Link to={`/view-question/${question._id}`}>
                                                                 {question.questionText}
                                                             </Link>
                                                             <strong className="text-danger">&nbsp;
-                                                            ({question.answerOptions.length}) answers</strong>
+                                                            ({question.answerOptions.length} answers)</strong>
                                                         </li>
                                                     </ul>
                                                 )}

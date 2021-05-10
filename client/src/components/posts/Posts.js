@@ -54,7 +54,7 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
             </blockquote>
 
             <Row className="mt-5 mx-0">
-                <Col sm="8" className="mt-md-2">
+                <Col sm="8" className="px-1 px-lg-4 mt-md-2">
                     <Suspense
                         fallback={
                             <div className="p-1 m-1 d-flex justify-content-center align-items-center">

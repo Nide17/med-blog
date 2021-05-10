@@ -238,10 +238,11 @@ div.question-section {
     border-radius: 25px;
 }
 
-.forgot-password button.d-block{
+.forgot-password button.d-block {
     border-radius: 25px;
     background-color: #157A6E;
 }
+
 @keyframes answer {
     from {
         opacity: 0;
@@ -302,6 +303,14 @@ div.question-section {
         font-size: 1.3rem !important;
     }
 
+    .posts h4 {
+        font-size: 1rem !important;
+    }
+
+    .posts .details {
+        font-size: 0.9rem !important;
+    }
+
     .tags p {
         padding-top: 0.08rem;
         padding-bottom: 0.08rem;
@@ -341,6 +350,6 @@ div.question-section {
     }
 
     .forgot-password .w-50 {
-        width: 100%!important;
+        width: 100% !important;
     }
 }

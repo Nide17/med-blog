@@ -15,7 +15,7 @@ const PostItem = ({ quiz, getUsers }) => {
     let date = new Date(creation_date);
 
     return (
-        <Card body className="bg-secondary py-3">
+        <Card body className="bg-secondary py-3 px-0">
 
             <CardTitle tag="h4" className="mb-0 text-primary text-capitalize">
                 <Link to={`/view-quiz/${_id}`}>{title && title}
@@ -23,14 +23,14 @@ const PostItem = ({ quiz, getUsers }) => {
                 </Link>
             </CardTitle>
 
-            <div className="small-text d-md-flex justify">
-                <p className="mr-5 my-1 text-dark">{date.toDateString()}</p>
-                <p className="mr-5 my-1 text-dark">-{category && category.title}
+            <div className="small-text d-flex justify">
+                <p className="mr-2 mr-md-5 my-1 text-dark">{date.toDateString()}</p>
+                <p className="mr-2 mr-md-5 my-1 text-dark">-{category && category.title}
                     <small>&nbsp;({created_by && created_by.name})</small>
                 </p>
             </div>
 
-            <CardText className="mt-1 text-secondary text-capitalize">{description && description}</CardText>
+            <CardText className="mt-1 details text-secondary text-capitalize">{description && description}</CardText>
         </Card>
     )
 }

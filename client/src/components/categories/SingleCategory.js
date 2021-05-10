@@ -29,7 +29,7 @@ const SingleCategory = ({ auth, setCategories, setQuizes, quizes, allcategories 
 
                     (category._id === categoryId) ?
 
-                        <div className="mt-5 mx-5 single-category" key={category._id}>
+                        <div className="mt-5 mx-3 mx-lg-5 single-category" key={category._id}>
 
                             <Row key={category._id}>
                                 <Breadcrumb>
@@ -40,13 +40,15 @@ const SingleCategory = ({ auth, setCategories, setQuizes, quizes, allcategories 
                                 </Breadcrumb>
                             </Row>
                             <small>
-                                <i className="text-success text-left">"{category.description}"</i>
+                                <i className="text-success text-left text-capitalize">
+                                    "{category.description}"
+                                </i>
                             </small>
 
-                            <Row className="m-4 d-flex justify-content-between align-items-center text-primary">
+                            <Row className="mx-0 mt-4 m-lg-4 d-flex justify-content-between align-items-center text-primary">
 
                                 {category.quizes.map(quiz => (
-                                    <Col sm="4" className="mt-2" key={quiz._id}>
+                                    <Col sm="4" className="mt-2 px-2" key={quiz._id}>
 
                                         <Toast className="text-center">
                                             <ToastHeader className="d-flex justify-content-between">
@@ -55,9 +57,9 @@ const SingleCategory = ({ auth, setCategories, setQuizes, quizes, allcategories 
                                             <ToastBody>
 
                                                 {quizes && quizes.allQuizes.map(qz =>
-                                                        qz._id === quiz._id ?
-                                                            <p key={qz._id} className="text-dark">Number of questions: {qz.questions.length}</p>
-                                                            : null)}
+                                                    qz._id === quiz._id ?
+                                                        <p key={qz._id} className="text-dark">Number of questions: {qz.questions.length}</p>
+                                                        : null)}
 
                                                 {auth.user._id === quiz.created_by ?
                                                     <p>

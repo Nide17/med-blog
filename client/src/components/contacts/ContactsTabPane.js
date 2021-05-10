@@ -27,7 +27,7 @@ const ContactsTabPane = ({ currentUser, contacts, getContacts, deleteContact }) 
                             <Card body>
 
                                 <CardTitle className="d-flex justify-content-between">
-                                    <Link to='#/' className="text-success">
+                                    <Link to='#' className="text-success">
                                         {contact.contact_name}
                                         &nbsp;<small>({contact.email})</small>
                                     </Link>

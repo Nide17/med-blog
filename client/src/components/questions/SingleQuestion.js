@@ -38,7 +38,7 @@ const SingleQuestion = ({ auth, quest, setQuestions, deleteQuestion }) => {
                     {quest && quest.questionsData.map(question => (
 
                         (question._id === questionId) ?
-                            <div className="mt-5 mx-5 single-category" key={question._id}>
+                            <div className="mt-5 mx-3 mx-lg-5 single-category" key={question._id}>
 
                                 <Row className="mb-3">
                                     <Breadcrumb>
