@@ -1,59 +1,81 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import ReactLoading from "react-loading";
+import LoginModal from '../auth/LoginModal'
 import { Row, Col, Toast, ToastBody, ToastHeader } from 'reactstrap';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { setScores } from '../../redux/scores/scores.actions'
 
-const Reports = ({ userId, allScores, setScores }) => {
+const Reports = ({ userId, auth, scores, setScores }) => {
 
     useEffect(() => {
         setScores();
     }, [setScores]);
 
     return (
-        <>
-            <Row className="text-center m-5 d-flex justify-content-center">
-                <h3>Your past scores</h3>
-            </Row>
 
-            <Row className="mx-0">
-                {allScores && allScores.map(score => (
+        auth.isAuthenticated ?
 
-                    score.taken_by && userId === score.taken_by._id ?
+            scores.isLoading ?
 
-                        <Col sm="3" key={score._id} className="px-2 mt-2 users-toast">
-                            <Toast>
-                                <ToastHeader className="text-success">
-                                    <strong>{score.quiz && score.quiz.title}</strong>&nbsp;
+                <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                    <ReactLoading type="cylon" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                </div> :
+
+                <>
+                    <Row className="text-center m-3 mb-1 m-lg-5 d-flex justify-content-center past-scores">
+                        <h3 className="mb-0">Your past scores</h3>
+                    </Row>
+
+                    <Row className="mx-0">
+                        {scores && scores.allScores.map(score => (
+
+                            score.taken_by && userId === score.taken_by._id ?
+
+                                <Col sm="3" key={score._id} className="px-2 mt-2 users-toast">
+                                    <Toast>
+                                        <ToastHeader className="text-success">
+                                            <strong>{score.quiz && score.quiz.title}</strong>&nbsp;
                                     <small className="d-flex align-items-center">
-                                        ({score.category && score.category.title})
+                                                ({score.category && score.category.title})
                                     </small>
-                                </ToastHeader>
+                                        </ToastHeader>
 
-                                <ToastBody>
+                                        <ToastBody>
 
-                                    {score.quiz && score.quiz.questions.length > 0 ?
-                                        <Link to={`/review-quiz/${score.quiz._id}`} className="font-weight-bold text-info">
-                                            Review Quiz
+                                            {score.quiz && score.quiz.questions.length > 0 ?
+                                                <Link to={`/review-quiz/${score.quiz._id}`} className="font-weight-bold text-info">
+                                                    Review Quiz
                                     </Link> :
-                                        <p className="text-danger">Quiz unavailable!</p>}
+                                                <p className="text-danger">Quiz unavailable!</p>}
 
-                                    <p className="mt-1">Score:&nbsp;
+                                            <p className="mt-1">Score:&nbsp;
                                         <strong className="text-warning">
-                                            {score.marks}/{score.out_of}
-                                        </strong>
-                                    </p>
-                                    <small className="text-center">
-                                        On {score.test_date.split('T').slice(0, 2).join(' at ')}
-                                    </small>
-                                </ToastBody>
-                            </Toast>
+                                                    {score.marks}/{score.out_of}
+                                                </strong>
+                                            </p>
+                                            <small className="text-center">
+                                                On {score.test_date.split('T').slice(0, 2).join(' at ')}
+                                            </small>
+                                        </ToastBody>
+                                    </Toast>
 
-                        </Col> : null
-                ))}
-            </Row>
-        </>
+                                </Col> : null
+                        ))}
+                    </Row>
+                </> :
+            // If not authenticated or loading
+            <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                {
+                    scores.isLoading ?
+                        <>
+                            <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                            <p className="d-block">Loading user ...</p>
+                        </> :
+                        <LoginModal />
+                }
+            </div>
     )
 }
 
@@ -66,7 +88,7 @@ Reports.propTypes = {
 const mapStateToProps = state => ({
     auth: state.authReducer,
     error: state.errorReducer,
-    allScores: state.scoresReducer.allScores
+    scores: state.scoresReducer
 });
 
 export default connect(mapStateToProps, { setScores })(Reports)

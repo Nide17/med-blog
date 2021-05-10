@@ -55,7 +55,7 @@ const SingleQuestion = ({ auth, quest, setQuestions, deleteQuestion }) => {
 
                                 <Row className="m-2 m-lg-4 d-block text-primary">
 
-                                    <div className="d-lg-flex mb-5 justify-content-between title-actions">
+                                    <div className="d-lg-flex mb-5 justify-content-between align-items-baseline title-actions">
                                         <h4 className="mb-4">{question.questionText}</h4>
 
                                         <div className="actions d-flex align-items-center">

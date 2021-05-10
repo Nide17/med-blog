@@ -411,4 +411,9 @@ div.question-section {
     .navbar-collapse {
         font-size: .7rem !important;
     }
+
+    .past-scores h3 {
+        font-size: .9rem;
+        font-weight: bolder!important;
+    }
 }
