@@ -247,6 +247,13 @@ div.question-section {
     background-color: #157A6E;
 }
 
+.btn-group-sm>.btn,
+.btn-sm {
+    padding: .25rem .4rem !important;
+    font-size: .7rem !important;
+    line-height: 1 !important;
+}
+
 @keyframes answer {
     from {
         opacity: 0;
@@ -387,5 +394,21 @@ div.question-section {
 
     form.create-question input {
         padding: .3rem .4rem;
+    }
+
+    .one-cat-desc {
+        font-size: .5rem;
+    }
+
+    .single-category .toast-header {
+        font-size: .65rem !important;
+    }
+
+    .single-category .toast-body {
+        font-size: .6rem !important;
+    }
+
+    .navbar-collapse {
+        font-size: .7rem !important;
     }
 }

@@ -40,19 +40,19 @@ const SingleCategory = ({ auth, setCategories, setQuizes, quizes, allcategories 
                                 </Breadcrumb>
                             </Row>
 
-                            <small className="ml-2">
+                            <small className="ml-2 one-cat-desc">
                                 <i className="text-success text-left text-capitalize">
                                     "{category.description}"
                                 </i>
                             </small>
 
-                            <Row className="mx-0 mt-4 m-lg-4 d-flex justify-content-between align-items-center text-primary">
+                            <Row className="mx-0 mt-2 m-lg-4 d-flex justify-content-between align-items-center text-primary">
 
                                 {category.quizes.map(quiz => (
                                     <Col sm="4" className="mt-2 px-2" key={quiz._id}>
 
                                         <Toast className="text-center">
-                                            <ToastHeader className="d-flex justify-content-between">
+                                            <ToastHeader className="d-flex justify-content-between text-capitalize">
                                                 {quiz.title}
                                             </ToastHeader>
                                             <ToastBody>

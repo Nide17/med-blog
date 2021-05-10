@@ -26,7 +26,7 @@ const Header = (props) => {
                 </span>
             </NavbarText>
 
-            <NavbarText className="logout ml-3">
+            <NavbarText className="logout ml-4">
                 <Logout />
             </NavbarText>
         </>
@@ -69,10 +69,10 @@ const Header = (props) => {
                         </Form>
                     </Nav>
 
-                    <NavbarText className="mr-3">
+                    <NavbarText className="mr-3 mr-md-4">
                         <Link to="/about" className="text-white">About</Link>
                     </NavbarText>
-                    <NavbarText className="mr-3">
+                    <NavbarText className="mr-3 mr-md-4">
                         <Link to="/contact" className="text-white">Contact</Link>
                     </NavbarText>
                     {isAuthenticated ? authLinks : guestLinks}
