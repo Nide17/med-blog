@@ -110,9 +110,9 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
     return (
         auth.isAuthenticated ?
 
-            <Form className="mt-5 mx-5" onSubmit={handleSubmit}>
+            <Form className="mt-2 mt-lg-5 mx-3 mx-lg-5 edit-question" onSubmit={handleSubmit}>
 
-                <Row className="mb-3">
+                <Row className="mb-0 mb-lg-3 mx-0">
                     <Breadcrumb>
                         <BreadcrumbItem>
                             <Link to={`/category/${selectedQuestion.category && selectedQuestion.category._id}`}>{selectedQuestion.category && selectedQuestion.category.title}</Link>
@@ -135,14 +135,14 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
                     null
                 }
 
-                <FormGroup row>
+                <FormGroup row className="mx-0">
                     <Label sm={2}>Question Edit</Label>
                     <Col sm={10}>
                         <Input type="text" name="questionText" value={questionTextState.questionText} placeholder="Question here ..." onChange={onQuestionChangeHandler} required />
                     </Col>
                 </FormGroup>
                 
-                <FormGroup row>
+                <FormGroup row className="mx-0">
                     <Label sm={2}>Question Duration</Label>
                     <Col sm={3}>
                         <Input type="number" name="duration" value={durationState.duration} placeholder="Time in seconds ..." onChange={onDurationChangeHandler} required />
@@ -153,12 +153,12 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
 
                     <div key={answerOption._id}>
 
-                        <FormGroup row>
-                            <Label for="exampleanswer" sm={2}>Answer</Label>
+                        <FormGroup row className="mx-0">
+                            <Label sm={2}>Answer</Label>
 
                             <Col sm={10} xl={7}>
                                 <Input type="text" name="answerText" value={answerOption.answerText}
-                                    onChange={event => handleAnswerChangeInput(answerOption._id, event)} id="exampleanswer" placeholder="Answer here ..." required />
+                                    onChange={event => handleAnswerChangeInput(answerOption._id, event)} placeholder="Answer here ..." required />
                             </Col>
 
                             <Col sm={6} xl={2} className="my-3 my-sm-2 d-sm-flex justify-content-around">
@@ -167,8 +167,8 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
                             </Col>
 
                             <Col sm={6} xl={1} className="my-3 my-sm-2">
-                                <Button disabled={answerOptionsState.length === 1} color="danger" onClick={() => handleRemoveFields(answerOption._id)}> - </Button>{' '}
-                                <Button color="danger" onClick={handleAddFields}> + </Button>{' '}
+                                <Button className="px-2 py-1" disabled={answerOptionsState.length === 1} color="danger" onClick={() => handleRemoveFields(answerOption._id)}> - </Button>{' '}
+                                <Button className="px-2 py-1"color="danger" onClick={handleAddFields}> + </Button>{' '}
                             </Col>
 
                         </FormGroup>
@@ -177,7 +177,7 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
 
                 ))}
 
-                <FormGroup check row>
+                <FormGroup check row className="mx-0">
                     <Col sm={{ size: 10, offset: 2 }} className="pl-0">
                         <Button className="btn btn-info btn-sm" type="submit" onClick={handleSubmit}>Update</Button>
                     </Col>

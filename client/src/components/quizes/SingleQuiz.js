@@ -26,7 +26,7 @@ const SingleQuiz = ({ auth, allQuizes, setQuizes }) => {
                     
                         <div className="mt-5 mx-3 mx-lg-5 single-category">
 
-                            <Row>
+                            <Row className="mb-0 mb-lg-3 mx-0">
                                 <Breadcrumb>
                                     <BreadcrumbItem><Link to="/webmaster">{quiz.category.title}</Link></BreadcrumbItem>
                                     <BreadcrumbItem active>{quiz.title}</BreadcrumbItem>

@@ -25,7 +25,7 @@ const QuizRanking = ({ auth, quizes, scores, setQuizes, setScores }) => {
                 {quizes && quizes.allQuizes.map(quiz => (
                     (quiz._id === quizId) ?
                         <div key={quiz._id} className="mt-5 mx-5 single-category">
-                            <Row>
+                            <Row className="mb-0 mb-lg-3 mx-0">
                                 <Breadcrumb>
                                     <BreadcrumbItem>
                                         <Link to="/webmaster">{quiz.category.title}</Link>

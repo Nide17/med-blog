@@ -183,6 +183,10 @@ div.question-section {
     width: 6px;
 }
 
+::-webkit-scrollbar {
+    height: 4px;
+}
+
 /* Track */
 ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 2px #157A6E;
@@ -351,5 +355,37 @@ div.question-section {
 
     .forgot-password .w-50 {
         width: 100% !important;
+    }
+
+    .breadcrumb {
+        font-size: .7rem;
+    }
+
+    .view-question h4 {
+        font-size: .7rem;
+    }
+
+    .view-question li {
+        font-size: .6rem;
+    }
+
+    .actions .btn-group-sm>.btn,
+    .btn-sm {
+        font-size: .5rem !important;
+    }
+
+    form.edit-question,
+    form.create-question {
+        font-size: .7rem;
+    }
+
+    form.edit-question input,
+    form.create-question input {
+        font-size: .6rem;
+        padding: .3rem .4rem;
+    }
+
+    form.create-question input {
+        padding: .3rem .4rem;
     }
 }

@@ -38,9 +38,9 @@ const SingleQuestion = ({ auth, quest, setQuestions, deleteQuestion }) => {
                     {quest && quest.questionsData.map(question => (
 
                         (question._id === questionId) ?
-                            <div className="mt-5 mx-3 mx-lg-5 single-category" key={question._id}>
+                            <div className="mt-2 mt-lg-5 mx-3 mx-lg-5 single-category view-question" key={question._id}>
 
-                                <Row className="mb-3">
+                                <Row className="mb-0 mb-lg-3 mx-0">
                                     <Breadcrumb>
                                         <BreadcrumbItem>
                                             <Link to={`/category/${question.category && question.category._id}`}>{question.category && question.category.title}</Link>
@@ -53,7 +53,7 @@ const SingleQuestion = ({ auth, quest, setQuestions, deleteQuestion }) => {
                                     </Breadcrumb>
                                 </Row>
 
-                                <Row className="m-4 d-block text-primary">
+                                <Row className="m-2 m-lg-4 d-block text-primary">
 
                                     <div className="d-lg-flex mb-5 justify-content-between title-actions">
                                         <h4 className="mb-4">{question.questionText}</h4>

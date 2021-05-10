@@ -111,12 +111,12 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
     return (
         auth.isAuthenticated ?
 
-            <Form className="mt-5 mx-5" onSubmit={handleSubmit}>
+            <Form className="mt-2 mt-lg-5 mx-3 mx-lg-5 create-question" onSubmit={handleSubmit}>
 
                 {
                     allQuizes && allQuizes.map(quiz =>
                         quiz._id === quizId ?
-                            (<Row key={quiz._id} className="mb-3">
+                            (<Row key={quiz._id} className="mb-0 mb-lg-3 mx-0">
                                 <Breadcrumb key={quiz._id}>
                                     <BreadcrumbItem><Link to="/webmaster">{quiz.category.title}</Link></BreadcrumbItem>
                                     <BreadcrumbItem><Link to={`/category/${quiz.category._id}`}>{quiz.title}</Link></BreadcrumbItem>
@@ -135,14 +135,14 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
                     null
                 }
 
-                <FormGroup row>
-                    <Label for="examplequestion" sm={2}>Question</Label>
+                <FormGroup row className="mx-0">
+                    <Label sm={2}>Question</Label>
                     <Col sm={10}>
-                        <Input type="text" name="questionText" value={questionText.questionText || ""} id="examplequestion" placeholder="Question here ..." onChange={onQuestionChangeHandler} required />
+                        <Input type="text" name="questionText" value={questionText.questionText || ""} placeholder="Question here ..." onChange={onQuestionChangeHandler} required />
                     </Col>
                 </FormGroup>
 
-                <FormGroup row>
+                <FormGroup row className="mx-0">
                     <Label sm={2}>Question Duration</Label>
                     <Col sm={3}>
                         <Input type="number" name="duration" value={durationState.duration || 0} placeholder="Time in seconds ..." onChange={onDurationChangeHandler} required />
@@ -153,8 +153,8 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
 
                     <div key={answerOption.id}>
 
-                        <FormGroup row>
-                            <Label for="exampleanswer" sm={2}>Answer</Label>
+                        <FormGroup row className="mx-0">
+                            <Label sm={2}>Answer</Label>
 
                             <Col sm={10} xl={7}>
                                 <Input type="text" name="answerText" value={answerOption.answerText}
@@ -167,8 +167,8 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
                             </Col>
 
                             <Col sm={6} xl={1} className="my-3 my-sm-2">
-                                <Button disabled={answerOptions.length === 1} color="danger" onClick={() => handleRemoveFields(answerOption.id)}> - </Button>{' '}
-                                <Button color="danger" onClick={handleAddFields}> + </Button>{' '}
+                                <Button className="px-2 py-1" disabled={answerOptions.length === 1} color="danger" onClick={() => handleRemoveFields(answerOption.id)}> - </Button>{' '}
+                                <Button className="px-2 py-1" color="danger" onClick={handleAddFields}> + </Button>{' '}
                             </Col>
 
                         </FormGroup>
@@ -177,7 +177,7 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
 
                 ))}
 
-                <FormGroup check row>
+                <FormGroup check row className="mx-0 pl-3">
                     <Col sm={{ size: 10, offset: 2 }} className="pl-0">
                         <Button className="btn btn-info btn-sm" type="submit" onClick={handleSubmit}>Add New</Button>
                     </Col>

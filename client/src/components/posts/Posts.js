@@ -50,7 +50,7 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
 
             <blockquote className="blockquote text-center mt-4">
                 <h1 className="mb-0 lead text-uppercase font-weight-bold">Knowing matter, so does quizzing!</h1>
-                <small className="text-muted">Welcome, test out your wishes!</small>
+                <small className="text-muted ml-2">Welcome, test out your wishes!</small>
             </blockquote>
 
             <Row className="mt-5 mx-0">

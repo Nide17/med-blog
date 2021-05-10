@@ -29,9 +29,9 @@ const SingleCategory = ({ auth, setCategories, setQuizes, quizes, allcategories 
 
                     (category._id === categoryId) ?
 
-                        <div className="mt-5 mx-3 mx-lg-5 single-category" key={category._id}>
+                        <div className="mt-2 mt-lg-5 mx-3 mx-lg-5 single-category" key={category._id}>
 
-                            <Row key={category._id}>
+                            <Row key={category._id} className="mb-0 mb-lg-3 mx-0">
                                 <Breadcrumb>
                                     <BreadcrumbItem>
                                         <Link to="/webmaster">{category.title}</Link>
@@ -39,7 +39,8 @@ const SingleCategory = ({ auth, setCategories, setQuizes, quizes, allcategories 
                                     <BreadcrumbItem active>Quizes</BreadcrumbItem>
                                 </Breadcrumb>
                             </Row>
-                            <small>
+
+                            <small className="ml-2">
                                 <i className="text-success text-left text-capitalize">
                                     "{category.description}"
                                 </i>
