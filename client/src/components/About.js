@@ -22,7 +22,7 @@ const About = () => {
 
             <Row className="about mx-md-5 my-md-5">
                 <Col sm="12">
-                    <h3 className="display-4 text-center mb-md-5 mt-0 pt-0">About the authors</h3>
+                    <h5 className="text-center mb-md-5 mt-0 pt-0 font-weight-bolder">About the authors</h5>
                 </Col>
                 <Col sm="6">
                     <CardImg top width="90%" src={bruce} alt="Card image" />

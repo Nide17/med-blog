@@ -11,7 +11,7 @@ const ViewCategory = lazy(() => import('../categories/ViewCategory'));
 
 const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, error, setQuizes, allQuizes }) => {
 
-    const [state, setState] = useState({
+    const [subscriberState, setsubscriberState] = useState({
         name: '',
         email: ''
     })
@@ -27,13 +27,13 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
     const onChangeHandler = e => {
         clearErrors();
         const { name, value } = e.target
-        setState(state => ({ ...state, [name]: value }))
+        setsubscriberState(subscriberState => ({ ...subscriberState, [name]: value }))
     };
 
     const onSubscribe = e => {
         e.preventDefault();
 
-        const { name, email } = state;
+        const { name, email } = subscriberState;
 
         // Create user object
         const subscribedUser = {
@@ -43,6 +43,12 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
 
         // Attempt to subscribe
         subscribeToNewsLetter(subscribedUser);
+
+                // Reset fields
+                setsubscriberState({
+                    name: '',
+                    email: ''
+                })
     }
 
     return (
@@ -127,9 +133,9 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                                     <b>Subscribe To Our Newsletter.</b>
                                 </h6>
 
-                                <Input type="text" name="name" bsSize="sm" placeholder="Your name" className="mt-4" onChange={onChangeHandler} minLength="4" maxLength="30" required />
+                                <Input type="text" name="name" value={subscriberState.name} bsSize="sm" placeholder="Your name" className="mt-4" onChange={onChangeHandler} minLength="4" maxLength="30" required />
 
-                                <Input type="email" name="email" bsSize="sm" placeholder="Your Email" className="mt-4" onChange={onChangeHandler} required />
+                                <Input type="email" name="email" value={subscriberState.email} bsSize="sm" placeholder="Your Email" className="mt-4" onChange={onChangeHandler} required />
 
                                 <Button color="info" size="sm" className="mt-4">Subscribe</Button>
                             </FormGroup>

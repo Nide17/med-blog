@@ -56,7 +56,7 @@ const Contact = ({ clearErrors, error, sendMsg }) => {
             <Row className="mx-2 px-1 mx-md-5 px-md-5 contact d-md-flex justify-content-center">
 
                 <Col sm="12">
-                    <h3 className="display-4 text-center mb-md-3">Contact the authors</h3>
+                    <h5 className="text-center mb-md-3 font-weight-bolder">Contact the authors</h5>
                 </Col>
 
                 <Col sm="6" className="mb-5">
@@ -76,7 +76,7 @@ const Contact = ({ clearErrors, error, sendMsg }) => {
                             <Input type="email" name="email" placeholder="Email" onChange={onChangeHandler} value={state.email} required />
                         </FormGroup>
 
-                        <FormGroup row className="mx-0">
+                        <FormGroup row>
                             <Col>
                                 <Input type="textarea" name="message" placeholder="Message" minLength="10" maxLength="300" onChange={onChangeHandler} value={state.message} required />
                             </Col>
