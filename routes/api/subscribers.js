@@ -2,6 +2,7 @@ const express = require("express");
 const config = require('config')
 const router = express.Router();
 const { auth, authRole } = require('../../middleware/auth');
+const sendEmail = require("./pswd-reset/sendEmail");
 
 // SubscribedUser Model
 const SubscribedUser = require('../../models/SubscribedUser');
@@ -49,6 +50,14 @@ router.post('/', async (req, res) => {
 
     const savedSubscriber = await newSubscriber.save();
     if (!savedSubscriber) throw Error('Something went wrong while subscribing!');
+
+    sendEmail(
+      savedSubscriber.email,
+      "Thank you for subscribing to Quiz Blog!",
+      {
+        name: savedSubscriber.name,
+      },
+      "./template/subscribe.handlebars");
 
     res.status(200).json({
       subscriber: {

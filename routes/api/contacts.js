@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const sendEmail = require("./pswd-reset/sendEmail");
 
 // auth middleware to protect routes
 const { auth, authRole } = require('../../middleware/auth');
@@ -40,6 +41,15 @@ router.post("/", async (req, res) => {
     res.send(newContact);
 
     if (!newContact) throw Error('Something went wrong!');
+
+    sendEmail(
+      newContact.email,
+      "Thank you for subscribing to Quiz Blog!",
+      {
+        name: newContact.contact_name,
+      },
+      "./template/contact.handlebars");
+
     res.status(200).json({ msg: "Sent successfully!" });
 
   } catch (err) {
