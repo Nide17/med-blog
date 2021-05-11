@@ -25,7 +25,6 @@ import ReviewQuiz from './components/quizes/ReviewQuiz';
 import QuizRanking from './components/quizes/QuizRanking';
 import AllPosts from './components/posts/AllPosts';
 
-const Questions = lazy(() => import('./components/questions/Questions'));
 const Webmaster = lazy(() => import('./components/webmaster/Webmaster'));
 const Posts = lazy(() => import('./components/posts/Posts'));
 
@@ -54,14 +53,6 @@ const App = () => {
                             <Spinner style={{ width: '10rem', height: '10rem' }} />
                         </div>}>
                             <AllPosts />
-                        </Suspense>
-                    </Route>
-
-                    <Route exact path="/questions">
-                        <Suspense fallback={<div className="p-5 m-5 d-flex justify-content-center align-items-center">
-                            <Spinner style={{ width: '10rem', height: '10rem' }} />
-                        </div>}>
-                            <Questions />
                         </Suspense>
                     </Route>
 

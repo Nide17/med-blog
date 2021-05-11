@@ -3,6 +3,7 @@ import { Row, ListGroup, ListGroupItem, Breadcrumb, BreadcrumbItem } from 'react
 import { Link, useParams, useHistory } from 'react-router-dom'
 import ReactLoading from "react-loading";
 import LoginModal from '../auth/LoginModal'
+import Reports from '../webmaster/Reports'
 import { connect } from 'react-redux';
 import { setQuestions, deleteQuestion } from '../../redux/questions/questions.actions'
 import trash from '../../images/trash.svg';
@@ -27,6 +28,8 @@ const SingleQuestion = ({ auth, quest, setQuestions, deleteQuestion }) => {
 
     return (
         auth.isAuthenticated ?
+
+        auth.user.role !== 'Visitor' ?
 
             quest.isLoading ?
 
@@ -81,6 +84,7 @@ const SingleQuestion = ({ auth, quest, setQuestions, deleteQuestion }) => {
                             </div> : null))}
                 </> :
 
+                <Reports userId={auth.user._id} /> :
             // If not authenticated or loading
             <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
                 {

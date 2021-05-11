@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Row, Col, Toast, ToastBody, ToastHeader, Breadcrumb, BreadcrumbItem, ListGroup, ListGroupItem } from 'reactstrap';
 import ReactLoading from "react-loading";
 import LoginModal from '../auth/LoginModal'
+import Reports from '../webmaster/Reports'
 import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { setQuizes } from '../../redux/quizes/quizes.actions'
@@ -18,6 +19,8 @@ const SingleQuiz = ({ auth, allQuizes, setQuizes }) => {
 
     return (
         auth.isAuthenticated ?
+
+        auth.user.role !== 'Visitor' ?
 
             <>
                 {allQuizes && allQuizes.map(quiz => (
@@ -58,6 +61,7 @@ const SingleQuiz = ({ auth, allQuizes, setQuizes }) => {
                             </Row>
                         </div> : null))}
             </> :
+                <Reports userId={auth.user._id} /> :
 
             // If not authenticated or loading
             <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">

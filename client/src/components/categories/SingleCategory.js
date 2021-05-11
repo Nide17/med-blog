@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { setCategories } from '../../redux/categories/categories.actions'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
+import Reports from '../webmaster/Reports';
 
 import AddIcon from '../../images/plus.svg';
 
@@ -23,6 +24,8 @@ const SingleCategory = ({ auth, setCategories, setQuizes, quizes, allcategories 
 
     return (
         auth.isAuthenticated ?
+
+        auth.user.role !== 'Visitor' ?
 
             <>
                 {allcategories && allcategories.map(category => (
@@ -84,6 +87,7 @@ const SingleCategory = ({ auth, setCategories, setQuizes, quizes, allcategories 
                 ))}
 
             </> :
+                <Reports userId={auth.user._id} /> :
 
             // If not authenticated or loading
             <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input } from 'reactstrap';
 import ReactLoading from "react-loading";
 import LoginModal from '../auth/LoginModal'
+import Reports from '../webmaster/Reports'
 import { connect } from 'react-redux';
 import { updateQuestion } from '../../redux/questions/questions.actions';
 import { setQuizes } from '../../redux/quizes/quizes.actions'
@@ -58,6 +59,8 @@ const ChangeQuizModal = ({ auth, updateQuestion, setQuizes, allQuizes, questionI
 
         auth.isAuthenticated ?
 
+        auth.user.role !== 'Visitor' ?
+
             <div>
                 <Button onClick={toggle} color="info" size="sm" className="mr-3 p-1 w-100">
                     Change Quiz
@@ -103,6 +106,8 @@ const ChangeQuizModal = ({ auth, updateQuestion, setQuizes, allQuizes, questionI
                     </ModalBody>
                 </Modal>
             </div> :
+
+                <Reports userId={auth.user._id} /> :
 
             // If not authenticated or loading
             <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">

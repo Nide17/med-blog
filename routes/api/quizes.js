@@ -105,7 +105,7 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 // @route UPDATE one Quiz
 // @route Private: Accessed by admin only
 
-router.put('/:id', auth, authRole(['Admin']), async (req, res) => {
+router.put('/:id', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 
     try {
         //Find the Quiz by id
@@ -126,7 +126,7 @@ router.put('/:id', auth, authRole(['Admin']), async (req, res) => {
 // @route Private: Accessed by admin only
 //:id placeholder, findById = we get it from the parameter in url
 
-router.delete('/:id', auth, authRole(['Admin']), async (req, res) => {
+router.delete('/:id', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 
     try {
         const quiz = await Quiz.findById(req.params.id);

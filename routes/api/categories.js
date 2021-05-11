@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
 // @route   GET /api/categories/:id
 // @desc    Get one category
 // @access Private: accessed by logged in user
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', authRole(['Creator', 'Admin']), async (req, res) => {
 
     let id = req.params.id;
     try {

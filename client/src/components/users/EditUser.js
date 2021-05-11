@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 
+import ReactLoading from "react-loading";
+import LoginModal from '../auth/LoginModal'
+import Reports from '../webmaster/Reports'
 import { connect } from 'react-redux';
 import { updateUser } from '../../redux/auth/auth.actions'
 import EditIcon from '../../images/edit.svg';
 
-const EditUser = ({ uId, uName, uRole, uEmail, updateUser }) => {
+const EditUser = ({ uId, auth, uName, uRole, uEmail, updateUser }) => {
 
     const [userState, setUserState] = useState({
         uId,
@@ -63,65 +66,87 @@ const EditUser = ({ uId, uName, uRole, uEmail, updateUser }) => {
         }
     }
     return (
-        <div>
-            <img src={EditIcon} onClick={toggle} alt="" width="16" height="16" className="mr-3" />
+        auth.isAuthenticated ?
 
-            <Modal
-                // Set it to the state of modal true or false
-                isOpen={modal}
-                toggle={toggle}
-            >
+            auth.user.role !== 'Visitor' ?
 
-                <ModalHeader toggle={toggle} className="bg-primary text-white">Edit User</ModalHeader>
+                <div>
+                    <img src={EditIcon} onClick={toggle} alt="" width="16" height="16" className="mr-3" />
 
-                <ModalBody>
+                    <Modal
+                        // Set it to the state of modal true or false
+                        isOpen={modal}
+                        toggle={toggle}
+                    >
 
-                    {errorsState.length > 0 ?
-                        errorsState.map(err =>
-                            <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
-                                {err}
-                            </Alert>) :
-                        null
-                    }
+                        <ModalHeader toggle={toggle} className="bg-primary text-white">Edit User</ModalHeader>
 
-                    <Form onSubmit={onSubmitHandler}>
+                        <ModalBody>
 
-                        <FormGroup>
+                            {errorsState.length > 0 ?
+                                errorsState.map(err =>
+                                    <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
+                                        {err}
+                                    </Alert>) :
+                                null
+                            }
 
-                            <Label for="name">
-                                <strong>Name</strong>
-                            </Label>
+                            <Form onSubmit={onSubmitHandler}>
 
-                            <Input type="text" name="name" id="name" placeholder="User name ..." className="mb-3" onChange={onChangeHandler} value={userState.name} />
+                                <FormGroup>
 
-                            <Label for="role">
-                                <strong>Role</strong>
-                            </Label>
+                                    <Label for="name">
+                                        <strong>Name</strong>
+                                    </Label>
 
-                            <Input type="select" name="role" id="role" placeholder="Category role ..." className="mb-3" onChange={onChangeHandler} value={userState.role}>
-                                <option>Admin</option>
-                                <option>Creator</option>
-                                <option>Visitor</option>
-                            </Input>
+                                    <Input type="text" name="name" id="name" placeholder="User name ..." className="mb-3" onChange={onChangeHandler} value={userState.name} />
 
-                            <Label for="email">
-                                <strong>Email</strong>
-                            </Label>
+                                    <Label for="role">
+                                        <strong>Role</strong>
+                                    </Label>
 
-                            <Input type="email" name="email" id="email" placeholder="Category email ..." className="mb-3" onChange={onChangeHandler} value={userState.email} />
+                                    <Input type="select" name="role" id="role" placeholder="Category role ..." className="mb-3" onChange={onChangeHandler} value={userState.role}>
+                                        <option>Admin</option>
+                                        <option>Creator</option>
+                                        <option>Visitor</option>
+                                    </Input>
 
-                            <Button color="success" style={{ marginTop: '2rem' }} block>
-                                Update
+                                    <Label for="email">
+                                        <strong>Email</strong>
+                                    </Label>
+
+                                    <Input type="email" name="email" id="email" placeholder="Category email ..." className="mb-3" onChange={onChangeHandler} value={userState.email} />
+
+                                    <Button color="success" style={{ marginTop: '2rem' }} block>
+                                        Update
                             </Button>
 
-                        </FormGroup>
+                                </FormGroup>
 
-                    </Form>
-                </ModalBody>
-            </Modal>
-        </div>
+                            </Form>
+                        </ModalBody>
+                    </Modal>
+                </div> :
+
+                <Reports userId={auth.user._id} /> :
+
+            // If not authenticated or loading
+            <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                {
+                    auth.isLoading ?
+                        <>
+                            <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                            <p className="d-block">Loading user ...</p>
+                        </> :
+                        <LoginModal />
+                }
+            </div>
     );
 }
 
+// Map  state props
+const mapStateToProps = state => ({
+    auth: state.authReducer
+});
 
-export default connect(null, { updateUser })(EditUser);
+export default connect(mapStateToProps, { updateUser })(EditUser);

@@ -3,6 +3,7 @@ import { useParams, Link, useHistory } from 'react-router-dom'
 import { Button, Row, Col, Form, FormGroup, Label, Input, CustomInput, Breadcrumb, BreadcrumbItem, Alert } from 'reactstrap';
 import ReactLoading from "react-loading";
 import LoginModal from '../auth/LoginModal'
+import Reports from '../webmaster/Reports'
 import { connect } from 'react-redux';
 import { setQuestions, updateQuestion } from '../../redux/questions/questions.actions';
 
@@ -110,6 +111,8 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
     return (
         auth.isAuthenticated ?
 
+        auth.user.role !== 'Visitor' ?
+
             <Form className="mt-2 mt-lg-5 mx-3 mx-lg-5 edit-question" onSubmit={handleSubmit}>
 
                 <Row className="mb-0 mb-lg-3 mx-0">
@@ -183,8 +186,9 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
                     </Col>
                 </FormGroup>
 
-            </Form>
-            :
+            </Form>:
+            
+                <Reports userId={auth.user._id} /> :
 
             // If not authenticated or loading
             <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">

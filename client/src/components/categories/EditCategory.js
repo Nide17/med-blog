@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink, Alert } from 'reactstrap';
 import PropTypes from 'prop-types';
 
+import ReactLoading from "react-loading";
+import LoginModal from '../auth/LoginModal'
+import Reports from '../webmaster/Reports'
+
 import { connect } from 'react-redux';
 import { updateCategory } from '../../redux/categories/categories.actions';
 import EditIcon from '../../images/edit.svg';
@@ -64,6 +68,10 @@ const EditCategory = ({ idToUpdate, editTitle, editingCategory, auth, updateCate
         }
     }
     return (
+        auth.isAuthenticated ?
+
+        auth.user.role !== 'Visitor' ?
+
         <div>
             <NavLink onClick={toggle} className="text-dark p-0">
                 <img src={EditIcon} alt="" width="16" height="16" />
@@ -112,7 +120,21 @@ const EditCategory = ({ idToUpdate, editTitle, editingCategory, auth, updateCate
                     </Form>
                 </ModalBody>
             </Modal>
-        </div>
+        </div> :
+
+                <Reports userId={auth.user._id} /> :
+
+            // If not authenticated or loading
+            <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                {
+                    auth.isLoading ?
+                        <>
+                            <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                            <p className="d-block">Loading user ...</p>
+                        </> :
+                        <LoginModal />
+                }
+            </div>
     );
 }
 

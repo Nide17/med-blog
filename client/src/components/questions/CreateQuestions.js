@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Button, Row, Col, Form, FormGroup, Label, Input, CustomInput, Breadcrumb, BreadcrumbItem, Alert } from 'reactstrap';
 import ReactLoading from "react-loading";
 import LoginModal from '../auth/LoginModal'
+import Reports from '../webmaster/Reports'
 import { connect } from 'react-redux';
 import { addQuestion } from '../../redux/questions/questions.actions';
 import { setCategories } from '../../redux/categories/categories.actions'
@@ -111,6 +112,8 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
     return (
         auth.isAuthenticated ?
 
+        auth.user.role !== 'Visitor' ?
+
             <Form className="mt-2 mt-lg-5 mx-3 mx-lg-5 create-question" onSubmit={handleSubmit}>
 
                 {
@@ -184,6 +187,7 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
                 </FormGroup>
 
             </Form> :
+                <Reports userId={auth.user._id} /> :
 
             // If not authenticated or loading
             <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">

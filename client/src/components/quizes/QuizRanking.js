@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import ReactLoading from "react-loading";
 import LoginModal from '../auth/LoginModal'
+import Reports from '../webmaster/Reports'
 import { Link, useParams } from 'react-router-dom'
 import { Row, Table, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { connect } from 'react-redux'
@@ -21,6 +22,8 @@ const QuizRanking = ({ auth, quizes, scores, setQuizes, setScores }) => {
     return (
 
         auth.isAuthenticated ?
+
+        auth.user.role !== 'Visitor' ?
             <>
                 {quizes && quizes.allQuizes.map(quiz => (
                     (quiz._id === quizId) ?
@@ -68,6 +71,7 @@ const QuizRanking = ({ auth, quizes, scores, setQuizes, setScores }) => {
 
                 </Row>
             </> :
+                <Reports userId={auth.user._id} /> :
 
             // If not authenticated or loading
             <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">

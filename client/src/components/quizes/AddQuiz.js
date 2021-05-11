@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink, Alert } from 'reactstrap';
 import AddIcon from '../../images/plus.svg';
 
+import ReactLoading from "react-loading";
+import LoginModal from '../auth/LoginModal'
+import Reports from '../webmaster/Reports'
 import { connect } from 'react-redux';
 import { createQuiz } from '../../redux/quizes/quizes.actions';
 
@@ -64,6 +67,10 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
     }
 
     return (
+        auth.isAuthenticated ?
+
+        auth.user.role !== 'Visitor' ?
+
         <div>
             <NavLink onClick={toggle} className="text-success p-0">
                 <img src={AddIcon} alt="" width="10" height="10" className="mb-1" />
@@ -113,7 +120,21 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
                     </Form>
                 </ModalBody>
             </Modal>
-        </div>
+        </div> :
+
+                <Reports userId={auth.user._id} /> :
+
+            // If not authenticated or loading
+            <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                {
+                    auth.isLoading ?
+                        <>
+                            <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                            <p className="d-block">Loading user ...</p>
+                        </> :
+                        <LoginModal />
+                }
+            </div>
     );
 }
 

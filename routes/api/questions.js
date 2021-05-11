@@ -95,7 +95,7 @@ router.post("/", auth, authRole(['Admin', 'Creator']), async (req, res) => {
 // @route UPDATE one Question
 // @access Private: Accessed by admin only
 
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id', authRole(['Creator', 'Admin']), async (req, res) => {
 
   try {
     //Find the Question by id
@@ -128,7 +128,7 @@ router.put('/:id', auth, async (req, res) => {
 // @route Private: Accessed by admin only
 
 //:id placeholder, findId=we get it from the parameter in url
-router.delete('/:id', auth, authRole(['Admin']), async (req, res) => {
+router.delete('/:id', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 
   try {
     //Find the Question to delete by id first

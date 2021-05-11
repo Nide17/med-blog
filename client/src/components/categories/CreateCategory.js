@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink, Alert } from 'reactstrap';
 import PropTypes from 'prop-types';
 
+import ReactLoading from "react-loading";
+import LoginModal from '../auth/LoginModal'
+import Reports from '../webmaster/Reports'
+
 import { connect } from 'react-redux';
 import { createCategory } from '../../redux/categories/categories.actions';
 
@@ -70,53 +74,71 @@ const CreateCategory = ({ auth, createCategory }) => {
     }
 
     return (
-        <div>
-            <NavLink onClick={toggle} className="text-success p-0"><b>+</b> Create Category</NavLink>
+        auth.isAuthenticated ?
 
-            <Modal
-                // Set it to the state of modal true or false
-                isOpen={modal}
-                toggle={toggle}
-            >
+            auth.user.role !== 'Visitor' ?
 
-                <ModalHeader toggle={toggle} className="bg-primary text-white">
-                    Create Category
+                <div>
+                    <NavLink onClick={toggle} className="text-success p-0"><b>+</b> Create Category</NavLink>
+
+                    <Modal
+                        // Set it to the state of modal true or false
+                        isOpen={modal}
+                        toggle={toggle}
+                    >
+
+                        <ModalHeader toggle={toggle} className="bg-primary text-white">
+                            Create Category
                     </ModalHeader>
 
-                <ModalBody>
+                        <ModalBody>
 
-                    {errorsState.length > 0 ?
-                        errorsState.map(err =>
-                            <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
-                                {err}
-                            </Alert>) :
-                        null
-                    }
+                            {errorsState.length > 0 ?
+                                errorsState.map(err =>
+                                    <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
+                                        {err}
+                                    </Alert>) :
+                                null
+                            }
 
-                    <Form onSubmit={onSubmitHandler}>
+                            <Form onSubmit={onSubmitHandler}>
 
-                        <FormGroup>
+                                <FormGroup>
 
-                            <Label for="name">
-                                <strong>Title</strong>
-                            </Label>
+                                    <Label for="name">
+                                        <strong>Title</strong>
+                                    </Label>
 
-                            <Input type="text" name="name" id="name" placeholder="Category name ..." className="mb-3" onChange={onChangeHandler} />
+                                    <Input type="text" name="name" id="name" placeholder="Category name ..." className="mb-3" onChange={onChangeHandler} />
 
-                            <Label for="description">
-                                <strong>Description</strong>
-                            </Label>
+                                    <Label for="description">
+                                        <strong>Description</strong>
+                                    </Label>
 
-                            <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={onChangeHandler} />
+                                    <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={onChangeHandler} />
 
-                            <Button color="success" style={{ marginTop: '2rem' }} block >Create</Button>
+                                    <Button color="success" style={{ marginTop: '2rem' }} block >Create</Button>
 
-                        </FormGroup>
+                                </FormGroup>
 
-                    </Form>
-                </ModalBody>
-            </Modal>
-        </div>
+                            </Form>
+                        </ModalBody>
+                    </Modal>
+                </div> :
+
+                <Reports userId={auth.user._id} /> :
+
+            // If not authenticated or loading
+            <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                {
+                    auth.isLoading ?
+                        <>
+                            <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                            <p className="d-block">Loading user ...</p>
+                        </> :
+                        <LoginModal />
+                }
+            </div>
     );
 }
 

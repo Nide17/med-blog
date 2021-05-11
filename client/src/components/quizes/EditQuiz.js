@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import PropTypes from 'prop-types';
 
+import ReactLoading from "react-loading";
+import LoginModal from '../auth/LoginModal'
+import Reports from '../webmaster/Reports'
+
 import { connect } from 'react-redux';
 import { updateQuiz } from '../../redux/quizes/quizes.actions'
 import EditIcon from '../../images/edit.svg';
-// import { clearErrors } from '../../redux/error/error.actions'
 
 const EditQuiz = ({ qId, qTitle, qDesc, auth, updateQuiz }) => {
 
@@ -64,53 +67,72 @@ const EditQuiz = ({ qId, qTitle, qDesc, auth, updateQuiz }) => {
         }
     }
     return (
-        <div>
-            <img src={EditIcon} onClick={toggle} alt="" width="16" height="16" className="mr-3" />
 
-            <Modal
-                // Set it to the state of modal true or false
-                isOpen={modal}
-                toggle={toggle}
-            >
+        auth.isAuthenticated ?
 
-                <ModalHeader toggle={toggle} className="bg-primary text-white">Edit Quiz</ModalHeader>
+            auth.user.role !== 'Visitor' ?
 
-                <ModalBody>
+                <div>
+                    <img src={EditIcon} onClick={toggle} alt="" width="16" height="16" className="mr-3" />
 
-                    {errorsState.length > 0 ?
-                        errorsState.map(err =>
-                            <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
-                                {err}
-                            </Alert>) :
-                        null
-                    }
+                    <Modal
+                        // Set it to the state of modal true or false
+                        isOpen={modal}
+                        toggle={toggle}
+                    >
 
-                    <Form onSubmit={onSubmitHandler}>
+                        <ModalHeader toggle={toggle} className="bg-primary text-white">Edit Quiz</ModalHeader>
 
-                        <FormGroup>
+                        <ModalBody>
 
-                            <Label for="name">
-                                <strong>Title</strong>
-                            </Label>
+                            {errorsState.length > 0 ?
+                                errorsState.map(err =>
+                                    <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
+                                        {err}
+                                    </Alert>) :
+                                null
+                            }
 
-                            <Input type="text" name="name" id="name" placeholder="Quiz name ..." className="mb-3" onChange={onChangeHandler} value={quizState.name} />
+                            <Form onSubmit={onSubmitHandler}>
 
-                            <Label for="description">
-                                <strong>Description</strong>
-                            </Label>
+                                <FormGroup>
 
-                            <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={onChangeHandler} value={quizState.description} />
+                                    <Label for="name">
+                                        <strong>Title</strong>
+                                    </Label>
 
-                            <Button color="success" style={{ marginTop: '2rem' }} block>
-                                Update
+                                    <Input type="text" name="name" id="name" placeholder="Quiz name ..." className="mb-3" onChange={onChangeHandler} value={quizState.name} />
+
+                                    <Label for="description">
+                                        <strong>Description</strong>
+                                    </Label>
+
+                                    <Input type="text" name="description" id="description" placeholder="Category description ..." className="mb-3" onChange={onChangeHandler} value={quizState.description} />
+
+                                    <Button color="success" style={{ marginTop: '2rem' }} block>
+                                        Update
                                 </Button>
 
-                        </FormGroup>
+                                </FormGroup>
 
-                    </Form>
-                </ModalBody>
-            </Modal>
-        </div>
+                            </Form>
+                        </ModalBody>
+                    </Modal>
+                </div> :
+
+                <Reports userId={auth.user._id} /> :
+
+            // If not authenticated or loading
+            <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                {
+                    auth.isLoading ?
+                        <>
+                            <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                            <p className="d-block">Loading user ...</p>
+                        </> :
+                        <LoginModal />
+                }
+            </div>
     );
 }
 
