@@ -140,6 +140,20 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
                                 <Button color="info" size="sm" className="mt-4">Subscribe</Button>
                             </FormGroup>
                         </Form>
+
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
+                        </script>
+                        <ins class="adsbygoogle"
+                            style={{display: "block"}}
+                            data-ad-client="ca-pub-1898078821661554"
+                            data-ad-slot="4872807059"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true">
+                            </ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+
                     </Row>
                 </Col>
 
