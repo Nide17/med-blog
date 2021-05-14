@@ -91,18 +91,18 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
                                             
                                             {Math.round(score * 100 / quiz.questions.length) < 50 ?
                                                     <>
-                                                        <h4 className="text-center text-danger mt-5">
+                                                        <h4 className="text-center text-danger my-5">
                                                 You failed! please contact us for important books, guidance to review.
                                                 </h4>
 
-                                                        <Link to="/contact" className="text-success mt-5">
+                                                        <Link to="/contact" className="text-success">
                                                     <button type="button" className="btn btn-outline-success">
                                                             Contact us for more
                                                     </button>
                                                 </Link>
                                                     </>
                                                 :
-                                                    <h4 className="text-center text-success mt-5">
+                                                    <h4 className="text-center text-success my-5">
                                                 Congratulations, you passed this test!
                                                 </h4>}
                                             </div>
@@ -125,25 +125,25 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
                                             &nbsp;&nbsp;
 
                                             <button type="button" className="btn btn-outline-success mt-3 p-0">
-                                                <LoginModal review={'Login to Review'} textColor={'text-danger'} />
+                                                <LoginModal review={'Login to Review'} textColor={'text-info'} />
                                             </button>
 
                                             <div className="marks-status">
 
                                                 {Math.round(score * 100 / quiz.questions.length) < 50 ?
                                                     <>
-                                                        <h4 className="text-center text-danger mt-5">
+                                                        <h4 className="text-center text-danger my-5">
                                                             You failed! please contact us for important books, guidance to review.
                                                         </h4>
 
-                                                        <Link to="/contact" className="text-success mt-5">
+                                                        <Link to="/contact" className="text-success">
                                                             <button type="button" className="btn btn-outline-success">
                                                                 Contact us for more
-                                                    </button>
+                                                            </button>
                                                         </Link>
                                                     </>
                                                     :
-                                                    <h4 className="text-center text-success mt-5">
+                                                    <h4 className="text-center text-success my-5">
                                                         Congratulations, you passed this test!
                                                 </h4>}
                                             </div>
