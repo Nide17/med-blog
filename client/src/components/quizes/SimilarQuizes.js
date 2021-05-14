@@ -19,7 +19,8 @@ const SimilarQuizes = ({ catID, categories, setCategories }) => {
                     <ReactLoading type="bubbles" color="#33FFFC" className="mx-auto" /> :
 
                     <Row className="similar-quizes mx-3">
-                        <h4 className="text-center col-12 mb-4">You may also like</h4>
+                        <h4 className="text-center col-12 mb-4 font-weight-bolder">
+                        Similar quizes you may also like to take</h4>
 
                         {categories && categories.allcategories.map(category =>
 

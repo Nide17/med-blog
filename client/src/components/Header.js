@@ -8,11 +8,10 @@ import Logout from './auth/Logout';
 import logo from '../images/quizLogo.svg'
 import { connect } from 'react-redux';
 
-const Header = (props) => {
+const Header = ({ auth }) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
-    // const { isAuthenticated, user } = props.auth;
 
     const authLinks = (
         <>
@@ -20,10 +19,9 @@ const Header = (props) => {
                 <span>
                     <Link to="/webmaster">
                     <small className="text-warning">
-                            {props.auth.user && props.auth.user ? `Account (${props.auth.user.name.split(" ")[0]})` : ''}
+                            {auth.user && auth.user ? `Account (${auth.user.name})` : ''}
                         </small>
                     </Link>
-                    {console.log(props.auth.user)}
                 </span>
             </NavbarText>
 
@@ -76,7 +74,7 @@ const Header = (props) => {
                     <NavbarText className="mr-3 mr-md-4">
                         <Link to="/contact" className="text-white">Contact</Link>
                     </NavbarText>
-                    {props.auth.isAuthenticated ? authLinks : guestLinks}
+                    {auth.isAuthenticated ? authLinks : guestLinks}
                 </Collapse>
 
             </Navbar>
