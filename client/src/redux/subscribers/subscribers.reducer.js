@@ -40,7 +40,7 @@ const postsReducer = (state = INITIAL_STATE, action) => {
       case DELETE_SUBSCRIBER:
         return {
           ...state,
-          subscribedUsers: state.subscribedUsers.filter(subscriber => subscriber._id !== action.payload)
+          subscribedUsers: state.subscribedUsers.filter(subscriber => subscriber.email !== action.uemail)
         }
 
         case SUBSCRIBERS_LOADING:

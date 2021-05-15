@@ -108,7 +108,8 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
                         name: sub.name,
                         author: quizAuthor.name,
                         newQuiz: savedQuiz.title,
-                        quizesLink: `${clientURL}/view-quiz/${savedQuiz._id}`
+                        quizesLink: `${clientURL}/view-quiz/${savedQuiz._id}`,
+                        unsubscribeLink: `${clientURL}/unsubscribe`
                     },
                     "./template/newquiz.handlebars");
             });

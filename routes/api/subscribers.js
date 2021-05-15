@@ -49,12 +49,15 @@ router.post('/', async (req, res) => {
 
     const savedSubscriber = await newSubscriber.save();
     if (!savedSubscriber) throw Error('Something went wrong while subscribing!');
-
+    const clientURL = process.env.NODE_ENV === 'production' ?
+      'http://www.quizblog.xyz' : 'http://localhost:3000'
+      
     sendEmail(
       savedSubscriber.email,
       "Thank you for subscribing to Quiz Blog!",
       {
         name: savedSubscriber.name,
+        unsubscribeLink: `${clientURL}/unsubscribe`
       },
       "./template/subscribe.handlebars");
 
@@ -93,20 +96,20 @@ router.get('/:id', auth, authRole(['Admin']), async (req, res) => {
 
 // @route DELETE api/subscribers
 // @route delete a subscriber
-// @route Private: Accessed by admin only
+// @route Private: Accessed by authenticated people only
 
 //:id placeholder, findId=we get it from the parameter in url
-router.delete('/:id', auth, authRole(['Admin']), async (req, res) => {
+router.delete('/:uemail', auth, async (req, res) => {
 
   try {
     //Find the subscriber to delete by id first
-    const subscriber = await SubscribedUser.findById(req.params.id);
+    const subscriber = await SubscribedUser.findOne({email: req.params.uemail});
     if (!subscriber) throw Error('subscriber is not found!')
 
     const removedSubscriber = await subscriber.remove();
 
     if (!removedSubscriber)
-      throw Error('Something went wrong while deleting!');
+      throw Error('Something went wrong while unsubscribing!');
 
   } catch (err) {
     res.status(400).json({

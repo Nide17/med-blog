@@ -7,6 +7,7 @@ import About from './components/About';
 import CountDown from './components/quizes/CountDown';
 import ForgotPassword from './components/auth/ForgotPassword';
 import ResetPassword from './components/auth/ResetPassword';
+import Unsubscribe from './components/auth/Unsubscribe';
 import Placeholder from './components/placeholder/Placeholder';
 
 // REDUX
@@ -56,6 +57,7 @@ const App = () => {
                         </Suspense>
                     </Route>
 
+                    <Route exact path="/unsubscribe" component={Unsubscribe} />
                     <Route exact path="/forgot-password" component={ForgotPassword} />
                     <Route exact path="/reset-password" component={ResetPassword} />
                     <Route exact path="/countdown" component={CountDown} />
