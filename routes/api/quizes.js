@@ -4,9 +4,11 @@ const router = express.Router();
 // Quiz Model
 const Quiz = require('../../models/Quiz');
 const Category = require('../../models/Category');
-const Question = require('../../models/Question');
+const User = require('../../models/User');
+const SubscribedUser = require('../../models/SubscribedUser');
 
 const { auth, authRole } = require('../../middleware/auth');
+const sendEmail = require("./pswd-reset/sendEmail");
 
 // @route   GET /api/quizes
 // @desc    Get all quizes
@@ -79,13 +81,39 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 
         const savedQuiz = await newQuiz.save();
 
+        if (!savedQuiz) throw Error('Something went wrong during creation!');
+
         // Update the Category on Quiz creation
         await Category.updateOne(
             { "_id": category },
             { $push: { "quizes": savedQuiz._id } }
         );
 
-        if (!savedQuiz) throw Error('Something went wrong during creation!');
+        // IF THE CATEGORY IS NURSING
+        if (savedQuiz.category === '607df6aa5560040015c0291a') {
+
+            // Send email to subscribers the Category on Quiz creation
+            const subscribers = await SubscribedUser.find()
+            const quizAuthor = await User.findById(savedQuiz.created_by).select("name")
+
+            const clientURL = process.env.NODE_ENV === 'production' ?
+                'http://www.quizblog.xyz' : 'http://localhost:3000'
+
+            subscribers.forEach(sub => {
+
+                sendEmail(
+                    sub.email,
+                    "Updates!! New nursing quiz that may be interests you",
+                    {
+                        name: sub.name,
+                        author: quizAuthor.name,
+                        newQuiz: savedQuiz.title,
+                        quizesLink: `${clientURL}/view-quiz/${savedQuiz._id}`
+                    },
+                    "./template/newquiz.handlebars");
+            });
+
+        }
 
         res.status(200).json({
             _id: savedQuiz._id,
@@ -94,6 +122,7 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
             category: savedQuiz.category,
             created_by: savedQuiz.created_by
         });
+
 
     } catch (err) {
         res.status(400).json({ msg: err.message });

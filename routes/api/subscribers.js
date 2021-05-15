@@ -7,7 +7,6 @@ const sendEmail = require("./pswd-reset/sendEmail");
 // SubscribedUser Model
 const SubscribedUser = require('../../models/SubscribedUser');
 
-
 // @route   GET /api/subscribers
 // @desc    Get subscribers
 // @access  Private: Accessed by admin only

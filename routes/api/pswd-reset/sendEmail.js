@@ -21,6 +21,7 @@ const sendEmail = async (email, subject, payload, template) => {
     const source = fs.readFileSync(path.join(__dirname, template), "utf8");
     const compiledTemplate = handlebars.compile(source);
 
+    // Mail options
     const options = () => {
       return {
         from: '"Quiz Blog (no-reply)" <nidehazard10@gmail.com>',
@@ -29,10 +30,10 @@ const sendEmail = async (email, subject, payload, template) => {
         html: compiledTemplate(payload),
         attachments: [
           {
-              filename: 'quizLogo.jpg',
-              path: __dirname + '/template/quizLogo.jpg'
+            filename: 'quizLogo.jpg',
+            path: __dirname + '/template/quizLogo.jpg'
           }
-      ]
+        ]
       };
     };
 
@@ -48,6 +49,7 @@ const sendEmail = async (email, subject, payload, template) => {
         return info;
       }
     });
+
   } catch (err) {
     return console.log({ msg: err.message });
   }
