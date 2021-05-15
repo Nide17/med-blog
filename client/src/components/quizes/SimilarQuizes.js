@@ -28,7 +28,7 @@ const SimilarQuizes = ({ catID, categories, setCategories }) => {
 
                                 category && category.quizes.map(quiz => (
 
-                                    <Col sm="4" key={quiz._id}>
+                                    <Col sm="4" key={quiz._id} className="mt-2">
                                         <Card body>
                                             <CardTitle tag="h5">{quiz.title} ({quiz.questions.length})</CardTitle>
                                             <CardText>{quiz.description}</CardText>

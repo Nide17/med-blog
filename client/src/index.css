@@ -416,9 +416,16 @@ div.question-section {
         font-size: .7rem !important;
     }
 
-    .past-scores h3 {
+    .past-scores h3,
+    .similar-quizes h4 {
         font-size: .9rem;
         font-weight: bolder!important;
+    }
+
+    .marks-status h4,
+    .score-section h5 {
+        font-size: .8rem;
+        font-weight: bolder !important;
     }
 
     .all-scores {
