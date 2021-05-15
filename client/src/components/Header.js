@@ -19,7 +19,7 @@ const Header = ({ auth }) => {
                 <span>
                     <Link to="/webmaster">
                     <small className="text-warning">
-                            {auth.user && auth.user ? `Account (${auth.user.name})` : ''}
+                            {auth.user && auth.user ? `Account (${auth.user.name.split(" ")[0]})` : ''}
                         </small>
                     </Link>
                 </span>

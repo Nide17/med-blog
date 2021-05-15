@@ -14,6 +14,7 @@ import UsersTabPane from '../users/UsersTabPane';
 import Reports from './Reports';
 import LoginModal from '../auth/LoginModal'
 import ContactsTabPane from '../contacts/ContactsTabPane';
+import ScoresTabPane from './ScoresTabPane';
 
 const Webmaster = ({ auth, error }) => {
     // State
@@ -120,6 +121,15 @@ const Webmaster = ({ auth, error }) => {
                                                     Contacts
                                                 </NavLink>
                                             </NavItem>
+
+                                            <NavItem>
+                                                <NavLink
+                                                    className={classnames({ active: activeTab === '6' })}
+                                                    onClick={() => { toggle('6'); }}>
+                                                    All scores
+                                                </NavLink>
+                                            </NavItem>
+
                                         </> : null
                                 }
 
@@ -133,6 +143,7 @@ const Webmaster = ({ auth, error }) => {
                                 <SubscribersTabPane />
                                 <UsersTabPane />
                                 <ContactsTabPane currentUser={auth.user} />
+                                <ScoresTabPane currentUser={auth.user} />
                             </TabContent>
                         </Col>
 

@@ -60,8 +60,6 @@ const scoresReducer = (state = INITIAL_STATE, action) => {
             isLoading: true
           }
     
-  
-
     default:
       return state;
   }

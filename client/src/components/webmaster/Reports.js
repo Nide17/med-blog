@@ -65,6 +65,7 @@ const Reports = ({ userId, auth, scores, setScores }) => {
                         ))}
                     </Row>
                 </> :
+                
             // If not authenticated or loading
             <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
                 {
