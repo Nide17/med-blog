@@ -90,7 +90,7 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
         );
 
         // IF THE CATEGORY IS NURSING
-        if (savedQuiz.category === '607df6aa5560040015c0291a') {
+        if (savedQuiz.category == "607df6aa5560040015c0291a") {
 
             // Send email to subscribers the Category on Quiz creation
             const subscribers = await SubscribedUser.find()
@@ -114,6 +114,10 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
                     "./template/newquiz.handlebars");
             });
 
+        }
+
+        else {
+            throw Error('Something went wrong');
         }
 
         res.status(200).json({

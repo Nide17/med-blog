@@ -51,7 +51,7 @@ router.post('/', async (req, res) => {
     if (!savedSubscriber) throw Error('Something went wrong while subscribing!');
     const clientURL = process.env.NODE_ENV === 'production' ?
       'http://www.quizblog.xyz' : 'http://localhost:3000'
-      
+
     sendEmail(
       savedSubscriber.email,
       "Thank you for subscribing to Quiz Blog!",
@@ -103,7 +103,7 @@ router.delete('/:uemail', auth, async (req, res) => {
 
   try {
     //Find the subscriber to delete by id first
-    const subscriber = await SubscribedUser.findOne({email: req.params.uemail});
+    const subscriber = await SubscribedUser.findOne({ email: req.params.uemail });
     if (!subscriber) throw Error('subscriber is not found!')
 
     const removedSubscriber = await subscriber.remove();
