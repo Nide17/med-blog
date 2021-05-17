@@ -49,6 +49,8 @@ router.post('/', async (req, res) => {
 
     const savedSubscriber = await newSubscriber.save();
     if (!savedSubscriber) throw Error('Something went wrong while subscribing!');
+
+        // Sending e-mail to subscribed user
     const clientURL = process.env.NODE_ENV === 'production' ?
       'http://www.quizblog.xyz' : 'http://localhost:3000'
 

@@ -7,6 +7,7 @@ const { auth, authRole } = require('../../middleware/auth');
 
 //Contact Model : use capital letters since it's a model
 const Contact = require('../../models/Contact');
+const User = require('../../models/User');
 
 // @route GET api/contacts
 // @route Get All contacts
@@ -42,13 +43,27 @@ router.post("/", async (req, res) => {
 
     if (!newContact) throw Error('Something went wrong!');
 
+    // Sending e-mail to contacted user
     sendEmail(
       newContact.email,
-      "Thank you for subscribing to Quiz Blog!",
+      "Thank you for contacting to Quiz Blog!",
       {
         name: newContact.contact_name,
       },
       "./template/contact.handlebars");
+
+    // Sending e-mail to admins
+    const admins = await User.find({ role: 'Admin' }).select("email")
+
+    admins.forEach(ad => {
+      sendEmail(
+        ad.email,
+        "A new message, someone contacted us!",
+        {
+          cEmail: newContact.email
+        },
+        "./template/contactAdmin.handlebars");
+    })
 
     res.status(200).json({ msg: "Sent successfully!" });
 
