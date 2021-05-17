@@ -27,7 +27,7 @@ const SubscribersTabPane = ({ subscribedUsers, setSubscribers, deleteSubscriber 
 
                                     <CardTitle tag="div" className="d-flex justify-content-between">
                                         <p className="mb-0">{subscribedUser.name.split(' ').slice(0, 2).join(' ')}</p>
-                                        <Button size="sm" color="link" className="mt-0 p-0" onClick={() => deleteSubscriber(subscribedUser._id)}>
+                                        <Button size="sm" color="link" className="mt-0 p-0 d-none" onClick={() => deleteSubscriber(subscribedUser._id)}>
                                             <img src={trash} alt="" width="16" height="16" />
                                         </Button>
                                     </CardTitle>
