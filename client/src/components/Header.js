@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Form, FormGroup, NavbarText, Button } from 'reactstrap';
-import { Link } from "react-router-dom";
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Form, FormGroup, NavbarText, Button } from 'reactstrap'; import { Link, useLocation } from "react-router-dom";
 import PropTypes from 'prop-types';
 import RegisterModal from './auth/RegisterModal';
 import LoginModal from './auth/LoginModal';
@@ -13,12 +12,14 @@ const Header = ({ auth }) => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
 
+    let location = useLocation();
+
     const authLinks = (
         <>
             <NavbarText className="mx-0 text-warning">
                 <span>
                     <Link to="/webmaster">
-                    <small className="text-warning">
+                        <small className="text-warning">
                             {auth.user && auth.user ? `Account (${auth.user.name.split(" ")[0]})` : ''}
                         </small>
                     </Link>
@@ -67,6 +68,15 @@ const Header = ({ auth }) => {
                             </FormGroup>
                         </Form>
                     </Nav>
+
+                    {
+                        location.pathname !== '/' ?
+
+                        <Button color="success" size="md" className="mr-3 mr-md-4">
+                        <Link to="/" className="text-white">Back Home</Link>
+                        </Button> :
+                            null
+                    }
 
                     <NavbarText className="mr-3 mr-md-4">
                         <Link to="/about" className="text-white">About</Link>
