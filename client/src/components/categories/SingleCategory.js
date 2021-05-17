@@ -60,6 +60,10 @@ const SingleCategory = ({ auth, setCategories, setQuizes, quizes, allcategories 
                                             </ToastHeader>
                                             <ToastBody>
 
+                                                <small className="text-center text-info">
+                                                    <i>{quiz.description}</i>
+                                                </small>
+
                                                 {quizes && quizes.allQuizes.map(qz =>
                                                     qz._id === quiz._id ?
                                                         <p key={qz._id} className="text-dark">Number of questions: {qz.questions.length}</p>

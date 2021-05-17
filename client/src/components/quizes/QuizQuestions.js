@@ -83,7 +83,7 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
 
                                         <Link to={`/review-quiz/${quiz._id}`}>
                                                 <button type="button" className="btn btn-outline-success mt-3">
-                                                    Review
+                                                    Review Answers
                                                 </button>
                                         </Link>
 

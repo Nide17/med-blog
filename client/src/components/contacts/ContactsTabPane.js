@@ -42,7 +42,9 @@ const ContactsTabPane = ({ currentUser, contacts, getContacts, deleteContact }) 
                                 </CardTitle>
 
                                 <CardText>{contact.message}</CardText>
-
+                                <small className="text-info">
+                                    <i>Sent on {contact.contact_date.split('T').slice(0, 2).join(' at ')}</i>
+                                </small>
                             </Card>
                         </Col>
                     ))}

@@ -38,6 +38,9 @@ const UsersTabPane = ({ users, getUsers, deleteUser }) => {
                                     <ToastBody>
                                         <p className="font-weight-bold">{user.name}</p>
                                         <p>{user.role}</p>
+                                        <small className="text-center text-info">
+                                            <i>Registered on {user.register_date.split('T').slice(0, 2).join(' at ')}</i>
+                                        </small>
                                     </ToastBody>
                                 </Toast>
 
