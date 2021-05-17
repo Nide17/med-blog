@@ -37,7 +37,7 @@ const ContactsTabPane = ({ currentUser, contacts, getContacts, deleteContact }) 
 
                                             <div className="action-btns">
                                                 <Button color="success" size="sm" className="mr-1 mr-md-1">
-                                                    <ReplyContactModal to={contact.email} contactID={contact._id} />
+                                                    <ReplyContactModal to={contact.email} to_name={contact.contact_name} contact_question={contact.message} contactID={contact._id} />
                                                 </Button>
                                                 <Button size="sm" color="link" className="mr-2" onClick={() => deleteContact(contact._id)}>
                                                     <img src={DeleteIcon} alt="" width="16" height="16" />

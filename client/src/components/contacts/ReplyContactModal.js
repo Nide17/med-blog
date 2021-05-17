@@ -54,6 +54,9 @@ class ReplyContactModal extends Component {
         const reply = {
             reply_name: this.props.auth.user.name,
             email,
+            to_contact: this.props.to,
+            to_contact_name: this.props.to_name,
+            contact_question: this.props.contact_question,
             message
         };
 

@@ -46,7 +46,7 @@ router.post("/", async (req, res) => {
     // Sending e-mail to contacted user
     sendEmail(
       newContact.email,
-      "Thank you for contacting to Quiz Blog!",
+      "Thank you for contacting Quiz Blog!",
       {
         name: newContact.contact_name,
       },
@@ -107,6 +107,17 @@ router.put('/:id', authRole(['Creator', 'Admin']), async (req, res) => {
       { $push: { "replies": req.body } },
       { new: true }
     );
+
+    // Send Reply email
+    sendEmail(
+      req.body.to_contact,
+      "New message! Quiz Blog replied!",
+      {
+        name: req.body.to_contact_name,
+        question: req.body.contact_question,
+        answer: req.body.message,
+      },
+      "./template/reply.handlebars");
 
     res.status(200).json(contact);
 
