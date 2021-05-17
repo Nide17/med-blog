@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { getContacts, deleteContact } from '../../redux/contacts/contacts.actions'
 import ReactLoading from "react-loading";
 import DeleteIcon from '../../images/remove.svg';
+import ReplyContactModal from './ReplyContactModal'
 
 const ContactsTabPane = ({ currentUser, contacts, getContacts, deleteContact }) => {
 
@@ -34,9 +35,14 @@ const ContactsTabPane = ({ currentUser, contacts, getContacts, deleteContact }) 
                                     {
                                         currentUser.role === 'Admin' ?
 
-                                            <Button size="sm" color="link" className="mr-2" onClick={() => deleteContact(contact._id)}>
-                                                <img src={DeleteIcon} alt="" width="16" height="16" />
-                                            </Button>
+                                            <div className="action-btns">
+                                                <Button color="success" size="sm" className="mr-1 mr-md-1">
+                                                    <ReplyContactModal to={contact.email} contactID={contact._id} />
+                                                </Button>
+                                                <Button size="sm" color="link" className="mr-2" onClick={() => deleteContact(contact._id)}>
+                                                    <img src={DeleteIcon} alt="" width="16" height="16" />
+                                                </Button>
+                                            </div>
                                             : null
                                     }
                                 </CardTitle>

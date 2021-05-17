@@ -1,4 +1,4 @@
-import { GET_CONTACTS, ADD_CONTACT, DELETE_CONTACT, ADD_CONTACT_FAIL, DELETE_CONTACT_FAIL, CONTACTS_LOADING } from "./contacts.types";
+import { GET_CONTACTS, ADD_CONTACT, DELETE_CONTACT, ADD_CONTACT_FAIL, DELETE_CONTACT_FAIL, REPLY_CONTACT_FAIL, CONTACTS_LOADING, REPLY_CONTACT } from "./contacts.types";
 import axios from 'axios';
 
 import { tokenConfig } from '../auth/auth.actions'
@@ -41,6 +41,24 @@ export const sendMsg = (contactMsg) => async (dispatch) => {
   }
 };
 
+// Reply a contact
+export const replyContact = (idToUpdate, reply) => async (dispatch, getState) => {
+
+  try {
+    await axios
+      .put(`/api/contacts/${idToUpdate}`, reply, tokenConfig(getState))
+      .then(() =>
+        dispatch({
+          type: REPLY_CONTACT,
+          payload: reply
+        }),
+        alert('Replied Successfully!'))
+
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status, 'REPLY_CONTACT_FAIL'));
+    dispatch({ type: REPLY_CONTACT_FAIL });
+  }
+}
 
 // Delete a Contact
 export const deleteContact = id => async (dispatch, getState) => {

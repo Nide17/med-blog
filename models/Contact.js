@@ -21,6 +21,28 @@ const ContactSchema = new Schema({
     contact_date: {
         type: Date,
         default: Date.now
+    },
+    replies: {
+        type: [
+            {
+                reply_name: {
+                    type: String,
+                    required: true
+                },
+                email: {
+                    type: String,
+                    required: true
+                },
+                message: {
+                    type: String,
+                    required: true
+                },
+                reply_date: {
+                    type: Date,
+                    default: Date.now
+                }
+            }
+        ]
     }
 });
 

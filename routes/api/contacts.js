@@ -93,6 +93,31 @@ router.get('/:id', authRole(['Admin']), (req, res) => {
     .catch(err => res.status(404).json({ success: false }));
 });
 
+// @route PUT api/contacts/:id
+// @route Replying a contact
+// @access Private: Accessed by admin only
+
+router.put('/:id', authRole(['Creator', 'Admin']), async (req, res) => {
+
+  try {
+
+    // Update the Quiz on Contact updating
+    const contact = await Contact.updateOne(
+      { "_id": req.params.id },
+      { $push: { "replies": req.body } },
+      { new: true }
+    );
+
+    res.status(200).json(contact);
+
+  } catch (err) {
+    res.status(400).json({
+      msg: 'Failed to update! ' + err.message,
+      success: false
+    });
+  }
+});
+
 
 // @route DELETE api/contacts
 // @route delete a Contact
