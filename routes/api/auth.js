@@ -26,10 +26,10 @@ router.post('/login', async (req, res) => {
   try {
     // Check for existing user
     const user = await User.findOne({ email });
-    if (!user) throw Error('User Does not exist');
+    if (!user) throw Error('User Does not exist!');
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) throw Error('Invalid credentials');
+    if (!isMatch) throw Error('Incorrect E-mail or Password!');
 
     // Sign and generate token
     const token = jwt.sign(
@@ -41,7 +41,7 @@ router.post('/login', async (req, res) => {
       { expiresIn: '2h' }
     );
 
-    if (!token) throw Error('Couldnt sign the token');
+    if (!token) throw Error('Couldnt sign in, try again!');
 
     res.status(200).json({
       token,
