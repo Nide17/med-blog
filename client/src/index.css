@@ -174,8 +174,9 @@ div.question-section {
     justify-content: space-between;
 }
 
-.quiz-toast .toast {
-    height: 140px !important;
+.quiz-toast .toast,
+.contact-card .card {
+    height: 160px !important;
     overflow-y: scroll !important;
 }
 
@@ -255,7 +256,7 @@ div.question-section {
 }
 
 .all-scores {
-    font-size: .9rem!important;
+    font-size: .9rem !important;
 }
 
 @keyframes answer {
@@ -419,7 +420,7 @@ div.question-section {
     .past-scores h3,
     .similar-quizes h4 {
         font-size: .9rem;
-        font-weight: bolder!important;
+        font-weight: bolder !important;
     }
 
     .marks-status h4,

@@ -23,14 +23,14 @@ const ContactsTabPane = ({ currentUser, contacts, getContacts, deleteContact }) 
                 <Row>
                     {contacts && contacts.contacts.map(contact => (
 
-                        <Col sm="6" className="mt-2" key={contact._id}>
+                        <Col sm="6" className="mt-2 contact-card" key={contact._id}>
 
                             <Card body>
 
                                 <CardTitle className="d-flex justify-content-between">
                                     <Link to='#' className="text-success">
                                         {contact.contact_name}
-                                        &nbsp;<small>({contact.email})</small>
+                                        &nbsp;<small>({contact.email})</small> said:
                                     </Link>
                                     {
                                         currentUser.role === 'Admin' ?
@@ -51,6 +51,26 @@ const ContactsTabPane = ({ currentUser, contacts, getContacts, deleteContact }) 
                                 <small className="text-info">
                                     <i>Sent on {contact.contact_date.split('T').slice(0, 2).join(' at ')}</i>
                                 </small>
+                                <br />
+                                {contact.replies && contact.replies.length > 0 ? <p className="font-weight-bold">Replies ({contact.replies.length})</p> : null}
+
+                                {contact && contact.replies.map((reply) =>
+                                    <ul key={reply._id} className="pl-1">
+
+                                        <li style={{ listStyle: "none" }} className="text-info">
+                                            <strong>{reply.reply_name}</strong>&nbsp;
+                                            <small>({reply.email})</small> said:
+
+                                            <br />
+                                            <div className="text-dark">
+                                            <i className="d-block">
+                                                {reply.message}
+                                            </i>
+                                            <small>{reply.reply_date.split('T').slice(0, 2).join(' at ')}</small>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                )}
                             </Card>
                         </Col>
                     ))}
