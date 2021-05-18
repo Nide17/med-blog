@@ -24,17 +24,17 @@ const ResetPassword = ({ sendNewPassword }) => {
         const { password, password1 } = newPasswords;
 
         // Simple validation
-        const pswdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        // const pswdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
         if (!password || !password1) {
             setErrorsState(['Fill empty fields!']);
             return
         }
 
-        else if (!pswdRegex.test(password)) {
-            setErrorsState(['Password should be greater than 7 and having special characters, number, and uppercase and lowercase letters']);
-            return
-        }
+        // else if (!pswdRegex.test(password)) {
+        //     setErrorsState(['Password should be greater than 7 and having special characters, number, and uppercase and lowercase letters']);
+        //     return
+        // }
 
         else if (password !== password1) {
             setErrorsState(['Passwords must match!']);

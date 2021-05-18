@@ -64,7 +64,7 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
   const emailTest = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-  const pswdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  // const pswdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   // Simple validation
   if (!name || !email || !password) {
@@ -75,9 +75,9 @@ router.post('/register', async (req, res) => {
     return res.status(400).json({ msg: 'Please provide a valid email!' });
 }
 
-  else if (!pswdRegex.test(password)) {
-    return res.status(400).json({ msg: 'Password should be greater than 7 and having special characters, number, and uppercase and lowercase letters' });
-}
+//   else if (!pswdRegex.test(password)) {
+//     return res.status(400).json({ msg: 'Password should be greater than 7 and having special characters, number, and uppercase and lowercase letters' });
+// }
 
   try {
     const user = await User.findOne({ email });
