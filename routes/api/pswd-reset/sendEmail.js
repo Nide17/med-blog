@@ -13,8 +13,8 @@ const sendEmail = async (email, subject, payload, template) => {
       secure: true,
       service: 'gmail',
       auth: {
-        user: 'nidehazard10@gmail.com',
-        pass: 'jarszmvucngisiji'
+        user: 'quizblog.rw@gmail.com',
+        pass: 'xyjgfnuhxaoxtfbb'
       },
     });
 
@@ -24,7 +24,7 @@ const sendEmail = async (email, subject, payload, template) => {
     // Mail options
     const options = () => {
       return {
-        from: '"Quiz Blog (no-reply)" <nidehazard10@gmail.com>',
+        from: '"no-reply@quizblog.rw" <quizblog.rw@gmail.com>',
         to: email,
         subject: subject,
         html: compiledTemplate(payload),
