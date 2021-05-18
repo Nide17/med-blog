@@ -92,7 +92,7 @@ router.post("/", auth, authRole(['Admin', 'Creator']), async (req, res) => {
 });
 
 // @route PUT api/questions/:id
-// @route UPDATE one Question
+// @route Move question from one quiz to another
 // @access Private: Accessed by admin only
 
 router.put('/:id', authRole(['Creator', 'Admin']), async (req, res) => {
@@ -134,6 +134,12 @@ router.delete('/:id', auth, authRole(['Creator', 'Admin']), async (req, res) => 
     //Find the Question to delete by id first
     const question = await Question.findById(req.params.id);
     if (!question) throw Error('Question is not found!')
+
+    // Delete question from the quiz
+    await Quiz.updateOne(
+      { "_id": question.quiz },
+      { $pull: { "questions": question._id } }
+    );
 
     const removedQuestion = await question.remove();
 
