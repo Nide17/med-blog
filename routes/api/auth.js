@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
       }
     });
   } catch (err) {
-    res.status(400).json({ msg: "Failed!" });
+    res.status(400).json({ msg: err.message });
   }
 });
 

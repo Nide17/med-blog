@@ -166,6 +166,13 @@ router.delete('/:id', auth, authRole(['Creator', 'Admin']), async (req, res) => 
         const quiz = await Quiz.findById(req.params.id);
         if (!quiz) throw Error('Quiz is not found!')
 
+        // Delete quiz from the category
+        await Category.updateOne(
+            { "_id": quiz.category },
+            { $pull: { "quizes": quiz._id } }
+        );
+
+
         const removedQuiz = await quiz.remove();
 
         if (!removedQuiz)

@@ -12,7 +12,7 @@ const ViewCategory = ({ allcategories, setCategories }) => {
     }, [setCategories]);
 
     return (
-        allcategories.slice(0, 5).map(category =>
+        allcategories.slice(0, 10).map(category =>
             <React.Fragment key={category._id}>
                 <Button outline color="secondary" id={category.title.split(' ').join('-')} block className="px-0 mt-2 text-capitalize">
                     {category.title}
