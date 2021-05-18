@@ -17,7 +17,9 @@ const About = () => {
                 </p>
 
                 <hr className="my-2" />
-                <p>Reach us on <strong> brucendati@gmail.com </strong>for further details.</p>
+                <p>Reach us on <strong>
+                <a href="mailto:quizblog.rw@gmail.com?subject=Contact%20Quiz%20Blog">quizblog.rw@gmail.com</a>
+                 </strong> for further details.</p>
             </Jumbotron>
 
             <Row className="about mx-md-5 my-md-5">
