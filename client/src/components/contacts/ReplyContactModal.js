@@ -62,6 +62,8 @@ class ReplyContactModal extends Component {
 
         // Attempt to reply
         this.props.replyContact(this.props.contactID, reply);
+        // close the modal
+        this.toggle();
     }
 
     render() {
@@ -69,42 +71,42 @@ class ReplyContactModal extends Component {
 
             this.props.auth.isAuthenticated ?
 
-            <div>
-                <span onClick={this.toggle}>Reply</span>
-                <Modal
-                    // Set it to the state of modal true or false
-                    isOpen={this.state.modalReply}
-                    toggle={this.toggle}>
+                <div>
+                    <span onClick={this.toggle}>Reply</span>
+                    <Modal
+                        // Set it to the state of modal true or false
+                        isOpen={this.state.modalReply}
+                        toggle={this.toggle}>
 
-                    <ModalHeader toggle={this.toggle} className="bg-primary text-white">Reply</ModalHeader>
-                    <ModalBody>
+                        <ModalHeader toggle={this.toggle} className="bg-primary text-white">Reply</ModalHeader>
+                        <ModalBody>
 
-                        {this.state.msg ? (
-                            <Alert color='danger'>{this.state.msg}</Alert>) : null}
-                        <Form onSubmit={this.onSubmitHandler}>
+                            {this.state.msg ? (
+                                <Alert color='danger'>{this.state.msg}</Alert>) : null}
+                            <Form onSubmit={this.onSubmitHandler}>
 
-                            <FormGroup>
+                                <FormGroup>
 
-                                <Label for="email">To</Label>
-                                <Input type="email" name="email" placeholder="To ..." className="mb-3" onChange={this.onChangeHandler} value={this.props.to}/>
+                                    <Label for="email">To</Label>
+                                    <Input type="email" name="email" placeholder="To ..." className="mb-3" onChange={this.onChangeHandler} value={this.props.to} />
 
-                                <Label for="email">From</Label>
-                                <Input type="email" name="email" placeholder="From ..." className="mb-3" onChange={this.onChangeHandler} value={this.state.email} />
+                                    <Label for="email">From</Label>
+                                    <Input type="email" name="email" placeholder="From ..." className="mb-3" onChange={this.onChangeHandler} value={this.state.email} />
 
-                                <FormGroup row>
-                                    <Col>
-                                        <Input type="textarea" name="message" placeholder="Message" minLength="10" maxLength="300" onChange={this.onChangeHandler} value={this.state.message} required />
-                                    </Col>
+                                    <FormGroup row>
+                                        <Col>
+                                            <Input type="textarea" name="message" placeholder="Message" minLength="10" maxLength="300" onChange={this.onChangeHandler} value={this.state.message} required />
+                                        </Col>
+                                    </FormGroup>
+
+                                    <Button color="warning" style={{ marginTop: '2rem' }} block>Reply</Button>
+
                                 </FormGroup>
 
-                                <Button color="warning" style={{ marginTop: '2rem' }} block>Reply</Button>
+                            </Form>
 
-                            </FormGroup>
-
-                        </Form>
-
-                    </ModalBody>
-                </Modal>
+                        </ModalBody>
+                    </Modal>
                 </div> :
 
                 // If not authenticated or loading
