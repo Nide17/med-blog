@@ -24,7 +24,7 @@ const sendEmail = async (email, subject, payload, template) => {
     // Mail options
     const options = () => {
       return {
-        from: '"no-reply@quizblog.rw" <quizblog.rw@gmail.com>',
+        from: '"quizblog.rw(Quiz Blog)" <quizblog.rw@gmail.com>',
         to: email,
         subject: subject,
         html: compiledTemplate(payload),
