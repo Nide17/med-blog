@@ -1,20 +1,11 @@
-import { SET_POSTS, SUBSCRIBETONEWSLETTER, SET_SUBSCRIBERS, SUBSCRIBE_FAIL, DELETE_SUBSCRIBER, DELETE_SUBSCRIBER_FAIL, SUBSCRIBERS_LOADING } from "./subscribers.types";
+import { SUBSCRIBETONEWSLETTER, SET_SUBSCRIBERS, SUBSCRIBE_FAIL, DELETE_SUBSCRIBER, DELETE_SUBSCRIBER_FAIL, SUBSCRIBERS_LOADING } from "./subscribers.types";
 import axios from 'axios';
 
 import { tokenConfig } from '../auth/auth.actions'
 import { returnErrors } from "../error/error.actions";
-import pData from "./postsData";
 
 // dispatch(action)
 // Dispatches an action. This is the only way to trigger a state change.
-
-export const setPosts = () => {
-
-  return {
-    type: SET_POSTS,
-    payload: pData
-  };
-};
 
 export const setSubscribers = () => async (dispatch, getState) => {
   await dispatch(setSubscribersLoading());

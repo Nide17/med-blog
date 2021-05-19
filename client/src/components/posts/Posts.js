@@ -4,12 +4,12 @@ import SearchInput from '../SearchInput'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
-import { setPosts, subscribeToNewsLetter } from '../../redux/subscribers/subscribers.actions'
+import { subscribeToNewsLetter } from '../../redux/subscribers/subscribers.actions'
 import { clearErrors } from '../../redux/error/error.actions'
 const PostItem = lazy(() => import('./PostItem'));
 const ViewCategory = lazy(() => import('../categories/ViewCategory'));
 
-const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, error, setQuizes, allQuizes }) => {
+const Posts = ({ subscribeToNewsLetter, subscribedUsers, clearErrors, error, setQuizes, allQuizes }) => {
 
     const [subscriberState, setsubscriberState] = useState({
         name: '',
@@ -20,9 +20,8 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
 
     useEffect(() => {
         // Inside this callback function, we set posts when the component is mounted.
-        setPosts();
         setQuizes()
-    }, [setPosts, setQuizes]);
+    }, [setQuizes]);
 
     const onChangeHandler = e => {
         clearErrors();
@@ -143,7 +142,7 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
 
                         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
                         </script>
-                        <ins class="adsbygoogle"
+                        <ins className="adsbygoogle"
                             style={{display: "block"}}
                             data-ad-client="ca-pub-1898078821661554"
                             data-ad-slot="4872807059"
@@ -163,11 +162,10 @@ const Posts = ({ setPosts, subscribeToNewsLetter, subscribedUsers, clearErrors, 
 }
 
 const mapStateToProps = state => ({
-    postsData: state.postsReducer.postsData,
     error: state.errorReducer,
-    subscribedUsers: state.postsReducer.subscribedUsers,
+    subscribedUsers: state.subscribersReducer.subscribedUsers,
     allQuizes: state.quizesReducer.allQuizes,
     questionsData: state.questionsReducer.questionsData,
 })
 
-export default connect(mapStateToProps, { setPosts, subscribeToNewsLetter, clearErrors, setQuizes })(Posts)
+export default connect(mapStateToProps, { subscribeToNewsLetter, clearErrors, setQuizes })(Posts)

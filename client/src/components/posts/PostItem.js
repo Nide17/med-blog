@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Card, CardTitle, CardText } from 'reactstrap';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
-import { getUsers } from '../../redux/auth/auth.actions'
 
-const PostItem = ({ quiz, getUsers }) => {
-
-    useEffect(() => {
-        getUsers()
-    }, [getUsers]);
+const PostItem = ({ quiz }) => {
 
     const { _id, title, description, creation_date, category, created_by, questions } = quiz
 
@@ -35,8 +30,7 @@ const PostItem = ({ quiz, getUsers }) => {
     )
 }
 const mapStateToProps = state => ({
-    postsData: state.postsReducer.postsData,
     users: state.authReducer.users
 })
 
-export default connect(mapStateToProps, { getUsers })(PostItem)
+export default connect(mapStateToProps, { })(PostItem)

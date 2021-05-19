@@ -50,7 +50,7 @@ const SubscribersTabPane = ({ subscribedUsers, setSubscribers, deleteSubscriber 
 }
 
 const mapStateToProps = state => ({
-    subscribedUsers: state.postsReducer
+    subscribedUsers: state.subscribersReducer
 })
 
 export default connect(mapStateToProps, { setSubscribers, deleteSubscriber })(SubscribersTabPane)

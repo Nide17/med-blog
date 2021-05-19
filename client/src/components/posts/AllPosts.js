@@ -3,16 +3,15 @@ import { Container, Col, Row, Spinner } from 'reactstrap';
 
 import { connect } from 'react-redux'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
-import { setPosts, subscribeToNewsLetter } from '../../redux/subscribers/subscribers.actions'
+import { subscribeToNewsLetter } from '../../redux/subscribers/subscribers.actions'
 const PostItem = lazy(() => import('./PostItem'));
 
-const Posts = ({ setPosts, setQuizes, allQuizes }) => {
+const Posts = ({ setQuizes, allQuizes }) => {
 
     useEffect(() => {
         // Inside this callback function, we set posts when the component is mounted.
-        setPosts();
         setQuizes()
-    }, [setPosts, setQuizes]);
+    }, [setQuizes]);
 
     return (
         <Container className="posts main mt-4">
@@ -47,4 +46,4 @@ const mapStateToProps = state => ({
     allQuizes: state.quizesReducer.allQuizes,
 })
 
-export default connect(mapStateToProps, { setPosts, subscribeToNewsLetter, setQuizes })(Posts)
+export default connect(mapStateToProps, { subscribeToNewsLetter, setQuizes })(Posts)

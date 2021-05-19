@@ -1,20 +1,18 @@
 import { SET_POSTS, SUBSCRIBETONEWSLETTER, SET_SUBSCRIBERS, SUBSCRIBE_FAIL, DELETE_SUBSCRIBER, DELETE_SUBSCRIBER_FAIL, SUBSCRIBERS_LOADING } from "./subscribers.types";
 
 const INITIAL_STATE = {
-  postsData: [],
   subscribedUsers: [],
   isLoading: true
 };
 
-const postsReducer = (state = INITIAL_STATE, action) => {
+const subscribersReducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
     case SET_POSTS:
       return {
         ...state,
-        isLoading: false,
-        postsData: action.payload
+        isLoading: false
       };
 
     case SET_SUBSCRIBERS:
@@ -55,4 +53,4 @@ const postsReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default postsReducer;
+export default subscribersReducer;
