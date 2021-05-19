@@ -4,19 +4,17 @@ import { Container, Col, Row, Spinner, Button } from 'reactstrap';
 import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
-import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
 import { createScore } from '../../redux/scores/scores.actions'
 
-const ReviewQuiz = ({ allQuizes, setQuizes, setQuestions, loading, createScore, auth }) => {
+const ReviewQuiz = ({ allQuizes, setQuizes, qLoading, auth }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [lastAnswer, setLastAnswer] = useState(false);
 
     useEffect(() => {
         // Inside this callback function, we set questions when the component is mounted.
-        setQuestions();
         setQuizes();
-    }, [setQuizes, setQuestions]);
+    }, [setQuizes]);
 
     // Access route parameters
     const { quizId } = useParams()
@@ -45,7 +43,7 @@ const ReviewQuiz = ({ allQuizes, setQuizes, setQuestions, loading, createScore, 
                 null))
     };
 
-    if (!loading) {
+    if (!qLoading) {
 
         return (
 
@@ -149,8 +147,7 @@ ReviewQuiz.propTypes = {
 const mapStateToProps = state => ({
     auth: state.authReducer,
     allQuizes: state.quizesReducer.allQuizes,
-    questionsData: state.questionsReducer.questionsData,
-    loading: state.questionsReducer.loading
+    qLoading: state.questionsReducer.qLoading
 });
 
-export default connect(mapStateToProps, { setQuestions, setQuestionsLoading, setQuizes, createScore })(ReviewQuiz)
+export default connect(mapStateToProps, { setQuizes, createScore })(ReviewQuiz)

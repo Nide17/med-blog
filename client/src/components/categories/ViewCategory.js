@@ -25,7 +25,7 @@ const ViewCategory = ({ allcategories, setCategories }) => {
                                 <Link to={`/view-quiz/${quiz._id}`} className="m-0 text-capitalize">
                                     {quiz.title}
                                 </Link>
-                                <Badge color="info" className="ml-lg-2">{quiz.questions.length > 30 ? '30+' : quiz.questions.length}</Badge>
+                                <Badge color="info" className="ml-lg-2">{quiz.questions.length > 30 ? '30' : quiz.questions.length}</Badge>
                             </ListGroupItem>
                         )}
 

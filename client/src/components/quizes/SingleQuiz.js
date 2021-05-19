@@ -79,8 +79,7 @@ const SingleQuiz = ({ auth, allQuizes, setQuizes }) => {
 
 const mapStateToProps = state => ({
     auth: state.authReducer,
-    allQuizes: state.quizesReducer.allQuizes,
-    questionsData: state.questionsReducer.questionsData
+    allQuizes: state.quizesReducer.allQuizes
 });
 
 export default connect(mapStateToProps, { setQuizes })(SingleQuiz);

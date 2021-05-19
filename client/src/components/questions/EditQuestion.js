@@ -207,7 +207,6 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
 // Map the question to state props
 const mapStateToProps = state => ({
     auth: state.authReducer,
-    categories: state.categoriesReducer,
     allQuizes: state.quizesReducer.allQuizes,
     questionsData: state.questionsReducer.questionsData
 });

@@ -6,7 +6,6 @@ import { setCategories } from '../../redux/categories/categories.actions'
 import ReactLoading from "react-loading";
 
 const SimilarQuizes = ({ catID, categories, setCategories }) => {
-    console.log(categories)
     // Lifecycle methods
     useEffect(() => {
         setCategories();

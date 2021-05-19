@@ -4,13 +4,12 @@ import { Container, Col, Row, Spinner } from 'reactstrap';
 import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
-import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
 import { createScore } from '../../redux/scores/scores.actions'
 import CountDown from './CountDown';
 import LoginModal from '../auth/LoginModal'
 import SimilarQuizes from './SimilarQuizes';
 
-const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) => {
+const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [showScore, setShowScore] = useState(false);
@@ -18,9 +17,8 @@ const QuizQuestions = ({ quizes, setQuizes, setQuestions, createScore, auth }) =
 
     useEffect(() => {
         // Inside this callback function, we set questions when the component is mounted.
-        setQuestions();
         setQuizes();
-    }, [setQuizes, setQuestions]);
+    }, [setQuizes]);
 
     // Access route parameters
     const { readyQuizId } = useParams()
@@ -224,8 +222,7 @@ QuizQuestions.propTypes = {
 
 const mapStateToProps = state => ({
     auth: state.authReducer,
-    quizes: state.quizesReducer,
-    questionsData: state.questionsReducer.questionsData
+    quizes: state.quizesReducer
 });
 
-export default connect(mapStateToProps, { setQuestions, setQuestionsLoading, setQuizes, createScore })(QuizQuestions)
+export default connect(mapStateToProps, { setQuizes, createScore })(QuizQuestions)

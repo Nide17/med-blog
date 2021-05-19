@@ -4,15 +4,13 @@ import { Container, Col, Row, Card, Button, CardTitle, CardText, Spinner } from 
 import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
-import { setQuestions, setQuestionsLoading } from '../../redux/questions/questions.actions'
 
-const GetReady = ({ quizes, setQuizes, setQuestions }) => {
+const GetReady = ({ quizes, setQuizes }) => {
 
     useEffect(() => {
         // Inside this callback function, we set questions when the component is mounted.
-        setQuestions();
         setQuizes();
-    }, [setQuizes, setQuestions]);
+    }, [setQuizes]);
 
     // Access route parameters
     const { quizId } = useParams()
@@ -92,8 +90,7 @@ GetReady.propTypes = {
 
 const mapStateToProps = state => ({
     auth: state.authReducer,
-    quizes: state.quizesReducer,
-    questionsData: state.questionsReducer.questionsData
+    quizes: state.quizesReducer
 });
 
-export default connect(mapStateToProps, { setQuestions, setQuestionsLoading, setQuizes })(GetReady)
+export default connect(mapStateToProps, { setQuizes })(GetReady)

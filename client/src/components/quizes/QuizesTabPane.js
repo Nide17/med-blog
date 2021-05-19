@@ -37,6 +37,7 @@ const QuizesTabPane = ({ currentUser, quizes, questionsData, setQuizes, setQuest
                         </Col>
                     </Row>
 
+                    {/* Search questions */}
                     <Row>
                         <ListGroup>
                             {questionsData && questionsData
@@ -57,6 +58,8 @@ const QuizesTabPane = ({ currentUser, quizes, questionsData, setQuizes, setQuest
 
                         </ListGroup>
                     </Row>
+
+                    {/* Search quizes */}
                     <Row>
                         {quizes && quizes.allQuizes
                             .filter(quiz => {
@@ -100,7 +103,7 @@ const QuizesTabPane = ({ currentUser, quizes, questionsData, setQuizes, setQuest
                                                 {quiz.description}
                                                 <br />
                                                 <small className="mb-2 text-success font-weight-bold">
-                                               🧑 By {quiz.created_by.name}
+                                                    🧑 By {quiz.created_by.name}
                                                 </small>
                                                 <br />
                                                 <br />

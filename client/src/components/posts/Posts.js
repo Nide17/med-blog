@@ -164,8 +164,7 @@ const Posts = ({ subscribeToNewsLetter, subscribedUsers, clearErrors, error, set
 const mapStateToProps = state => ({
     error: state.errorReducer,
     subscribedUsers: state.subscribersReducer.subscribedUsers,
-    allQuizes: state.quizesReducer.allQuizes,
-    questionsData: state.questionsReducer.questionsData,
+    allQuizes: state.quizesReducer.allQuizes
 })
 
 export default connect(mapStateToProps, { subscribeToNewsLetter, clearErrors, setQuizes })(Posts)
