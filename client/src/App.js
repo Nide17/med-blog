@@ -71,11 +71,7 @@ const App = () => {
                     <Route exact path="/questions-create/:quizId" component={CreateQuestions} />
                     <Route path="/contact" component={Contact} />
                     <Route path="/about" component={About} />
-                    <Route path="/blog" component={Placeholder} />
                     <Route path="/ourself" component={Placeholder} />
-                    <Route path="/news" component={Placeholder} />
-                    <Route path="/faqs" component={Placeholder} />
-                    <Route path="/disclaimer" component={Placeholder} />
                     <Route path="/privacy" component={Placeholder} />
 
                     <Route exact path="/webmaster">
@@ -85,8 +81,7 @@ const App = () => {
                             <Webmaster />
                         </Suspense>
                     </Route>
-
-                    <Route path="/questions" component={Placeholder} />
+                    
                     <Route path="/tips" component={Placeholder} />
                 </Switch>
                 <Footer />
