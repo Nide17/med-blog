@@ -8,7 +8,8 @@ import CountDown from './components/quizes/CountDown';
 import ForgotPassword from './components/auth/ForgotPassword';
 import ResetPassword from './components/auth/ResetPassword';
 import Unsubscribe from './components/auth/Unsubscribe';
-import Placeholder from './components/placeholder/Placeholder';
+import Privacy from './components/others/Privacy';
+import Placeholder from './components/others/Placeholder';
 
 // REDUX
 import { Provider } from 'react-redux'
@@ -72,7 +73,7 @@ const App = () => {
                     <Route path="/contact" component={Contact} />
                     <Route path="/about" component={About} />
                     <Route path="/ourself" component={Placeholder} />
-                    <Route path="/privacy" component={Placeholder} />
+                    <Route path="/privacy" component={Privacy} />
 
                     <Route exact path="/webmaster">
                         <Suspense fallback={<div className="p-5 m-5 d-flex justify-content-center align-items-center">
@@ -81,7 +82,7 @@ const App = () => {
                             <Webmaster />
                         </Suspense>
                     </Route>
-                    
+
                     <Route path="/tips" component={Placeholder} />
                 </Switch>
                 <Footer />
