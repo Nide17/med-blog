@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import ReactLoading from "react-loading";
-import { Row, Col, Button, Toast, ToastBody, ToastHeader, TabContent, Nav, NavItem, NavLink, Alert } from 'reactstrap';
+import { Row, Col, Button, Toast, ToastBody, ToastHeader, TabContent, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
-import { clearErrors } from '../../redux/error/error.actions'
 import CreateCategory from '../categories/CreateCategory';
 import CategoriesTabPane from '../categories/CategoriesTabPane';
 import QuizesTabPane from '../quizes/QuizesTabPane';
@@ -16,25 +15,12 @@ import LoginModal from '../auth/LoginModal'
 import ContactsTabPane from '../contacts/ContactsTabPane';
 import ScoresTabPane from './ScoresTabPane';
 
-const Webmaster = ({ auth, error }) => {
+const Webmaster = ({ auth }) => {
     // State
     const [activeTab, setActiveTab] = useState('1');
     const toggle = tab => {
         if (activeTab !== tab) setActiveTab(tab);
     }
-
-    const [visible, setVisible] = useState(true);
-    const onDismiss = () => setVisible(false);
-
-    // Errors on form
-    const [errorsStateAPI, setErrorsStateAPI] = useState([])
-
-    useEffect(() => {
-        if (error.id !== null) {
-            setErrorsStateAPI(errorsStateAPI => [...errorsStateAPI, error.msg && error.msg.msg]);
-        }
-        clearErrors()
-    }, [error])
 
     // render
     return (
@@ -52,17 +38,6 @@ const Webmaster = ({ auth, error }) => {
                                 Here you can add, edit and remove features!
                         </ToastBody>
                         </Toast>
-
-                        <div className="d-flex flex-column">
-                            {errorsStateAPI.length > 0 ?
-                                errorsStateAPI.map(err =>
-                                    <Alert color="danger" isOpen={visible} toggle={onDismiss} key={Math.floor(Math.random() * 1000)}>
-                                        {err}
-                                    </Alert>)
-                                :
-                                null
-                            }
-                        </div>
 
                         {auth.user.role === 'Admin' ?
                             <div className="master-btns">
@@ -166,14 +141,12 @@ const Webmaster = ({ auth, error }) => {
 }
 
 Webmaster.propTypes = {
-    auth: PropTypes.object,
-    error: PropTypes.object
+    auth: PropTypes.object
 }
 
 // Map  state props
 const mapStateToProps = state => ({
     auth: state.authReducer,
-    error: state.errorReducer
 });
 
 export default connect(mapStateToProps, {})(Webmaster)
