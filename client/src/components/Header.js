@@ -26,7 +26,7 @@ const Header = ({ auth }) => {
                 </span>
             </NavbarText>
 
-            <NavbarText className="logout ml-4">
+            <NavbarText className="logout ml-3">
                 <Logout />
             </NavbarText>
         </>
@@ -54,7 +54,7 @@ const Header = ({ auth }) => {
 
                 {
                     isOpen ?
-                        <Button close onClick={toggle} className="px-3 mr-1 text-danger d-lg-none" /> :
+                        <Button close onClick={toggle} className="px-2 mr-1 text-danger d-lg-none" /> :
                         <NavbarToggler onClick={toggle} />
                 }
 
@@ -72,13 +72,13 @@ const Header = ({ auth }) => {
                     {
                         location.pathname !== '/' ?
 
-                        <Button color="success" size="md" className="mr-3 mr-md-4">
+                        <Button color="success" size="md" className="mr-2 mr-md-4">
                         <Link to="/" className="text-white">Back Home</Link>
                         </Button> :
                             null
                     }
 
-                    <NavbarText className="mr-3 mr-md-4">
+                    <NavbarText className="mr-2 mr-md-4">
                         <Link to="/about" className="text-white">About</Link>
                     </NavbarText>
                     <NavbarText className="mr-3 mr-md-4">
