@@ -26,7 +26,7 @@ const Header = ({ auth }) => {
                 </span>
             </NavbarText>
 
-            <NavbarText className="logout ml-3">
+            <NavbarText className="logout ml-2">
                 <Logout />
             </NavbarText>
         </>
@@ -72,7 +72,7 @@ const Header = ({ auth }) => {
                     {
                         location.pathname !== '/' ?
 
-                        <Button color="success" size="md" className="mr-2 mr-md-4">
+                        <Button color="success" size="md" className="p-1 mr-2 px-md-2 mr-md-4">
                         <Link to="/" className="text-white">Back Home</Link>
                         </Button> :
                             null
@@ -81,7 +81,7 @@ const Header = ({ auth }) => {
                     <NavbarText className="mr-2 mr-md-4">
                         <Link to="/about" className="text-white">About</Link>
                     </NavbarText>
-                    <NavbarText className="mr-3 mr-md-4">
+                    <NavbarText className="mr-2 mr-md-4">
                         <Link to="/contact" className="text-white">Contact</Link>
                     </NavbarText>
                     {auth.isAuthenticated ? authLinks : guestLinks}
