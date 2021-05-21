@@ -74,34 +74,33 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                                     ( ~{Math.round(score * 100 / quiz.questions.length)}%)
                                         </small></h5>
 
-                                            <button type="button" className="btn btn-outline-success mt-3" onClick={Reload}>
+                                            <button type="button" className="btn btn-outline-success mt-3 mr-2 mr-md-3" onClick={Reload}>
                                                 Retake
                                             </button>
-                                        &nbsp;&nbsp;
 
                                         <Link to={`/review-quiz/${quiz._id}`}>
                                                 <button type="button" className="btn btn-outline-success mt-3">
                                                     Review Answers
                                                 </button>
-                                        </Link>
+                                            </Link>
 
                                             <div className="marks-status">
-                                            
-                                            {Math.round(score * 100 / quiz.questions.length) < 50 ?
+
+                                                {Math.round(score * 100 / quiz.questions.length) < 50 ?
                                                     <>
                                                         <h4 className="text-center text-danger my-3">
-                                                You failed! you need more reading and practice to succeed. Please contact us for more important books, guidance that may help you.
+                                                            You failed! you need more reading and practice to succeed. Please contact us for more important books, guidance that may help you.
                                                 </h4>
 
                                                         <Link to="/contact" className="text-success">
-                                                    <button type="button" className="btn btn-outline-success">
-                                                            Contact us for more
+                                                            <button type="button" className="btn btn-outline-success">
+                                                                Contact us for more
                                                     </button>
-                                                </Link>
+                                                        </Link>
                                                     </>
-                                                :
+                                                    :
                                                     <h4 className="text-center text-success my-3">
-                                                Congratulations, you passed this test!
+                                                        Congratulations, you passed this test!
                                                 </h4>}
                                             </div>
 
@@ -116,20 +115,19 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                                 </small></h5>
 
                                             <a href={`/view-quiz/${quiz._id}`}>
-                                                <button type="button" className="btn btn-outline-success mt-3" onClick={Reload}>
+                                                <button type="button" className="btn btn-outline-success mt-3 mr-2 mr-md-3" onClick={Reload}>
                                                     Retake
                                             </button>
                                             </a>
-                                            &nbsp;&nbsp;
 
                                             <button type="button" className="btn btn-outline-success mt-3 p-0">
-                                                <LoginModal review={'Login to Review'} textColor={'text-info'} />
+                                                <LoginModal review={'Login to review answers'} textColor={'text-info'} />
                                             </button>
 
                                             <div className="marks-status">
 
                                                 {Math.round(score * 100 / quiz.questions.length) < 50 ?
-                                                
+
                                                     <>
                                                         <h4 className="text-center text-danger my-3">
                                                             You failed! you need more reading and practice to succeed. Please contact us for more important books, guidance that may help you.
@@ -140,10 +138,10 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                                                 Contact us for help!
                                                             </button>
                                                         </Link>
-                                                    </>:
+                                                    </> :
 
                                                     <h4 className="text-center text-success my-3">
-                                                        Congratulations, you passed this test! Remember, the more you practice the more you understand! 
+                                                        Congratulations, you passed this test! Remember, the more you practice the more you understand!
                                                 </h4>}
                                             </div>
 
