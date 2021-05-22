@@ -12,6 +12,7 @@ import SimilarQuizes from './SimilarQuizes';
 const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    // const [choosen, setChoosen] = useState(false);
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
 
@@ -23,7 +24,7 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
     // Access route parameters
     const { readyQuizId } = useParams()
 
-    const handleAnswerButtonClick = (isCorrect) => {
+    const handleAnswerButtonClick = (e, isCorrect) => {
 
         if (isCorrect) {
             setScore(score + 1);
@@ -34,7 +35,16 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
         quizes && quizes.allQuizes.map(quiz => (
             (quiz._id === readyQuizId) ?
                 (nextQuestion < quiz.questions.length) ?
-                    setCurrentQuestion(nextQuestion) :
+
+                    <>
+                        {quiz.questions[currentQuestion].answerOptions.map(opt => e.target.value === opt.answerText ?
+                            opt.choosen = true :
+                            opt.choosen = false)}
+
+                        {console.log(quiz.questions[currentQuestion].answerOptions)}
+
+                        {setCurrentQuestion(nextQuestion)}
+                    </> :
                     setShowScore(true) :
                 null))
     };
@@ -66,6 +76,25 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                             taken_by: auth.isLoading === false ? auth.user._id : null
                                         }) &&
 
+                                        {/* createReview({
+                                            questionText: '',
+                                            answerOptions: '',
+                                            creation_date: '',
+                                            category: '',
+                                            quiz: '',
+                                            taken_by: ''
+
+                                            or
+
+                                            quizTitle: quiz.title,
+                                            description: quiz.description
+                                            category: quiz.category
+                                            taken_by: auth.isLoading === false ? auth.user._id : null
+                                            questions: quiz.questions
+
+                                        }) */}
+                                        &&
+
                                         <div className='score-section text-center'>
 
                                             <h5>You got <b style={{ color: "#B4654A" }}>{score}</b> questions right from <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>.
@@ -83,6 +112,14 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                                     Review Answers
                                                 </button>
                                             </Link>
+                                            {/* 
+                                            {console.log({
+                                                quizTitle: quiz.title,
+                                                description: quiz.description,
+                                                category: quiz.category._id,
+                                                taken_by: auth.isLoading === false ? auth.user._id : null,
+                                                questions: quiz.questions
+                                            })} */}
 
                                             <div className="marks-status">
 
@@ -160,7 +197,7 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                                 <div className='question-section my-2 mx-auto w-75'>
                                                     <h4 className='question-count text-uppercase text-center text-secondary font-weight-bold'>
                                                         <span>Question <b style={{ color: "#B4654A" }}>
-                                                        {currentQuestion + 1}</b>
+                                                            {currentQuestion + 1}</b>
                                                         </span>/{quiz.questions.length}
                                                     </h4>
 
@@ -177,9 +214,11 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                                     {quiz.questions && quiz.questions[currentQuestion].answerOptions.sort(() => 0.5 - Math.random()).map((answerOption, index) => (
 
                                                         <li key={index} style={{ listStyleType: "upper-latin" }} className="text-info font-weight-bold">
-                                                            <button className="answer-option my-3 p-2 btn btn-outline-info rounded" onClick={() => handleAnswerButtonClick(answerOption.isCorrect)} style={{ width: "96%" }}>
+
+                                                            <button value={answerOption.answerText} className="answer-option my-3 p-2 btn btn-outline-info rounded" onClick={(e) => handleAnswerButtonClick(e, answerOption.isCorrect)} style={{ width: "96%" }}>
                                                                 {answerOption.answerText}
                                                             </button>
+
                                                         </li>
                                                     ))}
 
