@@ -15,7 +15,9 @@ const User = require('../../models/User');
 router.get('/', async (req, res) => {
 
   try {
-    const users = await User.find();
+    const users = await User.find()
+      .sort({ register_date: -1 })
+      
     if (!users) throw Error('No users exist');
     res.status(200).json(users);
 

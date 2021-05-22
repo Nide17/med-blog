@@ -78,7 +78,7 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                                 Retake
                                             </button>
 
-                                        <Link to={`/review-quiz/${quiz._id}`}>
+                                            <Link to={`/review-quiz/${quiz._id}`}>
                                                 <button type="button" className="btn btn-outline-success mt-3">
                                                     Review Answers
                                                 </button>
@@ -159,7 +159,9 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                             <Col>
                                                 <div className='question-section my-2 mx-auto w-75'>
                                                     <h4 className='question-count text-uppercase text-center text-secondary font-weight-bold'>
-                                                        <span>Question <b style={{ color: "#B4654A" }}>{currentQuestion + 1}</b></span>/{quiz.questions.length}
+                                                        <span>Question <b style={{ color: "#B4654A" }}>
+                                                        {currentQuestion + 1}</b>
+                                                        </span>/{quiz.questions.length}
                                                     </h4>
 
                                                     <h5 className='q-txt mt-4 font-weight-bold text-center'>{quiz.questions[currentQuestion] && quiz.questions[currentQuestion].questionText}</h5>

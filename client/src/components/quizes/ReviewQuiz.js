@@ -4,9 +4,8 @@ import { Container, Col, Row, Spinner, Button } from 'reactstrap';
 import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
-import { createScore } from '../../redux/scores/scores.actions'
 
-const ReviewQuiz = ({ allQuizes, setQuizes, qLoading, auth }) => {
+const ReviewQuiz = ({ quizes, setQuizes, auth }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [lastAnswer, setLastAnswer] = useState(false);
@@ -23,7 +22,7 @@ const ReviewQuiz = ({ allQuizes, setQuizes, qLoading, auth }) => {
 
         const nextQuestion = currentQuestion + 1;
 
-        allQuizes && allQuizes.map(quiz => (
+        quizes && quizes.allQuizes.map(quiz => (
             (quiz._id === quizId) ?
                 (nextQuestion < quiz.questions.length) ?
                     setCurrentQuestion(nextQuestion) :
@@ -35,7 +34,7 @@ const ReviewQuiz = ({ allQuizes, setQuizes, qLoading, auth }) => {
 
         const prevQuestion = currentQuestion - 1;
 
-        allQuizes && allQuizes.map(quiz => (
+        quizes && quizes.allQuizes.map(quiz => (
             (quiz._id === quizId) ?
                 (prevQuestion >= 0) ?
                     setCurrentQuestion(prevQuestion) :
@@ -43,11 +42,11 @@ const ReviewQuiz = ({ allQuizes, setQuizes, qLoading, auth }) => {
                 null))
     };
 
-    if (!qLoading) {
+    if (!quizes.isLoading) {
 
         return (
 
-            allQuizes && allQuizes.map(quiz => (
+            quizes && quizes.allQuizes.map(quiz => (
 
                 (quiz._id === quizId) ?
 
@@ -146,8 +145,7 @@ ReviewQuiz.propTypes = {
 
 const mapStateToProps = state => ({
     auth: state.authReducer,
-    allQuizes: state.quizesReducer.allQuizes,
-    qLoading: state.questionsReducer.qLoading
+    quizes: state.quizesReducer
 });
 
-export default connect(mapStateToProps, { setQuizes, createScore })(ReviewQuiz)
+export default connect(mapStateToProps, { setQuizes })(ReviewQuiz)
