@@ -1,30 +1,34 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types';
 import { Container, Col, Row, Spinner, Button } from 'reactstrap';
-import { Link, useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { setQuizes } from '../../redux/quizes/quizes.actions'
+import { setReviews } from '../../redux/reviews/reviews.actions'
 
-const ReviewQuiz = ({ quizes, setQuizes, auth }) => {
+const ReviewQuiz = ({ reviews, setReviews, auth }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [lastAnswer, setLastAnswer] = useState(false);
 
     useEffect(() => {
         // Inside this callback function, we set questions when the component is mounted.
-        setQuizes();
-    }, [setQuizes]);
+        setReviews();
+    }, [setReviews]);
 
     // Access route parameters
-    const { quizId } = useParams()
+    const { reviewId } = useParams()
+    const history = useHistory()
+    const goBack = () => {
+        history.goBack()
+    }
 
     const handleNextAnswer = () => {
 
         const nextQuestion = currentQuestion + 1;
 
-        quizes && quizes.allQuizes.map(quiz => (
-            (quiz._id === quizId) ?
-                (nextQuestion < quiz.questions.length) ?
+        reviews && reviews.allReviews.map(review => (
+            (review.id === reviewId) ?
+                (nextQuestion < review.questions.length) ?
                     setCurrentQuestion(nextQuestion) :
                     setLastAnswer(true) :
                 null))
@@ -34,23 +38,23 @@ const ReviewQuiz = ({ quizes, setQuizes, auth }) => {
 
         const prevQuestion = currentQuestion - 1;
 
-        quizes && quizes.allQuizes.map(quiz => (
-            (quiz._id === quizId) ?
+        reviews && reviews.allReviews.map(review => (
+            (review.id === reviewId) ?
                 (prevQuestion >= 0) ?
                     setCurrentQuestion(prevQuestion) :
                     alert('No previous available!') :
                 null))
     };
 
-    if (!quizes.isLoading) {
+    if (!reviews.isLoading) {
 
         return (
 
-            quizes && quizes.allQuizes.map(quiz => (
+            reviews && reviews.allReviews.map(review => (
 
-                (quiz._id === quizId) ?
+                (review.id === reviewId) ?
 
-                    (quiz.questions.length > 0) ?
+                    (review.questions.length > 0) ?
                         <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80" key={Math.floor(Math.random() * 1000)}>
 
                             {lastAnswer ?
@@ -61,11 +65,10 @@ const ReviewQuiz = ({ quizes, setQuizes, auth }) => {
 
                                         <h5 className="text-center font-weight-bold">Reviewing finished!</h5>
 
-                                        <Link to={`/view-quiz/${quiz._id}`}>
-                                            <button type="button" className="btn btn-outline-success mt-3">
-                                                Retake
+                                        <button type="button" className="btn btn-outline-success mt-3" onClick={goBack}>
+                                            Retake
                                             </button>
-                                        </Link>
+
                                         &nbsp;&nbsp;
                                         <a href="/">
                                             <button type="button" className="btn btn-outline-info mt-3">
@@ -85,9 +88,9 @@ const ReviewQuiz = ({ quizes, setQuizes, auth }) => {
                                             <h6 className="text-warning mb-5 ml-lg-5">Reviewing ...</h6>
                                             <div className='question-section my-2 mx-auto w-75'>
                                                 <h4 className='question-count text-uppercase text-center text-secondary font-weight-bold'>
-                                                    <span>Question <b style={{ color: "#B4654A" }}>{currentQuestion + 1}</b></span>/{quiz.questions.length}
+                                                    <span>Question <b style={{ color: "#B4654A" }}>{currentQuestion + 1}</b></span>/{review.questions.length}
                                                 </h4>
-                                                <h5 className='q-txt mt-4 font-weight-bold text-center'>{quiz.questions[currentQuestion].questionText && quiz.questions[currentQuestion].questionText}</h5>
+                                                <h5 className='q-txt mt-4 font-weight-bold text-center'>{review.questions[currentQuestion].questionText && review.questions[currentQuestion].questionText}</h5>
                                             </div>
                                         </Col>
                                     </Row>
@@ -95,7 +98,7 @@ const ReviewQuiz = ({ quizes, setQuizes, auth }) => {
                                     <Row>
                                         <Col>
                                             <div className='answer d-flex flex-column mx-auto mt-2 w-25'>
-                                                {quiz.questions && quiz.questions[currentQuestion].answerOptions.map((answerOption, index) => (
+                                                {review.questions && review.questions[currentQuestion].answerOptions.map((answerOption, index) => (
 
                                                     <button
                                                         className={`answer-option my-3 p-2 btn btn-outline-${answerOption.isCorrect ? 'success' : 'danger'} rounded`}
@@ -145,7 +148,7 @@ ReviewQuiz.propTypes = {
 
 const mapStateToProps = state => ({
     auth: state.authReducer,
-    quizes: state.quizesReducer
+    reviews: state.reviewsReducer
 });
 
-export default connect(mapStateToProps, { setQuizes })(ReviewQuiz)
+export default connect(mapStateToProps, { setReviews })(ReviewQuiz)

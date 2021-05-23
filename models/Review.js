@@ -6,24 +6,19 @@ const Schema = mongoose.Schema;
 
 //create a schema object
 const ReviewSchema = new Schema({
-    questionText: {
+
+    id: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    title: {
+        type: String,
+        required: true,
+    },
+    description: {
         type: String,
         required: true
-    },
-    answerOptions: {
-        type: [
-            {
-                answerText: {
-                    type: String,
-                    required: true
-                },
-                isCorrect: {
-                    type: Boolean,
-                    required: true,
-                    default: false
-                }
-            }
-        ]
     },
     creation_date: {
         type: Date,
@@ -31,19 +26,42 @@ const ReviewSchema = new Schema({
     },
     category: {
         type: Schema.Types.ObjectId,
-        ref: 'category',
-        unique: true
-    },
-    quiz: {
-        type: Schema.Types.ObjectId,
-        ref: 'quiz',
-        unique: true
+        ref: 'category'
     },
     taken_by: {
         type: Schema.Types.ObjectId,
-        ref: 'user',
-        unique: true
-    }
+        ref: 'user'
+    },
+    questions: [
+        {
+            questionText: {
+                type: String,
+                required: true
+            },
+
+            answerOptions: {
+                type: [
+                    {
+                        answerText: {
+                            type: String,
+                            required: true
+                        },
+                        isCorrect: {
+                            type: Boolean,
+                            required: true,
+                            default: false
+                        },
+                        choosen: {
+                            type: Boolean,
+                            required: true,
+                            default: false
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+
 });
 
 //review: the name of this model

@@ -6,8 +6,6 @@ const { auth, authRole } = require('../../middleware/auth');
 
 //Review Model : use capital letters since it's a model
 const Review = require('../../models/Review');
-// const Quiz = require('../../models/Quiz');
-// const Category = require('../../models/Category');
 
 // @route GET api/reviews
 // @route Get All reviews
@@ -20,9 +18,6 @@ router.get('/', async (req, res) => {
         const reviews = await Review.find()
             //sort reviews by creation_date
             .sort({ creation_date: -1 })
-            .populate('category')
-            .populate('quiz')
-            .populate('taken_by')
 
         if (!reviews) throw Error('No reviews found');
 
@@ -32,7 +27,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET ENDPOINT //
 // @route GET api/reviews/:id
 // @route GET one Review
 // @route Private
@@ -46,7 +40,6 @@ router.get('/:id', auth, async (req, res) => {
         })
             // Use the name of the schema path instead of the collection name
             .populate('category')
-            .populate('quiz')
             .populate('taken_by')
 
     } catch (err) {
@@ -65,11 +58,6 @@ router.get('/:id', auth, async (req, res) => {
 router.post("/", auth, async (req, res) => {
 
     try {
-        // let rev = await Review.findOne({ questionText: req.body.questionText });
-
-        // if (rev) {
-        //     return res.status(400).send("You have already taken this quiz");
-        // }
 
         const newReview = new Review(req.body);
         const savedReview = await newReview.save();
@@ -97,18 +85,6 @@ router.put('/:id', authRole(['Creator', 'Admin']), async (req, res) => {
         const review = await Review.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
         res.status(200).json(review);
 
-        // Update the Quiz on review updating
-        await Quiz.updateOne(
-            { "_id": req.body.quiz },
-            { $push: { "reviews": review._id } }
-        );
-
-        // Delete review in old quiz
-        await Quiz.updateOne(
-            { "_id": req.body.oldQuizID },
-            { $pull: { "reviews": review._id } }
-        );
-
     } catch (err) {
         res.status(400).json({
             msg: 'Failed to update! ' + err.message,
@@ -129,12 +105,6 @@ router.delete('/:id', auth, authRole(['Creator', 'Admin']), async (req, res) => 
         //Find the review to delete by id first
         const review = await Review.findById(req.params.id);
         if (!review) throw Error('Review is not found!')
-
-        // Delete review from the quiz
-        await Quiz.updateOne(
-            { "_id": review.quiz },
-            { $pull: { "reviews": review._id } }
-        );
 
         const removedReview = await Review.remove();
 

@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import { Container, Col, Row, Spinner } from 'reactstrap';
 import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { v4 as uuidv4 } from 'uuid';
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { createScore } from '../../redux/scores/scores.actions'
+import { createReview } from '../../redux/reviews/reviews.actions'
 import CountDown from './CountDown';
 import LoginModal from '../auth/LoginModal'
 import SimilarQuizes from './SimilarQuizes';
 
-const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
+const QuizQuestions = ({ quizes, setQuizes, createScore, createReview, auth }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [quizToReview, setQuizToReview] = useState({});
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
 
@@ -23,16 +26,37 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
     // Access route parameters
     const { readyQuizId } = useParams()
 
-    const handleAnswerButtonClick = (isCorrect) => {
+    const handleAnswerButtonClick = (event, isCorrect) => {
 
         if (isCorrect) {
             setScore(score + 1);
         }
 
+        quizes && quizes.allQuizes.find(quiz =>
+
+            quiz._id === readyQuizId ?
+
+                <>
+                    {quiz.questions[currentQuestion].answerOptions
+                        .map(opt => event && event.target.value === opt.answerText ?
+                            opt.choosen = true :
+                            opt.choosen = false)}
+                    {setQuizToReview({
+                        ...quizToReview,
+                        id: uuidv4(),
+                        title: quiz.title,
+                        description: quiz.description,
+                        taken_by: auth.isLoading === false && auth.user ? auth.user._id : null,
+                        questions: quiz.questions })}
+                </> :
+                null)
+
         const nextQuestion = currentQuestion + 1;
 
         quizes && quizes.allQuizes.map(quiz => (
+
             (quiz._id === readyQuizId) ?
+
                 (nextQuestion < quiz.questions.length) ?
                     setCurrentQuestion(nextQuestion) :
                     setShowScore(true) :
@@ -66,19 +90,22 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                             taken_by: auth.isLoading === false ? auth.user._id : null
                                         }) &&
 
+                                        quizToReview && createReview(quizToReview) &&
+
                                         <div className='score-section text-center'>
 
                                             <h5>You got <b style={{ color: "#B4654A" }}>{score}</b> questions right from <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>.
 
-                                        <small className="text-info">
-                                                    ( ~{Math.round(score * 100 / quiz.questions.length)}%)
-                                        </small></h5>
+                                                <small className="text-info">
+                                                    (~{Math.round(score * 100 / quiz.questions.length)}%)
+                                                </small>
+                                            </h5>
 
                                             <button type="button" className="btn btn-outline-success mt-3 mr-2 mr-md-3" onClick={Reload}>
                                                 Retake
                                             </button>
 
-                                            <Link to={`/review-quiz/${quiz._id}`}>
+                                            <Link to={`/review-quiz/${quizToReview && quizToReview.id}`}>
                                                 <button type="button" className="btn btn-outline-success mt-3">
                                                     Review Answers
                                                 </button>
@@ -88,20 +115,20 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
 
                                                 {Math.round(score * 100 / quiz.questions.length) < 50 ?
                                                     <>
-                                                        <h4 className="text-center text-danger my-3">
+                                                        <h5 className="text-center text-danger my-3">
                                                             You failed! you need more reading and practice to succeed. Please contact us for more important books, guidance that may help you.
-                                                </h4>
+                                                        </h5>
 
                                                         <Link to="/contact" className="text-success">
                                                             <button type="button" className="btn btn-outline-success">
                                                                 Contact us for more
-                                                    </button>
+                                                            </button>
                                                         </Link>
                                                     </>
                                                     :
-                                                    <h4 className="text-center text-success my-3">
+                                                    <h5 className="text-center text-success my-3">
                                                         Congratulations, you passed this test!
-                                                </h4>}
+                                                </h5>}
                                             </div>
 
                                         </div> :
@@ -129,9 +156,9 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                                 {Math.round(score * 100 / quiz.questions.length) < 50 ?
 
                                                     <>
-                                                        <h4 className="text-center text-danger my-3">
+                                                        <h5 className="text-center text-danger my-3">
                                                             You failed! you need more reading and practice to succeed. Please contact us for more important books, guidance that may help you.
-                                                        </h4>
+                                                        </h5>
 
                                                         <Link to="/contact" className="text-success">
                                                             <button type="button" className="btn btn-outline-success">
@@ -140,9 +167,9 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                                         </Link>
                                                     </> :
 
-                                                    <h4 className="text-center text-success my-3">
+                                                    <h5 className="text-center text-success my-3">
                                                         Congratulations, you passed this test! Remember, the more you practice the more you understand!
-                                                </h4>}
+                                                </h5>}
                                             </div>
 
                                         </div> :
@@ -160,7 +187,7 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                                 <div className='question-section my-2 mx-auto w-75'>
                                                     <h4 className='question-count text-uppercase text-center text-secondary font-weight-bold'>
                                                         <span>Question <b style={{ color: "#B4654A" }}>
-                                                        {currentQuestion + 1}</b>
+                                                            {currentQuestion + 1}</b>
                                                         </span>/{quiz.questions.length}
                                                     </h4>
 
@@ -177,9 +204,15 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                                     {quiz.questions && quiz.questions[currentQuestion].answerOptions.sort(() => 0.5 - Math.random()).map((answerOption, index) => (
 
                                                         <li key={index} style={{ listStyleType: "upper-latin" }} className="text-info font-weight-bold">
-                                                            <button className="answer-option my-3 p-2 btn btn-outline-info rounded" onClick={() => handleAnswerButtonClick(answerOption.isCorrect)} style={{ width: "96%" }}>
+
+                                                            <button
+                                                                value={answerOption.answerText}
+                                                                className="answer-option my-3 p-2 btn btn-outline-info rounded"
+                                                                onClick={(e) => handleAnswerButtonClick(e, answerOption.isCorrect)}
+                                                                style={{ width: "96%" }}>
                                                                 {answerOption.answerText}
                                                             </button>
+
                                                         </li>
                                                     ))}
 
@@ -225,4 +258,4 @@ const mapStateToProps = state => ({
     quizes: state.quizesReducer
 });
 
-export default connect(mapStateToProps, { setQuizes, createScore })(QuizQuestions)
+export default connect(mapStateToProps, { setQuizes, createScore, createReview })(QuizQuestions)

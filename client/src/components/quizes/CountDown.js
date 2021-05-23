@@ -38,7 +38,7 @@ const CountDown = ({ timeInSecs, handleAnswerButtonClick }) => {
             <Col>
                 <div className="text-right text-danger mr-3">
                     {minutes === 0 && seconds === 0
-                        ? <h3>{handleAnswerButtonClick(false)}</h3>
+                        ? handleAnswerButtonClick(false)
 
                         : <h6> {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h6>
                     }
