@@ -17,6 +17,7 @@ const ReviewQuiz = ({ reviews, setReviews, auth }) => {
 
     // Access route parameters
     const { reviewId } = useParams()
+
     const history = useHistory()
     const goBack = () => {
         history.goBack()
@@ -52,11 +53,11 @@ const ReviewQuiz = ({ reviews, setReviews, auth }) => {
 
             reviews && reviews.allReviews.map(review => (
 
-                (review.id === reviewId) ?
+                review.id === reviewId ?
 
-                    (review.questions.length > 0) ?
+                    review.questions.length > 0 ?
                         <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80" key={Math.floor(Math.random() * 1000)}>
-
+                            
                             {lastAnswer ?
 
                                 auth.isAuthenticated ?
@@ -91,6 +92,7 @@ const ReviewQuiz = ({ reviews, setReviews, auth }) => {
                                                     <span>Question <b style={{ color: "#B4654A" }}>{currentQuestion + 1}</b></span>/{review.questions.length}
                                                 </h4>
                                                 <h5 className='q-txt mt-4 font-weight-bold text-center'>{review.questions[currentQuestion].questionText && review.questions[currentQuestion].questionText}</h5>
+
                                             </div>
                                         </Col>
                                     </Row>
@@ -101,9 +103,11 @@ const ReviewQuiz = ({ reviews, setReviews, auth }) => {
                                                 {review.questions && review.questions[currentQuestion].answerOptions.map((answerOption, index) => (
 
                                                     <button
-                                                        className={`answer-option my-3 p-2 btn btn-outline-${answerOption.isCorrect ? 'success' : 'danger'} rounded`}
+                                                        className={`answer-option my-3 p-2 btn btn-outline-${answerOption.isCorrect ? 'success' :
+                                                            !answerOption.isCorrect && answerOption.choosen ? 'danger' : 'secondary'} rounded`}
                                                         key={index}>
                                                         {answerOption.answerText}
+
                                                     </button>
 
                                                 ))}

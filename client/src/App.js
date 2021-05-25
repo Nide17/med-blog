@@ -67,7 +67,7 @@ const App = () => {
                     <Route exact path="/attempt-quiz/:readyQuizId" component={QuizQuestions} />
                     <Route exact path="/view-question/:questionId" component={SingleQuestion} />
                     <Route exact path="/edit-question/:questionId" component={EditQuestion} />
-                    <Route exact path="/review-quiz/:quizId" component={ReviewQuiz} />
+                    <Route exact path="/review-quiz/:reviewId" component={ReviewQuiz} />
                     <Route exact path="/quiz-ranking/:quizId" component={QuizRanking} />
                     <Route exact path="/questions-create/:quizId" component={CreateQuestions} />
                     <Route path="/contact" component={Contact} />
