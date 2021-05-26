@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import { Container, Col, Row, Spinner } from 'reactstrap';
 import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid';
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { createScore } from '../../redux/scores/scores.actions'
-import { createReview } from '../../redux/reviews/reviews.actions'
+import { v4 as uuidv4 } from 'uuid';
 import CountDown from './CountDown';
 import LoginModal from '../auth/LoginModal'
 import SimilarQuizes from './SimilarQuizes';
 
-const QuizQuestions = ({ quizes, setQuizes, createScore, createReview, auth }) => {
+const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [quizToReview, setQuizToReview] = useState({});
+    const [newScore, setNewScore] = useState({});
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
 
@@ -41,13 +41,26 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, createReview, auth }) =
                         .map(opt => event && event.target.value === opt.answerText ?
                             opt.choosen = true :
                             opt.choosen = false)}
+
                     {setQuizToReview({
                         ...quizToReview,
                         id: uuidv4(),
                         title: quiz.title,
                         description: quiz.description,
-                        taken_by: auth.isLoading === false && auth.user ? auth.user._id : null,
-                        questions: quiz.questions })}
+                        questions: quiz.questions
+                    })}
+
+                    {setNewScore({
+                        ...newScore,
+                        id: uuidv4(),
+                        marks: score,
+                        out_of: quiz.questions.length,
+                        category: quiz.category._id,
+                        quiz: quiz._id,
+                        review: quizToReview && quizToReview,
+                        taken_by: auth.isLoading === false ? auth.user._id : null
+                    })}
+
                 </> :
                 null)
 
@@ -82,15 +95,7 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, createReview, auth }) =
 
                                     auth.isAuthenticated ?
 
-                                        createScore({
-                                            marks: score,
-                                            out_of: quiz.questions.length,
-                                            category: quiz.category._id,
-                                            quiz: quiz._id,
-                                            taken_by: auth.isLoading === false ? auth.user._id : null
-                                        }) &&
-
-                                        quizToReview && createReview(quizToReview) &&
+                                        createScore(newScore) &&
 
                                         <div className='score-section text-center'>
 
@@ -105,7 +110,7 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, createReview, auth }) =
                                                 Retake
                                             </button>
 
-                                            <Link to={`/review-quiz/${quizToReview && quizToReview.id}`}>
+                                            <Link to={`/review-quiz/${newScore && newScore.id}`}>
                                                 <button type="button" className="btn btn-outline-success mt-3">
                                                     Review Answers
                                                 </button>
@@ -258,4 +263,4 @@ const mapStateToProps = state => ({
     quizes: state.quizesReducer
 });
 
-export default connect(mapStateToProps, { setQuizes, createScore, createReview })(QuizQuestions)
+export default connect(mapStateToProps, { setQuizes, createScore })(QuizQuestions)

@@ -6,6 +6,11 @@ const Schema = mongoose.Schema;
 
 //create a schema object
 const ScoreSchema = new Schema({
+    id: {
+        type: String,
+        required: true,
+        unique: true
+    },
     marks: {
         type: Number,
         required: true
@@ -18,6 +23,46 @@ const ScoreSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    review: {
+        title: {
+            type: String,
+            required: true,
+        },
+        description: {
+            type: String,
+            required: true
+        },
+        questions: [
+            {
+                questionText: {
+                    type: String,
+                    required: true
+                },
+
+                answerOptions: {
+                    type: [
+                        {
+                            answerText: {
+                                type: String,
+                                required: true
+                            },
+                            isCorrect: {
+                                type: Boolean,
+                                required: true,
+                                default: false
+                            },
+                            choosen: {
+                                type: Boolean,
+                                required: true,
+                                default: false
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+
+    }, 
     category: {
         type: Schema.Types.ObjectId,
         ref: 'category'

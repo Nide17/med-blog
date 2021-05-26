@@ -6,8 +6,6 @@ const { auth, authRole } = require('../../middleware/auth');
 
 //Score Model : use capital letters since it's a model
 const Score = require('../../models/Score');
-const User = require('../../models/User');
-const Quiz = require('../../models/Quiz');
 
 // @route GET api/scores
 // @route Get All scores

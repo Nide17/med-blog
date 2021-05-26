@@ -175,6 +175,8 @@ div.question-section {
 }
 
 .quiz-toast .toast,
+.report-toast .toast,
+.admin-toast .toast,
 .contact-card .card {
     height: 160px !important;
     overflow-y: scroll !important;

@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { Row, TabPane, Table, Button } from 'reactstrap';
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { setScores, deleteScore } from '../../redux/scores/scores.actions'
 import ReactLoading from "react-loading";
 
 import trash from '../../images/trash.svg';
 
-const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
+const ScoresTabPane = ({ auth, scores, setScores, deleteScore }) => {
 
     // Lifecycle methods
     useEffect(() => {
@@ -20,6 +21,12 @@ const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
                 scores.isLoading ?
                     <ReactLoading type="spinningBubbles" color="#33FFFC" /> :
                     <Row>
+
+                        <div className="your-past-scores my-3">
+                                <Link to="/reports-admin">
+                                <Button outline color="info" size="sm">Your past scores</Button>
+                                </Link>
+                        </div>
 
                         <Table size="sm" className="all-scores" hover responsive>
                             <thead>
@@ -66,6 +73,7 @@ const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
         </TabPane>
     )
 }
+
 
 const mapStateToProps = state => ({
     scores: state.scoresReducer

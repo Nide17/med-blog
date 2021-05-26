@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { setScores } from '../../redux/scores/scores.actions'
 
-const Reports = ({ userId, auth, scores, setScores }) => {
+const ReportsAdmin = ({ auth, scores, setScores }) => {
 
     useEffect(() => {
         setScores();
@@ -17,11 +17,7 @@ const Reports = ({ userId, auth, scores, setScores }) => {
 
         auth.isAuthenticated ?
 
-            scores.isLoading ?
-
-                <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
-                    <ReactLoading type="cylon" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
-                </div> :
+            !scores.isLoading ?
 
                 <>
                     <Row className="text-center m-3 mb-1 m-lg-5 d-flex justify-content-center past-scores">
@@ -31,20 +27,21 @@ const Reports = ({ userId, auth, scores, setScores }) => {
                     <Row className="mx-0">
                         {scores && scores.allScores.map(score => (
 
-                            score.taken_by && userId === score.taken_by._id ?
+                            score.taken_by && auth.user._id === score.taken_by._id ?
 
-                                <Col sm="3" key={score._id} className="px-2 mt-2 report-toast">
+                                <Col sm="3" key={score._id} className="px-2 mt-2 admin-toast">
                                     <Toast>
                                         <ToastHeader className="text-success">
                                             <strong>{score.quiz && score.quiz.title}</strong>&nbsp;
-                                    <small className="d-flex align-items-center">
-                                                ({score.category && score.category.title})
-                                    </small>
+                                                <small className="d-flex align-items-center">
+                                                            ({score.category && score.category.title})
+                                                </small>
                                         </ToastHeader>
 
                                         <ToastBody>
 
-                                            {score.quiz && score.quiz.questions.length > 0 ?
+                                            {score.review && score.review.questions.length > 0 ?
+
                                                 <Link to={`/review-quiz/${score.id}`} className="font-weight-bold text-info">
                                                     Review answers
                                                 </Link> :
@@ -66,10 +63,14 @@ const Reports = ({ userId, auth, scores, setScores }) => {
                     </Row>
                 </> :
 
+                <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
+                    <ReactLoading type="cylon" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
+                </div> :
+
             // If not authenticated or loading
             <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
                 {
-                    scores.isLoading ?
+                    auth.isLoading ?
                         <>
                             <ReactLoading type="spinningBubbles" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
                             <p className="d-block">Loading user ...</p>
@@ -80,16 +81,14 @@ const Reports = ({ userId, auth, scores, setScores }) => {
     )
 }
 
-Reports.propTypes = {
-    auth: PropTypes.object,
-    error: PropTypes.object
+ReportsAdmin.propTypes = {
+    auth: PropTypes.object
 }
 
 // Map  state props
 const mapStateToProps = state => ({
     auth: state.authReducer,
-    error: state.errorReducer,
     scores: state.scoresReducer
 });
 
-export default connect(mapStateToProps, { setScores })(Reports)
+export default connect(mapStateToProps, { setScores })(ReportsAdmin)

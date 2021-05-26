@@ -118,7 +118,7 @@ const Webmaster = ({ auth }) => {
                                 <SubscribersTabPane />
                                 <UsersTabPane />
                                 <ContactsTabPane currentUser={auth.user} />
-                                <ScoresTabPane currentUser={auth.user} />
+                                <ScoresTabPane auth={auth} />
                             </TabContent>
                         </Col>
 
