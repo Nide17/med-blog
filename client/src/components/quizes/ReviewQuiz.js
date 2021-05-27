@@ -106,27 +106,39 @@ const ReviewQuiz = ({ auth, scores, setScores }) => {
                                                     {score.review.questions && score.review.questions[currentQuestion].answerOptions.map((answerOption, index) => (
 
                                                         <button
+                                                            key={index}
                                                             className={`answer-option my-3 p-2 btn btn-outline-${answerOption.isCorrect ? 'success font-weight-bolder' :
-                                                                !answerOption.isCorrect && answerOption.choosen ? 'danger font-weight-bolder' : 'secondary'} rounded`}
-                                                            key={index}>
+                                                                !answerOption.isCorrect && answerOption.choosen ? 'danger font-weight-bolder' : 'secondary'} rounded`}>
                                                             {answerOption.answerText}
-
                                                         </button>
 
                                                     ))}
                                                 </div>
+
                                                 <div className="prevNext d-flex justify-content-between align-items-center mt-5">
                                                     <Button color="info" className="ml-0 ml-md-5 p-1 px-md-2" onClick={handlePrevAnswer}>Previous</Button>
 
-                                                    <ul className="d-md-flex list-inline mb-0 mt-2">
-                                                        <li>
-                                                        <Badge href="#" color="success">Green</Badge> Correct answer
-                                                        </li>
-                                                        <li className="ml-md-3">
-                                                        <Badge href="#" color="danger">Red</Badge> Incorrect choice
-                                                        </li>
-                                                    </ul>
-                                                    
+                                                    {score.review.questions && score.review.questions[currentQuestion].answerOptions.map((answerOption, index) => (
+
+                                                        answerOption.isCorrect && answerOption.choosen ?
+                                                            <ul key={index} className="d-md-flex list-inline mb-0 mt-2">
+                                                                <li>
+                                                                    <Badge href="#" color="success">Your answer is correct</Badge>
+                                                                </li>
+                                                            </ul> :
+
+                                                            !answerOption.isCorrect && answerOption.choosen ?
+                                                                <ul key={index} className="d-md-flex list-inline mb-0 mt</ul>-2">
+                                                                    <li className="ml-md-3">
+                                                                        <Badge href="#" color="danger">Your incorrect answer</Badge>
+                                                                    </li>
+                                                                    <li className="ml-md-3">
+                                                                        <Badge href="#" color="success">Correct answer</Badge>
+                                                                    </li>
+                                                                </ul> : null
+
+                                                    ))}
+
                                                     <Button color="info" className="mr-0 mr-md-5 p-1 px-md-2" onClick={handleNextAnswer}>
                                                         {lastAnswer ? 'End' : 'Next'}</Button>
                                                 </div>
