@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ReactLoading from "react-loading";
 import LoginModal from '../auth/LoginModal'
@@ -23,15 +23,15 @@ const Reports = ({ userId, auth, scores, setScores }) => {
                     <ReactLoading type="cylon" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />
                 </div> :
 
-                <>
-                    <Row className="text-center m-3 mb-1 m-lg-5 d-flex justify-content-center past-scores">
-                        <h3 className="mb-0 font-weight-bolder">Your past scores</h3>
-                    </Row>
-
                     <Row className="mx-0">
                         {scores && scores.allScores.map(score => (
 
                             score.taken_by && userId === score.taken_by._id ?
+
+                                <Fragment key={score._id}>
+                                    <Row className="text-center m-3 mb-1 m-lg-5 d-flex justify-content-center past-scores">
+                                        <h3 className="mb-0 font-weight-bolder">Your past scores</h3>
+                                    </Row>
 
                                 <Col sm="3" key={score._id} className="px-2 mt-2 report-toast">
                                     <Toast>
@@ -61,10 +61,9 @@ const Reports = ({ userId, auth, scores, setScores }) => {
                                         </ToastBody>
                                     </Toast>
 
-                                </Col> : null
+                                    </Col></Fragment> : null
                         ))}
-                    </Row>
-                </> :
+                    </Row> :
 
             // If not authenticated or loading
             <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">

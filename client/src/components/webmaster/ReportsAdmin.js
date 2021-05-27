@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ReactLoading from "react-loading";
 import LoginModal from '../auth/LoginModal'
@@ -19,17 +19,17 @@ const ReportsAdmin = ({ auth, scores, setScores }) => {
 
             !scores.isLoading ?
 
-                <>
-                    <Row className="text-center m-3 mb-1 m-lg-5 d-flex justify-content-center past-scores">
-                        <h3 className="mb-0 font-weight-bolder">Your past scores</h3>
-                    </Row>
-
                     <Row className="mx-0">
                         {scores && scores.allScores.map(score => (
 
                             score.taken_by && auth.user._id === score.taken_by._id ?
 
-                                <Col sm="3" key={score._id} className="px-2 mt-2 admin-toast">
+                                <Fragment key={score._id}>
+                                    <Row className="text-center m-3 mb-1 m-lg-5 d-flex justify-content-center past-scores">
+                                        <h3 className="mb-0 font-weight-bolder">Your past scores</h3>
+                                    </Row>
+
+                                <Col sm="3" className="px-2 mt-2 admin-toast">
                                     <Toast>
                                         <ToastHeader className="text-success">
                                             <strong>{score.quiz && score.quiz.title}</strong>&nbsp;
@@ -58,10 +58,9 @@ const ReportsAdmin = ({ auth, scores, setScores }) => {
                                         </ToastBody>
                                     </Toast>
 
-                                </Col> : null
+                                </Col></Fragment>  : null
                         ))}
-                    </Row>
-                </> :
+                    </Row>:
 
                 <div className="m-5 p-5 d-flex justify-content-center align-items-center text-danger">
                     <ReactLoading type="cylon" color="#33FFFC" />&nbsp;&nbsp;&nbsp;&nbsp; <br />

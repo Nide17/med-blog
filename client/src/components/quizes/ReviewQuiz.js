@@ -115,13 +115,19 @@ const ReviewQuiz = ({ auth, scores, setScores }) => {
 
                                                     ))}
                                                 </div>
-                                                <div className="prevNext d-flex justify-content-between">
-                                                    <Button color="info" className="ml-5" onClick={handlePrevAnswer}>Previous</Button>
-                                                    <ul className="d-flex list-inline mb-0 mt-2">
-                                                        <li><Badge href="#" color="success">Green</Badge> Correct answer</li>&nbsp;&nbsp;
-                                                    <li><Badge href="#" color="danger">Red</Badge> Incorrect choice</li>
+                                                <div className="prevNext d-flex justify-content-between align-items-center mt-5">
+                                                    <Button color="info" className="ml-0 ml-md-5 p-1 px-md-2" onClick={handlePrevAnswer}>Previous</Button>
+
+                                                    <ul className="d-md-flex list-inline mb-0 mt-2">
+                                                        <li>
+                                                        <Badge href="#" color="success">Green</Badge> Correct answer
+                                                        </li>
+                                                        <li className="ml-md-3">
+                                                        <Badge href="#" color="danger">Red</Badge> Incorrect choice
+                                                        </li>
                                                     </ul>
-                                                    <Button color="info" className="mr-5" onClick={handleNextAnswer}>
+                                                    
+                                                    <Button color="info" className="mr-0 mr-md-5 p-1 px-md-2" onClick={handleNextAnswer}>
                                                         {lastAnswer ? 'End' : 'Next'}</Button>
                                                 </div>
                                             </Col>
