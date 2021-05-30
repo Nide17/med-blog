@@ -7,7 +7,7 @@ import ReactLoading from "react-loading";
 
 import trash from '../../images/trash.svg';
 
-const ScoresTabPane = ({ auth, scores, setScores, deleteScore }) => {
+const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
 
     // Lifecycle methods
     useEffect(() => {
