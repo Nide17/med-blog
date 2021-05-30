@@ -13,10 +13,10 @@ import SimilarQuizes from './SimilarQuizes';
 const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [quizToReview, setQuizToReview] = useState({});
-    const [newScore, setNewScore] = useState({});
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
+    const [quizToReview, setQuizToReview] = useState({});
+    const [newScoreId, setNewScoreId] = useState();
 
     useEffect(() => {
         // Inside this callback function, we set questions when the component is mounted.
@@ -32,11 +32,21 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
             setScore(score + 1);
         }
 
+        const nextQuestion = currentQuestion + 1;
+
         quizes && quizes.allQuizes.find(quiz =>
 
             quiz._id === readyQuizId ?
 
                 <>
+                    {setNewScoreId(uuidv4())}
+
+                    {
+                        (nextQuestion < quiz.questions.length) ?
+                        setCurrentQuestion(nextQuestion) :
+                        setShowScore(true)
+                    }
+
                     {quiz.questions[currentQuestion].answerOptions
                         .map(opt => event && event.target.value === opt.answerText ?
                             opt.choosen = true :
@@ -49,31 +59,7 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                         description: quiz.description,
                         questions: quiz.questions
                     })}
-
-                    {setNewScore({
-                        ...newScore,
-                        id: uuidv4(),
-                        marks: score,
-                        out_of: quiz.questions.length,
-                        category: quiz.category._id,
-                        quiz: quiz._id,
-                        review: quizToReview && quizToReview,
-                        taken_by: auth.isLoading === false ? auth.user._id : null
-                    })}
-
-                </> :
-                null)
-
-        const nextQuestion = currentQuestion + 1;
-
-        quizes && quizes.allQuizes.map(quiz => (
-
-            (quiz._id === readyQuizId) ?
-
-                (nextQuestion < quiz.questions.length) ?
-                    setCurrentQuestion(nextQuestion) :
-                    setShowScore(true) :
-                null))
+                </> : null)
     };
 
     const Reload = () => window.location.reload()
@@ -95,10 +81,17 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
 
                                     auth.isAuthenticated ?
 
-                                        createScore(newScore) &&
+                                        createScore({
+                                            id: newScoreId,
+                                            marks: score && score,
+                                            out_of: quiz.questions.length,
+                                            category: quiz.category._id,
+                                            quiz: quiz._id,
+                                            review: quizToReview && quizToReview,
+                                            taken_by: auth.isLoading === false ? auth.user._id : null
+                                        }) &&
 
                                         <div className='score-section text-center'>
-
                                             <h5>You got <b style={{ color: "#B4654A" }}>{score}</b> questions right from <b style={{ color: "#B4654A" }}>{quiz.questions.length}</b>.
 
                                                 <small className="text-info">
@@ -110,7 +103,7 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                                 Retake
                                             </button>
 
-                                            <Link to={`/review-quiz/${newScore && newScore.id}`}>
+                                            <Link to={`/review-quiz/${newScoreId && newScoreId}`}>
                                                 <button type="button" className="btn btn-outline-success mt-3">
                                                     Review Answers
                                                 </button>
