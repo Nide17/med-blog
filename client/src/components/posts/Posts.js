@@ -118,11 +118,7 @@ const Posts = ({ subscribeToNewsLetter, subscribedUsers, clearErrors, error, set
                         {error.id === "SUBSCRIBE_FAIL" ?
                             <Alert color='danger'>
                                 <small>{error.msg.msg}</small>
-                            </Alert> :
-                            subscribedUsers[1] !== undefined ?
-                                <Alert color='success'>
-                                    <small>{subscribedUsers[1].msg}</small>
-                                </Alert> :
+                            </Alert>:
                                 null
                         }
 
