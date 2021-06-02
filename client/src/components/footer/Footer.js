@@ -60,7 +60,7 @@ const Footer = () => {
                                     <h4>Services</h4>
                                     <ul className="list-unstyled ml-2">
                                         <li><a href="/allposts">All quizzes</a></li>
-                                        <li><a href="/tips">Tips & references</a></li>
+                                        <li><a href="/disclaimer">Disclaimer</a></li>
                                     </ul>
                                 </div>
                             </div>

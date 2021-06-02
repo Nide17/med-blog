@@ -9,7 +9,7 @@ import ForgotPassword from './components/auth/ForgotPassword';
 import ResetPassword from './components/auth/ResetPassword';
 import Unsubscribe from './components/auth/Unsubscribe';
 import Privacy from './components/others/Privacy';
-import Placeholder from './components/others/Placeholder';
+import Disclaimer from './components/others/Disclaimer';
 
 // REDUX
 import { Provider } from 'react-redux'
@@ -75,8 +75,8 @@ const App = () => {
                     <Route exact path="/questions-create/:quizId" component={CreateQuestions} />
                     <Route path="/contact" component={Contact} />
                     <Route path="/about" component={About} />
-                    <Route path="/ourself" component={Placeholder} />
                     <Route path="/privacy" component={Privacy} />
+                    <Route path="/disclaimer" component={Disclaimer} />
 
                     <Route exact path="/webmaster">
                         <Suspense fallback={<div className="p-5 m-5 d-flex justify-content-center align-items-center">
@@ -86,7 +86,6 @@ const App = () => {
                         </Suspense>
                     </Route>
 
-                    <Route path="/tips" component={Placeholder} />
                 </Switch>
                 <Footer />
             </Router>
