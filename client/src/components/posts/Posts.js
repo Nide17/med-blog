@@ -1,15 +1,18 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react'
 import { Container, Col, Row, Form, FormGroup, Input, Button, Alert, Spinner } from 'reactstrap';
+import ReactLoading from "react-loading";
 import SearchInput from '../SearchInput'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { subscribeToNewsLetter } from '../../redux/subscribers/subscribers.actions'
 import { clearErrors } from '../../redux/error/error.actions'
-const PostItem = lazy(() => import('./PostItem'));
+
+import CarouselQuiz from './CarouselQuiz'
+import PostItem from './PostItem'
 const ViewCategory = lazy(() => import('../categories/ViewCategory'));
 
-const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, allQuizes }) => {
+const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes }) => {
 
     const [subscriberState, setsubscriberState] = useState({
         name: '',
@@ -43,11 +46,11 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, allQuizes
         // Attempt to subscribe
         subscribeToNewsLetter(subscribedUser);
 
-                // Reset fields
-                setsubscriberState({
-                    name: '',
-                    email: ''
-                })
+        // Reset fields
+        setsubscriberState({
+            name: '',
+            email: ''
+        })
     }
 
     return (
@@ -59,45 +62,49 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, allQuizes
             </blockquote>
 
             <Row className="mt-5 mx-0">
+                    <CarouselQuiz />
+            </Row>
+
+            <Row className="mt-5 mx-0">
+
                 <Col sm="8" className="px-1 px-lg-4 mt-md-2">
-                    <Suspense
-                        fallback={
-                            <div className="p-1 m-1 d-flex justify-content-center align-items-center">
-                                <Spinner style={{ width: '5rem', height: '5rem' }} />
-                            </div>
-                        }>
-                        <h3 className="mb-3 text-center lead font-weight-bold">Newest Quizes</h3>
+                    <h3 className="mb-3 text-center lead font-weight-bold">Newest Quizes</h3>
 
-                        {/* Search */}
-                        <SearchInput setSearchKey={setSearchKey} placeholder=" Search quizes here ...  " />
+                    {quizes.isLoading ?
+                        <div className="p-5 m-5 d-flex justify-content-center align-items-center">
+                            <ReactLoading type="spokes" color="#33FFFC" />
+                        </div> :
+                        <>
 
-                        {allQuizes && allQuizes
-                            .filter(quiz => {
+                            {/* Search */}
+                            <SearchInput setSearchKey={setSearchKey} placeholder=" Search quizes here ...  " />
 
-                                if (searchKey === "") {
-                                    return quiz
-                                } else if (quiz.title.toLowerCase().includes(searchKey.toLowerCase())) {
-                                    return quiz
-                                }
-                                return null
-                            })
-                            .slice(0, 29)
-                            .map(quiz => (
-                                quiz.questions.length > 0 ?
-                                    <PostItem key={quiz._id} quiz={quiz} /> : null
-                            ))}
+                            {quizes && quizes.allQuizes
+                                .filter(quiz => {
 
-                        {allQuizes.length > 0 ?
+                                    if (searchKey === "") {
+                                        return quiz
+                                    } else if (quiz.title.toLowerCase().includes(searchKey.toLowerCase())) {
+                                        return quiz
+                                    }
+                                    return null
+                                })
+                                .slice(0, 29)
+                                .map(quiz => (
+                                    quiz.questions.length > 0 ?
+                                        <PostItem key={quiz._id} quiz={quiz} /> : null
+                                ))}
 
-                            <div className="mt-4 d-flex justify-content-center">
-                                <Link to="/allposts">
-                                    <Button outline color="info">View all quizes ...</Button>
-                                </Link>
-                            </div> :
-                            null}
+                            {quizes.allQuizes.length > 0 ?
 
-                    </Suspense>
-
+                                <div className="my-4 d-flex justify-content-center">
+                                    <Link to="/allposts">
+                                        <Button outline color="info">View all quizes ...</Button>
+                                    </Link>
+                                </div> :
+                                null}
+                        </>
+                    }
                 </Col>
 
                 <Col sm="4">
@@ -110,7 +117,6 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, allQuizes
                                 </div>
                             }>
                             <ViewCategory />
-
                         </Suspense>
                     </Row>
 
@@ -118,8 +124,8 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, allQuizes
                         {error.id === "SUBSCRIBE_FAIL" ?
                             <Alert color='danger'>
                                 <small>{error.msg.msg}</small>
-                            </Alert>:
-                                null
+                            </Alert> :
+                            null
                         }
 
                         <Form onSubmit={onSubscribe}>
@@ -147,7 +153,7 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, allQuizes
 const mapStateToProps = state => ({
     error: state.errorReducer,
     subscribedUsers: state.subscribersReducer.subscribedUsers,
-    allQuizes: state.quizesReducer.allQuizes
+    quizes: state.quizesReducer,
 })
 
 export default connect(mapStateToProps, { subscribeToNewsLetter, clearErrors, setQuizes })(Posts)
