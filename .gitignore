@@ -27,6 +27,7 @@ yarn-error.log*
 * copy.js
 * copy.json
 * copy.md
+* .txt
 
 
 /client/src/components/questions/* copy.js

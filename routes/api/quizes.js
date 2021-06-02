@@ -94,6 +94,8 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 
             // Send email to subscribers the Category on Quiz creation
             const subscribers = await SubscribedUser.find()
+            const allUsers = await SubscribedUser.find()
+            const subscribers = await SubscribedUser.find()
             const quizAuthor = await User.findById(savedQuiz.created_by).select("name")
 
             const clientURL = process.env.NODE_ENV === 'production' ?
@@ -106,6 +108,21 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
                     "Updates!! New nursing quiz that may be interests you",
                     {
                         name: sub.name,
+                        author: quizAuthor.name,
+                        newQuiz: savedQuiz.title,
+                        quizesLink: `${clientURL}/view-quiz/${savedQuiz._id}`,
+                        unsubscribeLink: `${clientURL}/unsubscribe`
+                    },
+                    "./template/newquiz.handlebars");
+            });
+
+            allUsers.forEach(usr => {
+
+                sendEmail(
+                    usr.email,
+                    "Updates!! New nursing quiz that may be interests you",
+                    {
+                        name: usr.name,
                         author: quizAuthor.name,
                         newQuiz: savedQuiz.title,
                         quizesLink: `${clientURL}/view-quiz/${savedQuiz._id}`,

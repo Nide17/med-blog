@@ -92,7 +92,7 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
                                 })
                                 .slice(0, 29)
                                 .map(quiz => (
-                                    quiz.questions.length > 0 ?
+                                    quiz.questions.length > 5 ?
                                         <PostItem key={quiz._id} quiz={quiz} /> : null
                                 ))}
 
