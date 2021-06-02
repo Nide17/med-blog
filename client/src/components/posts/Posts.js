@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { subscribeToNewsLetter } from '../../redux/subscribers/subscribers.actions'
 import { clearErrors } from '../../redux/error/error.actions'
+import subscribe from '../../images/undraw_subscribe.svg';
 
 import CarouselQuiz from './CarouselQuiz'
 import PostItem from './PostItem'
@@ -68,7 +69,7 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
             <Row className="mt-5 mx-0">
 
                 <Col sm="8" className="px-1 px-lg-4 mt-md-2">
-                    <h3 className="mb-3 text-center lead font-weight-bold">Newest Quizes</h3>
+                    <h3 className="mb-3 text-danger text-center lead font-weight-bold">Newest Quizes</h3>
 
                     {quizes.isLoading ?
                         <div className="p-5 m-5 d-flex justify-content-center align-items-center">
@@ -128,10 +129,12 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
                             null
                         }
 
-                        <Form onSubmit={onSubscribe}>
+                        <Form onSubmit={onSubscribe} className="subscribe-form">
                             <FormGroup>
-                                <h6 className="mt-4">
-                                    <b>Subscribe To Our Newsletter.</b>
+                                <img src={subscribe} alt={subscribe} />
+
+                                <h6 className="mt-5">
+                                    <b>Subscribe to our Newsletter.</b>
                                 </h6>
 
                                 <Input type="text" name="name" value={subscriberState.name} bsSize="sm" placeholder="Your name" className="mt-4" onChange={onChangeHandler} minLength="4" maxLength="30" required />

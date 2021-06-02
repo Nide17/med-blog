@@ -280,7 +280,8 @@ div.question-section {
     border-radius: 10px;
 }
 
-.quiz-carousel .carousel-item img {
+.quiz-carousel .carousel-item img,
+.subscribe-form img {
     max-width: 100%;
     width: 100%;
     height: auto;
