@@ -94,8 +94,7 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 
             // Send email to subscribers the Category on Quiz creation
             const subscribers = await SubscribedUser.find()
-            const allUsers = await SubscribedUser.find()
-            const subscribers = await SubscribedUser.find()
+            const allUsers = await User.find()
             const quizAuthor = await User.findById(savedQuiz.created_by).select("name")
 
             const clientURL = process.env.NODE_ENV === 'production' ?
