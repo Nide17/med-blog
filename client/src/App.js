@@ -10,6 +10,7 @@ import ResetPassword from './components/auth/ResetPassword';
 import Unsubscribe from './components/auth/Unsubscribe';
 import Privacy from './components/others/Privacy';
 import Disclaimer from './components/others/Disclaimer';
+import Placeholder from './components/others/Placeholder';
 
 // REDUX
 import { Provider } from 'react-redux'
@@ -78,12 +79,19 @@ const App = () => {
                     <Route path="/privacy" component={Privacy} />
                     <Route path="/disclaimer" component={Disclaimer} />
 
+                    <Route path="/ads.txt">
+                        google.com, pub-8918850949540829, DIRECT, f08c47fec0942fa0
+                    </Route>
+
                     <Route exact path="/webmaster">
                         <Suspense fallback={<div className="p-5 m-5 d-flex justify-content-center align-items-center">
                             <Spinner style={{ width: '10rem', height: '10rem' }} />
                         </div>}>
                             <Webmaster />
                         </Suspense>
+                    </Route>
+                    <Route path="*">
+                        <Placeholder />
                     </Route>
 
                 </Switch>
