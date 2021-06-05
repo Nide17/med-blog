@@ -4,6 +4,8 @@ import { Container, Col, Row, Spinner } from 'reactstrap';
 import { connect } from 'react-redux'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { subscribeToNewsLetter } from '../../redux/subscribers/subscribers.actions'
+import ResponsiveAd from '../adsenses/ResponsiveAd';
+import SquareAd from '../adsenses/SquareAd';
 const PostItem = lazy(() => import('./PostItem'));
 
 const Posts = ({ setQuizes, allQuizes }) => {
@@ -22,7 +24,12 @@ const Posts = ({ setQuizes, allQuizes }) => {
             </blockquote>
 
             <Row className="mt-lg-5">
-            <Col sm="2" className="mt-md-2"></Col>
+            <Col sm="2" className="mt-md-2">
+                    {/* Google responsive 1 ad */}
+                    <Row className="mb-3">
+                        <ResponsiveAd/>
+                    </Row>
+            </Col>
                 <Col sm="8" className="mt-md-2">
                     <Suspense
                         fallback={
@@ -36,7 +43,11 @@ const Posts = ({ setQuizes, allQuizes }) => {
                         ))}
                     </Suspense>
                 </Col>
-                <Col sm="2" className="mt-md-2"></Col>
+                <Col sm="2" className="mt-md-2">
+                    <Row className="mb-5">
+                        <SquareAd />
+                    </Row>
+                </Col>
             </Row>
         </Container>
     )
