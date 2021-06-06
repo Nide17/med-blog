@@ -26,9 +26,7 @@ const Posts = ({ setQuizes, allQuizes }) => {
             <Row className="mt-lg-5">
             <Col sm="2" className="mt-md-2">
                     {/* Google responsive 1 ad */}
-                    <Row className="mb-3">
                         <ResponsiveAd/>
-                    </Row>
             </Col>
                 <Col sm="8" className="mt-md-2">
                     <Suspense
@@ -44,9 +42,7 @@ const Posts = ({ setQuizes, allQuizes }) => {
                     </Suspense>
                 </Col>
                 <Col sm="2" className="mt-md-2">
-                    <Row className="mb-5">
                         <SquareAd />
-                    </Row>
                 </Col>
             </Row>
         </Container>

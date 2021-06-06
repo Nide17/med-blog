@@ -113,9 +113,7 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
                 <Col sm="4">
 
                     {/* Google responsive 1 ad */}
-                    <Row className="mb-3">
                         <ResponsiveAd />
-                    </Row>
 
                     <Row className="mb-5">
                         <Suspense
@@ -154,10 +152,7 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
                         </Form>
 
                     </Row>
-
-                    <Row className="mb-5">
                         <SquareAd />
-                    </Row>
                 </Col>
 
             </Row>
