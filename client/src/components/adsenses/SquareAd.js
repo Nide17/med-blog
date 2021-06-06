@@ -3,7 +3,7 @@ class SquareAd extends Component {
 
     render() {
         return (
-            <ins className="adsbygoogle"
+            <ins className="ad_responsive adsbygoogle"
                 style={{ display: "block" }}
                 data-ad-client="ca-pub-8918850949540829"
                 data-ad-slot="8174811139"
