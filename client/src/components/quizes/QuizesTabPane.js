@@ -103,7 +103,7 @@ const QuizesTabPane = ({ currentUser, quizes, questionsData, setQuizes, setQuest
                                                 {quiz.description}
                                                 <br />
                                                 <small className="mb-2 text-success font-weight-bold">
-                                                    🧑 By {quiz.created_by.name}
+                                                    🧑 By {quiz.created_by && quiz.created_by.name}
                                                 </small>
                                                 <br />
                                                 <br />

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Jumbotron, Button, Col, Row, Form, FormGroup, Input, Alert } from 'reactstrap';
+import ResponsiveAd from '../adsenses/ResponsiveAd';
+import SquareAd from '../adsenses/SquareAd';
 import { clearErrors } from '../redux/error/error.actions'
 import { sendMsg } from '../redux/contacts/contacts.actions'
 
@@ -60,7 +62,8 @@ const Contact = ({ clearErrors, error, sendMsg }) => {
                 </Col>
 
                 <Col sm="6" className="mb-5">
-
+                    {/* Google responsive 1 ad */}
+                    <ResponsiveAd />
                     {error.id === "ADD_CONTACT_FAIL" ?
                         <Alert color='danger'>
                             <small>{error.msg.msg}</small>
@@ -83,7 +86,8 @@ const Contact = ({ clearErrors, error, sendMsg }) => {
                         </FormGroup>
                         <Button color="primary">Submit</Button>
                     </Form>
-
+                    {/* Google square ad */}
+                    <SquareAd />
                 </Col>
             </Row>
         </div>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Container, Row, Button, Form, Input, Alert } from 'reactstrap';
+import ResponsiveAd from '../adsenses/ResponsiveAd';
+import SquareAd from '../adsenses/SquareAd'; 
 
 import { connect } from 'react-redux';
 import { sendResetLink } from '../../redux/auth/auth.actions';
@@ -52,6 +54,8 @@ const ForgotPassword = ({ error, sendResetLink }) => {
                         <h2 className="font-weight-bold my-3">Find your account here</h2>
 
                         <small>Provide your email to find your account</small>
+                        {/* Google square ad */}
+                        <SquareAd />
 
                         <Form className="my-4" onSubmit={onSubmitHandler}>
 
@@ -74,6 +78,8 @@ const ForgotPassword = ({ error, sendResetLink }) => {
                             <Button color="info" size="sm" className="mt-4 d-block mx-auto">Search</Button>
 
                         </Form>
+                        {/* Google responsive 1 ad */}
+                        <ResponsiveAd />
                     </>
 
                 }

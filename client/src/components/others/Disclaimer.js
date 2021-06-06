@@ -1,4 +1,6 @@
 import React from 'react'
+import ResponsiveAd from '../adsenses/ResponsiveAd';
+import SquareAd from '../adsenses/SquareAd';
 
 const Disclaimer = () => {
     return (
@@ -11,6 +13,8 @@ const Disclaimer = () => {
                 <p>If you require any more information or have any questions about our site's disclaimer, please feel free to contact us by email at quizblog.rw@gmail.com.</p>
 
                 <h2>Disclaimers for quizblog.rw</h2>
+                {/* Google responsive 1 ad */}
+                <ResponsiveAd />
 
                 <p>All the information on this website - http://www.quizblog.rw - is published in good faith and for general information purpose only. quizblog.rw does not make any warranties about the completeness, reliability and accuracy of this information. Any action you take upon the information you find on this website (quizblog.rw), is strictly at your own risk. quizblog.rw will not be liable for any losses and/or damages in connection with the use of our website.</p>
 
@@ -26,6 +30,8 @@ const Disclaimer = () => {
 
                 <p>Should we update, amend or make any changes to this document, those changes will be prominently posted here.</p>
 
+                {/* Google square ad */}
+                <SquareAd />
             </div>
 
         </div>

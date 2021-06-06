@@ -1,4 +1,6 @@
 import React from 'react'
+import ResponsiveAd from '../adsenses/ResponsiveAd';
+import SquareAd from '../adsenses/SquareAd';
 
 const Privacy = () => {
     return (
@@ -14,6 +16,10 @@ const Privacy = () => {
                 <h1>Interpretation and Definitions</h1>
                 <h2>Interpretation</h2>
                 <p>The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>
+
+                {/* Google responsive 1 ad */}
+                <ResponsiveAd />
+
                 <h2>Definitions</h2>
                 <p>For the purposes of this Privacy Policy:</p>
                 <ul>
@@ -79,6 +85,9 @@ const Privacy = () => {
                     <li><strong>Web Beacons.</strong> Certain sections of our Service and our emails may contain small electronic files known as web beacons (also referred to as clear gifs, pixel tags, and single-pixel gifs) that permit the Company, for example, to count users who have visited those pages or opened an email and for other related website statistics (for example, recording the popularity of a certain section and verifying system and server integrity).</li>
                 </ul>
                 <p>Cookies can be &quot;Persistent&quot; or &quot;Session&quot; Cookies. Persistent Cookies remain on Your personal computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close Your web browser.</p>
+
+                {/* Google square ad */}
+                <SquareAd />
 
                 <p>We use both Session and Persistent Cookies for the purposes set out below:</p>
                 <ul>

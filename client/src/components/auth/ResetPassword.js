@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Container, Row, Button, Form, Input, Alert } from 'reactstrap';
+import ResponsiveAd from '../adsenses/ResponsiveAd';
+import SquareAd from '../adsenses/SquareAd';
 
 import { connect } from 'react-redux';
 import { sendNewPassword } from '../../redux/auth/auth.actions';
@@ -74,6 +76,8 @@ const ResetPassword = ({ sendNewPassword }) => {
 
                         <small>Provide matching passwords to reset your account</small>
 
+                        {/* Google square ad */}
+                        <SquareAd />
                         <Form className="my-4" onSubmit={onSubmitHandler}>
 
                             {errorsState.length > 0 ?
@@ -103,6 +107,8 @@ const ResetPassword = ({ sendNewPassword }) => {
                             <Button color="info" size="sm" className="mt-4 d-block mx-auto">Reset</Button>
 
                         </Form>
+                        {/* Google responsive 1 ad */}
+                        <ResponsiveAd />
                     </>
 
                 }
