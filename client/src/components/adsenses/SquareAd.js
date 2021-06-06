@@ -1,5 +1,18 @@
 import React, { Component } from 'react';
 class SquareAd extends Component {
+    googleInit = null;
+
+    componentDidMount() {
+
+        this.googleInit = setTimeout(() => {
+            if (typeof window !== 'undefined')
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+        }, 400);
+    }
+
+    componentWillUnmount() {
+        if (this.googleInit) clearTimeout(this.googleInit);
+    }
 
     render() {
         return (

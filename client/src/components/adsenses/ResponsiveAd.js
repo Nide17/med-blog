@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 
 class ResponsiveAd extends Component {
 
+    componentDidMount() {
+        setTimeout(function () { (window.adsbygoogle = window.adsbygoogle || []).push({}) }, 400);
+    }
+
     render() {
         return (
             <ins className="adsbygoogle"
