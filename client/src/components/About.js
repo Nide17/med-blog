@@ -1,7 +1,7 @@
 import React from 'react'
 import { Jumbotron, Col, Row, Card, CardTitle, CardText, CardImg, Button } from 'reactstrap';
-import ResponsiveAd from '../adsenses/ResponsiveAd';
-import SquareAd from '../adsenses/SquareAd';
+import ResponsiveAd from './adsenses/ResponsiveAd';
+import SquareAd from './adsenses/SquareAd';
 import bruce from '../images/Bruceimg.png'
 import parmenide from '../images/Parmenideimg.png'
 import instagram from '../../src/images/instagram.svg';

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Jumbotron, Button, Col, Row, Form, FormGroup, Input, Alert } from 'reactstrap';
-import ResponsiveAd from '../adsenses/ResponsiveAd';
-import SquareAd from '../adsenses/SquareAd';
+import ResponsiveAd from './adsenses/ResponsiveAd';
+import SquareAd from './adsenses/SquareAd';
 import { clearErrors } from '../redux/error/error.actions'
 import { sendMsg } from '../redux/contacts/contacts.actions'
 
