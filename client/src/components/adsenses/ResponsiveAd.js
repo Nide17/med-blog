@@ -2,9 +2,14 @@ import React, { Component } from 'react'
 
 class ResponsiveAd extends Component {
 
+    componentDidMount() {
+        (window.adsbygoogle = window.adsbygoogle || []).push({})
+        setTimeout(function () { (window.adsbygoogle = window.adsbygoogle || []).push({}) }, 1000);
+    }
+
     render() {
         return (
-            <ins className="ad_responsive adsbygoogle"
+            <ins className="adsbygoogle"
                 style={{ display: "block" }}
                 data-ad-client="ca-pub-8918850949540829"
                 data-ad-slot="9642045284"
