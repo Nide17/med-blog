@@ -11,8 +11,8 @@ import subscribe from '../../images/undraw_subscribe.svg';
 
 import CarouselQuiz from './CarouselQuiz'
 import PostItem from './PostItem'
-import ResponsiveAd from '../adsenses/ResponsiveAd';
-// import SquareAd from '../adsenses/SquareAd';
+// import ResponsiveAd from '../adsenses/ResponsiveAd';
+import SquareAd from '../adsenses/SquareAd';
 const ViewCategory = lazy(() => import('../categories/ViewCategory'));
 
 const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes }) => {
@@ -113,7 +113,7 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
                 <Col sm="4">
 
                     {/* Google responsive 1 ad */}
-                        <ResponsiveAd />
+                    <SquareAd />
 
                     <Row className="mb-5">
                         <Suspense
@@ -153,7 +153,7 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
 
                     </Row>
                         {/* <SquareAd /> */}
-                    <ResponsiveAd />
+                    <SquareAd />
                 </Col>
 
             </Row>
