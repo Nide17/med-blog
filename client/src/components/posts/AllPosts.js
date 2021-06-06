@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { subscribeToNewsLetter } from '../../redux/subscribers/subscribers.actions'
 import ResponsiveAd from '../adsenses/ResponsiveAd';
-import SquareAd from '../adsenses/SquareAd';
+// import SquareAd from '../adsenses/SquareAd';
 const PostItem = lazy(() => import('./PostItem'));
 
 const Posts = ({ setQuizes, allQuizes }) => {
@@ -42,7 +42,7 @@ const Posts = ({ setQuizes, allQuizes }) => {
                     </Suspense>
                 </Col>
                 <Col sm="2" className="mt-md-2">
-                        <SquareAd />
+                        {/* <SquareAd /> */}
                 </Col>
             </Row>
         </Container>
