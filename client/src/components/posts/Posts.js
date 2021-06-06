@@ -153,6 +153,7 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
 
                     </Row>
                         {/* <SquareAd /> */}
+                    <ResponsiveAd />
                 </Col>
 
             </Row>
