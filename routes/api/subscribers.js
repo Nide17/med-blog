@@ -52,7 +52,7 @@ router.post('/', async (req, res) => {
 
         // Sending e-mail to subscribed user
     const clientURL = process.env.NODE_ENV === 'production' ?
-      'http://www.quizblog.xyz' : 'http://localhost:3000'
+      'http://www.quizblog.rw' : 'http://localhost:3000'
 
     sendEmail(
       savedSubscriber.email,
