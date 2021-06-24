@@ -17,56 +17,59 @@ const GetReady = ({ quizes, setQuizes }) => {
 
     if (!quizes.isLoading) {
 
+        const quizToTake = quizes && quizes.allQuizes.find(quiz =>
+            quiz._id === quizId ? quiz : null)
+
         return (
 
-            quizes && quizes.allQuizes.map(quiz => (
+            quizToTake ?
 
-                (quiz._id === quizId) ?
+                <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80">
 
-                    <Container className="main d-flex flex-column justify-content-center rounded border border-primary my-5 py-4 w-80" key={Math.floor(Math.random() * 1000)}>
+                    <div className="question-view">
 
-                        <div className="question-view">
+                        <Row>
+                            <Col>
 
-                            <Row>
-                                <Col>
+                                <Card body className='question-section text-center my-2 mx-auto w-75'>
+                                    <CardTitle tag="h5" className='question-count text-uppercase text-center text-secondary font-weight-bold'>
+                                        {quizToTake.title}&nbsp;({quizToTake.questions && quizToTake.questions.length})
+                                    </CardTitle>
 
-                                    <Card body className='question-section text-center my-2 mx-auto w-75'>
-                                        <CardTitle tag="h5" className='question-count text-uppercase text-center text-secondary font-weight-bold'>
-                                            {quiz.title}&nbsp;({quiz.questions && quiz.questions.length})
-                                        </CardTitle>
+                                    <CardText>
+                                        {quizToTake.description}
+                                    </CardText>
 
-                                        <CardText>
-                                            {quiz.description}
-                                        </CardText>
+                                    <div className='answer d-flex justify-content-center mx-auto mt-2 w-lg-50'>
+                                        <Link to={`/attempt-quiz/${quizToTake._id}`}>
+                                            <Button className="btn btn-outline-primary mt-3">
+                                                Attempt Quiz
+                                            </Button>
+                                        </Link>
+                                        &nbsp;&nbsp;
 
-                                        <div className='answer d-flex justify-content-center mx-auto mt-2 w-lg-50'>
-                                            <Link to={`/attempt-quiz/${quiz._id}`}>
-                                                <Button className="btn btn-outline-primary mt-3">
-                                                    Attempt Quiz
-                                                </Button>
-                                            </Link>
-                                            &nbsp;&nbsp;
+                                        <Link to={'/'}>
+                                            <Button className="btn btn-outline-primary mt-3">
+                                                Back
+                                            </Button>
+                                        </Link>
+                                    </div>
 
-                                            <Link to={'/'}>
-                                                <Button className="btn btn-outline-primary mt-3">
-                                                    Back
-                                                </Button>
-                                            </Link>
-                                        </div>
+                                    <small className="mt-3">
+                                        ~{quizToTake.category && quizToTake.category.title}~
+                                    </small>
 
-                                        <small className="mt-3">
-                                            ~{quiz.category && quiz.category.title}~
-                                        </small>
+                                </Card>
 
-                                    </Card>
+                            </Col>
+                        </Row>
+                    </div>
 
-                                </Col>
-                            </Row>
-                        </div>
+                </Container> :
 
-                    </Container> :
-
-                    null)))
+                <div className="pt-5 d-flex justify-content-center align-items-center">
+                    <h4 className="pt-lg-5 mt-lg-5 text-danger">This quiz is unavailable!</h4>
+                </div>)
     }
     else {
 
