@@ -68,7 +68,7 @@ const GetReady = ({ quizes, setQuizes }) => {
                 </Container> :
 
                 <div className="pt-5 d-flex justify-content-center align-items-center">
-                    <h4 className="pt-lg-5 mt-lg-5 text-danger">This quiz is unavailable!</h4>
+                    <h4 className="pt-lg-5 mt-lg-5 text-danger">This quiz is unavailable! <a href="/allposts">click here for more quizes!</a></h4>
                 </div>)
     }
     else {
