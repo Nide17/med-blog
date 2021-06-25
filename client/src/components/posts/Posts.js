@@ -56,6 +56,15 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
         })
     }
 
+    const mystyle = {
+        color: "#B4654A",
+        textAlign: "center",
+        animationDuration: "2s",
+        animationName: "slidein",
+        animationIterationCount: "infinite",
+        animationDirection: "alternate"
+    };
+
     return (
         <Container className="posts main px-0 mt-4">
 
@@ -66,6 +75,12 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
 
             <Row className="mt-5 mx-0">
                 <CarouselQuiz />
+            </Row>
+
+            <Row className="mt-4 mx-0">
+                <div style={mystyle} className="soon">
+                    <h4>Ready? Let's link you to your exam success! 🍾🎉</h4>
+                </div>
             </Row>
 
             <Row className="mt-5 mx-0">
