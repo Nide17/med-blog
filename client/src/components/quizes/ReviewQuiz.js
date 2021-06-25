@@ -89,7 +89,13 @@ const ReviewQuiz = ({ auth, scores, setScores }) => {
                                     <div className="question-view">
                                         <Row>
                                             <Col>
-                                                <h6 className="text-warning mb-5 ml-lg-5">Reviewing ...</h6>
+                                            <div className="d-flex justify-content-around">
+                                                    <h6 className="text-warning">Reviewing ...</h6>
+                                                    <Button outline color="success" size="sm">
+                                                    <a href="/webmaster">Your past scores</a>
+                                                    </Button>
+                                            </div>
+
                                                 <div className='question-section my-2 mx-auto w-75'>
                                                     <h4 className='question-count text-uppercase text-center text-secondary font-weight-bold'>
                                                         <span>Question <b style={{ color: "#B4654A" }}>{currentQuestion + 1}</b></span>/{score.review.questions.length}
