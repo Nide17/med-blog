@@ -125,9 +125,16 @@ const QuizQuestions = ({ quizes, setQuizes, createScore, auth }) => {
                                                     </Link>
                                                 </>
                                                 :
-                                                <h5 className="text-center text-success my-3">
-                                                    Congratulations, you passed this test!
-                                                </h5>}
+                                                <>
+                                                    <h6 className="text-center text-success my-3">
+                                                        Congratulations, you passed this test! Remember, the more you practice the more you understand! If you need any related book or help, don't hesitate to contact us!
+                                                    </h6>
+                                                    <Link to="/contact" className="text-success">
+                                                        <button type="button" className="btn btn-outline-success">
+                                                            Contact us for help!
+                                                        </button>
+                                                    </Link>
+                                                </>}
                                         </div>
 
                                     </div> :
