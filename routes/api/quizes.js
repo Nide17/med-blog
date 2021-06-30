@@ -90,7 +90,7 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
         );
 
         // IF THE CATEGORY IS NURSING
-        if (savedQuiz.category == "607df6aa5560040015c0291a") {
+        if (savedQuiz.created_by == "6068136b6f4ed2001567e63e") {
 
             // Send email to subscribers the Category on Quiz creation
             const subscribers = await SubscribedUser.find()
