@@ -1,5 +1,5 @@
-import React, { useEffect, lazy, Suspense } from 'react'
-import { Container, Col, Row, Spinner } from 'reactstrap';
+import React, { useState, useEffect, lazy, Suspense } from 'react'
+import { Container, Col, Row, Spinner, Button } from 'reactstrap';
 import ReactLoading from "react-loading";
 
 import { connect } from 'react-redux'
@@ -20,10 +20,21 @@ const Posts = ({ setQuizes, quizes }) => {
         animationDirection: "alternate"
     };
 
+    const [limit] = useState(20);
+    const [skip, setSkip] = useState(0);
+
+    const nextPage = () => {
+        setSkip(skip + limit)
+    }
+
+    const previousPage = () => {
+        setSkip(skip - limit)
+    }
+
+    // Lifecycle methods
     useEffect(() => {
-        // Inside this callback function, we set posts when the component is mounted.
-        setQuizes()
-    }, [setQuizes]);
+        setQuizes(limit, skip);
+    }, [setQuizes, limit, skip]);
 
     return (
         <Container className="posts main mt-4">
@@ -62,7 +73,16 @@ const Posts = ({ setQuizes, quizes }) => {
                             quizes && quizes.allQuizes.map(quiz => (
                                 <PostItem key={quiz._id} quiz={quiz} />
                             ))}
-                    </Suspense>
+                        </Suspense>
+
+                    <div className="w-100 d-flex justify-content-around mx-auto mt-5">
+                        <Button color="info" onClick={previousPage} className={skip < 1 ? `invisible` : `visible`}>
+                            Previous
+                        </Button>
+                        <Button color="info" onClick={nextPage} className={quizes.allQuizes.length < limit ? `invisible` : `visible`}>
+                            Next
+                        </Button>
+                    </div>
                 </Col>
 
                 <Col sm="2" className="mt-md-2">

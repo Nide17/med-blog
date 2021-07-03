@@ -23,11 +23,12 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
     })
 
     const [searchKey, setSearchKey] = useState('')
+    const [limit] = useState(20);
 
+    // Lifecycle methods
     useEffect(() => {
-        // Inside this callback function, we set posts when the component is mounted.
-        setQuizes()
-    }, [setQuizes]);
+        setQuizes(limit);
+    }, [setQuizes, limit]);
 
     const onChangeHandler = e => {
         clearErrors();
@@ -107,7 +108,6 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
                                     }
                                     return null
                                 })
-                                .slice(0, 29)
                                 .map(quiz => (
                                     quiz.questions.length > 5 ?
                                         <PostItem key={quiz._id} quiz={quiz} /> : null
