@@ -79,9 +79,13 @@ const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
                             </tbody>
                         </Table>
 
-                        <div className="w-100 d-flex justify-content-around mx-auto">
-                            <Button onClick={previousPage} disabled = {(skip < 1)}> Previous Page </Button>
-                            <Button onClick={nextPage}> Next Page </Button>
+                        <div className="w-100 d-flex justify-content-around mx-auto mt-5">
+                            <Button onClick={previousPage} className={skip < 1 ? `invisible` : `visible`}>
+                                Previous Page
+                            </Button>
+                            <Button onClick={nextPage} className={scores.allScores.length < limit ? `invisible` : `visible`}>
+                                Next Page
+                            </Button>
                         </div>
                     </Row>
             }

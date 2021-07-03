@@ -14,8 +14,16 @@ const User = require('../../models/User');
 
 router.get('/', async (req, res) => {
 
+  // Pagination
+  const limit = parseInt(req.query.limit);
+  const skip = parseInt(req.query.skip);
+  var query = {}
+
+  query.skip = skip
+  query.limit = limit
+
   try {
-    const users = await User.find()
+    const users = await User.find({}, {}, query)
       .sort({ register_date: -1 })
       
     if (!users) throw Error('No users exist');
@@ -48,7 +56,6 @@ router.get('/:id', auth, authRole(['Admin']), async (req, res) => {
   }
 
 });
-
 
 // @route PUT api/users/:id
 // @route UPDATE one User

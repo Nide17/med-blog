@@ -4,12 +4,12 @@ import { SET_QUIZES, CREATE_QUIZ, CREATE_QUIZ_FAIL, DELETE_QUIZ, DELETE_QUIZ_FAI
 import { tokenConfig } from '../auth/auth.actions'
 
 // View all quizes
-export const setQuizes = () => async (dispatch, getState) => {
+export const setQuizes = (limit, skip) => async (dispatch, getState) => {
   await dispatch(setQuizesLoading());
 
   try {
     await axios
-      .get('/api/quizes', tokenConfig(getState))
+      .get(`/api/quizes?limit=${limit}&skip=${skip}`, tokenConfig(getState))
       .then(res =>
         dispatch({
           type: SET_QUIZES,

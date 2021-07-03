@@ -15,8 +15,17 @@ const sendEmail = require("./pswd-reset/sendEmail");
 // @access  Public
 router.get('/', async (req, res) => {
 
+    // Pagination
+    const limit = parseInt(req.query.limit);
+    const skip = parseInt(req.query.skip);
+    var query = {}
+
+    query.skip = skip
+    query.limit = limit
+
     try {
-        const quizes = await Quiz.find()
+        const quizes = await Quiz.find({}, {}, query)
+
             //sort quizes by creation_date
             .sort({ creation_date: -1 })
             .populate('category')

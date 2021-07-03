@@ -1,19 +1,29 @@
-import React, { useEffect } from 'react'
-import { Row, Col, Toast, ToastBody, ToastHeader, TabPane } from 'reactstrap';
+import React, { useState, useEffect } from 'react'
+import { Row, Col, Toast, ToastBody, ToastHeader, TabPane, Button } from 'reactstrap';
 import { connect } from 'react-redux'
 import ReactLoading from "react-loading";
 import EditUser from './EditUser';
 
 import { getUsers, deleteUser } from '../../redux/auth/auth.actions'
-
 import trash from '../../images/trash.svg';
 
 const UsersTabPane = ({ users, getUsers, deleteUser }) => {
 
+    const [limit] = useState(8);
+    const [skip, setSkip] = useState(0);
+
+    const nextPage = () => {
+        setSkip(skip + limit)
+    }
+
+    const previousPage = () => {
+        setSkip(skip - limit)
+    }
+
     // Lifecycle methods
     useEffect(() => {
-        getUsers();
-    }, [getUsers]);
+        getUsers(limit, skip);
+    }, [getUsers, limit, skip]);
 
     return (
 
@@ -46,6 +56,15 @@ const UsersTabPane = ({ users, getUsers, deleteUser }) => {
 
                             </Col>
                         ))}
+
+                        <div className="w-100 d-flex justify-content-around mx-auto mt-5">
+                            <Button onClick={previousPage} className={skip < 1 ? `invisible` : `visible`}>
+                                Previous Page
+                            </Button>
+                            <Button onClick={nextPage} className={users.users.length < limit ? `invisible` : `visible`}>
+                                Next Page
+                            </Button>
+                        </div>
                     </Row>
             }
 
