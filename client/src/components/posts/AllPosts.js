@@ -74,7 +74,7 @@ const Posts = ({ setQuizes, quizes }) => {
                                 <PostItem key={quiz._id} quiz={quiz} />
                             ))}
 
-                        <div className="w-100 d-flex justify-content-around mx-auto mt-5">
+                        <div className="w-100 d-flex justify-content-around mx-auto my-3">
                             <Button color="info" onClick={previousPage} className={skip < 1 ? `invisible` : `visible`}>
                                 Previous
                             </Button>
@@ -82,7 +82,7 @@ const Posts = ({ setQuizes, quizes }) => {
                                 Next
                             </Button>
                         </div>
-                        </Suspense>
+                    </Suspense>
                 </Col>
 
                 <Col sm="2" className="mt-md-2">
