@@ -73,16 +73,16 @@ const Posts = ({ setQuizes, quizes }) => {
                             quizes && quizes.allQuizes.map(quiz => (
                                 <PostItem key={quiz._id} quiz={quiz} />
                             ))}
-                        </Suspense>
 
-                    <div className="w-100 d-flex justify-content-around mx-auto mt-5">
-                        <Button color="info" onClick={previousPage} className={skip < 1 ? `invisible` : `visible`}>
-                            Previous
-                        </Button>
-                        <Button color="info" onClick={nextPage} className={quizes.allQuizes.length < limit ? `invisible` : `visible`}>
-                            Next
-                        </Button>
-                    </div>
+                        <div className="w-100 d-flex justify-content-around mx-auto mt-5">
+                            <Button color="info" onClick={previousPage} className={skip < 1 ? `invisible` : `visible`}>
+                                Previous
+                            </Button>
+                            <Button color="info" onClick={nextPage} className={quizes.allQuizes.length < limit ? `invisible` : `visible`}>
+                                Next
+                            </Button>
+                        </div>
+                        </Suspense>
                 </Col>
 
                 <Col sm="2" className="mt-md-2">
