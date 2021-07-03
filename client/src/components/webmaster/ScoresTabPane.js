@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Row, TabPane, Table, Button } from 'reactstrap';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -9,10 +9,21 @@ import trash from '../../images/trash.svg';
 
 const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
 
+    const [limit] = useState(20);
+    const [skip, setSkip] = useState(0);
+
+    const nextPage = () => {
+        setSkip(skip + limit)
+    }
+
+    const previousPage = () => {
+        setSkip(skip - limit)
+    }
+
     // Lifecycle methods
     useEffect(() => {
-        setScores();
-    }, [setScores]);
+        setScores(limit, skip);
+    }, [setScores, limit, skip]);
 
     return (
 
@@ -23,9 +34,9 @@ const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
                     <Row>
 
                         <div className="your-past-scores my-3">
-                                <Link to="/reports-admin">
+                            <Link to="/reports-admin">
                                 <Button outline color="info" size="sm">Your past scores</Button>
-                                </Link>
+                            </Link>
                         </div>
 
                         <Table size="sm" className="all-scores" hover responsive>
@@ -46,7 +57,7 @@ const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
 
                                 {scores && scores.allScores.map((score, index) => (
                                     <tr key={score._id}>
-                                        <th scope="row">{index + 1}</th>
+                                        <th scope="row">{index + 1 + skip}</th>
                                         <td>{score.test_date.split('T').slice(0, 1)}</td>
                                         <td>{score.taken_by && score.taken_by.name}</td>
                                         <td>{score.quiz && score.quiz.title}</td>
@@ -67,6 +78,11 @@ const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
 
                             </tbody>
                         </Table>
+
+                        <div className="w-100 d-flex justify-content-around mx-auto">
+                            <Button onClick={previousPage} disabled = {(skip < 1)}> Previous Page </Button>
+                            <Button onClick={nextPage}> Next Page </Button>
+                        </div>
                     </Row>
             }
 

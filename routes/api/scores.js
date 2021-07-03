@@ -14,8 +14,17 @@ const Score = require('../../models/Score');
 //we use router. instead of app. and / because we are already in this dir
 router.get('/', auth, async (req, res) => {
 
+  // Pagination
+  const limit = parseInt(req.query.limit);
+  const skip = parseInt(req.query.skip);
+  var query = {}
+
+  query.skip = skip
+  query.limit = limit
+
   try {
-    const scores = await Score.find()
+    const scores = await Score.find({}, {}, query)
+    
       //sort scores by creation_date
       .sort({ test_date: -1 })
       .populate('quiz')

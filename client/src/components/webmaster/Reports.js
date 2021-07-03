@@ -31,7 +31,7 @@ const Reports = ({ userId, auth, scores, setScores }) => {
                     <Row className="mx-0">
                         {scores && scores.allScores.map(score => (
 
-                            score.taken_by && userId === score.taken_by._id ?
+                            score.taken_by && score.taken_by._id === userId ?
 
                                 <Col sm="3" key={score._id} className="px-2 mt-2 report-toast">
                                     <Toast>

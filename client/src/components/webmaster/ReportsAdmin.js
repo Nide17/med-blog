@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ReactLoading from "react-loading";
 import LoginModal from '../auth/LoginModal'
@@ -27,7 +27,7 @@ const ReportsAdmin = ({ auth, scores, setScores }) => {
                     <Row className="mx-0">
                         {scores && scores.allScores.map(score => (
 
-                            score.taken_by && auth.user._id === score.taken_by._id ?
+                            score.taken_by && score.taken_by._id === auth.user._id ?
 
                                 <Col sm="3" key={score._id} className="px-2 mt-2 admin-toast">
                                     <Toast>
