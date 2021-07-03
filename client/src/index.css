@@ -289,13 +289,21 @@ div.question-section {
     opacity: 0.9;
 }
 
-    .quiz-carousel .carousel-caption h3 {
-        font-size: 2.5rem;
-    }
+.quiz-carousel .carousel-caption h3 {
+    font-size: 2.5rem;
+}
 
-    .quiz-carousel .carousel-caption p {
-        font-size: 1.2rem;
-    }
+.quiz-carousel .carousel-caption p {
+    font-size: 1.2rem;
+}
+
+.scores-pagination .btn {
+    font-weight: 900;
+    padding: .2rem .6rem;
+    font-size: .9rem;
+    line-height: 1;
+    border-radius: .25rem;
+}
 
 @keyframes answer {
     from {

@@ -58,10 +58,10 @@ const UsersTabPane = ({ users, getUsers, deleteUser }) => {
                         ))}
 
                         <div className="w-100 d-flex justify-content-around mx-auto mt-5">
-                            <Button onClick={previousPage} className={skip < 1 ? `invisible` : `visible`}>
+                            <Button color="info" onClick={previousPage} className={skip < 1 ? `invisible` : `visible`}>
                                 Previous Page
                             </Button>
-                            <Button onClick={nextPage} className={users.users.length < limit ? `invisible` : `visible`}>
+                            <Button color="info" onClick={nextPage} className={users.users.length < limit ? `invisible` : `visible`}>
                                 Next Page
                             </Button>
                         </div>

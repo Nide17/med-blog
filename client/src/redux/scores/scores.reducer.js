@@ -2,6 +2,7 @@ import { GET_SCORES, CREATE_SCORE, CREATE_SCORE_FAIL, DELETE_SCORE, DELETE_SCORE
 
 const INITIAL_STATE = {
   allScores: [],
+  totalPages: [],
   isLoading: true
 };
 
@@ -13,7 +14,8 @@ const scoresReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
-        allScores: action.payload
+        allScores: action.payload.scores,
+        totalPages: action.payload.totalPages,
       };
 
     case CREATE_SCORE:

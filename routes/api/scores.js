@@ -15,25 +15,38 @@ const Score = require('../../models/Score');
 router.get('/', auth, async (req, res) => {
 
   // Pagination
-  const limit = parseInt(req.query.limit);
-  const skip = parseInt(req.query.skip);
+  const totalPages = await Score.countDocuments({});
+  var PAGE_SIZE = 20
+  var pageNo = parseInt(req.query.pageNo || "0")
   var query = {}
 
-  query.skip = skip
-  query.limit = limit
+  query.limit = PAGE_SIZE
+  query.skip = PAGE_SIZE * (pageNo - 1)
 
   try {
-    const scores = await Score.find({}, {}, query)
-    
-      //sort scores by creation_date
-      .sort({ test_date: -1 })
-      .populate('quiz')
-      .populate('category')
-      .populate('taken_by')
 
-    if (!scores) throw Error('No scores found');
+    const scores = pageNo > 0 ?
+      await Score.find({}, {}, query)
 
-    res.status(200).json(scores);
+        //sort scores by creation_date
+
+        .sort({ test_date: -1 })
+        .populate('quiz')
+        .populate('category')
+        .populate('taken_by') :
+
+      await Score.find()
+
+        //sort scores by creation_date
+        .sort({ test_date: -1 })
+        .populate('quiz')
+        .populate('category')
+        .populate('taken_by')
+
+    res.status(200).json({
+      totalPages: Math.ceil(totalPages / PAGE_SIZE),
+      scores
+    });
 
   } catch (err) {
     res.status(400).json({ msg: err.message })

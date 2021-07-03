@@ -4,17 +4,17 @@ import { GET_SCORES, CREATE_SCORE, CREATE_SCORE_FAIL, DELETE_SCORE, DELETE_SCORE
 import { tokenConfig } from '../auth/auth.actions'
 
 // View all scores
-export const setScores = (limit, skip) => async (dispatch, getState) => {
+export const setScores = (pageNo) => async (dispatch, getState) => {
   await dispatch(setScoresLoading());
 
   try {
     await axios
-      .get(`/api/scores?limit=${limit}&skip=${skip}`, tokenConfig(getState))
+      .get(`/api/scores?pageNo=${pageNo}`, tokenConfig(getState))
       .then(res =>
         dispatch({
           type: GET_SCORES,
           payload: res.data,
-        }),
+        })
       )
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status));

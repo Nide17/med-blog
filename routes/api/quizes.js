@@ -20,8 +20,8 @@ router.get('/', async (req, res) => {
     const skip = parseInt(req.query.skip);
     var query = {}
 
-    query.skip = skip
     query.limit = limit
+    query.skip = skip
 
     try {
         const quizes = await Quiz.find({}, {}, query)
