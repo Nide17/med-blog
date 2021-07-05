@@ -303,6 +303,11 @@ div.question-section {
     font-size: .9rem;
     line-height: 1;
     border-radius: .25rem;
+    margin-left: 1rem;
+}
+
+.scores-pagination .btn:disabled {
+    cursor: not-allowed;
 }
 
 @keyframes answer {
@@ -518,6 +523,7 @@ div.question-section {
 
     .scores-pagination .btn {
         padding: .18rem .4rem;
+        margin-left: .5rem;
     }
 
 }

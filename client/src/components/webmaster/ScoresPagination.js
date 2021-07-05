@@ -118,7 +118,7 @@ const ScoresPagination = ({ pageNo, setPageNo, numberOfPages }) => {
 
     return (
         numberOfPages > 1 && (
-            <div className="w-100 d-flex justify-content-around mx-auto mt-3 scores-pagination">
+            <div className="d-flex justify-content-around mx-auto mt-3 scores-pagination">
                 <Button
                     color="info"
                     disabled={pageNo === 1}
