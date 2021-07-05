@@ -6,27 +6,18 @@ import { setScores, deleteScore } from '../../redux/scores/scores.actions'
 import ReactLoading from "react-loading";
 
 import trash from '../../images/trash.svg';
+import ScoresPagination from './ScoresPagination';
 
 const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
 
     const [pageNo, setPageNo] = useState(1);
     const [numberOfPages, setNumberOfPages] = useState(0);
 
-    const pages = new Array(numberOfPages).fill(null).map((v, i) => i);
-
     // Lifecycle methods
     useEffect(() => {
         setScores(pageNo);
         setNumberOfPages(scores.totalPages);
     }, [setScores, pageNo, scores.totalPages]);
-
-    const previousPage = () => {
-        setPageNo(Math.max(0, pageNo - 1));
-    };
-
-    const nextPage = () => {
-        setPageNo(Math.min(numberOfPages - 1, pageNo + 1));
-    };
 
     return (
 
@@ -85,22 +76,7 @@ const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
 
                                 </tbody>
                             </Table>
-
-                            <div className="w-100 d-flex justify-content-around mx-auto mt-5 scores-pagination">
-                                <Button color="info" onClick={previousPage} className={pageNo < 2 ? `invisible` : `visible`}>
-                                    Previous
-                                </Button>
-
-                                {pages.map((pageIndex) => (
-                                    <Button outline color="success" key={pageIndex + 1} onClick={() => setPageNo(pageIndex + 1)} style={pageNo === pageIndex + 1 ? { backgroundColor: "#0f0", color: "#fff" } : null}>
-                                        {pageIndex + 1}
-                                    </Button>
-                                ))}
-
-                                <Button color="info" onClick={nextPage} className={pageNo === numberOfPages ? `invisible` : `visible`}>
-                                    Next
-                                </Button>
-                            </div>
+                            <ScoresPagination pageNo={pageNo} setPageNo={setPageNo} numberOfPages={numberOfPages} />
                         </Row>
                     </>}
         </TabPane>

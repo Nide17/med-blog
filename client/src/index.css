@@ -515,4 +515,9 @@ div.question-section {
     .quiz-carousel .carousel-caption p {
         font-size: .66rem;
     }
+
+    .scores-pagination .btn {
+        padding: .18rem .4rem;
+    }
+
 }
