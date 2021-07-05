@@ -92,7 +92,7 @@ const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
                                 </Button>
 
                                 {pages.map((pageIndex) => (
-                                    <Button outline color="success" key={pageIndex + 1} onClick={() => setPageNo(pageIndex + 1)}>
+                                    <Button outline color="success" key={pageIndex + 1} onClick={() => setPageNo(pageIndex + 1)} style={pageNo === pageIndex + 1 ? { backgroundColor: "#0f0", color: "#fff" } : null}>
                                         {pageIndex + 1}
                                     </Button>
                                 ))}
@@ -102,7 +102,7 @@ const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
                                 </Button>
                             </div>
                         </Row>
-                        </>}
+                    </>}
         </TabPane>
     )
 }
