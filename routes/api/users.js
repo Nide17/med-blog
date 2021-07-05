@@ -15,19 +15,33 @@ const User = require('../../models/User');
 router.get('/', async (req, res) => {
 
   // Pagination
-  const limit = parseInt(req.query.limit);
-  const skip = parseInt(req.query.skip);
+  const totalPages = await User.countDocuments({});
+  var PAGE_SIZE = 8
+  var pageNo = parseInt(req.query.pageNo || "0")
   var query = {}
 
-  query.limit = limit
-  query.skip = skip
+  query.limit = PAGE_SIZE
+  query.skip = PAGE_SIZE * (pageNo - 1)
 
   try {
-    const users = await User.find({}, {}, query)
-      .sort({ register_date: -1 })
-      
+
+    const users = pageNo > 0 ?
+      await User.find({}, {}, query)
+
+        //sort users by creation_date
+        .sort({ register_date: -1 }) :
+
+      await User.find()
+
+        //sort users by creation_date
+        .sort({ register_date: -1 })
+
     if (!users) throw Error('No users exist');
-    res.status(200).json(users);
+
+    res.status(200).json({
+      totalPages: Math.ceil(totalPages / PAGE_SIZE),
+      users
+    });
 
   } catch (err) {
     res.status(400).json({ msg: err.message });

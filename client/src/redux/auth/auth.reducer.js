@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   isLoading: false,
   user: null,
   users: [],
+  totalPages: [],
   pswdResetToken: null
 };
 
@@ -17,7 +18,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
-        users: action.payload
+        totalPages: action.payload.totalPages,
+        users: action.payload.users
       };
 
     case USER_LOADING:

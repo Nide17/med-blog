@@ -46,12 +46,12 @@ export const loadUser = () => (dispatch, getState) => {
 
 
 // View all users
-export const getUsers = (limit, skip) => async (dispatch, getState) => {
+export const getUsers = (pageNo) => async (dispatch, getState) => {
   await dispatch(setUsersLoading());
 
   try {
     await axios
-      .get(`/api/users?limit=${limit}&skip=${skip}`, tokenConfig(getState))
+      .get(`/api/users?pageNo=${pageNo}`, tokenConfig(getState))
       .then(res =>
         dispatch({
           type: GET_USERS,

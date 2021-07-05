@@ -28,7 +28,6 @@ const ScoresTabPane = ({ scores, setScores, deleteScore }) => {
         setPageNo(Math.min(numberOfPages - 1, pageNo + 1));
     };
 
-
     return (
 
         <TabPane tabId="6">

@@ -43,6 +43,8 @@ router.get('/', auth, async (req, res) => {
         .populate('category')
         .populate('taken_by')
 
+    if (!scores) throw Error('No scores exist');
+
     res.status(200).json({
       totalPages: Math.ceil(totalPages / PAGE_SIZE),
       scores

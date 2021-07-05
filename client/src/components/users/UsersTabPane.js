@@ -9,21 +9,24 @@ import trash from '../../images/trash.svg';
 
 const UsersTabPane = ({ users, getUsers, deleteUser }) => {
 
-    const [limit] = useState(8);
-    const [skip, setSkip] = useState(0);
+    const [pageNo, setPageNo] = useState(1);
+    const [numberOfPages, setNumberOfPages] = useState(0);
 
-    const nextPage = () => {
-        setSkip(skip + limit)
-    }
-
-    const previousPage = () => {
-        setSkip(skip - limit)
-    }
+    const pages = new Array(numberOfPages).fill(null).map((v, i) => i);
 
     // Lifecycle methods
     useEffect(() => {
-        getUsers(limit, skip);
-    }, [getUsers, limit, skip]);
+        getUsers(pageNo);
+        setNumberOfPages(users.totalPages);
+    }, [getUsers, pageNo, users.totalPages]);
+
+    const previousPage = () => {
+        setPageNo(Math.max(0, pageNo - 1));
+    };
+
+    const nextPage = () => {
+        setPageNo(Math.min(numberOfPages - 1, pageNo + 1));
+    };
 
     return (
 
@@ -31,41 +34,53 @@ const UsersTabPane = ({ users, getUsers, deleteUser }) => {
             {
                 users.isLoading ?
                     <ReactLoading type="spinningBubbles" color="#33FFFC" /> :
-                    <Row>
-                        {users && users.users.map(user => (
-                            <Col sm="3" key={user._id} className="mt-3 users-toast">
 
-                                <Toast>
-                                    <ToastHeader className="text-success overflow-auto">
+                    <>
+                        <p className="text-right my-2">
+                            Page <strong>{pageNo}</strong> of <strong>{numberOfPages}</strong>
+                        </p>
+                        <Row>
+                            {users && users.users.map(user => (
+                                <Col sm="3" key={user._id} className="mt-3 users-toast">
 
-                                        <strong>{user.email}</strong>
-                                        <div className="actions text-secondary d-flex">
-                                            <img src={trash} alt="" width="16" height="16" className="mx-4 mt-1" onClick={() => deleteUser(user._id)} />
-                                            <EditUser uId={user._id} uName={user.name} uRole={user.role} uEmail={user.email} />
-                                        </div>
-                                    </ToastHeader>
+                                    <Toast>
+                                        <ToastHeader className="text-success overflow-auto">
+                                            <strong>{user.email}</strong>
+                                            <div className="actions text-secondary d-flex">
+                                                <img src={trash} alt="" width="16" height="16" className="mx-4 mt-1" onClick={() => deleteUser(user._id)} />
+                                                <EditUser uId={user._id} uName={user.name} uRole={user.role} uEmail={user.email} />
+                                            </div>
+                                        </ToastHeader>
 
-                                    <ToastBody>
-                                        <p className="font-weight-bold">{user.name}</p>
-                                        <p>{user.role}</p>
-                                        <small className="text-center text-info">
-                                            <i>Registered on {user.register_date.split('T').slice(0, 2).join(' at ')}</i>
-                                        </small>
-                                    </ToastBody>
-                                </Toast>
+                                        <ToastBody>
+                                            <p className="font-weight-bold">{user.name}</p>
+                                            <p>{user.role}</p>
+                                            <small className="text-center text-info">
+                                                <i>Registered on {user.register_date.split('T').slice(0, 2).join(' at ')}</i>
+                                            </small>
+                                        </ToastBody>
+                                    </Toast>
 
-                            </Col>
-                        ))}
+                                </Col>
+                            ))}
 
-                        <div className="w-100 d-flex justify-content-around mx-auto mt-5">
-                            <Button color="info" onClick={previousPage} className={skip < 1 ? `invisible` : `visible`}>
-                                Previous Page
-                            </Button>
-                            <Button color="info" onClick={nextPage} className={users.users.length < limit ? `invisible` : `visible`}>
-                                Next Page
-                            </Button>
-                        </div>
-                    </Row>
+                            <div className="w-100 d-flex justify-content-around mx-auto mt-5 scores-pagination">
+                                <Button color="info" onClick={previousPage} className={pageNo < 2 ? `invisible` : `visible`}>
+                                    Previous
+                                </Button>
+
+                                {pages.map((pageIndex) => (
+                                    <Button outline color="success" key={pageIndex + 1} onClick={() => setPageNo(pageIndex + 1)}>
+                                        {pageIndex + 1}
+                                    </Button>
+                                ))}
+
+                                <Button color="info" onClick={nextPage} className={pageNo === numberOfPages ? `invisible` : `visible`}>
+                                    Next
+                                </Button>
+                            </div>
+                        </Row>
+                    </>
             }
 
         </TabPane>
