@@ -30,8 +30,7 @@ export const addQuestion = question => async (dispatch, getState) => {
                 dispatch({
                     type: ADD_QUESTION,
                     payload: res.data
-                }),
-                alert('Created Successfully!'))
+                }))
 
     } catch (err) {
         dispatch(returnErrors(err.response.data, err.response.status, 'GET_ERRORS'));
@@ -49,8 +48,7 @@ export const updateQuestion = updatedQuestion => async (dispatch, getState) => {
                 dispatch({
                     type: UPDATE_QUESTION,
                     payload: updatedQuestion
-                }),
-                alert('Updated Successfully!'))
+                }))
 
     } catch (err) {
         dispatch(returnErrors(err.response.data, err.response.status, 'UPDATE_QUESTION_FAIL'));
@@ -69,8 +67,7 @@ export const deleteQuestion = id => async (dispatch, getState) => {
                     dispatch({
                         type: DELETE_QUESTION,
                         payload: id
-                    }),
-                    alert('Deleted Successfully!'))
+                    }))
         }
 
     } catch (err) {

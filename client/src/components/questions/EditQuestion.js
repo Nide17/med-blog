@@ -17,7 +17,7 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
     const selectedQuestion = questionsData && questionsData.find(qn =>
         qn._id === questionId ? qn : null)
 
-        // Find the ID of category the quiz is in
+    // Find the ID of category the quiz is in
     const qnQuiz = allQuizes && allQuizes.find(quiz =>
         quiz._id === selectedQuestion.quiz._id ? quiz : null)
 
@@ -89,7 +89,7 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
             answerOptions: answerOptionsState,
             duration: durationState.duration
         }
-        
+
         updateQuestion(updatedQuestion);
 
         // Back to webmaster
@@ -97,7 +97,7 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
     };
 
     const handleAddFields = () => {
-        setAnswerOptionsState([...answerOptionsState, { answerText: '', isCorrect: false }])
+        setAnswerOptionsState([...answerOptionsState, { answerText: '', explanations: '', isCorrect: false }])
     }
 
     const handleRemoveFields = _id => {
@@ -111,83 +111,89 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
     return (
         auth.isAuthenticated ?
 
-        auth.user.role !== 'Visitor' ?
+            auth.user.role !== 'Visitor' ?
 
-            <Form className="mt-2 mt-lg-5 mx-3 mx-lg-5 edit-question" onSubmit={handleSubmit}>
+                <Form className="my-3 mt-lg-5 mx-3 mx-lg-5 edit-question" onSubmit={handleSubmit}>
 
-                <Row className="mb-0 mb-lg-3 mx-0">
-                    <Breadcrumb>
-                        <BreadcrumbItem>
-                            <Link to={`/category/${selectedQuestion.category && selectedQuestion.category._id}`}>{selectedQuestion.category && selectedQuestion.category.title}</Link>
-                        </BreadcrumbItem>
+                    <Row className="mb-0 mb-lg-3 mx-0">
+                        <Breadcrumb>
+                            <BreadcrumbItem>
+                                <Link to={`/category/${selectedQuestion.category && selectedQuestion.category._id}`}>{selectedQuestion.category && selectedQuestion.category.title}</Link>
+                            </BreadcrumbItem>
 
-                        <BreadcrumbItem>
-                            <Link to={`/view-quiz/${selectedQuestion.quiz && selectedQuestion.quiz._id}`}>{selectedQuestion.quiz && selectedQuestion.quiz.title}</Link>
-                        </BreadcrumbItem>
+                            <BreadcrumbItem>
+                                <Link to={`/view-quiz/${selectedQuestion.quiz && selectedQuestion.quiz._id}`}>{selectedQuestion.quiz && selectedQuestion.quiz.title}</Link>
+                            </BreadcrumbItem>
 
-                        <BreadcrumbItem active>Edit Question</BreadcrumbItem>
-                    </Breadcrumb>
-                </Row>
+                            <BreadcrumbItem active>Edit Question</BreadcrumbItem>
+                        </Breadcrumb>
+                    </Row>
 
-                {/* Error */}
-                {errorsState.length > 0 ?
-                    errorsState.map(err =>
-                        <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
-                            {err}
-                        </Alert>) :
-                    null
-                }
+                    {/* Error */}
+                    {errorsState.length > 0 ?
+                        errorsState.map(err =>
+                            <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
+                                {err}
+                            </Alert>) :
+                        null
+                    }
 
-                <FormGroup row className="mx-0">
-                    <Label sm={2}>Question Edit</Label>
-                    <Col sm={10}>
-                        <Input type="text" name="questionText" value={questionTextState.questionText} placeholder="Question here ..." onChange={onQuestionChangeHandler} required />
-                    </Col>
-                </FormGroup>
-                
-                <FormGroup row className="mx-0">
-                    <Label sm={2}>Question Duration</Label>
-                    <Col sm={3}>
-                        <Input type="number" name="duration" value={durationState.duration} placeholder="Time in seconds ..." onChange={onDurationChangeHandler} required />
-                    </Col>
-                </FormGroup>
+                    <FormGroup row className="mx-0">
+                        <Label sm={2}>Question Edit</Label>
+                        <Col sm={10}>
+                            <Input type="text" name="questionText" value={questionTextState.questionText} placeholder="Question here ..." onChange={onQuestionChangeHandler} required />
+                        </Col>
+                    </FormGroup>
 
-                {answerOptionsState && answerOptionsState.map(answerOption => (
+                    <FormGroup row className="mx-0">
+                        <Label sm={2}>Question Duration</Label>
+                        <Col sm={3}>
+                            <Input type="number" name="duration" value={durationState.duration} placeholder="Time in seconds ..." onChange={onDurationChangeHandler} required />
+                        </Col>
+                    </FormGroup>
 
-                    <div key={answerOption._id}>
+                    {answerOptionsState && answerOptionsState.map(answerOption => (
 
-                        <FormGroup row className="mx-0">
-                            <Label sm={2}>Answer</Label>
+                        <div key={answerOption._id}>
 
-                            <Col sm={10} xl={7}>
-                                <Input type="text" name="answerText" value={answerOption.answerText}
-                                    onChange={event => handleAnswerChangeInput(answerOption._id, event)} placeholder="Answer here ..." required />
-                            </Col>
+                            <FormGroup row className="mx-0">
+                                <Label sm={2}>Answer</Label>
 
-                            <Col sm={6} xl={2} className="my-3 my-sm-2 d-sm-flex justify-content-around">
-                                <CustomInput type="checkbox" name="isCorrect" value={answerOption.isCorrect}
-                                    onChange={event => handleAnswerChangeInput(answerOption._id, event)} id={answerOption._id} label="Is Correct?" required checked={answerOption.isCorrect} />
-                            </Col>
+                                <Col sm={10} xl={7}>
+                                    <Input type="text" name="answerText" value={answerOption.answerText}
+                                        onChange={event => handleAnswerChangeInput(answerOption._id, event)} placeholder="Answer here ..." required />
+                                </Col>
 
-                            <Col sm={6} xl={1} className="my-3 my-sm-2">
-                                <Button className="px-2 py-1" disabled={answerOptionsState.length === 1} color="danger" onClick={() => handleRemoveFields(answerOption._id)}> - </Button>{' '}
-                                <Button className="px-2 py-1"color="danger" onClick={handleAddFields}> + </Button>{' '}
-                            </Col>
+                                <Col sm={6} xl={2} className="my-3 my-sm-2 d-sm-flex justify-content-around">
+                                    <CustomInput type="checkbox" name="isCorrect" value={answerOption.isCorrect}
+                                        onChange={event => handleAnswerChangeInput(answerOption._id, event)} id={answerOption._id} label="Is Correct?" required checked={answerOption.isCorrect} />
+                                </Col>
 
-                        </FormGroup>
+                                <Col sm={6} xl={1} className="my-3 my-sm-2">
+                                    <Button className="px-2 py-1" disabled={answerOptionsState.length === 1} color="danger" onClick={() => handleRemoveFields(answerOption._id)}> - </Button>{' '}
+                                    <Button className="px-2 py-1" color="danger" onClick={handleAddFields}> + </Button>{' '}
+                                </Col>
 
-                    </div>
+                                <Label sm={2}>Rationale</Label>
 
-                ))}
+                                <Col sm={10} xl={7}>
+                                    <Input type="textarea" name="explanations" placeholder="Rationales or explanations ..." minLength="10" maxLength="300" onChange={event => handleAnswerChangeInput(answerOption.id, event)} value={answerOption.explanations} />
+                                </Col>
 
-                <FormGroup check row className="mx-0">
-                    <Col sm={{ size: 10, offset: 2 }} className="pl-0">
-                        <Button className="btn btn-info btn-sm" type="submit" onClick={handleSubmit}>Update</Button>
-                    </Col>
-                </FormGroup>
+                            </FormGroup>
 
-            </Form>:
-            
+                        </div>
+
+                    ))}
+
+                    <FormGroup check row className="mx-0">
+                        <Col sm={{ size: 10, offset: 2 }} className="pl-0">
+                            <Button className="btn btn-info btn-sm" type="submit" onClick={handleSubmit}>Update</Button>
+                        </Col>
+                    </FormGroup>
+
+                </Form> :
+
                 <Reports userId={auth.user._id} /> :
 
             // If not authenticated or loading

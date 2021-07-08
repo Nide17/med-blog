@@ -28,7 +28,7 @@ const Reports = ({ userId, auth, scores, setScores }) => {
                         <h3 className="mb-0 font-weight-bolder">Your past scores</h3>
                     </Row>
 
-                    <Row className="mx-0">
+                    <Row className="mx-0 mb-4">
                         {scores && scores.allScores.map(score => (
 
                             score.taken_by && score.taken_by._id === userId ?

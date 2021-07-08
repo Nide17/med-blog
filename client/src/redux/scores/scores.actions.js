@@ -50,7 +50,7 @@ export const updateScore = updatedScore => async (dispatch, getState) => {
           type: UPDATE_SCORE,
           payload: updatedScore
         }),
-        alert('Updated Successfully!'))
+        alert('Updated successfully!'))
 
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'UPDATE_SCORE_FAIL'));

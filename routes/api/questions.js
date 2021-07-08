@@ -67,7 +67,7 @@ router.post("/", auth, authRole(['Admin', 'Creator']), async (req, res) => {
     let qtn = await Question.findOne({ questionText: req.body.questionText });
 
     if (qtn) {
-      return res.status(400).send("A Question already exists!");
+      return res.status(400).send("A question with same name already exists!");
     }
 
     const newQuestion = new Question(req.body);

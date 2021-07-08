@@ -73,11 +73,11 @@ const ReviewQuiz = ({ auth, scores, setScores }) => {
                                                 Retake
                                             </button>
 
-                                        &nbsp;&nbsp;
-                                        <a href="/">
+                                            &nbsp;&nbsp;
+                                            <a href="/">
                                                 <button type="button" className="btn btn-outline-info mt-3">
                                                     Back Home
-                                            </button>
+                                                </button>
                                             </a>
 
                                         </div> :
@@ -89,12 +89,12 @@ const ReviewQuiz = ({ auth, scores, setScores }) => {
                                     <div className="question-view">
                                         <Row>
                                             <Col>
-                                            <div className="d-flex justify-content-around">
+                                                <div className="d-flex justify-content-around">
                                                     <h6 className="text-warning">Reviewing ...</h6>
                                                     <Button outline color="success" size="sm">
-                                                    <a href="/webmaster">Your past scores</a>
+                                                        <a href="/webmaster">Your past scores</a>
                                                     </Button>
-                                            </div>
+                                                </div>
 
                                                 <div className='question-section my-2 mx-auto w-75'>
                                                     <h4 className='question-count text-uppercase text-center text-secondary font-weight-bold'>
@@ -111,12 +111,21 @@ const ReviewQuiz = ({ auth, scores, setScores }) => {
                                                 <div className='answer d-flex flex-column mx-auto mt-2 w-25'>
                                                     {score.review.questions && score.review.questions[currentQuestion].answerOptions.map((answerOption, index) => (
 
-                                                        <button
-                                                            key={index}
-                                                            className={`answer-option my-3 p-2 btn btn-outline-${answerOption.isCorrect ? 'success font-weight-bolder' :
-                                                                !answerOption.isCorrect && answerOption.choosen ? 'danger font-weight-bolder' : 'secondary'} rounded`}>
-                                                            {answerOption.answerText}
-                                                        </button>
+                                                        <>
+                                                            <button
+                                                                key={index}
+                                                                className={`answer-option my-3 p-2 btn btn-outline-${answerOption.isCorrect ? 'success font-weight-bolder' :
+                                                                    !answerOption.isCorrect && answerOption.choosen ? 'danger font-weight-bolder' : 'secondary'} rounded`}>
+                                                                {answerOption.answerText}
+                                                            </button>
+
+                                                            {answerOption.explanations ?
+                                                                <small className="text-dark border mb-1 pl-1">
+                                                                    👉 {answerOption.explanations}
+                                                                </small> :
+                                                                null}
+
+                                                        </>
 
                                                     ))}
                                                 </div>

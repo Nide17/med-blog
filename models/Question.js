@@ -18,6 +18,11 @@ const QuestionSchema = new Schema({
                     type: String,
                     required: true
                 },
+                explanations: {
+                    type: String,
+                    required: false,
+                    default: null
+                },
                 isCorrect: {
                     type: Boolean,
                     required: true,
