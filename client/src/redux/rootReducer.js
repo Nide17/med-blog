@@ -7,9 +7,8 @@ import authReducer from './auth/auth.reducer';
 import categoriesReducer from './categories/categories.reducer';
 import quizesReducer from './quizes/quizes.reducer';
 import scoresReducer from './scores/scores.reducer';
-import reviewsReducer from './reviews/reviews.reducer';
 import contactsReducer from './contacts/contacts.reducer';
 
-const rootReducer = combineReducers({ subscribersReducer, questionsReducer, errorReducer, authReducer, categoriesReducer, quizesReducer, scoresReducer, reviewsReducer, contactsReducer });
+const rootReducer = combineReducers({ subscribersReducer, questionsReducer, errorReducer, authReducer, categoriesReducer, quizesReducer, scoresReducer, contactsReducer });
 
 export default rootReducer;
