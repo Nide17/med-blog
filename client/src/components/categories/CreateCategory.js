@@ -43,7 +43,7 @@ const CreateCategory = ({ auth, createCategory }) => {
             setErrorsState(['Insufficient info!']);
             return
         }
-        else if (name.length > 15) {
+        else if (name.length > 30) {
             setErrorsState(['Title is too long!']);
             return
         }

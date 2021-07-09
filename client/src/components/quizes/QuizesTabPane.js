@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Toast, ToastBody, ToastHeader, TabPane, ListGroup, ListGroupItem, Button } from 'reactstrap';
+import { Row, Col, Toast, ToastBody, ToastHeader, TabPane, ListGroup, ListGroupItem } from 'reactstrap';
 import ReactLoading from "react-loading";
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
@@ -16,22 +16,24 @@ const QuizesTabPane = ({ currentUser, quizes, questionsData, setQuizes, setQuest
     const [searchKey, setSearchKey] = useState('')
     const [searchKeyQ, setSearchKeyQ] = useState('')
 
-    const [limit] = useState(8);
-    const [skip, setSkip] = useState(0);
+    // const [limit] = useState(8);
+    // const [skip, setSkip] = useState(0);
 
-    const nextPage = () => {
-        setSkip(skip + limit)
-    }
+    // const nextPage = () => {
+    //     setSkip(skip + limit)
+    // }
 
-    const previousPage = () => {
-        setSkip(skip - limit)
-    }
+    // const previousPage = () => {
+    //     setSkip(skip - limit)
+    // }
 
     // Lifecycle methods
     useEffect(() => {
-        setQuizes(limit, skip);
+        // setQuizes(limit, skip);
+        setQuizes();
         setQuestions();
-    }, [setQuestions, setQuizes, limit, skip]);
+    // }, [setQuestions, setQuizes, limit, skip]);
+    }, [setQuestions, setQuizes]);
 
     return (
 
@@ -140,14 +142,14 @@ const QuizesTabPane = ({ currentUser, quizes, questionsData, setQuizes, setQuest
                                     </Col> : null
                             ))}
 
-                        <div className="w-100 d-flex justify-content-around mx-auto mt-5">
+                        {/* <div className="w-100 d-flex justify-content-around mx-auto mt-5">
                             <Button color="info" onClick={previousPage} className={skip < 1 ? `invisible` : `visible`}>
                                 Previous Page
                             </Button>
                             <Button color="info" onClick={nextPage} className={quizes.allQuizes.length < limit ? `invisible` : `visible`}>
                                 Next Page
                             </Button>
-                        </div>
+                        </div> */}
                     </Row>
                 </>
             }
