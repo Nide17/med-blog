@@ -17,7 +17,7 @@ export const setCategories = () => async (dispatch, getState) => {
         }))
 
   } catch (err) {
-    dispatch(returnErrors(err.response.data, err.response.status, 'SET_CATEGORIES_FAIL'));
+    dispatch(returnErrors(err && err.response.data, err && err.response.status, 'SET_CATEGORIES_FAIL'));
     dispatch({ type: SET_CATEGORIES_FAIL })
   }
 };
