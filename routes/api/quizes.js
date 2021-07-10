@@ -42,7 +42,7 @@ router.get('/', async (req, res) => {
 
 // @route   GET /api/quizes/:id
 // @desc    Get one quiz
-// @access  Needs to be private
+// @access  Needs to private
 router.get('/:id', auth, async (req, res) => {
 
     let id = req.params.id;
@@ -66,7 +66,7 @@ router.get('/:id', auth, async (req, res) => {
 
 // @route   POST /api/quizes
 // @desc    Create quiz
-// @access  Have to be private
+// @access  Have to private
 
 router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 
@@ -113,7 +113,7 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 
                 sendEmail(
                     sub.email,
-                    "Updates!! New nursing quiz that may be interests you",
+                    "Updates!! New nursing quiz that may interests you",
                     {
                         name: sub.name,
                         author: quizAuthor.name,
@@ -128,7 +128,7 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 
                 sendEmail(
                     usr.email,
-                    "Updates!! New nursing quiz that may be interests you",
+                    "Updates!! New nursing quiz that may interests you",
                     {
                         name: usr.name,
                         author: quizAuthor.name,
