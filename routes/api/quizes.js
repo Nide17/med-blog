@@ -129,7 +129,7 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 
                 sendEmail(
                     usr.email,
-                    `Updates!! New ${quizCategory} quiz that may interests you`,
+                    `Updates!! New ${quizCategory.title} quiz that may interests you`,
                     {
                         name: usr.name,
                         author: quizAuthor.name,
