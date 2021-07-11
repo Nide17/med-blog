@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 //DB Config
-const dbURI = config.get('mongoURI');
+const dbURI = process.env.MONGO_URI || config.get('mongoURI');
 
 //connect to Mongo
 const connectDB = async () => {

@@ -37,7 +37,7 @@ router.post('/login', async (req, res) => {
         _id: user._id,
         role: user.role
       },
-      config.get('jwtSecret'),
+      process.env.JWT_SECRET || config.get('jwtSecret'),
       { expiresIn: '2h' }
     );
 
@@ -113,7 +113,7 @@ router.post('/register', async (req, res) => {
         _id: savedUser._id,
         role: savedUser.role
       },
-      config.get('jwtSecret'),
+      process.env.JWT_SECRET || config.get('jwtSecret'),
       { expiresIn: '2h' }
     );
 

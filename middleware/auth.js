@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
 
   try {
     // Verify token
-    const decoded = await jwt.verify(token, config.get('jwtSecret'));
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET || config.get('jwtSecret'));
 
     // Add user from payload
     req.user = decoded;
@@ -32,7 +32,7 @@ const authRole = (roles) => (req, res, next) => {
     return res.status(401).json({ msg: 'No token, authorizaton denied' });
 
   // Verify token
-  const decoded = jwt.verify(token, config.get('jwtSecret'));
+  const decoded = jwt.verify(token, process.env.JWT_SECRET || config.get('jwtSecret'));
 
   // Add user from payload
   req.user = decoded;
