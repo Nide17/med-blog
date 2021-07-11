@@ -98,13 +98,14 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
             { $push: { "quizes": savedQuiz._id } }
         );
 
-        // IF THE CATEGORY IS NURSING
+        // IF THE CATEGORY IS CREATED BY BRUCE
         if (savedQuiz.created_by == "6068136b6f4ed2001567e63e") {
 
             // Send email to subscribers the Category on Quiz creation
             const subscribers = await SubscribedUser.find()
             const allUsers = await User.find()
             const quizAuthor = await User.findById(savedQuiz.created_by).select("name")
+            const quizCategory = await Category.findById(savedQuiz.category).select("title")
 
             const clientURL = process.env.NODE_ENV === 'production' ?
                 'http://www.quizblog.rw' : 'http://localhost:3000'
@@ -113,7 +114,7 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 
                 sendEmail(
                     sub.email,
-                    "Updates!! New nursing quiz that may interests you",
+                    `Updates!! New quiz of ${quizCategory.title} that may interests you`,
                     {
                         name: sub.name,
                         author: quizAuthor.name,
@@ -128,7 +129,7 @@ router.post('/', auth, authRole(['Creator', 'Admin']), async (req, res) => {
 
                 sendEmail(
                     usr.email,
-                    "Updates!! New nursing quiz that may interests you",
+                    `Updates!! New ${quizCategory} quiz that may interests you`,
                     {
                         name: usr.name,
                         author: quizAuthor.name,
