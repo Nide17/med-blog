@@ -69,7 +69,7 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
             setErrorsState(['Insufficient info!']);
             return
         }
-        else if (questionText.questionText.length > 300) {
+        else if (questionText.questionText.length > 500) {
             setErrorsState(['Question is too long!']);
             return
         }

@@ -38,11 +38,11 @@ const AddQuiz = ({ auth, createQuiz, category }) => {
             setErrorsState(['Insufficient info!']);
             return
         }
-        else if (name.length > 50) {
+        else if (name.length > 70) {
             setErrorsState(['Title is too long!']);
             return
         }
-        else if (description.length > 80) {
+        else if (description.length > 120) {
             setErrorsState(['Description is too long!']);
             return
         }

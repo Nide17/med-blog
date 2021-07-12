@@ -42,11 +42,11 @@ const EditCategory = ({ idToUpdate, editTitle, editingCategory, auth, updateCate
             setErrorsState(['Insufficient info!']);
             return
         }
-        else if (name.length > 30) {
+        else if (name.length > 50) {
             setErrorsState(['Title is too long!']);
             return
         }
-        else if (description.length > 80) {
+        else if (description.length > 100) {
             setErrorsState(['Description is too long!']);
             return
         }

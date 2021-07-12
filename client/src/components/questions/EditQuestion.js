@@ -72,7 +72,7 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
             setErrorsState(['Insufficient info!']);
             return
         }
-        else if (questionTextState.questionText.length > 300) {
+        else if (questionTextState.questionText.length > 500) {
             setErrorsState(['Question is too long!']);
             return
         }
