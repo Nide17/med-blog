@@ -11,8 +11,9 @@ import { setCategories } from '../../redux/categories/categories.actions'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setQuestions } from '../../redux/questions/questions.actions'
 
-const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuizes, setQuestions }) => {
+const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuizes, setQuestions, errors }) => {
 
+    console.log(errors.msg & errors.msg);
     const [questionText, setQuestionText] = useState({
         questionText: '',
     })
@@ -36,16 +37,22 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
     }, [setCategories, setQuizes, setQuestions]);
 
     const onQuestionChangeHandler = e => {
+        setErrorsState([])
+
         const { name, value } = e.target
         setQuestionText(state => ({ ...state, [name]: value }))
     }
 
     const onDurationChangeHandler = e => {
+        setErrorsState([])
+
         const { name, value } = e.target
         setDurationState(durationState => ({ ...durationState, [name]: value }))
     }
 
     const handleAnswerChangeInput = (id, event) => {
+        setErrorsState([])
+
         const newAnswerOptions = answerOptions.map(i => {
             if (id === i.id) {
                 event.target.type === "checkbox" ?
@@ -75,7 +82,12 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
         }
 
         else if (answerOptions.length <= 1) {
-            alert('Answers are not sufficient!')
+            setErrorsState(['Answers are not sufficient!']);
+            return
+        }
+
+        else if (errors) {
+            setErrorsState(['Question creation failed, check your internet and your data and try again!']);
             return
         }
 
@@ -211,6 +223,7 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
 
 // Map the question to state props
 const mapStateToProps = state => ({
+    errors: state.errorReducer,
     question: state.questionsReducer,
     auth: state.authReducer,
     categories: state.categoriesReducer,
