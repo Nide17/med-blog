@@ -13,7 +13,6 @@ import { setQuestions } from '../../redux/questions/questions.actions'
 
 const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuizes, setQuestions, errors }) => {
 
-    console.log(errors.msg & errors.msg);
     const [questionText, setQuestionText] = useState({
         questionText: '',
     })
@@ -71,6 +70,8 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        const trueAnswer = answerOptions.find(ansop => ansop.isCorrect === true ? ansop : null)
+
         // VALIDATE
         if (questionText.questionText.length < 4) {
             setErrorsState(['Insufficient info!']);
@@ -83,6 +84,11 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
 
         else if (answerOptions.length <= 1) {
             setErrorsState(['Answers are not sufficient!']);
+            return
+        }
+
+        else if (!trueAnswer) {
+            setErrorsState(['Please provide a true answer!']);
             return
         }
 
