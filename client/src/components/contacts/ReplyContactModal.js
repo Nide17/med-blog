@@ -95,7 +95,7 @@ class ReplyContactModal extends Component {
 
                                     <FormGroup row>
                                         <Col>
-                                            <Input type="textarea" name="message" placeholder="Message" minLength="10" maxLength="300" onChange={this.onChangeHandler} value={this.state.message} required />
+                                            <Input type="textarea" name="message" placeholder="Message" minLength="10" maxLength="1000" onChange={this.onChangeHandler} value={this.state.message} required />
                                         </Col>
                                     </FormGroup>
 

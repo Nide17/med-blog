@@ -81,7 +81,7 @@ const Contact = ({ clearErrors, error, sendMsg }) => {
 
                         <FormGroup row>
                             <Col>
-                                <Input type="textarea" name="message" placeholder="Message" minLength="10" maxLength="300" onChange={onChangeHandler} value={state.message} required />
+                                <Input type="textarea" name="message" placeholder="Message" minLength="10" maxLength="1000" onChange={onChangeHandler} value={state.message} required />
                             </Col>
                         </FormGroup>
                         <Button color="primary">Submit</Button>

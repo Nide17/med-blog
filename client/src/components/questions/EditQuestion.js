@@ -177,7 +177,7 @@ const EditQuestion = ({ auth, updateQuestion, questionsData, setQuestions, allQu
                                 <Label sm={2}>Rationale</Label>
 
                                 <Col sm={10} xl={7}>
-                                    <Input type="textarea" name="explanations" placeholder="Rationales or explanations ..." minLength="10" maxLength="300" onChange={event => handleAnswerChangeInput(answerOption._id, event)} value={answerOption.explanations} />
+                                    <Input type="textarea" name="explanations" placeholder="Rationales or explanations ..." minLength="5" maxLength="1000" onChange={event => handleAnswerChangeInput(answerOption._id, event)} value={answerOption.explanations} />
                                 </Col>
 
                             </FormGroup>
