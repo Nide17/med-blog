@@ -50,7 +50,7 @@ export const updateScore = updatedScore => async (dispatch, getState) => {
           type: UPDATE_SCORE,
           payload: updatedScore
         }),
-        alert('Updated successfully!'))
+        alert('Updating ...'))
 
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'UPDATE_SCORE_FAIL'));
@@ -62,7 +62,7 @@ export const updateScore = updatedScore => async (dispatch, getState) => {
 export const deleteScore = id => async (dispatch, getState) => {
 
   try {
-    if (window.confirm("This Score will be deleted permanently!")) {
+    if (window.confirm("This score will be deleted permanently!")) {
       await axios
         .delete(`/api/scores/${id}`, tokenConfig(getState))
         .then(res =>
@@ -70,7 +70,7 @@ export const deleteScore = id => async (dispatch, getState) => {
             type: DELETE_SCORE,
             payload: id
           }),
-          alert('Deleted Successfully!'))
+          alert('Deleting ...'))
     }
 
   } catch (err) {

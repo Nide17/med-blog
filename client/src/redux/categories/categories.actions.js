@@ -33,7 +33,7 @@ export const createCategory = (newCategory) => async (dispatch, getState) => {
           type: CREATE_CATEGORY,
           payload: res.data
         }),
-        alert('Created Successfully!'))
+        alert('Creating ...'))
 
       // Reload the page after category addition
       .then(window.location.reload())
@@ -56,7 +56,7 @@ export const updateCategory = updatedCatg => async (dispatch, getState) => {
           type: UPDATE_CATEGORY,
           payload: updatedCatg
         }),
-        alert('Updated Successfully!'))
+        alert('Updating ...'))
 
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'UPDATE_CATEGORY_FAIL'));
@@ -76,7 +76,7 @@ export const deleteCategory = id => async (dispatch, getState) => {
             type: DELETE_CATEGORY,
             payload: id
           }),
-          alert('Deleted Successfully!'))
+          alert('Deleting ...'))
     }
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'DELETE_CATEGORY_FAIL'));

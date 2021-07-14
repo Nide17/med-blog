@@ -33,7 +33,7 @@ export const sendMsg = (contactMsg) => async (dispatch) => {
           type: ADD_CONTACT,
           payload: res.data
         }),
-        alert('Sent Successfully!')
+        alert('Sending ...')
       )
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'ADD_CONTACT_FAIL'));
@@ -52,7 +52,7 @@ export const replyContact = (idToUpdate, reply) => async (dispatch, getState) =>
           type: REPLY_CONTACT,
           payload: reply
         }),
-        alert('Replied Successfully!'))
+        alert('Replying ...'))
 
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'REPLY_CONTACT_FAIL'));
@@ -64,7 +64,7 @@ export const replyContact = (idToUpdate, reply) => async (dispatch, getState) =>
 export const deleteContact = id => async (dispatch, getState) => {
 
   try {
-    if (window.confirm("This Contact will be deleted permanently!")) {
+    if (window.confirm("This contact will be deleted permanently!")) {
       await axios
         .delete(`/api/contacts/${id}`, tokenConfig(getState))
         .then(res =>
@@ -72,7 +72,7 @@ export const deleteContact = id => async (dispatch, getState) => {
             type: DELETE_CONTACT,
             payload: id
           }),
-          alert('Deleted Successfully!'))
+          alert('Deleting ...'))
     }
 
   } catch (err) {

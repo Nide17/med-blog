@@ -31,7 +31,7 @@ export const createQuiz = (newQuiz) => async (dispatch, getState) => {
           type: CREATE_QUIZ,
           payload: res.data
         }),
-        alert('Created Successfully!'))
+        alert('Creating ...'))
         
         // Reload the page after category addition
       .then(window.location.reload())
@@ -54,7 +54,7 @@ export const updateQuiz = updatedQuiz => async (dispatch, getState) => {
           type: UPDATE_QUIZ,
           payload: updatedQuiz
         }),
-        alert('Updated Successfully!'))
+        alert('Updating ...'))
 
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'UPDATE_QUIZ_FAIL'));
@@ -66,7 +66,7 @@ export const updateQuiz = updatedQuiz => async (dispatch, getState) => {
 export const deleteQuiz = id => async (dispatch, getState) => {
 
   try {
-    if (window.confirm("This Quiz will be deleted permanently!")) {
+    if (window.confirm("This quiz will be deleted permanently!")) {
       await axios
         .delete(`/api/quizes/${id}`, tokenConfig(getState))
         .then(res =>
@@ -74,7 +74,7 @@ export const deleteQuiz = id => async (dispatch, getState) => {
             type: DELETE_QUIZ,
             payload: id
           }),
-          alert('Deleted Successfully!'))
+          alert('Deleting ...'))
     }
 
   } catch (err) {

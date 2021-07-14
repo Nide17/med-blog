@@ -3,6 +3,7 @@ const router = express.Router();
 
 // Quiz Model
 const Quiz = require('../../models/Quiz');
+const Question = require('../../models/Question');
 const Category = require('../../models/Category');
 const User = require('../../models/User');
 const SubscribedUser = require('../../models/SubscribedUser');
@@ -192,13 +193,16 @@ router.delete('/:id', auth, authRole(['Creator', 'Admin']), async (req, res) => 
         const quiz = await Quiz.findById(req.params.id);
         if (!quiz) throw Error('Quiz is not found!')
 
-        // Delete quiz from the category
+        // Remove quiz from quizzes of the category
         await Category.updateOne(
-            { "_id": quiz.category },
-            { $pull: { "quizes": quiz._id } }
+            { _id: quiz.category },
+            { $pull: { quizes: quiz._id } }
         );
 
+        // Delete questions belonging to this quiz
+        await Question.remove({ quiz: quiz._id });
 
+        // Delete quiz
         const removedQuiz = await quiz.remove();
 
         if (!removedQuiz)

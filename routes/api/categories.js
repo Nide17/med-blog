@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
+
 // Category Model
 const Category = require('../../models/Category');
-const Question = require('../../models/Question');
 const Quiz = require('../../models/Quiz');
+const Question = require('../../models/Question');
 
 const { auth, authRole } = require('../../middleware/auth');
 
@@ -121,6 +122,13 @@ router.delete('/:id', auth, authRole(['Admin']), async (req, res) => {
         const category = await Category.findById(req.params.id);
         if (!category) throw Error('Category is not found!')
 
+        // Delete questions belonging to this quiz
+        await Question.remove({ category: category._id });
+
+        // Delete quizes belonging to this category
+        await Quiz.remove({ category: category._id });
+
+        // Delete this category
         const removedCategory = await category.remove();
 
         if (!removedCategory)

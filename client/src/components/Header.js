@@ -75,12 +75,14 @@ const Header = ({ auth }) => {
                         <Button color="success" size="md" className="p-1 mr-2 px-md-2 mr-md-4">
                         <Link to="/" className="text-white">Back Home</Link>
                         </Button> :
+                        
+                        location.pathname !== '/all-categories' ?
+                            <NavbarText className="mr-2 mr-md-4">
+                                <Link to="/all-categories" className="text-white">Categories</Link>
+                            </NavbarText>:
                             null
                     }
 
-                    <NavbarText className="mr-2 mr-md-4">
-                        <Link to="/all-categories" className="text-white">Categories</Link>
-                    </NavbarText>
                     <NavbarText className="mr-2 mr-md-4">
                         <Link to="/about" className="text-white">About</Link>
                     </NavbarText>

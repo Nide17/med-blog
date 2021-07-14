@@ -143,7 +143,7 @@ export const updateUser = updatedUser => async (dispatch, getState) => {
           type: UPDATE_USER,
           payload: updatedUser
         }),
-        alert('Updated Successfully!'))
+        alert('Updating ...'))
 
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status, 'UPDATE_USER_FAIL'));
@@ -194,7 +194,7 @@ export const sendNewPassword = updatePsw => async (dispatch) => {
 export const deleteUser = id => async (dispatch, getState) => {
 
   try {
-    if (window.confirm("This User will be deleted permanently!")) {
+    if (window.confirm("This user will be deleted permanently!")) {
       await axios
         .delete(`/api/users/${id}`, tokenConfig(getState))
         .then(() =>
@@ -202,7 +202,7 @@ export const deleteUser = id => async (dispatch, getState) => {
             type: DELETE_USER,
             payload: id
           }),
-          alert('Deleted Successfully!'))
+          alert('Deleting ...'))
     }
 
   } catch (err) {

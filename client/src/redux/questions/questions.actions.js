@@ -60,7 +60,7 @@ export const updateQuestion = updatedQuestion => async (dispatch, getState) => {
 export const deleteQuestion = id => async (dispatch, getState) => {
 
     try {
-        if (window.confirm("This Question will be deleted permanently!")) {
+        if (window.confirm("This question will be deleted permanently!")) {
             await axios
                 .delete(`/api/questions/${id}`, tokenConfig(getState))
                 .then(res =>

@@ -110,8 +110,8 @@ router.put('/:id', authRole(['Creator', 'Admin']), async (req, res) => {
 
     // Delete Question in old quiz
     await Quiz.updateOne(
-      { "_id": req.body.oldQuizID },
-      { $pull: { "questions": question._id } }
+      { _id: req.body.oldQuizID },
+      { $pull: { questions: question._id } }
     );
 
   } catch (err) {
@@ -135,12 +135,13 @@ router.delete('/:id', auth, authRole(['Creator', 'Admin']), async (req, res) => 
     const question = await Question.findById(req.params.id);
     if (!question) throw Error('Question is not found!')
 
-    // Delete question from the quiz
+    // Remove question from questions of the quiz
     await Quiz.updateOne(
-      { "_id": question.quiz },
-      { $pull: { "questions": question._id } }
+      { _id: question.quiz },
+      { $pull: { questions: question._id } }
     );
 
+    // Delete the question
     const removedQuestion = await question.remove();
 
     if (!removedQuestion)
