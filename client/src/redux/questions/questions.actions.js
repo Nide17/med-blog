@@ -1,4 +1,4 @@
-import { SET_QUESTIONS, QUESTIONS_LOADING, ADD_QUESTION, UPDATE_QUESTION, UPDATE_QUESTION_FAIL, DELETE_QUESTION, GET_ERRORS } from "./questions.types";
+import { SET_QUESTIONS, QUESTIONS_LOADING, ADD_QUESTION, UPDATE_QUESTION, UPDATE_QUESTION_FAIL, DELETE_QUESTION, ADD_QUESTION_FAIL, DELETE_QUESTION_FAIL } from "./questions.types";
 import axios from 'axios';
 import { tokenConfig } from '../auth/auth.actions'
 import { returnErrors } from "../error/error.actions";
@@ -33,8 +33,8 @@ export const addQuestion = question => async (dispatch, getState) => {
                 }))
 
     } catch (err) {
-        dispatch(returnErrors(err.response.data, err.response.status, 'GET_ERRORS'));
-        dispatch({ type: GET_ERRORS })
+        dispatch(returnErrors(err.response.data, err.response.status, 'ADD_QUESTION_FAIL'));
+        dispatch({ type: ADD_QUESTION_FAIL })
     }
 };
 
@@ -71,8 +71,8 @@ export const deleteQuestion = id => async (dispatch, getState) => {
         }
 
     } catch (err) {
-        dispatch(returnErrors(err.response.data, err.response.status, 'GET_ERRORS'));
-        dispatch({ type: GET_ERRORS })
+        dispatch(returnErrors(err.response.data, err.response.status, 'DELETE_QUESTION_FAIL'));
+        dispatch({ type: DELETE_QUESTION_FAIL })
     }
 };
 

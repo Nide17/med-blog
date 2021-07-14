@@ -57,7 +57,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 //port to run on: env when deployed and 4000 locally/heroku
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 7000;
 
 
 //When server started listen the port

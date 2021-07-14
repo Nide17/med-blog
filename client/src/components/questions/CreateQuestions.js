@@ -10,8 +10,9 @@ import { addQuestion } from '../../redux/questions/questions.actions';
 import { setCategories } from '../../redux/categories/categories.actions'
 import { setQuizes } from '../../redux/quizes/quizes.actions'
 import { setQuestions } from '../../redux/questions/questions.actions'
+import { clearErrors } from '../../redux/error/error.actions'
 
-const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuizes, setQuestions, errors }) => {
+const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuizes, setQuestions, clearErrors, errors }) => {
 
     const [questionText, setQuestionText] = useState({
         questionText: '',
@@ -37,6 +38,7 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
 
     const onQuestionChangeHandler = e => {
         setErrorsState([])
+        clearErrors();
 
         const { name, value } = e.target
         setQuestionText(state => ({ ...state, [name]: value }))
@@ -44,6 +46,7 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
 
     const onDurationChangeHandler = e => {
         setErrorsState([])
+        clearErrors();
 
         const { name, value } = e.target
         setDurationState(durationState => ({ ...durationState, [name]: value }))
@@ -51,6 +54,7 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
 
     const handleAnswerChangeInput = (id, event) => {
         setErrorsState([])
+        clearErrors();
 
         const newAnswerOptions = answerOptions.map(i => {
             if (id === i.id) {
@@ -92,8 +96,8 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
             return
         }
 
-        else if (errors) {
-            setErrorsState(['Question creation failed, check your internet and your data and try again!']);
+        else if (errors.id === "ADD_QUESTION_FAIL") {
+            setErrorsState([errors.msg]);
             return
         }
 
@@ -147,12 +151,20 @@ const CreateQuestions = ({ auth, allQuizes, addQuestion, setCategories, setQuize
                         )
                     }
 
-                    {/* Error */}
+                    {/* Error frontend*/}
                     {errorsState.length > 0 ?
                         errorsState.map(err =>
                             <Alert color="danger" key={Math.floor(Math.random() * 1000)}>
                                 {err}
                             </Alert>) :
+                        null
+                    }
+
+                    {/* Error backend */}
+                    {errors.id === "ADD_QUESTION_FAIL" ?
+                        <Alert color='danger'>
+                            <small>{errors.msg}</small>
+                        </Alert> :
                         null
                     }
 
@@ -238,4 +250,4 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { addQuestion, setCategories, setQuizes, setQuestions })(CreateQuestions);
+    { addQuestion, setCategories, setQuizes, setQuestions, clearErrors })(CreateQuestions);

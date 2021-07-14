@@ -1,4 +1,4 @@
-import { SET_QUESTIONS, QUESTIONS_LOADING, ADD_QUESTION, UPDATE_QUESTION, DELETE_QUESTION } from "./questions.types";
+import { SET_QUESTIONS, QUESTIONS_LOADING, ADD_QUESTION, UPDATE_QUESTION, DELETE_QUESTION, DELETE_QUESTION_FAIL, ADD_QUESTION_FAIL } from "./questions.types";
 
 const INITIAL_STATE = {
   questionsData: [],
@@ -20,6 +20,14 @@ const questionsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         questionsData: [...state.questionsData, action.payload]
+      };
+
+    case ADD_QUESTION_FAIL:
+    case DELETE_QUESTION_FAIL:
+      return {
+        ...state,
+        questionsData: null,
+        isLoading: false
       };
 
     case UPDATE_QUESTION:

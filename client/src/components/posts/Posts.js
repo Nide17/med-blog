@@ -143,15 +143,17 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
                     </Row>
 
                     <Row className="mb-5">
-                        {error.id === "SUBSCRIBE_FAIL" ?
-                            <Alert color='danger'>
-                                <small>{error.msg.msg}</small>
-                            </Alert> :
-                            null
-                        }
 
                         <Form onSubmit={onSubscribe} className="subscribe-form">
+                        
                             <FormGroup>
+                                {error.id === "SUBSCRIBE_FAIL" ?
+                                    <Alert color='danger'>
+                                        <small>{error.msg.msg}</small>
+                                    </Alert> :
+                                    null
+                                }
+
                                 <img src={subscribe} alt={subscribe} />
 
                                 <h6 className="mt-5">
