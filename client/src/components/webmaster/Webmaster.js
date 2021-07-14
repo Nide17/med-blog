@@ -14,6 +14,7 @@ import Reports from './Reports';
 import LoginModal from '../auth/LoginModal'
 import ContactsTabPane from '../contacts/ContactsTabPane';
 import ScoresTabPane from './ScoresTabPane';
+import ResourcesTabPane from './resources/ResourcesTabPane';
 
 const Webmaster = ({ auth }) => {
     // State
@@ -105,6 +106,14 @@ const Webmaster = ({ auth }) => {
                                                 </NavLink>
                                             </NavItem>
 
+                                            <NavItem>
+                                                <NavLink
+                                                    className={classnames({ active: activeTab === '7' })}
+                                                    onClick={() => { toggle('7'); }}>
+                                                    Resources
+                                                </NavLink>
+                                            </NavItem>
+
                                         </> : null
                                 }
 
@@ -119,6 +128,7 @@ const Webmaster = ({ auth }) => {
                                 <UsersTabPane />
                                 <ContactsTabPane currentUser={auth.user} />
                                 <ScoresTabPane auth={auth} />
+                                <ResourcesTabPane auth={auth} />
                             </TabContent>
                         </Col>
 

@@ -157,7 +157,7 @@ const Posts = ({ subscribeToNewsLetter, clearErrors, error, setQuizes, quizes })
                                 <img src={subscribe} alt={subscribe} />
 
                                 <h6 className="mt-5">
-                                    <b>Subscribe to our Newsletter.</b>
+                                    <b>Subscribe for updates</b>
                                 </h6>
 
                                 <Input type="text" name="name" value={subscriberState.name} bsSize="sm" placeholder="Your name" className="mt-4" onChange={onChangeHandler} minLength="4" maxLength="30" required />

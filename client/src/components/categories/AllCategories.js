@@ -19,7 +19,7 @@ const AllCategories = ({ categories, setCategories, quizes, setQuizes }) => {
     }, [setCategories, setQuizes]);
 
     return (
-        <TabPane tabId="7">
+        <TabPane tabId="100">
             {categories.isLoading ?
 
                 <div className="d-flex justify-content-center align-items-center" style={{ height: "80vh" }}>
