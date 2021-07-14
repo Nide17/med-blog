@@ -6,7 +6,7 @@ import ReactLoading from "react-loading";
 import LoginModal from '../../auth/LoginModal'
 import Reports from '../../webmaster/Reports'
 import { connect } from 'react-redux';
-import { createResource } from '../../../redux/resources/resources.actions';
+// import { createResource } from '../../../redux/resources/resources.actions';
 
 const AddResourceModal = ({ auth, createResource  }) => {
 
@@ -55,7 +55,7 @@ const AddResourceModal = ({ auth, createResource  }) => {
         };
 
         // Attempt to create
-        createResource(newResource);
+        // createResource(newResource);
 
         // close the modal
         if (modal) {
@@ -142,4 +142,4 @@ const mapStateToProps = state => ({
     auth: state.authReducer
 });
 
-export default connect(mapStateToProps, { createResource })(AddResourceModal);
+export default connect(mapStateToProps, null)(AddResourceModal);
