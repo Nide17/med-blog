@@ -20,6 +20,7 @@ import CreateQuestions from './components/questions/CreateQuestions';
 
 import { loadUser } from './redux/auth/auth.actions'
 import SingleCategory from './components/categories/SingleCategory';
+import AllCategories from './components/categories/AllCategories';
 import QuizQuestions from './components/quizes/QuizQuestions';
 import GetReady from './components/quizes/GetReady';
 import SingleQuestion from './components/questions/SingleQuestion';
@@ -75,6 +76,7 @@ const App = () => {
                     <Route exact path="/quiz-ranking/:quizId" component={QuizRanking} />
                     <Route exact path="/questions-create/:quizId" component={CreateQuestions} />
                     <Route path="/contact" component={Contact} />
+                    <Route path="/all-categories" component={AllCategories} />
                     <Route path="/about" component={About} />
                     <Route path="/privacy" component={Privacy} />
                     <Route path="/disclaimer" component={Disclaimer} />

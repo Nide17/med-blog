@@ -79,6 +79,9 @@ const Header = ({ auth }) => {
                     }
 
                     <NavbarText className="mr-2 mr-md-4">
+                        <Link to="/all-categories" className="text-white">Categories</Link>
+                    </NavbarText>
+                    <NavbarText className="mr-2 mr-md-4">
                         <Link to="/about" className="text-white">About</Link>
                     </NavbarText>
                     <NavbarText className="mr-2 mr-md-4">

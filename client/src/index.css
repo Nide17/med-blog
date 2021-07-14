@@ -178,6 +178,12 @@ div.question-section {
     justify-content: space-between;
 }
 
+.categories-toast .toast{
+max-width: 100%;
+    height: 400px !important;
+    overflow-y: scroll !important;
+}
+
 .quiz-toast .toast,
 .report-toast .toast,
 .admin-toast .toast,
