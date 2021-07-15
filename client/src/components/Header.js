@@ -29,8 +29,7 @@ const Header = ({ auth }) => {
             <NavbarText className="logout ml-2">
                 <Logout />
             </NavbarText>
-        </>
-    )
+        </>)
 
     const guestLinks = (
         <>

@@ -71,11 +71,15 @@ const AllCategories = ({ categories, setCategories, quizes, setQuizes }) => {
                             }
                             return null
                         }).map(category => (
-                            <Col sm="6" key={category._id} className="mt-3 categories-toast">
+                            <Col sm="6" key={category._id} className="mt-3 categories-toast" id={category.title.split(' ').join('-').replace(/[^a-zA-Z0-9]/g, '-') + category._id}>
 
                                 <Toast>
                                     <ToastHeader className="text-success overflow-auto">
-                                        <strong>{category.title}</strong>
+                                        <strong>
+                                            <a href={`/all-categories/#${category.title.split(' ').join('-').replace(/[^a-zA-Z0-9]/g, '-') + category._id}`} className="text-success">
+                                                {category.title}
+                                            </a>
+                                        </strong>
                                     </ToastHeader>
 
                                     <ToastBody>

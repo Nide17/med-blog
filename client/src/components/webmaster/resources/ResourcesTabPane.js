@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 import { Row, Col, TabPane, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
+import { setCategories } from '../../../redux/categories/categories.actions'
 import img from '../../../images/Logo Med-Blog.svg'
-import AddResourceModal from './AddResourceModal';
+import AddResourceModal from './AddResourceModal'
+import { connect } from 'react-redux'
 
-const ResourcesTabPane = () => {
+const ResourcesTabPane = ({ auth, categories, setCategories}) => {
+
+    useEffect(() => {
+        setCategories()
+    }, [setCategories])
+
     return (
         <TabPane tabId="7">
 
             <Row>
                 <Button size="sm" outline color="info" className="mx-auto my-2">
-                    <strong><AddResourceModal /></strong>
+                    <strong><AddResourceModal auth={auth} categories={categories} /></strong>
                 </Button>
             </Row>
 
@@ -33,4 +40,8 @@ const ResourcesTabPane = () => {
     )
 }
 
-export default ResourcesTabPane
+const mapStateToProps = state => ({
+    categories: state.categoriesReducer
+})
+
+export default connect(mapStateToProps, { setCategories })(ResourcesTabPane)

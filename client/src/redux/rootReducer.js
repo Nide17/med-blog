@@ -8,7 +8,8 @@ import categoriesReducer from './categories/categories.reducer';
 import quizesReducer from './quizes/quizes.reducer';
 import scoresReducer from './scores/scores.reducer';
 import contactsReducer from './contacts/contacts.reducer';
+import resourcesReducer from './resources/resources.reducer';
 
-const rootReducer = combineReducers({ subscribersReducer, questionsReducer, errorReducer, authReducer, categoriesReducer, quizesReducer, scoresReducer, contactsReducer });
+const rootReducer = combineReducers({ subscribersReducer, questionsReducer, errorReducer, authReducer, categoriesReducer, quizesReducer, scoresReducer, contactsReducer, resourcesReducer });
 
 export default rootReducer;

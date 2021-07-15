@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, NavLink, Alert } from 'reactstrap';
 import AddIcon from '../../../images/plus.svg';
-
 import ReactLoading from "react-loading";
 import LoginModal from '../../auth/LoginModal'
 import Reports from '../../webmaster/Reports'
 import { connect } from 'react-redux';
-// import { createResource } from '../../../redux/resources/resources.actions';
+import { createResource } from '../../../redux/resources/resources.actions';
 
-const AddResourceModal = ({ auth, createResource  }) => {
+const AddResourceModal = ({ auth, createResource }) => {
 
     const [resourceState, setResourceState] = useState({
-        name: '',
-        description: ''
+        title: '',
+        description: '',
+        category: '',
+        resource_file: ''
     })
 
     // Errors state on form
@@ -28,41 +29,56 @@ const AddResourceModal = ({ auth, createResource  }) => {
         setResourceState({ ...resourceState, [e.target.name]: e.target.value });
     };
 
+    const onFileHandler = (e) => {
+        setResourceState({ ...resourceState, resource_file: e.target.files[0] });
+    }
+
     const onSubmitHandler = e => {
         e.preventDefault();
 
-        const { name, description } = resourceState;
+        const formData = new FormData();
+        const { title, description, category, resource_file } = resourceState;
 
         // VALIDATE
-        if (name.length < 4 || description.length < 4) {
+        if (!category) {
+            setErrorsState(['Category is required!']);
+            return
+        }
+        if (title.length < 4 || description.length < 4) {
             setErrorsState(['Insufficient info!']);
             return
         }
-        else if (name.length > 70) {
+        else if (title.length > 70) {
             setErrorsState(['Title is too long!']);
             return
         }
-        else if (description.length > 120) {
+        else if (description.length > 200) {
             setErrorsState(['Description is too long!']);
             return
         }
 
         // Create new Resource object
-        const newResource = {
-            title: name,
-            description,
-            created_by: auth.isLoading === false ? auth.user._id : null
-        };
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('category', category)
+        formData.append('resource_file', resource_file);
+        formData.append('uploadede_by', auth.user ? auth.user._id : null);
 
         // Attempt to create
-        // createResource(newResource);
+        createResource(formData);
+
+        // Reset the form
+        resourceState({
+            title: '',
+            description: '',
+            category: '',
+            resource_file: ''
+        })
 
         // close the modal
         if (modal) {
             toggle();
         }
-        // Reload the page after Resource addition
-        // window.location.reload();
     }
 
     return (
@@ -83,7 +99,7 @@ const AddResourceModal = ({ auth, createResource  }) => {
                     >
 
                         <ModalHeader toggle={toggle} className="bg-primary text-white">
-                            Add {} Resource
+                            Add New Resource
                         </ModalHeader>
 
                         <ModalBody>
@@ -96,21 +112,32 @@ const AddResourceModal = ({ auth, createResource  }) => {
                                 null
                             }
 
-                            <Form onSubmit={onSubmitHandler}>
+                            <Form onSubmit={onSubmitHandler} encType='multipart/form-data'>
 
                                 <FormGroup>
 
                                     <Label for="name">
                                         <strong>Title</strong>
                                     </Label>
-
-                                    <Input type="text" name="name" id="name" placeholder="Resource name ..." className="mb-3" onChange={onChangeHandler} />
+                                    <Input type="text" name="name" id="name" placeholder="Resource name ..." className="mb-3" value={resourceState.title} onChange={onChangeHandler} />
 
                                     <Label for="description">
                                         <strong>Description</strong>
                                     </Label>
+                                    <Input type="text" name="description" id="description" placeholder="Resource description ..." className="mb-3" value={resourceState.description} onChange={onChangeHandler} />
 
-                                    <Input type="text" name="description" id="description" placeholder="Resource description ..." className="mb-3" onChange={onChangeHandler} />
+                                    <Label for="category">
+                                        <strong>Category</strong>
+                                    </Label>
+                                    <Input type="select" name="category" id="category" value={resourceState.category} onChange={onChangeHandler}>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </Input>
+
+                                    <Label for="resource_file">
+                                        <strong>Upload</strong>
+                                    </Label>
+                                    <Input type="file" accept=".pdf, .doc, .docx, .ppt, .pptx" name="resource_file" placeholder="Company logo ..." value={resourceState.resource_file} onChange={onFileHandler} />
 
                                     <Button color="success" style={{ marginTop: '2rem' }} block >Add</Button>
 
@@ -142,4 +169,4 @@ const mapStateToProps = state => ({
     auth: state.authReducer
 });
 
-export default connect(mapStateToProps, null)(AddResourceModal);
+export default connect(mapStateToProps, { createResource })(AddResourceModal);

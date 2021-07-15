@@ -42,6 +42,7 @@ app.use('/api/categories', require('./routes/api/categories'));
 app.use('/api/quizes', require('./routes/api/quizes'));
 app.use('/api/scores', require('./routes/api/scores'));
 app.use('/api/contacts', require('./routes/api/contacts'));
+app.use('/api/resources', require('./routes/api/resources'));
 
 //Edit for deployment || serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
